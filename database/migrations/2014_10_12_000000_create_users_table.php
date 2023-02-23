@@ -17,24 +17,12 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username', 20)->unique();
+            $table->string('email', 255);
             $table->string('password');
             $table->string('jabatan', 7);
             $table->string('verified', 2)->default('0');
             $table->timestamps();
         });
-
-        User::create([
-            'username' => '23456',
-            'password' => '12345',
-            'jabatan' => 'guru',
-
-        ]);
-
-        User::create([
-            'username' => '12345',
-            'password' => '23456',
-            'jabatan' => 'siswa',
-        ]);
     }
 
     /**

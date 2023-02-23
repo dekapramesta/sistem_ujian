@@ -23,22 +23,13 @@ class CreateSiswasTable extends Migration
             $table->string('nis', 6);
             $table->string('tanggal_lahir');
             $table->foreign('id_user')
-            ->references('id')->on('users')->onDelete('cascade');
+                ->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_jenjang')
-            ->references('id')->on('jenjangs')->onDelete('cascade');
+                ->references('id')->on('jenjangs')->onDelete('cascade');
             $table->foreign('id_kelas')
-            ->references('id')->on('kelas')->onDelete('cascade');
+                ->references('id')->on('kelas')->onDelete('cascade');
             $table->timestamps();
         });
-
-        Siswa::create([
-            'id_user' => '1',
-            'id_jenjang' => '1',
-            'id_kelas'=> '1',
-            'nama' => 'Silvy',
-            'nis' => '20330',
-            'tanggal_lahir'=>'2005-10-10'
-        ]);
     }
 
     /**

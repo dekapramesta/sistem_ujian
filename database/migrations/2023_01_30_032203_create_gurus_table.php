@@ -21,17 +21,9 @@ class CreateGurusTable extends Migration
             $table->string('nip', 20);
             $table->string('tanggal_lahir');
             $table->foreign('id_user')
-            ->references('id')->on('users')->onDelete('cascade');
+                ->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
-
-        Guru::create([
-            'id_user' => '1',
-            'nama'=> 'Drs Sutono',
-            'nip'=> '196508102008011007',
-            'tanggal_lahir'=>'08/10/1965'
-
-        ]);
     }
 
     /**

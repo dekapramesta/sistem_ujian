@@ -14,25 +14,25 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $admin=User::create([
-            "name"=>"admin",
-            "email"=>"admin123@gmail.com",
-            "password"=>bcrypt("admin123")
+        $admin = User::create([
+            "username" => "admin",
+            "email" => "admin123@gmail.com",
+            "password" => bcrypt("admin123"),
+            "jabatan" => "admin"
         ]);
-        $admin->assignRole("admin");
 
-        $guru=User::create([
-            "name"=>"guru",
-            "email"=>"guru123@gmail.com",
-            "password"=>bcrypt("guru123")
+        $guru = User::create([
+            "username" => "guru",
+            "email" => "guru123@gmail.com",
+            "password" => bcrypt("guru123"),
+            "jabatan" => "guru"
         ]);
-        $guru->assignRole("guru");
 
-        $siswa=User::create([
-            "name"=>"siswa",
-            "email"=>"siswa123@gmail.com",
-            "password"=>bcrypt("siswa123")
+        $siswa = User::create([
+            "username" => "siswa",
+            "email" => "siswa123@gmail.com",
+            "password" => bcrypt("siswa123"),
+            "jabatan" => "siswa"
         ]);
-        $siswa->assignRole("siswa");
     }
 }
