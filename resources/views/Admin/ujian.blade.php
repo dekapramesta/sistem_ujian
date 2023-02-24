@@ -1,6 +1,17 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="pagetitle">
+    <h1>Set Jadwal</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Set Jadwal</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
 <div class="col-lg-12">
     <div class="row">
       <!-- Recent Sales -->
@@ -30,7 +41,7 @@
                     <tr>
                         <th scope="row">{{ ++$no }}</th>
                         <td>{{ $ujian->th_akademik->th_akademik.' '.$ujian->th_akademik->nama_semester }}</td>
-                        <td>{{ $ujian->kelas->jurusan->jenjang$ujian->kelas->jurusan->nama_jurusan.' '.$ujian->kelas->nama_kelas}}</td>
+                        <td>{{ $ujian->kelas->jurusan->jenjang.' '.$ujian->kelas->jurusan->nama_jurusan.' '.$ujian->kelas->nama_kelas}}</td>
                         <td>{{ $ujian->jum_soal }}</td>
                         <td>{{ $ujian->acak_soal }}</td>
                         <td>{{ $ujian->tgl_ujian }}</td>
@@ -173,4 +184,6 @@
       </div>
     </div>
   </div>
+</div>
+</section>
 @endsection

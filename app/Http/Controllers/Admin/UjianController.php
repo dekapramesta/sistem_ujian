@@ -12,16 +12,18 @@ use App\Models\Soal;
 
 class UjianController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $ujians = Ujian::orderBy('tgl_ujian')->get();
         $kelass = Kelas::orderBy('nama_kelas', 'ASC')->get();
         $th_akademiks = ThAkademik::orderBy('th_akademik', 'ASC')->get();
         $soals = Soal::orderBy('soal')->get();
         // dd($kelas);
-        return view("admin.ujian", compact('ujians','kelass', 'th_akademiks', 'soals'));
+        return view("admin.ujian", compact('ujians', 'kelass', 'th_akademiks', 'soals'));
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $request->validate([
             'id_kelas' => 'required',
             'id_th_akademik'=> 'required',
@@ -47,13 +49,14 @@ class UjianController extends Controller
             'identitas' => Str::random(10)
         ]);
 
-        if($Ujian){
+        if ($Ujian) {
             return back()->with('success', 'Berhasil Tambah Data');
-        }else{
+        } else {
             return back()->with('error', 'Gagal Tambah Data');
         }
     }
-    public function edit(Request $request, $nis){
+    public function edit(Request $request, $nis)
+    {
         $request->validate([
             'id_kelas' => 'required',
             'id_th_akademik'=> 'required',
@@ -65,7 +68,7 @@ class UjianController extends Controller
             'status_ujian' => 'required'
         ]);
 
-        $Ujian = Ujian ::where('identitas', $identitas)->update([
+        $Ujian = Ujian::where('identitas', $identitas)->update([
             'id_kelas'=> $request->id_kelas,
             'id_th_akademik'=> $request->id_th_akademik,
             'id_soal'=> $request->id_soal,
@@ -76,20 +79,20 @@ class UjianController extends Controller
             'status_ujian' => $request->status_ujian
         ]);
 
-        if($Ujian){
+        if ($Ujian) {
             return back()->with('success', 'Berhasil Edit Data');
-        }else{
+        } else {
             return back()->with('error', 'Gagal Edit Data');
         }
     }
 
-    public function delete(Request $request, $identitas){
-
+    public function delete(Request $request, $identitas)
+    {
         $Ujian = Ujian::where('identitas', $identitas)->delete();
 
-        if($Ujian){
+        if ($Ujian) {
             return back()->with('success', 'Berhasil Hapus Data');
-        }else{
+        } else {
             return back()->with('error', 'Gagal Hapus Data');
         }
     }
