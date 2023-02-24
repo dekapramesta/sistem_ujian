@@ -12,8 +12,6 @@ use App\Http\Controllers\Admin\UjianController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Guru\GuruHomeController;
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,10 +79,11 @@ Route::middleware(['auth', 'levelAcces:admin'])->group(
     }
 );
 
-//Route::group(['middleware' => ['role:admin']], function () {
-
-
 
 //Route::group(['middleware' => ['role:admin']], function () {
-    // Route::get('/guru', [App\Http\Controllers\Guru\GuruHomeController::class, 'index'])->name('guru');
+
+
+
+//Route::group(['middleware' => ['role:admin']], function () {
+// Route::get('/guru', [App\Http\Controllers\Guru\GuruHomeController::class, 'index'])->name('guru');
 // Route::get('/siswa', [App\Http\Controllers\Siswa\SiswaController::class, 'index'])->name('siswa');

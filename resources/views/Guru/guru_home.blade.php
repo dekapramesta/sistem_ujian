@@ -5,7 +5,7 @@
     <div class="row">
 
       <!-- Customers Card -->
-      <div class="col-xxl-4 col-xl-12">
+      <div class="col-xxl-12 col-xl-12">
 
         <div class="card info-card customers-card">
 
@@ -23,7 +23,7 @@
           </div>
           <div class="card-body">
             {{-- <h5 class="card-title">ADMINISTRATOR <span>| {{ Auth::user()->name }}</span></h5> --}}
-            <h5 class="card-title">ADMINISTRATOR <span>|</span></h5>
+            <h5 class="card-title">Guru <span>|</span></h5>
 
             <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
