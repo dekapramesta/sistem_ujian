@@ -1,15 +1,20 @@
-<html><head>
+<html>
+
+<head>
     <meta charset="UTF-8">
     <title>Sistem Informasi Akademik</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta name="description" content="siAkad Cloud solusi terbaik Perguruan Tinggi. Langsung Bisa Digunakan, Tidak Ribet dan Pelaporan Beres.">
+    <meta name="description"
+        content="siAkad Cloud solusi terbaik Perguruan Tinggi. Langsung Bisa Digunakan, Tidak Ribet dan Pelaporan Beres.">
     <meta name="keywords" content="">
     <meta name="author" content="siAkad Cloud">
     <!-- font Awesome -->
     <link href="https://assets.siakadcloud.com/assets/v1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Theme style -->
-    <link href="https://assets.siakadcloud.com/assets/v1/css/customs/login-v2.css?210422" rel="stylesheet" type="text/css">
-    <link rel="icon" type="img/png" href="https://assets.siakadcloud.com/public/polteklpp-favicon.png" sizes="16x16">
+    <link href="https://assets.siakadcloud.com/assets/v1/css/customs/login-v2.css?210422" rel="stylesheet"
+        type="text/css">
+    <link rel="icon" type="img/png" href="https://assets.siakadcloud.com/public/polteklpp-favicon.png"
+        sizes="16x16">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,22 +23,22 @@
           <script src="https://assets.siakadcloud.com/assets/v1/js/external/respond.min.js"></script>
           <![endif]-->
 
-            <style type="text/css">
-            .login-page .form-box .univ-identity-box {
-                background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://assets.siakadcloud.com/public/polteklpp-bg.jpg') bottom;
-                background-size: cover;
-            }
+    <style type="text/css">
+        .login-page .form-box .univ-identity-box {
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://assets.siakadcloud.com/public/polteklpp-bg.jpg') bottom;
+            background-size: cover;
+        }
 
-            @media (min-width: 768px) {
-                .login-page .form-box .univ-identity-box {
-                    border-radius: 10px 0 0 10px;
-                }
+        @media (min-width: 768px) {
+            .login-page .form-box .univ-identity-box {
+                border-radius: 10px 0 0 10px;
             }
-        </style>
-        <style type="text/css">
+        }
+    </style>
+    <style type="text/css">
         html,
         body {
-            background: #f2f2f2 url('https://assets.siakadcloud.com/assets/v1/img/pattern/pat_04.png') repeat!important;
+            background: #f2f2f2 url('https://assets.siakadcloud.com/assets/v1/img/pattern/pat_04.png') repeat !important;
         }
 
         .password {
@@ -67,25 +72,41 @@
         }
     </style>
     <style type="text/css">
-        .icon-input, a,.text-brand {
-            color:#00954a;
+        .icon-input,
+        a,
+        .text-brand {
+            color: #00954a;
         }
-        .btn-primary, .alert-primary, .label-primary, body > header .user-menu .dropdown-menu > .user-header{
-            background-color:#00954a;
+
+        .btn-primary,
+        .alert-primary,
+        .label-primary,
+        body>header .user-menu .dropdown-menu>.user-header {
+            background-color: #00954a;
         }
-        body > header .user-menu .dropdown-menu:after{
+
+        body>header .user-menu .dropdown-menu:after {
             border-color: #00954a;
         }
-        .btn-primary:hover,.btn-primary:focus, .btn-primary.focus{
+
+        .btn-primary:hover,
+        .btn-primary:focus,
+        .btn-primary.focus {
             background-color: #00753a;
         }
-        a:hover, a:focus, a :active, a :focus{
+
+        a:hover,
+        a:focus,
+        a :active,
+        a :focus {
             color: #00753a;
         }
-        .btn-primary:hover{
+
+        .btn-primary:hover {
             border-color: #00753a;
         }
-    </style></head>
+    </style>
+</head>
 
 <body class="login-page" style="">
     <div class="container">
@@ -102,25 +123,37 @@
                 <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 form-login" align="center">
                     <img src="https://assets.siakadcloud.com/public/polteklpp-logo.png" class="logo">
                     <b>
-                        <h4 class="text-grey text-light text-center" style="margin-top: 30px; margin-bottom: 15px;">Masuk dengan akun Anda</h4>
+                        <h4 class="text-grey text-light text-center" style="margin-top: 30px; margin-bottom: 15px;">
+                            Masuk dengan akun Anda</h4>
                     </b>
-                    <form method="post">
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $err)
+                            <p class="alert alert-danger">{{ $err }}</p>
+                        @endforeach
+                    @endif
 
+
+                    <form method="POST" action="{{ route('login.action') }}">
+                        @csrf
                         <div class="form-group">
-                            <i class="fa fa-user icon-input"></i> <input type="text" name="userid" id="userid" class="form-control input-line" placeholder="Masukkan Akun Pengguna" required="true">
+                            <i class="fa fa-user icon-input"></i> <input type="email" name="email" id="email"
+                                class="form-control input-line" placeholder="Masukkan Akun Pengguna" required="true">
                         </div>
                         <div class="form-group" style="margin-bottom: -5px;">
                             <div class="password">
                                 <i style="margin-left:-20px;" class="fa fa-key icon-input"></i>
-                                <input type="password" id="password" name="password" class="form-control input-line" placeholder="Masukkan Kata Sandi" required="true">
-                                <span id="iconshow" name="iconshow" onclick="showPass()" class=" showbtn fa fa-eye-slash"></span>
+                                <input type="password" id="password" name="password" class="form-control input-line"
+                                    placeholder="Masukkan Kata Sandi" required="true">
+                                <span id="iconshow" name="iconshow" onclick="showPass()"
+                                    class=" showbtn fa fa-eye-slash"></span>
                             </div>
                         </div>
-                        <a style="font-size: 11px; padding: 0px 0px 25px 0px;" href="/gate/lupapw" class="text-center pull-right">Lupa kata sandi?</a>
+                        <a style="font-size: 11px; padding: 0px 0px 25px 0px;" href="/gate/lupapw"
+                            class="text-center pull-right">Lupa kata sandi?</a>
                         <div class="form-group" align="center">
                             <button type="submit" class="btn btn-flat btn-primary btn-block btn-login">Masuk</button>
                         </div>
-                        <input type="hidden" name="_token" value="M040sjQ2SjEwNzMxS0pMTkw0STY0tjC0MDVPNLEwTLIAAA==">
+                        {{-- <input type="hidden" name="_token" value="M040sjQ2SjEwNzMxS0pMTkw0STY0tjC0MDVPNLEwTLIAAA=="> --}}
                     </form>
                     <div style="margin-top: 30px;">
                         <small>
@@ -133,10 +166,13 @@
     </div>
 
     <!-- jQuery 2.0.2 -->
-    <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-9GSZKDCXHL&amp;l=dataLayer&amp;cx=c"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script src="https://assets.siakadcloud.com/assets/v1/js/external/jquery.min.js"></script>
+    <script type="text/javascript" async=""
+        src="https://www.googletagmanager.com/gtag/js?id=G-9GSZKDCXHL&amp;l=dataLayer&amp;cx=c"></script>
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script src="https://assets.siakadcloud.com/assets/v1/js/external/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="https://assets.siakadcloud.com/assets/v1/js/bootstrap.min.js" type="text/javascript"></script>
-        <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-91361426-5"></script>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-91361426-5"></script>
 
     <script type="text/javascript">
         function showPass() {
@@ -151,4 +187,6 @@
             }
         }
     </script>
-</body></html>
+</body>
+
+</html>
