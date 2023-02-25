@@ -46,13 +46,12 @@ class LoginController extends Controller
                     $request->session()->regenerate();
                     return redirect()->route('admin.dashboard');
                 } elseif (Auth::user()->jabatan == "guru") {
-                    dd('belum dibuat');
-                    // $request->session()->regenerate();
-                    // return redirect()->route('admin.dashboard');
+                    $request->session()->regenerate();
+                    return redirect()->route('guru.dashboard');
                 } elseif (Auth::user()->jabatan == "siswa") {
-                    dd('belum dibuat');
-                    // $request->session()->regenerate();
-                    // return redirect()->route('admin.dashboard');
+                    // dd('belum dibuat');
+                    $request->session()->regenerate();
+                    return redirect()->route('siswas.dashboard');
                 }
             } else {
                 return redirect()->route('login.view')->withErrors(['Akun Non-Aktif']);

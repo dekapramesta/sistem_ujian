@@ -17,7 +17,7 @@ class SoalController extends Controller
         $kelass = Kelas::orderBy('nama_kelas', 'ASC')->get();
         $th_akademiks = ThAkademik::orderBy('th_akademik', 'ASC')->get();
         $soals = Soal::orderBy('soal')->get();
-        // dd($kelas);
+        // dd($kelass);
         return view("Guru.soal", compact('ujians', 'kelass', 'th_akademiks', 'soals'));
     }
 }
