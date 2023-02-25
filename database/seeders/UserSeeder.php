@@ -18,21 +18,24 @@ class UserSeeder extends Seeder
             "username" => "admin",
             "email" => "admin123@gmail.com",
             "password" => bcrypt("admin123"),
-            "jabatan" => "admin"
+            "jabatan" => "admin",
+            "verified" => '1'
         ]);
 
         $guru = User::create([
             "username" => "guru",
             "email" => "guru123@gmail.com",
             "password" => bcrypt("guru123"),
-            "jabatan" => "guru"
+            "jabatan" => "guru",
+            "verified" => '1'
         ]);
 
         $siswa = User::create([
             "username" => "siswa",
             "email" => "siswa123@gmail.com",
             "password" => bcrypt("siswa123"),
-            "jabatan" => "siswa"
+            "jabatan" => "siswa",
+            "verified" => '1'
         ]);
     }
 }

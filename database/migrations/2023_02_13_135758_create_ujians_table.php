@@ -39,19 +39,6 @@ class CreateUjiansTable extends Migration
             ->references('id')->on('th_akademiks')->onDelete('cascade');
             $table->timestamps();
         });
-
-        Ujian::create([
-            'id_kelas' => '1',
-            'id_soal' => '1',
-            'id_th_akademik'=> '1',
-            'jum_soal' => '50',
-            'acak_soal' => '1',
-            'jum_soal' => '50',
-            'tgl_ujian' => '20 Juni 2022',
-            'jam_ujian' => '60 menit',
-            'status_ujian' => 'UTS',
-            'identitas' => Str::random(10),
-        ]);
     }
 
     /**
