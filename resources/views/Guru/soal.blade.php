@@ -23,7 +23,7 @@
                                 <div>
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#tambah">+ Tambah</button>
-                                    <a href="#"><button type="button" class="btn btn-primary">Download
+                                    <a href="{{ asset('assets/template_soal/template_soal.csv') }}"><button type="button" class="btn btn-primary">Download
                                             Template</button></a>
                                 </div>
 

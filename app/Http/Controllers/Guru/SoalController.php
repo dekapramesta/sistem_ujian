@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Guru;
 
+use App\Models\Guru;
 use App\Models\Soal;
 use App\Models\Kelas;
+use App\Models\Mapel;
 use App\Models\Ujian;
+use App\Models\Jenjang;
 use App\Models\ThAkademik;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Imports\SoalImport;
 use App\Models\detail_soal;
-use App\Models\Guru;
-use App\Models\Jenjang;
-use App\Models\Mapel;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\mst_mapel_guru_kelas;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Response;
 
 class SoalController extends Controller
 {
@@ -24,31 +25,20 @@ class SoalController extends Controller
         $user = Auth::user();
         $guru = Guru::where('id_user', $user->id)->first();
         $mst = mst_mapel_guru_kelas::where('id_gurus', $guru->id)->with('kelas', 'mapel', 'jenjang')->get();
+
         $jenjang = Jenjang::whereHas('mst_mapel_guru_kelas', function ($query) {
             $user = Auth::user();
             $guru = Guru::where('id_user', $user->id)->first();
             return $query->where('id_gurus', $guru->id);
         })->get();
+
         $mapel = Mapel::whereHas('mst_mapel_guru_kelas', function ($query) {
             $user = Auth::user();
             $guru = Guru::where('id_user', $user->id)->first();
             return $query->where('id_gurus', $guru->id);
         })->get();
-        // dd($mapel);
-        // dd($mst->kelas);
-        // foreach ($mst as $msts) {
-        //     dd($msts->jenjang->id);
-        // }
         $soal = Soal::all();
 
-        // print_r($guru);
-        // dd($mst_mapel);
-
-        // $ujians = Ujian::orderBy('tgl_ujian')->get();
-        // $kelass = Kelas::orderBy('nama_kelas', 'ASC')->get();
-        // $th_akademiks = ThAkademik::orderBy('th_akademik', 'ASC')->get();
-        // $soals = Soal::orderBy('soal')->get();
-        // dd($kelass);
         return view("Guru.soal", compact('mst', 'soal', 'mapel', 'jenjang'));
     }
     public function uploadSoal(Request $request)
@@ -62,7 +52,6 @@ class SoalController extends Controller
             $soal->save();
             Excel::import(new SoalImport($soal->id), $request->file);
         }
-
 
         return redirect()->back()->with('success', 'soal Imported Successfully');
     }
