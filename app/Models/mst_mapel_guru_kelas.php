@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class detail_soal extends Model
+class mst_mapel_guru_kelas extends Model
 {
     use HasFactory;
+    protected $table = 'mst_mapel_guru_kelas';
     protected $fillable = [
-        'id_soal',
-        'soal',
-        'pilihan_a',
-        'pilihan_b',
-        'pilihan_c',
-        'pilihan_d',
-        'jawaban',
+        'id_mapels',
+        'id_gurus',
+        'id_kelas',
+
     ];
+    public $timestamps = false;
 }
