@@ -18,12 +18,15 @@ class CreateMstMapelGuruKelasTable extends Migration
             $table->unsignedBigInteger('id_mapels');
             $table->unsignedBigInteger('id_gurus');
             $table->unsignedBigInteger('id_kelas');
+            $table->unsignedBigInteger('id_jenjang');
             $table->foreign('id_mapels')
-            ->references('id')->on('mapels');
+                ->references('id')->on('mapels');
             $table->foreign('id_gurus')
-            ->references('id')->on('gurus');
+                ->references('id')->on('gurus');
             $table->foreign('id_kelas')
-            ->references('id')->on('kelas');
+                ->references('id')->on('kelas');
+            $table->foreign('id_jenjang')
+                ->references('id')->on('jenjangs');
         });
     }
 

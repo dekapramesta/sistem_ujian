@@ -26,14 +26,8 @@ class CreateJurusansTable extends Migration
             'nama_jurusan' => 'MIPA',
             'identitas' => Str::random(10),
         ]);
-
         Jurusan::create([
             'nama_jurusan' => 'IPS',
-            'identitas' => Str::random(10),
-        ]);
-
-        Jurusan::create([
-            'nama_jurusan' => 'Dasar',
             'identitas' => Str::random(10),
         ]);
     }

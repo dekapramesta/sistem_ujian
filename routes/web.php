@@ -89,6 +89,7 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
             Route::get('dashboard', [GuruHomeController::class, 'index'])->name('guru.dashboard');
             Route::get('bank_soal', [BankSoalController::class, 'index'])->name('guru.bank_soal');
             Route::post('soal', [BankSoalController::class, 'uploadSoal'])->name('soal.create');
+            Route::post('poto', [BankSoalController::class, 'save'])->name('poto.create');
             Route::get('data_nilai', [DataNilaiController::class, 'index'])->name('guru.data_nilai');
         });
     }

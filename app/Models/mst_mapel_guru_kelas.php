@@ -12,8 +12,18 @@ class mst_mapel_guru_kelas extends Model
     protected $fillable = [
         'id_mapels',
         'id_gurus',
+        'id_jenjang',
         'id_kelas',
 
     ];
     public $timestamps = false;
+
+    public function kelas()
+    {
+        return $this->belongsTo(Jenjang::class, 'id_kelas', 'id');
+    }
+    public function mapel()
+    {
+        return $this->belongsTo(Mapel::class, 'id_mapels', 'id');
+    }
 }

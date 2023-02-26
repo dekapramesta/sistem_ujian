@@ -18,6 +18,7 @@ class MstMapelGuruKelasSeeder extends Seeder
             'id_mapels' => 1,
             'id_gurus' => 1,
             'id_kelas' => 1,
+            'id_jenjang' => 1,
         ]);
     }
 }

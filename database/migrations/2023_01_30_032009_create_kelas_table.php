@@ -18,10 +18,13 @@ class CreateKelasTable extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_jurusan');
+            $table->unsignedBigInteger('id_jenjang');
             $table->string('nama_kelas', 10);
             $table->string('identitas', 10);
             $table->foreign('id_jurusan')
                 ->references('id')->on('jurusans')->onDelete('cascade');
+            $table->foreign('id_jenjang')
+                ->references('id')->on('jenjangs');
             $table->timestamps();
         });
     }

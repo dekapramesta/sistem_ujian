@@ -16,6 +16,9 @@
                 <div class="row">
                     <!-- Recent Sales -->
                     <div class="col-12">
+                        @error('image')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                        @enderror
                         <div class="card recent-sales overflow-auto">
                             <div class="card-header d-flex justify-content-between">
 
@@ -23,6 +26,8 @@
                                 <div>
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#tambah">+ Tambah</button>
+                                    {{-- <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#tes_poto">pTambah</button> --}}
                                     <a href="#"><button type="button" class="btn btn-primary">Download
                                             Template</button></a>
                                 </div>
@@ -169,6 +174,14 @@
                                                 <option value="mapel-3">mapel-3</option>
                                             </select>
                                         </div>
+                                        <div class="col-sm-10">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected>Open this select menu</option>
+                                                <option value="mapel-1">Jengan 10</option>
+                                                <option value="mapel-2">Jenjang 11</option>
+                                                <option value="mapel-3">Jenjang 12</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="inputNumber" class="col-sm-2 col-form-label">Soal (Format
@@ -193,6 +206,36 @@
                         </div>
                     </div>
                 </div>
+                {{-- <div class="modal" id="tes_poto" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Tambah Soal</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form method="POST" action="{{ route('poto.create') }}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="modal-body">
+
+                                    <div class="row mb-3">
+                                        <label for="inputNumber" class="col-sm-2 col-form-label">Soal (Format
+                                            Excel)</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="file" id="image" name="image">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <input class="btn btn-primary" type="submit" value="Save changes">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> --}}
             </div>
     </section>
 @endsection

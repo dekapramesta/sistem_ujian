@@ -19,7 +19,8 @@ class KelasSeeder extends Seeder
     {
         Kelas::create([
             'id_jurusan' => '1',
-            'nama_kelas' => '1',
+            'id_jenjang' => '1',
+            'nama_kelas' => 'ipa 10',
             'identitas' => Str::random(10),
         ]);
     }
