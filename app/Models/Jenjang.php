@@ -20,4 +20,9 @@ class Jenjang extends Model
         # code...
         return $this->hasMany(Kelas::class, 'id_jenjang', 'id');
     }
+    public function mst_mapel_guru_kelas()
+    {
+        # code...
+        return $this->hasMany(mst_mapel_guru_kelas::class, 'id_jenjang', 'id');
+    }
 }

@@ -42,21 +42,21 @@
                                     </thead>
                                     <tbody>
                                         @php
-                                            $a =0;
+                                            $a = 0;
                                         @endphp
                                         @foreach ($soal as $sl)
-                                        <tr>
-                                            <th scope="row">{{ ++$a }}</th>
-                                            <td>{{ $sl->mst_mapel_guru_kelas->mapel->nama_mapel }}</td>
-                                            <td>{{ count($sl->detail_soal)}}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                    data-bs-target="#edit1">Edit</button>
-                                                <button type="button" class="btn btn-info">Detail</button>
-                                                <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                    data-bs-target="#delete1">Delete</button>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <th scope="row">{{ ++$a }}</th>
+                                                <td>{{ $sl->mst_mapel_guru_kelas->mapel->nama_mapel }}</td>
+                                                <td>{{ count($sl->detail_soal) }}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                        data-bs-target="#edit1">Edit</button>
+                                                    <button type="button" class="btn btn-info">Detail</button>
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                        data-bs-target="#delete1">Delete</button>
+                                                </td>
+                                            </tr>
                                         @endforeach
                                         <div class="modal" id="edit1" tabindex="-1">
                                             <div class="modal-dialog">
@@ -165,10 +165,12 @@
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label">Mapel</label>
                                         <div class="col-sm-10">
-                                            <select class="form-select" name="mapel" aria-label="Default select example">
+                                            <select class="form-select" name="mapel"
+                                                aria-label="Default select example">
                                                 <option selected disabled>Pilih Mata Pelajaran</option>
-                                                @foreach ($mst as $mst )
-                                                <option value="{{ $mst->mapel->id }}">{{ $mst->mapel->nama_mapel }}</option>
+                                                @foreach ($mapel as $mpl)
+                                                    <option value="{{ $mpl->id }}">{{ $mpl->nama_mapel }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -176,11 +178,13 @@
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label">Jenjang</label>
                                         <div class="col-sm-10">
-                                            <select class="form-select" name="jenjang" aria-label="Default select example">
+                                            <select class="form-select" name="jenjang"
+                                                aria-label="Default select example">
                                                 <option selected disabled>Pilih Jenjang</option>
-                                                {{-- @foreach ($mst as $mst_jenjang )
-                                                <option value="{{ $mst_jenjang->mapel->id }}">Kelas {{ $mst->mapel->nama_mapel }}</option>
-                                                @endforeach --}}
+                                                @foreach ($jenjang as $jjg)
+                                                    <option value="{{ $jjg->id }}">Kelas {{ $jjg->nama_jenjang }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -191,12 +195,12 @@
                                             <input class="form-control" type="file" id="formFile" name="file">
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    {{-- <div class="row mb-3">
                                         <label for="inputText" class="col-sm-2 col-form-label">Status Ujian</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="status_ujian" class="form-control">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"

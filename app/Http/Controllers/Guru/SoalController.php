@@ -24,9 +24,17 @@ class SoalController extends Controller
         $user = Auth::user();
         $guru = Guru::where('id_user', $user->id)->first();
         $mst = mst_mapel_guru_kelas::where('id_gurus', $guru->id)->with('kelas', 'mapel', 'jenjang')->get();
-        // $jenjang = mst_mapel_guru_kelas::whereHas('jenjang', function ($query) {
-        //     return $query->where('id_jenjang', );
-        // })->get();
+        $jenjang = Jenjang::whereHas('mst_mapel_guru_kelas', function ($query) {
+            $user = Auth::user();
+            $guru = Guru::where('id_user', $user->id)->first();
+            return $query->where('id_gurus', $guru->id);
+        })->get();
+        $mapel = Mapel::whereHas('mst_mapel_guru_kelas', function ($query) {
+            $user = Auth::user();
+            $guru = Guru::where('id_user', $user->id)->first();
+            return $query->where('id_gurus', $guru->id);
+        })->get();
+        // dd($mapel);
         // dd($mst->kelas);
         // foreach ($mst as $msts) {
         //     dd($msts->jenjang->id);
@@ -41,7 +49,7 @@ class SoalController extends Controller
         // $th_akademiks = ThAkademik::orderBy('th_akademik', 'ASC')->get();
         // $soals = Soal::orderBy('soal')->get();
         // dd($kelass);
-        return view("Guru.soal", compact('mst', 'soal'));
+        return view("Guru.soal", compact('mst', 'soal', 'mapel', 'jenjang'));
     }
     public function uploadSoal(Request $request)
     {
