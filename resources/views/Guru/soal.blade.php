@@ -1,73 +1,69 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="pagetitle">
+    <h1>Bank Soal</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Bank Soal</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
     <div class="col-lg-12">
         <div class="row">
             <!-- Recent Sales -->
             <div class="col-12">
                 <div class="card recent-sales overflow-auto">
+                    <div class="card-header d-flex justify-content-between">
 
-                    <div class="card-body">
-                        <h5 class="card-title">Jadwal Penilaian Sumatif</h5>
-                        <div class="container">
+                        <h5 class="card-title">Bank Soal</h5>
+                        <div>
                             <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#tambah">Tambah +</button>
+                                data-bs-target="#tambah">+ Tambah</button>
+                        <a href="#"><button type="button" class="btn btn-primary">Download Template</button></a>
+                        </div>
+
+                    </div>
+
+                    <div class="card-body p-3">
+
                             <table class="table table-borderless datatable">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Mapel</th>
-                                        <th scope="col">Soal</th>
-                                        <th scope="col">Pilihan a</th>
-                                        <th scope="col">Pilihan gambar a</th>
-                                        <th scope="col">Pilihan b</th>
-                                        <th scope="col">Pilihan gambar b</th>
-                                        <th scope="col">Pilihan c</th>
-                                        <th scope="col">Pilihan gambar c</th>
-                                        <th scope="col">Pilihan d</th>
-                                        <th scope="col">Pilihan gambar d</th>
-                                        <th scope="col">Pilihan e</th>
-                                        <th scope="col">Pilihan gambar e</th>
-                                        <th scope="col">Jawaban</th>
-                                        <th colspan="2" scope="col">Aksi</th>
+                                        <th style="width: 60%">No</th>
+                                        <th style="width: 10%">MAPEL</th>
+                                        <th style="width: 10%">Jumlah Soal</th>
+                                        <th style="width: 10%">Status Ujian</th>
+                                        <th style="width: 10%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($soals as $no => $soal)
                                         <tr>
-                                            <th scope="row">{{ ++$no }}</th>
-                                            <td>{{ $soal->mapel->mapel . ' ' . $soal->mapel->nama_mapel }}</td>
-                                            <td>{{ $soal->soal }}</td>
-                                            <td>{{ $soal->jawaban_a }}</td>
-                                            <td>{{ $soal->jawaban_gambar_a }}</td>
-                                            <td>{{ $soal->jawaban_b }}</td>
-                                            <td>{{ $soal->jawaban_gambar_b }}</td>
-                                            <td>{{ $soal->jawaban_c }}</td>
-                                            <td>{{ $soal->jawaban_gambar_c }}</td>
-                                            <td>{{ $soal->jawaban_d }}</td>
-                                            <td>{{ $soal->jawaban_gambar_d }}</td>
-                                            <td>{{ $soal->jawaban_e }}</td>
-                                            <td>{{ $soal->jawaban_gambar_e }}</td>
-                                            <td>{{ $soal->jawaban }}</td>
+                                            <th scope="row">1</th>
+                                            <td>ok</td>
+                                            <td>ok</td>
+                                            <td>ok</td>
                                             <td>
                                                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                    data-bs-target="#edit{{ $soal->identitas }}">Edit</button>
-                                            </td>
-                                            <td>
+                                                    data-bs-target="#edit1">Edit</button>
+                                                <button type="button" class="btn btn-info">Detail</button>
                                                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                    data-bs-target="#delete{{ $soal->identitas }}">Delete</button>
+                                                    data-bs-target="#delete1">Delete</button>
                                             </td>
                                         </tr>
-                                        <div class="modal" id="edit{{ $soal->identitas }}" tabindex="-1">
+                                        <div class="modal" id="edit1" tabindex="-1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Edit Jadwal Ujjian</h5>
+                                                        <h5 class="modal-title">Edit Jadwal Ujian</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <form method="POST"
-                                                        action="{{ route('admin.ujian.edit', $soal->identitas) }}">
+                                                        action="">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-body">
@@ -91,36 +87,31 @@
                                                                 </label></p>
                                                             <p><label>Semester :
                                                                     <select name="id_th_akademik">
-                                                                        @foreach ($th_akademiks as $th_akademik)
-                                                                            @if ($th_akademik->id == $soal->id_th_akademik)
-                                                                                <option value="{{ $th_akademik->id }}"
+                                                                                <option value=""
                                                                                     selected>
-                                                                                    {{ $th_akademik->nama_semester }}
+
                                                                                 </option>
-                                                                            @else
-                                                                                <option value="{{ $th_akademik->id }}"
+                                                                                <option value=""
                                                                                     selected>
-                                                                                    {{ $th_akademik->nama_semester }}
+
                                                                                 </option>
-                                                                            @endif
-                                                                        @endforeach
                                                                     </select>
                                                                 </label></p>
                                                             <p><label>Jmlh Soal :<input type="text" class="form-control"
                                                                         name="jum_soal"
-                                                                        value="{{ $soal->jum_soal }}"></label></p>
-                                                            <p><label>Acak Soal :<input type="text" class="form-control"
+                                                                        value=""></label></p>
+                                                            <p><label>Acak Soal :<input type="tet" class="form-control"
                                                                         name="acak_soal"
-                                                                        value="{{ $soal->acak_soal }}"></label></p>
+                                                                        value=""></label></p>
                                                             <p><label>Tgl Ujian:<input type="text" class="form-control"
                                                                         name="tgl_ujian"
-                                                                        value="{{ $soal->tgl_ujian }}"></label></p>
+                                                                        value=""></label></p>
                                                             <p><label>Jam Ujian:<input type="text" class="form-control"
                                                                         name="jam_ujian"
-                                                                        value="{{ $soal->jam_ujian }}"></label></p>
+                                                                        value=""></label></p>
                                                             <p><label>Status:<input type="text" class="form-control"
                                                                         name="_status_ujian"
-                                                                        value="{{ $soal->status_ujian }}"></label></p>
+                                                                        value=""></label></p>
                                                             </label></p>
                                                         </div>
                                                         <div class="modal-footer">
@@ -134,7 +125,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="modal" id="delete{{ $soal->identitas }}" tabindex="-1">
+                                        <div class="modal" id="delete1" tabindex="-1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -142,7 +133,7 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <form method="POST"
-                                                        action="{{ route('admin.ujian.delete', $soal->identitas) }}">
+                                                        action="">
                                                         @csrf
                                                         @method('delete')
                                                         <div class="modal-body">
@@ -157,10 +148,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
                                 </tbody>
                             </table>
-                        </div>
                     </div>
                 </div><!-- End Recent Sales -->
             </div>
@@ -171,48 +160,35 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Input Jadwal Penilaian</h5>
+                        <h5 class="modal-title">Tambah Soal</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="POST" action="{{ route('admin.ujian.create') }}">
+                    <form method="POST" action="">
                         @csrf
                         <div class="modal-body">
-                            <p><label>Kelas :
-                                    <select name="id_kelas">
-                                        {{-- @foreach ($kelass as $kelas)
-                                            @if ($kelas->id_jurusan == $soal->kelas->id_jurusan)
-                                                @if ($kelas->id == $soal->id_kelas)
-                                                    <option value="{{ $kelas->id }}" selected>
-                                                        {{ $soal->kelas->jurusan->nama_jurusan . ' ' . $kelas->nama_kelas }}
-                                                    </option>
-                                                @else
-                                                    <option value="{{ $kelas->id }}">
-                                                        {{ $soal->kelas->jurusan->nama_jurusan . ' ' . $kelas->nama_kelas }}
-                                                    </option>
-                                                @endif
-                                            @endif
-                                        @endforeach --}}
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Mapel</label>
+                                <div class="col-sm-10">
+                                    <select class="form-select" aria-label="Default select example">
+                                      <option selected>Open this select menu</option>
+                                      <option value="mapel-1">mapel-1</option>
+                                      <option value="mapel-2">mapel-2</option>
+                                      <option value="mapel-3">mapel-3</option>
                                     </select>
-                                </label></p>
-                            <p><label>Semester :
-                                    <select name="id_th_akademik">
-                                        @foreach ($th_akademiks as $th_akademiks)
-                                            @if ($th_akademik->id == $soal->id_th_akademik)
-                                                <option value="{{ $th_akademik->id }}" selected>
-                                                    {{ $th_akademik->nama_semester }}</option>
-                                            @else
-                                                <option value="{{ $th_akademik->id }}" selected>
-                                                    {{ $th_akademik->nama_semester }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </label></p>
-                            <p><label>Jmlh Soal :<input type="text" class="form-control" name="jum_soal"></label></p>
-                            <p><label>Acak Soal :<input type="text" class="form-control" name="acak_soal"></label></p>
-                            <p><label>Tgl Ujian:<input type="text" class="form-control" name="tgl_ujian"></label></p>
-                            <p><label>Jam Ujian:<input type="text" class="form-control" name="jam_ujian"></label></p>
-                            <p><label>Status:<input type="text" class="form-control" name="_status_ujian"></label></p>
-                            </label></p>
+                                  </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputNumber" class="col-sm-2 col-form-label">Soal (Format Excel)</label>
+                                <div class="col-sm-10">
+                                  <input class="form-control" type="file" id="formFile">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputText" class="col-sm-2 col-form-label">Status Ujian</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control">
+                                </div>
+                              </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -222,4 +198,6 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
     @endsection
