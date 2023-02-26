@@ -22,5 +22,11 @@ class MapelSeeder extends Seeder
             'nama_mapel' => 'Biologi',
             'identitas' => Str::random(10),
         ]);
+
+        Mapel::create([
+            'id_jurusan' => '1',
+            'nama_mapel' => 'Fisika',
+            'identitas' => Str::random(10),
+        ]);
     }
 }

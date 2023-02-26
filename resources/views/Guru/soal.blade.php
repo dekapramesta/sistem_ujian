@@ -16,9 +16,6 @@
                 <div class="row">
                     <!-- Recent Sales -->
                     <div class="col-12">
-                        @error('image')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
                         <div class="card recent-sales overflow-auto">
                             <div class="card-header d-flex justify-content-between">
 
@@ -26,8 +23,6 @@
                                 <div>
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#tambah">+ Tambah</button>
-                                    {{-- <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                        data-bs-target="#tes_poto">pTambah</button> --}}
                                     <a href="#"><button type="button" class="btn btn-primary">Download
                                             Template</button></a>
                                 </div>
@@ -39,19 +34,21 @@
                                 <table class="table table-borderless datatable">
                                     <thead>
                                         <tr>
-                                            <th style="width: 60%">No</th>
-                                            <th style="width: 10%">MAPEL</th>
-                                            <th style="width: 10%">Jumlah Soal</th>
-                                            <th style="width: 10%">Status Ujian</th>
-                                            <th style="width: 10%">Aksi</th>
+                                            <th>No</th>
+                                            <th>MAPEL</th>
+                                            <th>Jumlah Soal</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $a =0;
+                                        @endphp
+                                        @foreach ($soal as $sl)
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>ok</td>
-                                            <td>ok</td>
-                                            <td>ok</td>
+                                            <th scope="row">{{ ++$a }}</th>
+                                            <td>{{ $sl->mst_mapel_guru_kelas->mapel->nama_mapel }}</td>
+                                            <td>{{ count($sl->detail_soal)}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                                     data-bs-target="#edit1">Edit</button>
@@ -60,6 +57,7 @@
                                                     data-bs-target="#delete1">Delete</button>
                                             </td>
                                         </tr>
+                                        @endforeach
                                         <div class="modal" id="edit1" tabindex="-1">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -167,19 +165,22 @@
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label">Mapel</label>
                                         <div class="col-sm-10">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
-                                                <option value="mapel-1">mapel-1</option>
-                                                <option value="mapel-2">mapel-2</option>
-                                                <option value="mapel-3">mapel-3</option>
+                                            <select class="form-select" name="mapel" aria-label="Default select example">
+                                                <option selected disabled>Pilih Mata Pelajaran</option>
+                                                @foreach ($mst as $mst )
+                                                <option value="{{ $mst->mapel->id }}">{{ $mst->mapel->nama_mapel }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label">Jenjang</label>
                                         <div class="col-sm-10">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
-                                                <option value="mapel-1">Jengan 10</option>
-                                                <option value="mapel-2">Jenjang 11</option>
-                                                <option value="mapel-3">Jenjang 12</option>
+                                            <select class="form-select" name="jenjang" aria-label="Default select example">
+                                                <option selected disabled>Pilih Jenjang</option>
+                                                {{-- @foreach ($mst as $mst_jenjang )
+                                                <option value="{{ $mst_jenjang->mapel->id }}">Kelas {{ $mst->mapel->nama_mapel }}</option>
+                                                @endforeach --}}
                                             </select>
                                         </div>
                                     </div>
@@ -193,7 +194,7 @@
                                     <div class="row mb-3">
                                         <label for="inputText" class="col-sm-2 col-form-label">Status Ujian</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control">
+                                            <input type="text" name="status_ujian" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -206,36 +207,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="modal" id="tes_poto" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Tambah Soal</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <form method="POST" action="{{ route('poto.create') }}" enctype="multipart/form-data">
-                                @csrf
-                                <div class="modal-body">
-
-                                    <div class="row mb-3">
-                                        <label for="inputNumber" class="col-sm-2 col-form-label">Soal (Format
-                                            Excel)</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" type="file" id="image" name="image">
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <input class="btn btn-primary" type="submit" value="Save changes">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
     </section>
 @endsection

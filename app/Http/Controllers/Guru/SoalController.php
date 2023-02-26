@@ -21,24 +21,35 @@ class SoalController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+        $guru = Guru::where('id_user', $user->id)->first();
+        $mst = mst_mapel_guru_kelas::where('id_gurus', $guru->id)->with('kelas', 'mapel', 'jenjang')->get();
+        // $jenjang = mst_mapel_guru_kelas::whereHas('jenjang', function ($query) {
+        //     return $query->where('id_jenjang', );
+        // })->get();
+        // dd($mst->kelas);
+        // foreach ($mst as $msts) {
+        //     dd($msts->jenjang->id);
+        // }
+        $soal = Soal::all();
+
+        // print_r($guru);
+        // dd($mst_mapel);
+
         // $ujians = Ujian::orderBy('tgl_ujian')->get();
         // $kelass = Kelas::orderBy('nama_kelas', 'ASC')->get();
         // $th_akademiks = ThAkademik::orderBy('th_akademik', 'ASC')->get();
         // $soals = Soal::orderBy('soal')->get();
         // dd($kelass);
-        // dd(Auth::user()->id);
-        $mst = mst_mapel_guru_kelas::where('id_gurus', 1)->with('kelas', 'mapel')->get();
-        // dd($mst);
-        return view("Guru.soal");
+        return view("Guru.soal", compact('mst', 'soal'));
     }
     public function uploadSoal(Request $request)
     {
         $guru = Guru::where(['id_user' => Auth::user()->id])->first()->id;
-        $mst_pusat = mst_mapel_guru_kelas::where(['id_mapels' => 1, "id_jenjang" => 1, "id_gurus" => $guru])->get();
+        $mst_pusat = mst_mapel_guru_kelas::where(['id_mapels' => $request->mapel, "id_jenjang" => $request->jenjang, "id_gurus" => $guru])->get();
         foreach ($mst_pusat as $mst_soal) {
-
-            $soal = new Soal;
-            $soal->id_mst_mapel_guru_kelas = 1;
+            $soal = new Soal();
+            $soal->id_mst_mapel_guru_kelas = $mst_soal->id;
             $soal->token = rand(10000, 99999);
             $soal->save();
             Excel::import(new SoalImport($soal->id), $request->file);
@@ -49,7 +60,6 @@ class SoalController extends Controller
     }
     public function save(Request $request)
     {
-
         $validatedData = $request->validate([
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
 

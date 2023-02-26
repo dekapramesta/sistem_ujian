@@ -13,8 +13,14 @@ class Soal extends Model
         'token',
 
     ];
-    public function mapel()
+    public function mst_mapel_guru_kelas()
     {
-        return $this->belongsTo(Mapel::class, 'id_mapel', 'id');
+        return $this->belongsTo(mst_mapel_guru_kelas::class, 'id_mst_mapel_guru_kelas', 'id');
+    }
+
+    public function detail_soal()
+    {
+        # code...
+        return $this->hasMany(detail_soal::class, 'id_soal', 'id');
     }
 }
