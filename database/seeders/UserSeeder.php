@@ -37,5 +37,13 @@ class UserSeeder extends Seeder
             "jabatan" => "siswa",
             "verified" => '1'
         ]);
+
+        User::create([
+            "username" => "gurutini",
+            "email" => "gurutini@gmail.com",
+            "password" => bcrypt("guru123"),
+            "jabatan" => "guru",
+            "verified" => '1'
+        ]);
     }
 }

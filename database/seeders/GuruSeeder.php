@@ -20,5 +20,12 @@ class GuruSeeder extends Seeder
             "nip" => "2128127",
             "tanggal_lahir" => "12-01-2000",
         ]);
+
+        Guru::create([
+            "id_user" => 4,
+            "nama" => "tini",
+            "nip" => "2128123",
+            "tanggal_lahir" => "12-01-2000",
+        ]);
     }
 }

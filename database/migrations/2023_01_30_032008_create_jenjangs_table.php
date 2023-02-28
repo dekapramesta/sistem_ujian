@@ -22,20 +22,7 @@ class CreateJenjangsTable extends Migration
             $table->timestamps();
         });
 
-        Jenjang::create([
-            'nama_jenjang'=> '10',
-            'identitas' => Str::random(10),
-        ]);
-
-        Jenjang::create([
-            'nama_jenjang'=> '11',
-            'identitas' => Str::random(10),
-        ]);
-
-        Jenjang::create([
-            'nama_jenjang'=> '12',
-            'identitas' => Str::random(10),
-        ]);
+        
     }
 
     /**

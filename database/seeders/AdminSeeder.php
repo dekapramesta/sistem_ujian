@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
-class DetailSoalSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +14,9 @@ class DetailSoalSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Admin::create([
+            'id_user' => '1',
+            'nama' => 'Silvy',
+        ]);
     }
 }

@@ -15,13 +15,11 @@ class CreateJadwalUjiansTable extends Migration
     {
         Schema::create('jadwal_ujians', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_soals');
             $table->unsignedBigInteger('id_th_akademiks');
             $table->date('tanggal_ujian');
             $table->time('waktu_ujian');
-            $table->string('status_ujian');
-            $table->foreign('id_soals')
-            ->references('id')->on('soals');
+            $table->string('jenis_ujian');
+            $table->tinyInteger('status');
             $table->foreign('id_th_akademiks')
             ->references('id')->on('th_akademiks');
             $table->timestamps();

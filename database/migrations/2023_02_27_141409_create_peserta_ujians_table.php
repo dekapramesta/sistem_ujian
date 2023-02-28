@@ -3,11 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
-use App\Models\Soal;
-use App\Models\Mapel;
 
-class CreateSoalsTable extends Migration
+class CreatePesertaUjiansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,11 +13,12 @@ class CreateSoalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('soals', function (Blueprint $table) {
+        Schema::create('peserta_ujians', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_siswas');
             $table->unsignedBigInteger('id_detail_ujians');
-            $table->longText('soal');
-            $table->string('soal_gambar')->nullable();
+            $table->foreign('id_siswas')
+                ->references('id')->on('siswas');
             $table->foreign('id_detail_ujians')
                 ->references('id')->on('detail_ujians');
             $table->timestamps();
@@ -34,6 +32,6 @@ class CreateSoalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('soals');
+        Schema::dropIfExists('peserta_ujians');
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Soal;
+use App\Models\PesertaUjian;
 use Illuminate\Database\Seeder;
 
-class SoalSeeder extends Seeder
+class PesertaUjianSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,9 +14,9 @@ class SoalSeeder extends Seeder
      */
     public function run()
     {
-        Soal::create([
+        PesertaUjian::create([
+            'id_siswas' => 1,
             'id_detail_ujians' => 1,
-            'soal' => 'hewan apa yang berkaki dua ?'
         ]);
     }
 }
