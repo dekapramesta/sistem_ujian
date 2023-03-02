@@ -16,9 +16,11 @@ class JadwalUjianSeeder extends Seeder
     {
         jadwal_ujian::create([
             'id_th_akademiks' => 1,
-            'tanggal_ujian' => '2023-03-03',
-            'waktu_ujian' => '01:00:00',
+            // 'tanggal_ujian' => '2023-03-03',
+            // 'waktu_ujian' => '01:00:00',
             'jenis_ujian' => 'UTS',
+            'id_mapels' => 1,
+            'id_jenjangs' => 1,
             'status'    => 0
         ]);
     }

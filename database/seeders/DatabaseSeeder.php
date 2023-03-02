@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             SiswaSeeder::class,
             GuruSeeder::class,
             JadwalUjianSeeder::class,
+            HeaderUjianSeeder::class,
             MstMapelGuruKelasSeeder::class,
             DetailUjianSeeder::class,
             SoalSeeder::class,

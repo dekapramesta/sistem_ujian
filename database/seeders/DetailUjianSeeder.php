@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\DetailUjian;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class DetailUjianSeeder extends Seeder
@@ -15,9 +16,11 @@ class DetailUjianSeeder extends Seeder
     public function run()
     {
         DetailUjian::create([
-            'id_jadwal_ujians' => 1,
-            'id_mst_mapel_guru_kelas' => 1,
-            'status' => 1,
+            'id_headerujian' => 1,
+            'id_kelas' => 1,
+            'tanggal_ujian' => Carbon::now(),
+            'token' => "ajsasajsk",
+            "status" => 1
         ]);
     }
 }

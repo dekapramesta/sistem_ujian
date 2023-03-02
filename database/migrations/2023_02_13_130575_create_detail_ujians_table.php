@@ -15,14 +15,15 @@ class CreateDetailUjiansTable extends Migration
     {
         Schema::create('detail_ujians', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_jadwal_ujians');
-            $table->unsignedBigInteger('id_mst_mapel_guru_kelas');
+            $table->unsignedBigInteger('id_headerujian');
+            $table->unsignedBigInteger('id_kelas');
+            $table->dateTime('tanggal_ujian', $precision = 0);
             $table->string('token', 10)->nullable();
             $table->boolean('status');
-            $table->foreign('id_jadwal_ujians')
-                ->references('id')->on('jadwal_ujians');
-            $table->foreign('id_mst_mapel_guru_kelas')
-                ->references('id')->on('mst_mapel_guru_kelas');
+            $table->foreign('id_headerujian')
+                ->references('id')->on('header_ujians');
+            $table->foreign('id_kelas')
+                ->references('id')->on('kelas');
             $table->timestamps();
         });
     }
