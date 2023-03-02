@@ -36,4 +36,10 @@ class Kelas extends Model
         # code...
         return $this->hasMany(mst_mapel_guru_kelas::class, 'id_kelas', 'id');
     }
+
+    public function detailujian()
+    {
+        # code...
+        return $this->hasMany(DetailUjian::class, 'id_kelas', 'id');
+    }
 }

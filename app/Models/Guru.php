@@ -31,4 +31,10 @@ class Guru extends Model
     {
         return $this->belongsToMany(Kelas::class, 'mst_mapel_guru_kelas', 'id_guru', 'id_kelas');
     }
+
+    public function headerujian()
+    {
+        # code...
+        return $this->hasMany(HeaderUjian::class, 'id_gurus', 'id');
+    }
 }

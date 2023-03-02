@@ -43,5 +43,35 @@ class JawabanSeeder extends Seeder
             'jawaban'   => 'Kura-Kura',
             'status'    => 0
         ]);
+
+        Jawaban::create([
+            'id_soals' => 2,
+            'jawaban'   => 'Masbro',
+            'status'    => 1
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 2,
+            'jawaban'   => 'Bebek',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 2,
+            'jawaban'   => 'Ayam',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 2,
+            'jawaban'   => 'Angsa',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 2,
+            'jawaban'   => 'Kanguru',
+            'status'    => 0
+        ]);
     }
 }

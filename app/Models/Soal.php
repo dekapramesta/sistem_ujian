@@ -9,18 +9,25 @@ class Soal extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_mst_mapel_guru_kelas',
-        'token',
+        'id_headerujian',
+        'soal',
+        'soal_gambar',
 
     ];
-    public function mst_mapel_guru_kelas()
-    {
-        return $this->belongsTo(mst_mapel_guru_kelas::class, 'id_mst_mapel_guru_kelas', 'id');
-    }
 
-    public function detail_soal()
+    public function headerujian()
     {
         # code...
-        return $this->hasMany(detail_soal::class, 'id_soal', 'id');
+        return $this->belongsTo(HeaderUjian::class, 'id_headerujian', 'id');
     }
+    // public function mst_mapel_guru_kelas()
+    // {
+    //     return $this->belongsTo(mst_mapel_guru_kelas::class, 'id_mst_mapel_guru_kelas', 'id');
+    // }
+
+    // public function detail_soal()
+    // {
+    //     # code...
+    //     return $this->hasMany(detail_soal::class, 'id_soal', 'id');
+    // }
 }

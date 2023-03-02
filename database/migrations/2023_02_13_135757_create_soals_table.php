@@ -18,11 +18,11 @@ class CreateSoalsTable extends Migration
     {
         Schema::create('soals', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_detail_ujians');
+            $table->unsignedBigInteger('id_headerujian');
             $table->longText('soal');
             $table->string('soal_gambar')->nullable();
-            $table->foreign('id_detail_ujians')
-                ->references('id')->on('detail_ujians');
+            $table->foreign('id_headerujian')
+                ->references('id')->on('header_ujians');
             $table->timestamps();
         });
     }

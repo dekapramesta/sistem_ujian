@@ -19,7 +19,17 @@ class DetailUjianSeeder extends Seeder
             'id_headerujian' => 1,
             'id_kelas' => 1,
             'tanggal_ujian' => Carbon::now(),
+            'waktu_ujian'   => '01:00:00',
             'token' => "ajsasajsk",
+            "status" => 1
+        ]);
+
+        DetailUjian::create([
+            'id_headerujian' => 1,
+            'id_kelas' => 2,
+            'tanggal_ujian' => Carbon::now(),
+            'waktu_ujian'   => '01:00:00',
+            'token' => "odjksnamwj",
             "status" => 1
         ]);
     }

@@ -30,9 +30,16 @@ class MstMapelGuruKelasSeeder extends Seeder
 
         mst_mapel_guru_kelas::create([
             'id_mapels' => 2,
-            'id_gurus' => 1,
+            'id_gurus' => 2,
             'id_kelas' => 1,
             'id_jenjang' => 2,
+        ]);
+
+        mst_mapel_guru_kelas::create([
+            'id_mapels' => 1,
+            'id_gurus' => 1,
+            'id_kelas' => 2,
+            'id_jenjang' => 1,
         ]);
     }
 }
