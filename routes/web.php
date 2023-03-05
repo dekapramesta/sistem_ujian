@@ -36,7 +36,6 @@ Route::post('login', [LoginController::class, 'LoginAction'])->name('login.actio
 
 Route::middleware(['auth', 'levelAcces:admin'])->group(
     function () {
-
         Route::get('admin', [AdminController::class, 'index'])->name('admin.dashboard');
         Route::prefix('admin')->group(
             function () {
@@ -92,6 +91,7 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
         Route::group(['prefix' => 'guru/'], function () {
             Route::get('dashboard', [GuruHomeController::class, 'index'])->name('guru.dashboard');
             Route::get('bank_soal', [BankSoalController::class, 'index'])->name('guru.bank_soal');
+            Route::get('/bank_soal/edit_soal/{id_detail_ujians}', [BankSoalController::class, 'edit_soal'])->name('guru.edit_soal');
             Route::post('soal', [BankSoalController::class, 'uploadSoal'])->name('soal.create');
             Route::post('poto', [BankSoalController::class, 'save'])->name('poto.create');
             Route::get('data_nilai', [DataNilaiController::class, 'index'])->name('guru.data_nilai');

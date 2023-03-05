@@ -13,6 +13,9 @@ use App\Imports\SoalImport;
 use App\Models\detail_soal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\DetailUjian;
+use App\Models\HeaderUjian;
+use App\Models\Jawaban;
 use App\Models\mst_mapel_guru_kelas;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -22,9 +25,17 @@ class SoalController extends Controller
 {
     public function index()
     {
+        # New
+
         $user = Auth::user();
         $guru = Guru::where('id_user', $user->id)->first();
-        $mst = mst_mapel_guru_kelas::where('id_gurus', $guru->id)->with('kelas', 'mapel', 'jenjang')->get();
+
+        $header_ujians = HeaderUjian::where('id_gurus', $guru->id)->get();
+        // foreach ($header_ujians as $hdr) {
+        //     dd($hdr->detailujian);
+        // }
+        # Old
+        // $mst = mst_mapel_guru_kelas::where('id_gurus', $guru->id)->with('kelas', 'mapel', 'jenjang')->get();
 
         $jenjang = Jenjang::whereHas('mst_mapel_guru_kelas', function ($query) {
             $user = Auth::user();
@@ -32,15 +43,22 @@ class SoalController extends Controller
             return $query->where('id_gurus', $guru->id);
         })->get();
 
-        $mapel = Mapel::whereHas('mst_mapel_guru_kelas', function ($query) {
-            $user = Auth::user();
-            $guru = Guru::where('id_user', $user->id)->first();
-            return $query->where('id_gurus', $guru->id);
-        })->get();
-        $soal = Soal::all();
+        $detail_ujian = DetailUjian::all();
 
-        return view("Guru.soal", compact('mst', 'soal', 'mapel', 'jenjang'));
+        // $mapel = Mapel::whereHas('mst_mapel_guru_kelas', function ($query) {
+        //     $user = Auth::user();
+        //     $guru = Guru::where('id_user', $user->id)->first();
+        //     return $query->where('id_gurus', $guru->id);
+        // })->get();
+        // $detail_ujian = DetailUjian::whereHas('mst_mapel_guru_kelas', function ($query) {
+        //     $user = Auth::user();
+        //     $guru = Guru::where('id_user', $user->id)->first();
+        //     return $query->where('id_gurus', $guru->id);
+        // })->get();
+
+        return view("Guru.soal", compact('jenjang', 'header_ujians', 'detail_ujian'));
     }
+
     public function uploadSoal(Request $request)
     {
         $guru = Guru::where(['id_user' => Auth::user()->id])->first()->id;
@@ -65,5 +83,35 @@ class SoalController extends Controller
         $path = $request->image->move(public_path('img'), $name);
 
         return redirect()->back()->with('status', 'Image Has been uploaded');
+    }
+
+    public function edit_soal($id_detail_ujians)
+    {
+        $user = Auth::user();
+        $guru = Guru::where('id_user', $user->id)->first();
+        $mst = mst_mapel_guru_kelas::where('id_gurus', $guru->id)->with('kelas', 'mapel', 'jenjang')->get();
+
+        $jenjang = Jenjang::whereHas('mst_mapel_guru_kelas', function ($query) {
+            $user = Auth::user();
+            $guru = Guru::where('id_user', $user->id)->first();
+            return $query->where('id_gurus', $guru->id);
+        })->get();
+
+        $mapel = Mapel::whereHas('mst_mapel_guru_kelas', function ($query) {
+            $user = Auth::user();
+            $guru = Guru::where('id_user', $user->id)->first();
+            return $query->where('id_gurus', $guru->id);
+        })->get();
+        // $detail_ujian = DetailUjian::whereHas('mst_mapel_guru_kelas', function ($query) {
+        //     $user = Auth::user();
+        //     $guru = Guru::where('id_user', $user->id)->first();
+        //     return $query->where('id_gurus', $guru->id);
+        // })->get();
+
+        $detail_ujian = DetailUjian::where('id', $id_detail_ujians)->first();
+        $soal = Soal::where('id_detail_ujians', $id_detail_ujians)->get();
+        $jawaban = Jawaban::all();
+
+        return view("Guru.edit_soal", compact('mst', 'detail_ujian', 'mapel', 'jenjang', 'soal', 'jawaban'));
     }
 }
