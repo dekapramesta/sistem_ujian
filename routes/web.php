@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\JurusanController;
 use App\Http\Controllers\Admin\MapelController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\GuruController;
+use App\Http\Controllers\Admin\JadwalUjian;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\UjianController;
 use App\Http\Controllers\Guru\DataNilaiController;
@@ -74,6 +75,9 @@ Route::middleware(['auth', 'levelAcces:admin'])->group(
                 Route::post('ujian', [UjianController::class, 'create'])->name('admin.ujian.create');
                 Route::put('ujian/{identitas}', [UjianController::class, 'edit'])->name('admin.ujian.edit');
                 Route::delete('ujian/{identitas}', [UjianController::class, 'delete'])->name('admin.ujian.delete');
+
+                Route::get('jadwalujian', [JadwalUjian::class, 'index'])->name('jadwal.ujian');
+                Route::get('add/jadwalujian', [JadwalUjian::class, 'AddJadwalUjian'])->name('add.ujian');
             }
         );
     }
