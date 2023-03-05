@@ -479,7 +479,7 @@
             });
 
             $(document).ajaxStop(function() {
-                window.location.reload();
+                window.location.href = "{{ route('jadwal.ujian') }}";
             });
         }
     </script>

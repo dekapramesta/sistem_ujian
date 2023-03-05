@@ -18,13 +18,10 @@
                         <div class="card recent-sales overflow-auto">
                             <div class="card-header d-flex justify-content-between">
 
-                                <h5 class="card-title">Bank Soal</h5>
+                                <h5 class="card-title">Set Jadwal</h5>
                                 <div>
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                        data-bs-target="#tambah">+ Tambah</button>
-                                    <a href="{{ asset('assets/template_soal/template_soal.csv') }}"><button type="button"
-                                            class="btn btn-primary">Download
-                                            Template</button></a>
+                                    <a href="{{ route('add.ujian') }}" class="btn btn-success me-3">+ Tambah</a>
+
                                 </div>
 
                             </div>
