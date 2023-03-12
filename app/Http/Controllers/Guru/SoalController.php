@@ -7,19 +7,23 @@ use App\Models\Soal;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Ujian;
+use App\Models\Jawaban;
 use App\Models\Jenjang;
 use App\Models\ThAkademik;
 use App\Imports\SoalImport;
 use App\Models\detail_soal;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\DetailUjian;
 use App\Models\HeaderUjian;
-use App\Models\Jawaban;
+use Illuminate\Http\Request;
+use Intervention\Image\Image;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use App\Models\mst_mapel_guru_kelas;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use Symfony\Component\Console\Input\Input;
 
 class SoalController extends Controller
 {
@@ -88,7 +92,16 @@ class SoalController extends Controller
                 'status'  => $status
             ]);
         }
-        // Alert::success('Success', 'Data Berhasil Ditambahkan');
+        return redirect()->back();
+    }
+
+    public function delete_soal($id_header_ujians)
+    {
+        $id_soals = Soal::where('id_headerujian', $id_header_ujians)->get();
+        foreach ($id_soals as $idsl) {
+            DB::table('jawabans')->where('id_soals', $idsl->id)->delete();
+        }
+        DB::table('soals')->where('id_headerujian', $id_header_ujians)->delete();
         return redirect()->back();
     }
 }

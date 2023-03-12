@@ -70,11 +70,6 @@ Route::middleware(['auth', 'levelAcces:admin'])->group(
                 Route::put('siswa/{nis}', [SiswaController::class, 'edit'])->name('admin.siswa.edit');
                 Route::delete('siswa/{nis}', [SiswaController::class, 'delete'])->name('admin.siswa.delete');
 
-                Route::get('ujian', [UjianController::class, 'index'])->name('admin.ujian');
-                Route::post('ujian', [UjianController::class, 'create'])->name('admin.ujian.create');
-                Route::put('ujian/{identitas}', [UjianController::class, 'edit'])->name('admin.ujian.edit');
-                Route::delete('ujian/{identitas}', [UjianController::class, 'delete'])->name('admin.ujian.delete');
-
                 Route::get('jadwalujian', [JadwalUjian::class, 'index'])->name('jadwal.ujian');
                 Route::get('add/jadwalujian', [JadwalUjian::class, 'AddJadwalUjian'])->name('add.ujian');
             }
@@ -93,6 +88,7 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
             Route::get('bank_soal', [BankSoalController::class, 'index'])->name('guru.bank_soal');
             Route::get('/bank_soal/edit_soal/{id_detail_ujians}', [BankSoalController::class, 'edit_soal'])->name('guru.edit_soal');
             Route::post('/bank_soal/edit_soal/soal/{id_soal}', [BankSoalController::class, 'update_soal'])->name('guru.update_soal');
+            Route::delete('/bank_soal/hapus_soal/{id_header_ujians}', [BankSoalController::class, 'delete_soal'])->name('guru.delete_soal');
             Route::post('soal/{id_header_ujians}', [BankSoalController::class, 'uploadSoal'])->name('soal.create');
             Route::post('poto', [BankSoalController::class, 'save'])->name('poto.create');
             Route::get('data_nilai', [DataNilaiController::class, 'index'])->name('guru.data_nilai');

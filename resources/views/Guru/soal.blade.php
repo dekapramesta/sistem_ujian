@@ -220,6 +220,32 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="modal" id="delete{{ $hdruj->id }}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form method="POST"
+                                                            action="{{ route('guru.delete_soal', $hdruj->id) }}">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <div class="modal-body">
+                                                                Apakah Anda Yakin Ingin Mengahapus??
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button class="btn btn-danger"
+                                                                    type="submit">Hapus</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="modal" id="edit1" tabindex="-1">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -283,30 +309,6 @@
                                                                     data-bs-dismiss="modal">Close</button>
                                                                 <input class="btn btn-primary" type="submit"
                                                                     value="Save changes">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="modal" id="delete1" tabindex="-1">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <form method="POST" action="">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <div class="modal-body">
-                                                                Apakah Anda Yakin Ingin Mengahapus??
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Close</button>
-                                                                <input class="btn btn-danger" type="submit"
-                                                                    value="Hapus">
                                                             </div>
                                                         </form>
                                                     </div>
