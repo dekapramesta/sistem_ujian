@@ -2,15 +2,18 @@
 
 namespace App\Imports;
 
-use App\Models\detail_soal;
+use App\Models\Soal;
+use App\Models\Jawaban;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
-class SoalImport implements ToModel, WithHeadingRow
+class SoalImport implements ToCollection, WithHeadingRow
 {
     /**
      * @param array $row
@@ -18,23 +21,48 @@ class SoalImport implements ToModel, WithHeadingRow
      * @return \Illuminate\Database\Eloquent\Model|null
      */
     public $id;
-    function __construct($init_parameter)
+    public function __construct($init_parameter)
     {
         $this->id = $init_parameter;
     }
-    public function model(array $row)
+    public function collection(Collection $rows)
     {
-        return new detail_soal(
-            [
-                "id_soal" => $this->id,
+        foreach ($rows as $row) {
+            $soal = Soal::create([
+                "id_headerujian" => $this->id,
                 "soal" => $row['soal'],
-                "pilihan_a" => $row['pilihan_1'],
-                "pilihan_b" => $row['pilihan_2'],
-                "pilihan_c" => $row['pilihan_3'],
-                "pilihan_d" => $row['pilihan_4'],
+                "soal_gambar" => $row['soal_gambar'],
+            ]);
+            Jawaban::create([
+                "id_soals" => $soal->id,
+                "jawaban" => $row['pilihan_1'],
+                "jawaban_gambar" => $row['pilihan_1_gambar'],
+                "status" => 0
+            ]);
+            Jawaban::create([
+                "id_soals" => $soal->id,
+                "jawaban" => $row['pilihan_2'],
+                "jawaban_gambar" => $row['pilihan_2_gambar'],
+                "status" => 0
+            ]);
+            Jawaban::create([
+                "id_soals" => $soal->id,
+                "jawaban" => $row['pilihan_3'],
+                "jawaban_gambar" => $row['pilihan_3_gambar'],
+                "status" => 0
+            ]);
+            Jawaban::create([
+                "id_soals" => $soal->id,
+                "jawaban" => $row['pilihan_4'],
+                "jawaban_gambar" => $row['pilihan_4_gambar'],
+                "status" => 0
+            ]);
+            Jawaban::create([
+                "id_soals" => $soal->id,
                 "jawaban" => $row['jawaban'],
-                //
-            ]
-        );
+                "jawaban_gambar" => $row['jawaban_gambar'],
+                "status" => 1
+            ]);
+        }
     }
 }

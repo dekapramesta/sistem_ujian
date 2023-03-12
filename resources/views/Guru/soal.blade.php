@@ -58,24 +58,63 @@
                                                 <td>{{ count($hdruj->soal) }}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                        data-bs-target="#detail1">Detail</button>
-                                                    <a href="{{ route('guru.edit_soal', $hdruj->id) }}">
-                                                        <button type="button" class="btn btn-info">Edit Soal</button>
-                                                    </a>
+                                                        data-bs-target="#detail{{ $hdruj->id }}">Detail</button>
                                                     @if (count($hdruj->soal) > 0)
+                                                        <a href="{{ route('guru.edit_soal', $hdruj->id) }}">
+                                                            <button type="button" class="btn btn-info">Edit Soal</button>
+                                                        </a>
                                                         <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                                             data-bs-target="#delete1">Delete Soal</button>
                                                     @endif
                                                     @if (count($hdruj->soal) == 0)
                                                         <button type="button" class="btn btn-success"
-                                                            data-bs-toggle="modal" data-bs-target="#tambah">+
-                                                            Tambah</button>
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#tambah{{ $hdruj->id }}">+
+                                                            Tambah Soal</button>
                                                     @endif
 
                                                 </td>
                                             </tr>
 
-                                            <div class="modal" id="detail1" tabindex="-1">
+                                            {{-- Modal --}}
+                                            <div class="modal" id="tambah{{ $hdruj->id }}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Tambah Soal</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <form method="POST"
+                                                            action="{{ route('soal.create', $hdruj->id) }}"
+                                                            enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <div class="row mb-3">
+                                                                    <div class="col-sm-3">
+                                                                        <label for="inputNumber" class="col-form-label">Soal
+                                                                            (Format
+                                                                            CSV)
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-9">
+                                                                        <input class="form-control" type="file"
+                                                                            id="formFile" name="file">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <input class="btn btn-primary" type="submit"
+                                                                    value="Upload">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal" id="detail{{ $hdruj->id }}" tabindex="-1">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -186,8 +225,8 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title">Edit Jadwal Ujian</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <form method="POST" action="">
                                                             @csrf
@@ -280,68 +319,6 @@
                         </div><!-- End Recent Sales -->
                     </div>
                 </div><!-- End Left side columns -->
-
-                {{-- Modal --}}
-                <div class="modal" id="tambah" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Tambah Soal</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <form method="POST" action="{{ route('soal.create') }}" enctype="multipart/form-data">
-                                @csrf
-                                <div class="modal-body">
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label">Mapel</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-select" name="mapel"
-                                                aria-label="Default select example">
-                                                <option selected disabled>Pilih Mata Pelajaran</option>
-                                                {{-- @foreach ($mapel as $mpl)
-                                                    <option value="{{ $mpl->id }}">{{ $mpl->nama_mapel }}
-                                                    </option>
-                                                @endforeach --}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label">Jenjang</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-select" name="jenjang"
-                                                aria-label="Default select example">
-                                                <option selected disabled>Pilih Jenjang</option>
-                                                {{-- @foreach ($jenjang as $jjg)
-                                                    <option value="{{ $jjg->id }}">Kelas {{ $jjg->nama_jenjang }}
-                                                    </option>
-                                                @endforeach --}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="inputNumber" class="col-sm-2 col-form-label">Soal (Format
-                                            Excel)</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" type="file" id="formFile" name="file">
-                                        </div>
-                                    </div>
-                                    {{-- <div class="row mb-3">
-                                        <label for="inputText" class="col-sm-2 col-form-label">Status Ujian</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="status_ujian" class="form-control">
-                                        </div>
-                                    </div> --}}
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <input class="btn btn-primary" type="submit" value="Save changes">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
     </section>
 @endsection

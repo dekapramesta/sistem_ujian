@@ -25,17 +25,10 @@ class SoalController extends Controller
 {
     public function index()
     {
-        # New
-
         $user = Auth::user();
         $guru = Guru::where('id_user', $user->id)->first();
 
         $header_ujians = HeaderUjian::where('id_gurus', $guru->id)->get();
-        // foreach ($header_ujians as $hdr) {
-        //     dd($hdr->detailujian);
-        // }
-        # Old
-        // $mst = mst_mapel_guru_kelas::where('id_gurus', $guru->id)->with('kelas', 'mapel', 'jenjang')->get();
 
         $jenjang = Jenjang::whereHas('mst_mapel_guru_kelas', function ($query) {
             $user = Auth::user();
@@ -45,31 +38,12 @@ class SoalController extends Controller
 
         $detail_ujian = DetailUjian::all();
 
-        // $mapel = Mapel::whereHas('mst_mapel_guru_kelas', function ($query) {
-        //     $user = Auth::user();
-        //     $guru = Guru::where('id_user', $user->id)->first();
-        //     return $query->where('id_gurus', $guru->id);
-        // })->get();
-        // $detail_ujian = DetailUjian::whereHas('mst_mapel_guru_kelas', function ($query) {
-        //     $user = Auth::user();
-        //     $guru = Guru::where('id_user', $user->id)->first();
-        //     return $query->where('id_gurus', $guru->id);
-        // })->get();
-
         return view("Guru.soal", compact('jenjang', 'header_ujians', 'detail_ujian'));
     }
 
-    public function uploadSoal(Request $request)
+    public function uploadSoal(Request $request, $id_header_ujians)
     {
-        $guru = Guru::where(['id_user' => Auth::user()->id])->first()->id;
-        $mst_pusat = mst_mapel_guru_kelas::where(['id_mapels' => $request->mapel, "id_jenjang" => $request->jenjang, "id_gurus" => $guru])->get();
-        foreach ($mst_pusat as $mst_soal) {
-            $soal = new Soal();
-            $soal->id_mst_mapel_guru_kelas = $mst_soal->id;
-            $soal->token = rand(10000, 99999);
-            $soal->save();
-            Excel::import(new SoalImport($soal->id), $request->file);
-        }
+        Excel::import(new SoalImport($id_header_ujians), $request->file);
 
         return redirect()->back()->with('success', 'soal Imported Successfully');
     }
@@ -85,33 +59,36 @@ class SoalController extends Controller
         return redirect()->back()->with('status', 'Image Has been uploaded');
     }
 
-    public function edit_soal($id_detail_ujians)
+    public function edit_soal($id_header_ujians)
     {
         $user = Auth::user();
         $guru = Guru::where('id_user', $user->id)->first();
-        $mst = mst_mapel_guru_kelas::where('id_gurus', $guru->id)->with('kelas', 'mapel', 'jenjang')->get();
+        $header_ujians = HeaderUjian::where('id', $id_header_ujians)->first();
 
-        $jenjang = Jenjang::whereHas('mst_mapel_guru_kelas', function ($query) {
-            $user = Auth::user();
-            $guru = Guru::where('id_user', $user->id)->first();
-            return $query->where('id_gurus', $guru->id);
-        })->get();
-
-        $mapel = Mapel::whereHas('mst_mapel_guru_kelas', function ($query) {
-            $user = Auth::user();
-            $guru = Guru::where('id_user', $user->id)->first();
-            return $query->where('id_gurus', $guru->id);
-        })->get();
-        // $detail_ujian = DetailUjian::whereHas('mst_mapel_guru_kelas', function ($query) {
-        //     $user = Auth::user();
-        //     $guru = Guru::where('id_user', $user->id)->first();
-        //     return $query->where('id_gurus', $guru->id);
-        // })->get();
-
-        $detail_ujian = DetailUjian::where('id', $id_detail_ujians)->first();
-        $soal = Soal::where('id_detail_ujians', $id_detail_ujians)->get();
+        $soal = Soal::where('id_headerujian', $id_header_ujians)->get();
         $jawaban = Jawaban::all();
 
-        return view("Guru.edit_soal", compact('mst', 'detail_ujian', 'mapel', 'jenjang', 'soal', 'jawaban'));
+        return view("Guru.edit_soal", compact('header_ujians', 'soal', 'jawaban'));
+    }
+
+    public function update_soal(Request $request, $id_soal)
+    {
+        $jawaban = Jawaban::where('id_soals', $id_soal)->get();
+        Soal::where('id', $id_soal)->update([
+            'soal' => $request->soaltext
+        ]);
+        foreach ($jawaban as $jwb) {
+            if ($request->status == $jwb->id) {
+                $status = 1;
+            } else {
+                $status = 0;
+            }
+            Jawaban::where('id', $jwb->id)->update([
+                'jawaban' => $request->jawaban[$jwb->id],
+                'status'  => $status
+            ]);
+        }
+        // Alert::success('Success', 'Data Berhasil Ditambahkan');
+        return redirect()->back();
     }
 }
