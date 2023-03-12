@@ -78,7 +78,7 @@
                 <tr>
                   <th scope="col">Nomor</th>
                   <th scope="col">Nama Siswa</th>
-                  <th scope="col">Status</th>
+                  <th colspan="3" scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>

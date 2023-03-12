@@ -22,14 +22,15 @@
           <div class="card-body">
             <h5 class="card-title">Tahun Akademik</h5>
             <div class="container">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah">Tambah +</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah" style="margin-bottom: 20px">Tambah +</button>
+
             <table class="table table-borderless datatable">
               <thead>
                 <tr>
                   <th scope="col">Nomor</th>
                   <th scope="col">Tahun Ajaran</th>
                   <th scope="col">Semester</th>
-                  <th colspan="2" scope="col">Aksi</th>
+                  <th scope="col">Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -39,10 +40,14 @@
                         <td>{{ $th_akademik->th_akademik }}</td>
                         <td>{{ $th_akademik->nama_semester }}</td>
                         <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edit{{ $th_akademik->identitas }}">Edit</button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $th_akademik->identitas }}">Delete</button>
+                            <div class="col text-center">
+                                <button class="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#edit{{ $th_akademik->identitas }}"
+                                    style="width:70px"><i class="bi bi-pencil-square" style="font-size: 10pt"></i>
+                                    Edit</button>
+                                <button class="btn btn-danger btn-sm text-center" data-bs-toggle="modal" data-bs-target="#delete{{ $th_akademik->identitas }}"
+                                    style="width:90px"><i class="bi bi-trash3-fill" style="font-size: 10pt"></i>
+                                    Hapus</button>
+                            </div>
                         </td>
                     </tr>
                     <div class="modal" id="edit{{ $th_akademik->identitas }}" tabindex="-1">

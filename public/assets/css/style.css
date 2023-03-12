@@ -14,7 +14,7 @@
 
 body {
     font-family: "Open Sans", sans-serif;
-    background: #f6f9ff;
+    background: #E3FFE2;
     color: #444444;
 }
 
@@ -133,7 +133,7 @@ h6 {
 }
 
 .dropdown-menu .dropdown-divider {
-    color: #a5c5fe;
+    color: #70ff66;
     margin: 0;
 }
 
@@ -198,13 +198,13 @@ h6 {
 
 /* Light Backgrounds */
 .bg-primary-light {
-    background-color: #cfe2ff;
-    border-color: #cfe2ff;
+    background-color: #70ff66;
+    border-color: #70ff66;
 }
 
 .bg-secondary-light {
-    background-color: #e2e3e5;
-    border-color: #e2e3e5;
+    background-color: #70ff66;
+    border-color: #70ff66;
 }
 
 .bg-success-light {
@@ -389,14 +389,14 @@ h6 {
 }
 
 .logo img {
-    max-height: 26px;
+    max-height: 30px;
     margin-right: 6px;
 }
 
 .logo span {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
-    color: #012970;
+    color: #000000;
     font-family: "Nunito", sans-serif;
 }
 
@@ -405,7 +405,7 @@ h6 {
     z-index: 997;
     height: 60px;
     box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-    background-color: #fff;
+    background-color: #00e043;
     padding-left: 20px;
     /* Toggle Sidebar Button */
     /* Search Bar */
@@ -706,9 +706,9 @@ h6 {
     align-items: center;
     font-size: 15px;
     font-weight: 600;
-    color: #4154f1;
+    color: #000000;
     transition: 0.3;
-    background: #f6f9ff;
+    background: rgba(225, 255, 224, 0.5);
     padding: 10px 15px;
     border-radius: 4px;
 }
@@ -716,25 +716,25 @@ h6 {
 .sidebar-nav .nav-link i {
     font-size: 16px;
     margin-right: 10px;
-    color: #4154f1;
+    color: #000000;
 }
 
 .sidebar-nav .nav-link.collapsed {
-    color: #012970;
+    color: #000000;
     background: #fff;
 }
 
 .sidebar-nav .nav-link.collapsed i {
-    color: #899bbd;
+    color: #000000;
 }
 
 .sidebar-nav .nav-link:hover {
-    color: #4154f1;
-    background: #f6f9ff;
+    color: #000000;
+    background: rgba(225, 255, 224, 0.5);
 }
 
 .sidebar-nav .nav-link:hover i {
-    color: #4154f1;
+    color: #000000;
 }
 
 .sidebar-nav .nav-link .bi-chevron-down {
@@ -757,7 +757,7 @@ h6 {
     align-items: center;
     font-size: 14px;
     font-weight: 600;
-    color: #012970;
+    color: #000000;
     transition: 0.3;
     padding: 10px 0 10px 40px;
     transition: 0.3s;

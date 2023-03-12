@@ -18,7 +18,7 @@
                         <div class="card recent-sales overflow-auto">
                             <div class="card-header d-flex justify-content-between">
 
-                                <h5 class="card-title">Set Jadwal</h5>
+                                <h5 class="card-title-datatable">Set Jadwal</h5>
                                 <div>
                                     <a href="{{ route('add.ujian') }}" class="btn btn-success me-3">+ Tambah</a>
 
@@ -53,12 +53,11 @@
                                                 <td>
                                                     <div class="col text-center">
                                                         <button class="btn btn-success btn-sm text-center"
-                                                            style="width:70px"><i class="bi bi-pencil ms- 2"></i>
+                                                            style="width:70px"><i class="bi bi-pencil-square" style="font-size: 10pt"></i>
                                                             Edit</button>
                                                         <button class="btn btn-danger btn-sm text-center"
-                                                            style="width:90px"><i class="bi bi-pencil ms-2"></i>
+                                                            style="width:90px"><i class="bi bi-trash3-fill" style="font-size: 10pt"></i>
                                                             Hapus</button>
-
                                                     </div>
                                                 </td>
                                             </tr>

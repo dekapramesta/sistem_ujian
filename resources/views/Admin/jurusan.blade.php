@@ -36,10 +36,18 @@
                         <th scope="row">{{ ++$no }}</th>
                         <td>{{ $jurusan->nama_jurusan }}</td>
                         <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edit{{ $jurusan->identitas }}">Edit</button>
+                            <div class="col text-center">
+                                <button class="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#edit{{ $jurusan->identitas }}"
+                                    style="width:70px"><i class="bi bi-pencil-square" style="font-size: 10pt"></i>
+                                    Edit</button>
+                                <button class="btn btn-danger btn-sm text-center" data-bs-toggle="modal" data-bs-target="#delete{{ $jurusan->identitas }}"
+                                    style="width:90px"><i class="bi bi-trash3-fill" style="font-size: 10pt"></i>
+                                    Hapus</button>
+                            </div>
+                            {{-- <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edit{{ $jurusan->identitas }}">Edit</button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $jurusan->identitas }}">Delete</button>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $jurusan->identitas }}">Delete</button> --}}
                         </td>
                     </tr>
                     <div class="modal" id="edit{{ $jurusan->identitas }}" tabindex="-1">
