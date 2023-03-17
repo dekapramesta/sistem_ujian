@@ -65,7 +65,7 @@
     @elseif ($prefix == '/guru')
         @include('Guru.particials.sidebar')
     @elseif ($prefix == '/siswa')
-        @include('particials.sidebar')
+        @include('Siswa.particials.sidebar')
     @else
         @include('particials.sidebar')
     @endif

@@ -40,10 +40,13 @@ class JadwalUjian extends Controller
     public function postUjian(Request $request)
     {
         # code...
+        $gurus = [];
         foreach ($request->data as $dt) {
             $dataJdw = jadwal_ujian::with('headerujian')->where(['id_jenjangs' => $dt['id_jenjang'], 'jenis_ujian' => $request->jenis_ujian, 'id_mapels' => $request->id_mapels, "id_th_akademiks" => $request->id_th_akademiks])->first();
             $mst_mpl_guru_kls = mst_mapel_guru_kelas::where(['id_mapels' => $request->id_mapels, 'id_kelas' => $dt['id']])->first();
+            array_push($gurus, $mst_mpl_guru_kls->id_gurus);
             $id = 0;
+
             $id_header = 0;
             // return response()->json($dataJdw);
             if ($dataJdw == null) {
@@ -64,10 +67,16 @@ class JadwalUjian extends Controller
                 ]);
                 $id_header = $header->id;
             } else {
-
-                // return response()->json($dataJdw);
                 $id = $dataJdw->id;
-                $id_header = $dataJdw->headerujian[0]->id;
+                $header = HeaderUjian::create([
+                    'id_jadwalujian' => $id,
+                    'id_gurus' => $mst_mpl_guru_kls->id_gurus,
+                    'id_jenjangs' => $dt['id_jenjang'],
+                    // 'st' => $request->jenis_ujian,
+                    "status" => 0
+                ]);
+                // return response()->json($dataJdw);
+                $id_header = $header->id;
             }
             $searhDtl = DetailUjian::where(['id_kelas' => $dt['id'], 'id_headerujian' => $id_header])->first();
             if ($searhDtl != null) {
@@ -87,6 +96,6 @@ class JadwalUjian extends Controller
                 ]);
             }
         }
-        return response()->json('success');
+        return response()->json("success");
     }
 }

@@ -97,7 +97,13 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
 );
 
 
-
+Route::middleware(['auth', 'levelAcces:siswa'])->group(
+    function () {
+        Route::group(['prefix' => 'siswa/'], function () {
+            Route::get('dashboard', [App\Http\Controllers\Siswa\SiswaController::class, 'index'])->name('siswa.dashboard');
+        });
+    }
+);
 
 //Route::group(['middleware' => ['role:admin']], function () {
 // Route::get('/guru', [App\Http\Controllers\Guru\GuruHomeController::class, 'index'])->name('guru');

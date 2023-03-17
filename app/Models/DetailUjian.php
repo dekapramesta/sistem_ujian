@@ -29,6 +29,11 @@ class DetailUjian extends Model
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id');
     }
 
+    public function siswa()
+    {
+        # code...
+        return $this->belongsTo(Siswa::class, 'id_kelas', 'id_kelas');
+    }
     public function soal()
     {
         # code...

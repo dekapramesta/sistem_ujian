@@ -478,9 +478,9 @@
                 }
             });
 
-            $(document).ajaxStop(function() {
-                window.location.href = "{{ route('jadwal.ujian') }}";
-            });
+            // $(document).ajaxStop(function() {
+            //     window.location.href = "{{ route('jadwal.ujian') }}";
+            // });
         }
     </script>
 @endsection

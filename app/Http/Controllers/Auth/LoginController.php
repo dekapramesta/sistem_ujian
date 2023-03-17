@@ -51,7 +51,7 @@ class LoginController extends Controller
                 } elseif (Auth::user()->jabatan == "siswa") {
                     // dd('belum dibuat');
                     $request->session()->regenerate();
-                    return redirect()->route('siswas.dashboard');
+                    return redirect()->route('siswa.dashboard');
                 }
             } else {
                 return redirect()->route('login.view')->withErrors(['Akun Non-Aktif']);
