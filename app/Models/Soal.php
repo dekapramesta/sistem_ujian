@@ -30,4 +30,9 @@ class Soal extends Model
     //     # code...
     //     return $this->hasMany(detail_soal::class, 'id_soal', 'id');
     // }
+    public function jawaban()
+    {
+        # code...
+        return $this->hasMany(Jawaban::class, 'id_soals', 'id');
+    }
 }

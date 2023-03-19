@@ -102,6 +102,11 @@ Route::middleware(['auth', 'levelAcces:siswa'])->group(
         Route::group(['prefix' => 'siswa/'], function () {
             Route::get('dashboard', [App\Http\Controllers\Siswa\SiswaController::class, 'index'])->name('siswa.dashboard');
         });
+        Route::group(['prefix' => 'ujian/'], function () {
+            Route::get('start/{id}', [App\Http\Controllers\Siswa\SiswaController::class, 'ujian'])->name('siswa.ujian');
+            Route::post('/ujian-berlangsung', [App\Http\Controllers\Siswa\SiswaController::class, 'getTemp'])->name('ujian.getTemp');
+            Route::post('/ujian-soal', [App\Http\Controllers\Siswa\SiswaController::class, 'getSoal'])->name('ujian.getSoal');
+        });
     }
 );
 
