@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Guru;
 
+use App\Exports\SoalExport;
 use App\Models\Guru;
 use App\Models\Soal;
 use App\Models\Kelas;
@@ -27,8 +28,9 @@ use Symfony\Component\Console\Input\Input;
 
 class SoalController extends Controller
 {
-    public function index()
+    public function index($id_mapels)
     {
+        $id_mapels= $id_mapels;
         $user = Auth::user();
         $guru = Guru::where('id_user', $user->id)->first();
 
@@ -42,7 +44,7 @@ class SoalController extends Controller
 
         $detail_ujian = DetailUjian::all();
 
-        return view("Guru.soal", compact('jenjang', 'header_ujians', 'detail_ujian'));
+        return view("Guru.soal", compact('jenjang', 'header_ujians', 'detail_ujian', 'id_mapels'));
     }
 
     public function uploadSoal(Request $request, $id_header_ujians)
@@ -51,6 +53,12 @@ class SoalController extends Controller
 
         return redirect()->back()->with('success', 'soal Imported Successfully');
     }
+
+    public function exportSoal($id_header_ujians)
+    {
+        return Excel::download(new SoalExport($id_header_ujians), 'soal.xlsx');
+    }
+
     public function save(Request $request)
     {
         $validatedData = $request->validate([
@@ -63,8 +71,9 @@ class SoalController extends Controller
         return redirect()->back()->with('status', 'Image Has been uploaded');
     }
 
-    public function edit_soal($id_header_ujians)
+    public function edit_soal($id_mapels, $id_header_ujians)
     {
+        $id_mapels = $id_mapels;
         $user = Auth::user();
         $guru = Guru::where('id_user', $user->id)->first();
         $header_ujians = HeaderUjian::where('id', $id_header_ujians)->first();
@@ -72,7 +81,7 @@ class SoalController extends Controller
         $soal = Soal::where('id_headerujian', $id_header_ujians)->get();
         $jawaban = Jawaban::all();
 
-        return view("Guru.edit_soal", compact('header_ujians', 'soal', 'jawaban'));
+        return view("Guru.edit_soal", compact('header_ujians', 'soal', 'jawaban', 'id_mapels'));
     }
 
     public function update_soal(Request $request, $id_soal)

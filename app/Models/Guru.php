@@ -37,4 +37,10 @@ class Guru extends Model
         # code...
         return $this->hasMany(HeaderUjian::class, 'id_gurus', 'id');
     }
+
+    public function mst_mapel_guru_kelas()
+    {
+        # code...
+        return $this->hasMany(mst_mapel_guru_kelas::class, 'id_gurus', 'id');
+    }
 }

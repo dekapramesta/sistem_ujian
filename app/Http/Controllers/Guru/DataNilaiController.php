@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class DataNilaiController extends Controller
 {
-    public function index()
+    public function index($id_mapels)
     {
-        return view('Guru.data_nilai');
+        $id_mapels = $id_mapels;
+        return view('Guru.data_nilai', compact('id_mapels'));
     }
 }

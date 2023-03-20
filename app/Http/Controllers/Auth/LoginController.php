@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
 class LoginController extends Controller
 {
     /*
@@ -47,7 +46,7 @@ class LoginController extends Controller
                     return redirect()->route('admin.dashboard');
                 } elseif (Auth::user()->jabatan == "guru") {
                     $request->session()->regenerate();
-                    return redirect()->route('guru.dashboard');
+                    return redirect()->route('guru.mapel');
                 } elseif (Auth::user()->jabatan == "siswa") {
                     // dd('belum dibuat');
                     $request->session()->regenerate();
