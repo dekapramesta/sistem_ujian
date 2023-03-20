@@ -200,7 +200,7 @@
                                                                             @foreach ($detail_ujian as $dtl_uj)
                                                                                 @if ($hdruj->id == $dtl_uj->id_headerujian)
                                                                                     <div class="col-sm-3">
-                                                                                        <h6>{{ $dtl_uj->kelas->nama_kelas }}
+                                                                                        <h6>{{ $dtl_uj->kelas->jurusan->nama_jurusan }} - {{ $dtl_uj->kelas->nama_kelas }}
                                                                                         </h6>
                                                                                     </div>
                                                                                     <div class="col-sm-5">
