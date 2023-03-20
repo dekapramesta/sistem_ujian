@@ -84,14 +84,16 @@ Route::middleware(['auth', 'levelAcces:admin'])->group(
 Route::middleware(['auth', 'levelAcces:guru'])->group(
     function () {
         Route::group(['prefix' => 'guru/'], function () {
-            Route::get('dashboard', [GuruHomeController::class, 'index'])->name('guru.dashboard');
-            Route::get('bank_soal', [BankSoalController::class, 'index'])->name('guru.bank_soal');
-            Route::get('/bank_soal/edit_soal/{id_detail_ujians}', [BankSoalController::class, 'edit_soal'])->name('guru.edit_soal');
+            Route::get('mapel', [GuruHomeController::class, 'mapel'])->name('guru.mapel');
+            Route::get('dashboard/{id_mapels}', [GuruHomeController::class, 'index'])->name('guru.dashboard');
+            Route::get('bank_soal/{id_mapels}', [BankSoalController::class, 'index'])->name('guru.bank_soal');
+            Route::get('/bank_soal/edit_soal/{id_mapels}/{id_detail_ujians}', [BankSoalController::class, 'edit_soal'])->name('guru.edit_soal');
             Route::post('/bank_soal/edit_soal/soal/{id_soal}', [BankSoalController::class, 'update_soal'])->name('guru.update_soal');
             Route::delete('/bank_soal/hapus_soal/{id_header_ujians}', [BankSoalController::class, 'delete_soal'])->name('guru.delete_soal');
             Route::post('soal/{id_header_ujians}', [BankSoalController::class, 'uploadSoal'])->name('soal.create');
+            Route::get('soal/{id_header_ujians}', [BankSoalController::class, 'exportSoal'])->name('soal.export');
             Route::post('poto', [BankSoalController::class, 'save'])->name('poto.create');
-            Route::get('data_nilai', [DataNilaiController::class, 'index'])->name('guru.data_nilai');
+            Route::get('data_nilai/{id_mapels}', [DataNilaiController::class, 'index'])->name('guru.data_nilai');
         });
     }
 );

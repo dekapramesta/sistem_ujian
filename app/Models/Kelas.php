@@ -22,6 +22,11 @@ class Kelas extends Model
         return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id');
     }
 
+    public function jenjang()
+    {
+        return $this->belongsTo(Jenjang::class, 'id_jenjang', 'id');
+    }
+
     public function mapel()
     {
         return $this->belongsToMany(Mapel::class, 'mst_mapel_guru_kelas', 'id_kelas', 'id_mapel');

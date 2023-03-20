@@ -33,6 +33,11 @@ class mst_mapel_guru_kelas extends Model
         return $this->belongsTo(Jenjang::class, 'id_jenjang', 'id');
     }
 
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'id_gurus', 'id');
+    }
+
     public function detailujian()
     {
         # code...
