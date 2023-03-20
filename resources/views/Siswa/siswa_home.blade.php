@@ -64,7 +64,8 @@
                                             class="card-text fs-5">{{ $ujn->headerujian->jadwal_ujian->jenis_ujian . ' ' . $ujn->headerujian->jadwal_ujian->th_akademiks->th_akademik . ' - ' . $ujn->headerujian->jadwal_ujian->th_akademiks->nama_semester }}</span>
                                         <p class="card-text mt-2" style="font-size:13px;">Tanggal Dan Jam Ujian :
                                             {{ $ujn->tanggal_ujian }}</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        <a href="{{ route('siswa.ujian', $ujn->id_headerujian) }}"
+                                            class="btn btn-primary">Ujian</a>
                                     </div>
                                 </div>
                             @endforeach
