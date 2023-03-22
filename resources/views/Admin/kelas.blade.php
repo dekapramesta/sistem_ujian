@@ -27,6 +27,7 @@
               <thead>
                 <tr>
                   <th scope="col">Nomor</th>
+                  <th scope="col">Jenjang</th>
                   <th scope="col">Jurusan</th>
                   <th scope="col">Nama Kelas</th>
                   <th colspan="2" scope="col">Aksi</th>
@@ -36,14 +37,21 @@
                 @foreach ($kelas as $no => $kelas)
                     <tr>
                         <th scope="row">{{ ++$no }}</th>
+                        <td>{{ $kelas->jenjang->nama_jenjang}}</td>
                         <td>{{ $kelas->jurusan->nama_jurusan}}</td>
                         <td>{{ $kelas->nama_kelas }}</td>
                         <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edit{{ $kelas->identitas }}">Edit</button>
+                            <button class="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#edit{{ $kelas->identitas }}"
+                                style="width:70px"><i class="bi bi-pencil-square" style="font-size: 10pt"></i>
+                                Edit</button>
+                            <button class="btn btn-danger btn-sm text-center" data-bs-toggle="modal" data-bs-target="#delete{{ $kelas->identitas }}"
+                                style="width:90px"><i class="bi bi-trash3-fill" style="font-size: 10pt"></i>
+                                Hapus</button>
                         </td>
+                            {{-- <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edit{{ $kelas->identitas }}">Edit</button>
                         <td>
                             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $kelas->identitas }}">Delete</button>
-                        </td>
+                        </td> --}}
                     </tr>
                     <div class="modal" id="edit{{ $kelas->identitas }}" tabindex="-1">
                         <div class="modal-dialog">
@@ -56,6 +64,17 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="modal-body">
+                                    <p><label>Jenjang :
+                                        <select name="id_jenjang">
+                                            @foreach ( $jenjangs as $jenjang )
+                                                @if($jenjang->id == $kelas->id_jenjang)
+                                                    <option value="{{ $jenjang->id }}" selected>{{ $jenjang->nama_jenjang }}</option>
+                                                @else
+                                                    <option value="{{ $jenjang->id }}">{{ $jenjang->nama_jenjang }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </label></p>
                                     <p><label>Jurusan :
                                         <select name="id_jurusan">
                                             @foreach ( $jurusans as $jurusan )
@@ -119,6 +138,13 @@
         <form method="POST" action="{{ route('admin.kelas.create') }}">
             @csrf
             <div class="modal-body">
+                <p><label>Jenjang :
+                    <select name="id_jenjang">
+                        @foreach ( $jenjangs as $jenjang )
+                        <option value="{{ $jenjang->id }}">{{ $jenjang->nama_jenjang }}</option>
+                        @endforeach
+                    </select>
+                </label></p>
                 <p><label>Jurusan :
                     <select name="id_jurusan">
                         @foreach ( $jurusans as $jurusan )

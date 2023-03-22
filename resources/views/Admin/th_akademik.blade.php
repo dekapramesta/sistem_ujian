@@ -40,7 +40,6 @@
                         <td>{{ $th_akademik->th_akademik }}</td>
                         <td>{{ $th_akademik->nama_semester }}</td>
                         <td>
-                            <div class="col text-center">
                                 <button class="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#edit{{ $th_akademik->identitas }}"
                                     style="width:70px"><i class="bi bi-pencil-square" style="font-size: 10pt"></i>
                                     Edit</button>

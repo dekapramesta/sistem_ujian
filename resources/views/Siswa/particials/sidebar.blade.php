@@ -5,7 +5,7 @@
 
         <li class="nav-item">
             <a class="nav-link {{ request()->is('guru/dashboard') || request()->is('guru/dashboard/*') ? '' : 'collapsed' }}"
-                href="{{ route('guru.dashboard') }}">
+                href="#">
                 <i class="bi bi-grid"></i>
                 <span>DASHBOARD</span>
             </a>

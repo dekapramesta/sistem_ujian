@@ -16,9 +16,15 @@ class JurusanSeeder extends Seeder
     public function run()
     {
         Jurusan::create([
+            'nama_jurusan' => 'Dasar',
+            'identitas' => Str::random(10),
+        ]);
+
+        Jurusan::create([
             'nama_jurusan' => 'MIPA',
             'identitas' => Str::random(10),
         ]);
+
         Jurusan::create([
             'nama_jurusan' => 'IPS',
             'identitas' => Str::random(10),

@@ -18,14 +18,32 @@ class MapelSeeder extends Seeder
     {
         //
         Mapel::create([
-            'id_jurusan' => '1',
+            'id_jurusan' => '2',
             'nama_mapel' => 'Biologi',
             'identitas' => Str::random(10),
         ]);
 
         Mapel::create([
+            'id_jurusan' => '2',
+            'nama_mapel' => 'Matematika',
+            'identitas' => Str::random(10),
+        ]);
+
+        Mapel::create([
+            'id_jurusan' => '2',
+            'nama_mapel' => 'Bahasa Indonesia',
+            'identitas' => Str::random(10),
+        ]);
+
+        Mapel::create([
+            'id_jurusan' => '3',
+            'nama_mapel' => 'Ekonomi',
+            'identitas' => Str::random(10),
+        ]);
+
+        Mapel::create([
             'id_jurusan' => '1',
-            'nama_mapel' => 'Fisika',
+            'nama_mapel' => 'Bahasa Inggris',
             'identitas' => Str::random(10),
         ]);
     }

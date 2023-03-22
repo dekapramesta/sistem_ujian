@@ -22,10 +22,31 @@ class GuruSeeder extends Seeder
         ]);
 
         Guru::create([
+            "id_user" => 3,
+            "nama" => "Diyah Kumalasari, S.Pd",
+            "nip" => "197404012003122008",
+            "tanggal_lahir" => "01-04-1974",
+        ]);
+
+        Guru::create([
             "id_user" => 4,
-            "nama" => "tini",
-            "nip" => "2128123",
-            "tanggal_lahir" => "12-01-2000",
+            "nama" => "Resmiati, S.Pd",
+            "nip" => "196812282007012021",
+            "tanggal_lahir" => "28-12-1968",
+        ]);
+
+        Guru::create([
+            "id_user" => 5,
+            "nama" => "Dita Suprapti, S.Pd",
+            "nip" => "197412172005012006",
+            "tanggal_lahir" => "17-12-1974",
+        ]);
+
+        Guru::create([
+            "id_user" => 6,
+            "nama" => "Heri Wahyuningsih, S.Pd",
+            "nip" => "197801112005012009",
+            "tanggal_lahir" => "11-01-1978",
         ]);
     }
 }

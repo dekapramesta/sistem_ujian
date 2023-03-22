@@ -21,7 +21,7 @@
           <div class="card-body">
             <h5 class="card-title">Jurusan</h5>
             <div class="container">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah">Tambah +</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah" style="margin-bottom: 20px">Tambah +</button>
             <table class="table table-borderless datatable">
               <thead>
                 <tr>
@@ -36,7 +36,6 @@
                         <th scope="row">{{ ++$no }}</th>
                         <td>{{ $jurusan->nama_jurusan }}</td>
                         <td>
-                            <div class="col text-center">
                                 <button class="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#edit{{ $jurusan->identitas }}"
                                     style="width:70px"><i class="bi bi-pencil-square" style="font-size: 10pt"></i>
                                     Edit</button>

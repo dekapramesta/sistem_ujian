@@ -15,9 +15,9 @@ class SiswaController extends Controller
 {
     public function index() {
         $siswas = Siswa::orderBy('nama', 'ASC')->get();
-        $jenjangs = Jenjang::orderBy('nama_jenjang', 'ASC')->get();
-        $classes = Kelas::orderBy('nama_kelas', 'ASC')->get();
-        $jurusans = Jurusan::orderBy('nama_jurusan', 'ASC')->get();
+        $jenjangs = Jenjang::orderBy('nama_jenjang', 'Desc')->get();
+        $classes = Kelas::orderBy('nama_kelas', 'Desc')->get();
+        $jurusans = Jurusan::orderBy('nama_jurusan', 'Desc')->get();
         // dd($jenjangs);
         return view("admin.siswa", compact('siswas','jenjangs', 'classes', 'jurusans'));
     }
