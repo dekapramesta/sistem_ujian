@@ -12,6 +12,7 @@ class HeaderUjian extends Model
         'id_jadwalujian',
         'id_gurus',
         'id_jenjangs',
+        'jumlah_soal',
         'status',
     ];
 

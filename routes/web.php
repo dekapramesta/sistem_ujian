@@ -113,5 +113,5 @@ Route::middleware(['auth', 'levelAcces:siswa'])->group(
 );
 
 //Route::group(['middleware' => ['role:admin']], function () {
-// Route::get('/guru', [App\Http\Controllers\Guru\GuruHomeController::class, 'index'])->name('guru');
+// Route::get('/guru', [App\Http\Controllers\Guru\GuruHomeController::class, 'index'])->name('guru.dashboard');
 // Route::get('/siswa', [App\Http\Controllers\Siswa\SiswaController::class, 'index'])->name('siswa');

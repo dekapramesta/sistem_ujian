@@ -19,6 +19,7 @@ class HeaderUjianSeeder extends Seeder
             'id_jadwalujian' => 1,
             'id_gurus' => 1,
             'id_jenjangs' => 1,
+            'jumlah_soal' => 1,
             'status' => 1
         ]);
     }

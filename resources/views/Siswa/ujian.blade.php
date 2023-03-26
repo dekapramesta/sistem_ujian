@@ -74,7 +74,13 @@
                     </div>
 
                     <!-- End Customers Card -->
-                    <div class="col" id="jawaban_place">
+                    <div class="col">
+                        <div class="col-12">
+                            <div class="card info-card customers-card px-2 py-2" id="jawaban_place">
+
+
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -124,7 +130,7 @@
                 res.data.map((dt, id) => {
                     id++
                     $('#soal_button').append(
-                        `<button class="btn btn-outline-secondary mt-2 ms-2" onclick="getSoal('${dt.id_soals}')">${id}</button>`
+                        `<button class="btn btn-outline-secondary mt-2 ms-2" onclick="getSoal('${dt.id}')">${id}</button>`
                     )
                 })
             }
@@ -144,22 +150,20 @@
                 },
                 dataType: 'json',
                 success: function(res) {
+                    console.log(res)
                     $('#jawaban_place').html(``)
                     $('#no_soal').html(`${id}`)
-                    $('#soal').html(res.data.soal)
-                    res.data.jawaban.map((dt, id) => {
-                        $('#jawaban_place').append(`  <div class="col-12">
-                            <div class="card info-card customers-card px-2 py-2">
-                                <div class="form-check">
+                    $('#soal').html(res.data.soal.soal)
+                    res.data.soal.jawaban.map((dt, id) => {
+                        $('#jawaban_place').append(` 
+                         <div class="form-check" >                             
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
                                         id="flexRadioDefault1">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         <p>${dt.jawaban}</p>
                                     </label>
-                                </div>
-
-                            </div>
-                        </div>`)
+                                      </div>
+                               `)
                     })
                 }
             });

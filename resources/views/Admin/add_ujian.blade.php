@@ -34,10 +34,10 @@
                                     </div>
                                     <div class="d-flex flex-row">
                                         <label class="col-sm-2 col-form-label">Jenjang</label>
-                                        <select id="select" class="select2-js w-100" name="state">
-                                            <option value="10">Kelas 10</option>
-                                            <option value="10">Kelas 11</option>
-                                            <option value="10">Kelas 12</option>
+                                        <select id="select" id="selectKelas" class="select2-js w-100" name="state">
+                                            @foreach ($jenjang as $jjg)
+                                                <option value="{{ $jjg->id }}">{{ $jjg->nama_jenjang }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="d-flex flex-row">
@@ -74,6 +74,12 @@
                                         <label for="inputTime" class="col-sm-2 col-form-label">Waktu Ujian</label>
                                         <div class="col-sm-10">
                                             <input type="number" id="waktu_ujian" class="form-control w-70">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row mb-2">
+                                        <label for="inputTime" class="col-sm-2 col-form-label">Jumlah Soal</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" id="jumlah_soal" class="form-control w-70">
                                         </div>
                                     </div>
                                     <div class="d-flex flex-row">
@@ -176,7 +182,7 @@
                                     <div class="d-flex flex-column px-2">
                                         <label class="col-form-label fw-bold">Kelas yang mengikuti ujian</label>
                                         <div class="row"
-                                            style=" overflow-y: auto;max-height: 100px; border: 1px solid grey">
+                                            style=" overflow-y: auto;max-height: 500px; border: 1px solid grey">
                                             <table class="table table-hover" style="width:100%">
                                                 <thead>
                                                     <tr>
@@ -201,7 +207,7 @@
                                     <div class="d-flex flex-column px-2">
                                         <label class="col-form-label fw-bold">Siswa yang mengikuti ujian</label>
                                         <div class="row"
-                                            style=" overflow-y: auto;max-height: 100px; border: 1px solid grey">
+                                            style=" overflow-y: auto;max-height: 500px; border: 1px solid grey">
                                             <table class="table table-hover" style="width:100%">
                                                 <thead>
                                                     <tr>
@@ -336,7 +342,9 @@
              <tr id="rowkls${dt.id}">
                   <td>${dt.nama_kelas}</td>
                          <td class="text-center">
-                            <button class="btn btn-danger btn-sm" id="hapuskls" data-index="${dt.id}" data-target="rowkls${dt.id}">Hapus</button>
+                           <div class="form-check d-flex justify-content-center">
+                            <input class="form-check-input" type="checkbox" id="hapuskls" data-index="${dt.id}" data-target="rowkls${dt.id}" checked/>
+                            </div>
                    </td>
             </tr>
             `)
@@ -351,8 +359,10 @@
                     $('#table-siswa').append(`
                  <tr id="rowsw${sw.id}">
                       <td>${sw.nama}</td>
-                             <td class="text-center">
-                                <button class="btn btn-danger btn-sm" id="hapussw" data-index="${sw.id}" data-target="rowsw${sw.nama}">Hapus</button>
+                             <td class="">
+                                <div class="form-check d-flex justify-content-center">
+                                <input class="form-check-input" type="checkbox" id="hapussw" data-index="${sw.id}" data-target="rowsw${sw.nama}" checked/>
+                                </div>
                        </td>
                 </tr>
                 `)
@@ -464,8 +474,10 @@
                 tanggal_ujian: $('#tanggal_ujian').val() + ' ' + $('#jam_ujian').val(),
                 waktu_ujian: $('#waktu_ujian').val(),
                 id_th_akademiks: $('#tahun_akademik').val(),
+                kelas: $('#kelas').val(),
                 status: 0,
                 id_mapels: $('#selectmapel').val(),
+                jumlah_soal: $('#jumlah_soal').val(),
                 data: result
             }
             $.ajax({
@@ -478,9 +490,9 @@
                 }
             });
 
-            // $(document).ajaxStop(function() {
-            //     window.location.href = "{{ route('jadwal.ujian') }}";
-            // });
+            $(document).ajaxStop(function() {
+                window.location.href = "{{ route('jadwal.ujian') }}";
+            });
         }
     </script>
 @endsection

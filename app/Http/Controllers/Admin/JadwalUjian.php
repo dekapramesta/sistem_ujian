@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DetailUjian;
 use App\Models\HeaderUjian;
 use App\Models\jadwal_ujian;
+use App\Models\Jenjang;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\mst_mapel_guru_kelas;
@@ -34,8 +35,9 @@ class JadwalUjian extends Controller
         $kelas = Kelas::all();
         $siswa = Siswa::all();
         $mapel = Mapel::all();
+        $jenjang = Jenjang::all();
         $tahun_akademik = ThAkademik::all();
-        return view('admin.add_ujian', compact('kelas', 'siswa', 'mapel', 'tahun_akademik'));
+        return view('admin.add_ujian', compact('kelas', 'siswa', 'mapel', 'jenjang', 'tahun_akademik'));
     }
     public function postUjian(Request $request)
     {
@@ -62,7 +64,7 @@ class JadwalUjian extends Controller
                     'id_jadwalujian' => $id,
                     'id_gurus' => $mst_mpl_guru_kls->id_gurus,
                     'id_jenjangs' => $dt['id_jenjang'],
-                    // 'st' => $request->jenis_ujian,
+                    'jumlah_soal' => $request->jumlah_soal,
                     "status" => 0
                 ]);
                 $id_header = $header->id;

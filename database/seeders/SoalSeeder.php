@@ -23,6 +23,22 @@ class SoalSeeder extends Seeder
             'id_headerujian' => 1,
             'soal' => 'hewan apa yang berkaki empat ?'
         ]);
+        Soal::create([
+            'id_headerujian' => 1,
+            'soal' => 'hewan apa yang berkaki lima ?'
+        ]);
+        Soal::create([
+            'id_headerujian' => 1,
+            'soal' => 'hewan apa yang berkaki enam ?'
+        ]);
+        Soal::create([
+            'id_headerujian' => 1,
+            'soal' => 'hewan apa yang berkaki tujuh ?'
+        ]);
+        Soal::create([
+            'id_headerujian' => 1,
+            'soal' => 'hewan apa yang berkaki delapan ?'
+        ]);
 
         // Soal::create([
         //     'id_detail_ujians' => 2,

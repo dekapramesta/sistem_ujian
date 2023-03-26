@@ -73,5 +73,121 @@ class JawabanSeeder extends Seeder
             'jawaban'   => 'Kanguru',
             'status'    => 0
         ]);
+        Jawaban::create([
+            'id_soals' => 3,
+            'jawaban'   => 'Masbro',
+            'status'    => 1
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 3,
+            'jawaban'   => 'Bebek',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 3,
+            'jawaban'   => 'Ayam',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 3,
+            'jawaban'   => 'Angsa',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 3,
+            'jawaban'   => 'Kanguru',
+            'status'    => 0
+        ]);
+        Jawaban::create([
+            'id_soals' => 4,
+            'jawaban'   => 'Masbro',
+            'status'    => 1
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 4,
+            'jawaban'   => 'Bebek',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 4,
+            'jawaban'   => 'Ayam',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 4,
+            'jawaban'   => 'Angsa',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 4,
+            'jawaban'   => 'Kanguru',
+            'status'    => 0
+        ]);
+        Jawaban::create([
+            'id_soals' => 5,
+            'jawaban'   => 'Masbro',
+            'status'    => 1
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 5,
+            'jawaban'   => 'Bebek',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 5,
+            'jawaban'   => 'Ayam',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 5,
+            'jawaban'   => 'Angsa',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 5,
+            'jawaban'   => 'Kanguru',
+            'status'    => 0
+        ]);
+        Jawaban::create([
+            'id_soals' => 6,
+            'jawaban'   => 'Masbro',
+            'status'    => 1
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 6,
+            'jawaban'   => 'Bebek',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 6,
+            'jawaban'   => 'Ayam',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 6,
+            'jawaban'   => 'Angsa',
+            'status'    => 0
+        ]);
+
+        Jawaban::create([
+            'id_soals' => 6,
+            'jawaban'   => 'Kanguru',
+            'status'    => 0
+        ]);
     }
 }

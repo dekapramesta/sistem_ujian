@@ -14,4 +14,9 @@ class Temp extends Model
         'id_headerujian',
         'id_siswa',
     ];
+    public function soal()
+    {
+        # code...
+        return $this->belongsTo(Soal::class, 'id_soals', 'id');
+    }
 }

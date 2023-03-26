@@ -39,13 +39,7 @@ class SiswaController extends Controller
         $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
 
         if ($temp->isEmpty()) {
-            foreach ($ujian as $uj) {
-                Temp::create([
-                    'id_headerujian' => $uj->id_headerujian,
-                    'id_soals' => $uj->id,
-                    'id_siswa' => $siswa->id
-                ]);
-            }
+            $this->shuffleFisher(new Request(['data_ujian' => $ujian, 'siswa' => $siswa]));
             $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
         }
         return response()->json(['data' => $temp], 200);
@@ -54,7 +48,25 @@ class SiswaController extends Controller
     {
         # code...
 
-        $data = Soal::with('jawaban')->where('id', $request->id)->first();
+        $data = Temp::with('soal.jawaban')->where('id', $request->id)->first();
         return response()->json(['data' => $data], 200);
+    }
+    public function shuffleFisher(Request $request)
+    {
+        # code...
+        $arr_soal = $request->data_ujian;
+        for ($i = count($arr_soal) - 1; $i > 0; $i--) {
+            $r = rand(0, $i);
+            $tmp = $arr_soal[$i];
+            $arr_soal[$i] = $arr_soal[$r];
+            $arr_soal[$r] = $tmp;
+        }
+        foreach ($arr_soal as $uj) {
+            Temp::create([
+                'id_headerujian' => $uj->id_headerujian,
+                'id_soals' => $uj->id,
+                'id_siswa' => $request->siswa->id
+            ]);
+        }
     }
 }
