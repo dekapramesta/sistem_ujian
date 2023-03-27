@@ -19,6 +19,7 @@ class CreatePesertaUjiansTable extends Migration
             $table->unsignedBigInteger('id_detail_ujians');
             $table->foreign('id_detail_ujians')
                 ->references('id')->on('detail_ujians');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

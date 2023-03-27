@@ -43,13 +43,14 @@ class JadwalUjian extends Controller
     {
         # code...
         $gurus = [];
+        $id_header = 0;
+        $id = 0;
+
+
         foreach ($request->data as $dt) {
             $dataJdw = jadwal_ujian::with('headerujian')->where(['id_jenjangs' => $dt['id_jenjang'], 'jenis_ujian' => $request->jenis_ujian, 'id_mapels' => $request->id_mapels, "id_th_akademiks" => $request->id_th_akademiks])->first();
             $mst_mpl_guru_kls = mst_mapel_guru_kelas::where(['id_mapels' => $request->id_mapels, 'id_kelas' => $dt['id']])->first();
-            array_push($gurus, $mst_mpl_guru_kls->id_gurus);
-            $id = 0;
 
-            $id_header = 0;
             // return response()->json($dataJdw);
             if ($dataJdw == null) {
                 $jdwlujian = jadwal_ujian::create([
@@ -60,6 +61,19 @@ class JadwalUjian extends Controller
                     "status" => 0
                 ]);
                 $id = $jdwlujian->id;
+                // $header = HeaderUjian::create([
+                //     'id_jadwalujian' => $id,
+                //     'id_gurus' => $mst_mpl_guru_kls->id_gurus,
+                //     'id_jenjangs' => $dt['id_jenjang'],
+                //     'jumlah_soal' => $request->jumlah_soal,
+                //     "status" => 0
+                // ]);
+                // $id_header = $header->id;
+            } else {
+                $id = $dataJdw->id;
+            }
+
+            if (!in_array($mst_mpl_guru_kls->id_gurus, $gurus)) {
                 $header = HeaderUjian::create([
                     'id_jadwalujian' => $id,
                     'id_gurus' => $mst_mpl_guru_kls->id_gurus,
@@ -67,23 +81,15 @@ class JadwalUjian extends Controller
                     'jumlah_soal' => $request->jumlah_soal,
                     "status" => 0
                 ]);
-                $id_header = $header->id;
-            } else {
-                $id = $dataJdw->id;
-                $header = HeaderUjian::create([
-                    'id_jadwalujian' => $id,
-                    'id_gurus' => $mst_mpl_guru_kls->id_gurus,
-                    'id_jenjangs' => $dt['id_jenjang'],
-                    // 'st' => $request->jenis_ujian,
-                    "status" => 0
-                ]);
                 // return response()->json($dataJdw);
                 $id_header = $header->id;
+                array_push($gurus, $mst_mpl_guru_kls->id_gurus);
             }
-            $searhDtl = DetailUjian::where(['id_kelas' => $dt['id'], 'id_headerujian' => $id_header])->first();
-            if ($searhDtl != null) {
-                continue;
-            }
+
+            // $searhDtl = DetailUjian::where([['id_kelas', '=', $dt['id']], ['id_headerujian', '=', $id_header]])->first();
+            // if ($searhDtl != null) {
+            //     continue;
+            // }
             $detail = DetailUjian::create([
                 'id_headerujian' => $id_header,
                 'id_kelas' => $dt['id'],

@@ -19,15 +19,22 @@ class Siswa extends Model
 
     protected $primaryKey = 'id';
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
 
-    public function jenjang(){
+    public function jenjang()
+    {
         return $this->belongsTo(Jenjang::class, 'id_jenjang', 'id');
     }
 
-    public function kelas(){
+    public function kelas()
+    {
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id');
+    }
+    public function nilai()
+    {
+        return $this->hasMany(Nilai::class, 'id_siswa', 'id');
     }
 }

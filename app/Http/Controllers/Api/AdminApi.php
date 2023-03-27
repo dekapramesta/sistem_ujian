@@ -23,7 +23,7 @@ class AdminApi extends Controller
     }
     public function getKelas(Request $request)
     {
-        $kelas = mst_mapel_guru_kelas::with('kelas')->where('id_mapels', $request->id)->groupBy('id_kelas')->get();
+        $kelas = mst_mapel_guru_kelas::with('kelas.jurusan')->where('id_mapels', $request->id)->groupBy('id_kelas')->get();
         return response()->json($kelas, 200);
     }
     public function getSiswaMapel(Request $request)
@@ -34,7 +34,7 @@ class AdminApi extends Controller
     public function getSiswaByKelas(Request $request)
     {
         $this->id_kelas = $request->id;
-        $siswa = Kelas::with('siswa')->whereHas('siswa', function ($query) {
+        $siswa = Kelas::with('siswa', 'jurusan')->whereHas('siswa', function ($query) {
             return $query->whereIn('id_kelas', $this->id_kelas);
         })->get();
         return response()->json($siswa);

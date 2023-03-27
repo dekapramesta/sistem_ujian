@@ -108,6 +108,8 @@ Route::middleware(['auth', 'levelAcces:siswa'])->group(
             Route::get('start/{id}', [App\Http\Controllers\Siswa\SiswaController::class, 'ujian'])->name('siswa.ujian');
             Route::post('/ujian-berlangsung', [App\Http\Controllers\Siswa\SiswaController::class, 'getTemp'])->name('ujian.getTemp');
             Route::post('/ujian-soal', [App\Http\Controllers\Siswa\SiswaController::class, 'getSoal'])->name('ujian.getSoal');
+            Route::post('/ujian-jawab', [App\Http\Controllers\Siswa\SiswaController::class, 'postJawaban'])->name('ujian.postjawaban');
+            Route::post('/ujian-selesai', [App\Http\Controllers\Siswa\SiswaController::class, 'ujianEnd'])->name('ujian.selesai');
         });
     }
 );

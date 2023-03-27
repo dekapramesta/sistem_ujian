@@ -340,7 +340,7 @@
                 kelasFinal.push(dt.id)
                 $('#table-kelas').append(`
              <tr id="rowkls${dt.id}">
-                  <td>${dt.nama_kelas}</td>
+                  <td>${dt.jurusan.nama_jurusan +' - '+ dt.nama_kelas }</td>
                          <td class="text-center">
                            <div class="form-check d-flex justify-content-center">
                             <input class="form-check-input" type="checkbox" id="hapuskls" data-index="${dt.id}" data-target="rowkls${dt.id}" checked/>
@@ -401,6 +401,7 @@
                 },
                 dataType: 'json',
                 success: function(res) {
+                    console.log(res)
                     res.map((rs) => {
                         result.push(rs)
                     })
@@ -449,7 +450,9 @@
         function mappingSelectKelas(datas) {
             console.log('selectkls', datas)
             datas.map((dt) => {
-                $('#selectkls').append(`<option value=${dt.id_kelas}>${dt.kelas.nama_kelas}</option>`)
+                $('#selectkls').append(
+                    `<option value=${dt.id_kelas}> ${dt.kelas.jurusan.nama_jurusan} - ${dt.kelas.nama_kelas}</option>`
+                )
             })
         }
 

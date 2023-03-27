@@ -19,4 +19,9 @@ class Temp extends Model
         # code...
         return $this->belongsTo(Soal::class, 'id_soals', 'id');
     }
+    public function jawaban()
+    {
+        # code...
+        return $this->belongsTo(Jawaban::class, 'id_jawaban', 'id');
+    }
 }

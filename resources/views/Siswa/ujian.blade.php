@@ -89,7 +89,18 @@
                         <div class="card info-card customers-card">
 
                             <div class="card-header">
-                                Jumlah Soal
+                                <div class="row d-flex align-items-center">
+                                    <div class="col">Jumlah Soal
+                                    </div>
+                                    <div class="col text-end">
+                                        <form action="{{ route('ujian.selesai') }}" method="post">
+                                            @csrf
+                                            <input hidden type="text" value="{{ Request::segment(3) }}"
+                                                name="headerujian" id="">
+                                            <button type="submit" class="btn btn-danger btn-sm ">Selesai</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body py-2" id="soal_button">
 
@@ -113,28 +124,35 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
     <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: "POST",
-            url: "{{ route('ujian.getTemp') }}",
-            data: {
-                id: 1
-            },
-            dataType: 'json',
-            success: function(res) {
-                console.log(res)
-                res.data.map((dt, id) => {
-                    id++
-                    $('#soal_button').append(
-                        `<button class="btn btn-outline-secondary mt-2 ms-2" onclick="getSoal('${dt.id}')">${id}</button>`
-                    )
-                })
-            }
-        });
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('ujian.getTemp') }}",
+                data: {
+                    id: '<?php echo Request::segment(3); ?>'
+                },
+                dataType: 'json',
+                success: function(res) {
+                    console.log(res)
+                    res.data.map((dt, id) => {
+                        id++
+                        $('#soal_button').append(
+                            `<button id='getsoal' class="btn btn-outline-secondary mt-2 ms-2" data-value="${dt.id}" data-index="${id}" >${id}</button>`
+                        )
+                    })
+                }
+            });
+            $('#soal_button').on('click', '#getsoal', function() {
+                $('#no_soal').html(`${$(this).data('index')}`)
+                getSoal($(this).data('value'))
+
+            })
+        })
 
         function getSoal(id) {
             $.ajaxSetup({
@@ -152,19 +170,57 @@
                 success: function(res) {
                     console.log(res)
                     $('#jawaban_place').html(``)
-                    $('#no_soal').html(`${id}`)
                     $('#soal').html(res.data.soal.soal)
-                    res.data.soal.jawaban.map((dt, id) => {
-                        $('#jawaban_place').append(` 
-                         <div class="form-check" >                             
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        <p>${dt.jawaban}</p>
-                                    </label>
-                                      </div>
-                               `)
+                    res.data.soal.jawaban.map((dt, index) => {
+                        if (res.data.id_jawaban && (parseInt(res.data.id_jawaban) === parseInt(dt
+                                .id))) {
+
+                            $('#jawaban_place').append(` 
+                             <div class="form-check" >                             
+                                        <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
+                                            id="flexRadioDefault1" checked>
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            <p>${dt.jawaban}</p>
+                                        </label>
+                                          </div>
+                                   `)
+                        } else {
+
+                            $('#jawaban_place').append(` 
+                                                         <div class="form-check" >                             
+                                                                    <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
+                                                                        id="flexRadioDefault1" >
+                                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                                        <p>${dt.jawaban}</p>
+                                                                    </label>
+                                                                      </div>
+                                                               `)
+
+                        }
+
                     })
+                }
+            });
+        }
+
+        function postJawab(id_temp, id_jawaban) {
+            console.log(id_temp, id_jawaban)
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('ujian.postjawaban') }}",
+                data: {
+                    id_temp: id_temp,
+                    id_jawaban: id_jawaban
+                },
+                dataType: 'json',
+                success: function(res) {
+
+
                 }
             });
         }

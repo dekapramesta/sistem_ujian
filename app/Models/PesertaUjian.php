@@ -10,6 +10,17 @@ class PesertaUjian extends Model
     use HasFactory;
     protected $fillable = [
         'nis',
-        'id_detail_ujians'
+        'id_detail_ujians',
+        'status'
     ];
+    public function detailujian()
+    {
+        # code...
+        return $this->belongsTo(DetailUjian::class, 'id_detail_ujians', 'id');
+    }
+    public function siswa()
+    {
+        # code...
+        return $this->belongsTo(Siswa::class, 'nis', 'nis');
+    }
 }

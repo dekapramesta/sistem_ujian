@@ -59,13 +59,22 @@
                             @foreach ($ujian as $ujn)
                                 <div class="card ms-2 me-2" style="width: 22rem;">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ $ujn->headerujian->jadwal_ujian->mapel->nama_mapel }}</h5>
+                                        <h5 class="card-title">
+                                            {{ $ujn->detailujian->headerujian->jadwal_ujian->mapel->nama_mapel }}</h5>
                                         <span
-                                            class="card-text fs-5">{{ $ujn->headerujian->jadwal_ujian->jenis_ujian . ' ' . $ujn->headerujian->jadwal_ujian->th_akademiks->th_akademik . ' - ' . $ujn->headerujian->jadwal_ujian->th_akademiks->nama_semester }}</span>
+                                            class="card-text fs-5">{{ $ujn->detailujian->headerujian->jadwal_ujian->jenis_ujian . ' ' . $ujn->detailujian->headerujian->jadwal_ujian->th_akademiks->th_akademik . ' - ' . $ujn->detailujian->headerujian->jadwal_ujian->th_akademiks->nama_semester }}</span>
                                         <p class="card-text mt-2" style="font-size:13px;">Tanggal Dan Jam Ujian :
-                                            {{ $ujn->tanggal_ujian }}</p>
-                                        <a href="{{ route('siswa.ujian', $ujn->id_headerujian) }}"
-                                            class="btn btn-primary">Ujian</a>
+                                            {{ $ujn->detailujian->tanggal_ujian }}</p>
+                                        @if ($ujn->status == 0)
+                                            <a href="{{ route('siswa.ujian', $ujn->detailujian->id_headerujian) }}"
+                                                class="btn btn-primary">Ujian</a>
+                                        @else
+                                            @foreach ($nilai as $nl)
+                                                @if ($ujn->detailujian->id_headerujian == $nl->id_ujian)
+                                                    <span class="fs-3">{{ $nl->nilai }}</span>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
