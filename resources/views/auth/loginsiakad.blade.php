@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Sistem Informasi Akademik</title>
+    <title>CBT SMAN 1 Kawedanan</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="description"
         content="siAkad Cloud solusi terbaik Perguruan Tinggi. Langsung Bisa Digunakan, Tidak Ribet dan Pelaporan Beres.">
@@ -13,7 +13,7 @@
     <!-- Theme style -->
     <link href="https://assets.siakadcloud.com/assets/v1/css/customs/login-v2.css?210422" rel="stylesheet"
         type="text/css">
-    <link rel="icon" type="img/png" href="https://assets.siakadcloud.com/public/polteklpp-favicon.png"
+    <link rel="icon" type="img/png" href="{{  asset('assets/img/smasaka.png') }}"
         sizes="16x16">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,7 +25,7 @@
 
     <style type="text/css">
         .login-page .form-box .univ-identity-box {
-            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://assets.siakadcloud.com/public/polteklpp-bg.jpg') bottom;
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), img src="{{  asset('assets/img/sma.jpg') }}", bottom;
             background-size: cover;
         }
 
@@ -116,12 +116,12 @@
                     <div class="univ-text">
                         <h4 class="welcome text-light">Selamat Datang</h4>
                         <div class="clearfix"></div>
-                        <h2 class="no-margin text-light">Sistem Informasi Akademik</h2>
-                        <h3 class="no-margin"><b>Politeknik LPP Yogyakarta</b></h3>
+                        <h2 class="no-margin text-light">Computer Based Test</h2>
+                        <h3 class="no-margin"><b>SMA Negeri 1 Kawedanan</b></h3>
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 form-login" align="center">
-                    <img src="https://assets.siakadcloud.com/public/polteklpp-logo.png" class="logo">
+                    <img src="{{  asset('assets/img/smasaka.png') }}" class="logo">
                     <b>
                         <h4 class="text-grey text-light text-center" style="margin-top: 30px; margin-bottom: 15px;">
                             Masuk dengan akun Anda</h4>

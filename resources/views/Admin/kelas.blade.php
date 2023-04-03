@@ -28,7 +28,6 @@
                 <tr>
                   <th scope="col">Nomor</th>
                   <th scope="col">Jenjang</th>
-                  <th scope="col">Jurusan</th>
                   <th scope="col">Nama Kelas</th>
                   <th colspan="2" scope="col">Aksi</th>
                 </tr>
@@ -38,8 +37,7 @@
                     <tr>
                         <th scope="row">{{ ++$no }}</th>
                         <td>{{ $kelas->jenjang->nama_jenjang}}</td>
-                        <td>{{ $kelas->jurusan->nama_jurusan}}</td>
-                        <td>{{ $kelas->nama_kelas }}</td>
+                        <td>{{ $kelas->jurusan->nama_jurusan.' '.$kelas->nama_kelas }}</td>
                         <td>
                             <button class="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#edit{{ $kelas->identitas }}"
                                 style="width:70px"><i class="bi bi-pencil-square" style="font-size: 10pt"></i>
