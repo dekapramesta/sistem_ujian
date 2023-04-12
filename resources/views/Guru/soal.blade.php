@@ -200,7 +200,9 @@
                                                                             @foreach ($detail_ujian as $dtl_uj)
                                                                                 @if ($hdruj->id == $dtl_uj->id_headerujian)
                                                                                     <div class="col-sm-3">
-                                                                                        <h6>{{ $dtl_uj->kelas->jurusan->nama_jurusan }} - {{ $dtl_uj->kelas->nama_kelas }}
+                                                                                        <h6>{{ $dtl_uj->kelas->jurusan->nama_jurusan }}
+                                                                                            -
+                                                                                            {{ $dtl_uj->kelas->nama_kelas }}
                                                                                         </h6>
                                                                                     </div>
                                                                                     <div class="col-sm-5">
@@ -250,75 +252,6 @@
                                                                         data-bs-dismiss="modal">Close</button>
                                                                     <button class="btn btn-danger"
                                                                         type="submit">Hapus</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal" id="edit1" tabindex="-1">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Edit Jadwal Ujian</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <form method="POST" action="">
-                                                                @csrf
-                                                                @method('PUT')
-                                                                <div class="modal-body">
-                                                                    <p><label>Kelas :
-                                                                            <select name="id_kelas">
-                                                                                {{-- @foreach ($kelass as $kelas)
-                                                                            @if ($kelas->id_jurusan == $soal->kelas->id_jurusan)
-                                                                                @if ($kelas->id == $soal->id_kelas)
-                                                                                    <option value="{{ $kelas->id }}"
-                                                                                        selected>
-                                                                                        {{ $soal->kelas->jurusan->nama_jurusan . ' ' . $kelas->nama_kelas }}
-                                                                                    </option>
-                                                                                @else
-                                                                                    <option value="{{ $kelas->id }}">
-                                                                                        {{ $soal->kelas->jurusan->nama_jurusan . ' ' . $kelas->nama_kelas }}
-                                                                                    </option>
-                                                                                @endif
-                                                                            @endif
-                                                                        @endforeach --}}
-                                                                            </select>
-                                                                        </label></p>
-                                                                    <p><label>Semester :
-                                                                            <select name="id_th_akademik">
-                                                                                <option value="" selected>
-
-                                                                                </option>
-                                                                                <option value="" selected>
-
-                                                                                </option>
-                                                                            </select>
-                                                                        </label></p>
-                                                                    <p><label>Jmlh Soal :<input type="text"
-                                                                                class="form-control" name="jum_soal"
-                                                                                value=""></label></p>
-                                                                    <p><label>Acak Soal :<input type="tet"
-                                                                                class="form-control" name="acak_soal"
-                                                                                value=""></label></p>
-                                                                    <p><label>Tgl Ujian:<input type="text"
-                                                                                class="form-control" name="tgl_ujian"
-                                                                                value=""></label></p>
-                                                                    <p><label>Jam Ujian:<input type="text"
-                                                                                class="form-control" name="jam_ujian"
-                                                                                value=""></label></p>
-                                                                    <p><label>Status:<input type="text"
-                                                                                class="form-control" name="_status_ujian"
-                                                                                value=""></label>
-                                                                    </p>
-                                                                    </label></p>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
-                                                                    <input class="btn btn-primary" type="submit"
-                                                                        value="Save changes">
                                                                 </div>
                                                             </form>
                                                         </div>
