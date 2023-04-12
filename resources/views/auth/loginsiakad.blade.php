@@ -25,8 +25,8 @@
 
     <style type="text/css">
         .login-page .form-box .univ-identity-box {
-            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), img src="{{  asset('assets/img/sma.jpg') }}", bottom;
-            background-size: cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{  asset('assets/img/sma 2.jpg') }}") center !important;
+            background-size: 200px auto;
         }
 
         @media (min-width: 768px) {

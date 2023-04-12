@@ -39,7 +39,7 @@
                 @foreach ($siswas as $no => $siswa)
                     <tr>
                         <th scope="row">{{ ++$no }}</th>
-                        <td>{{ $siswa->jenjang->nama_jenjang}}</td>
+                        <td>{{ $siswa->kelas->jenjang->nama_jenjang}}</td>
                         <td>{{ $siswa->kelas->jurusan->nama_jurusan.' '.$siswa->kelas->nama_kelas}}</td>
                         <td>{{ $siswa->nama }}</td>
                         <td>{{ $siswa->nis }}</td>

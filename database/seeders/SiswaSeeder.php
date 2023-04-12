@@ -16,7 +16,6 @@ class SiswaSeeder extends Seeder
     {
         Siswa::create([
             'id_user' => '7',
-            'id_jenjang' => '1',
             'id_kelas' => '1',
             'nama' => 'Adifan Syaiful Anwar',
             'nis' => '10554',
@@ -25,7 +24,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '8',
-            'id_jenjang' => '1',
             'id_kelas' => '1',
             'nama' => 'Arin Safitri',
             'nis' => '10602',
@@ -34,7 +32,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '9',
-            'id_jenjang' => '1',
             'id_kelas' => '1',
             'nama' => 'Dennise Satria Kevinzen',
             'nis' => '10649',
@@ -43,7 +40,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '10',
-            'id_jenjang' => '1',
             'id_kelas' => '1',
             'nama' => 'Laila Ayu Cahyani',
             'nis' => '10741',
@@ -52,7 +48,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '11',
-            'id_jenjang' => '1',
             'id_kelas' => '1',
             'nama' => 'Sandi Nursaid',
             'nis' => '10851',
@@ -61,7 +56,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '12',
-            'id_jenjang' => '1',
             'id_kelas' => '2',
             'nama' => 'Ananta Wiku Mukti Aji',
             'nis' => '10584',
@@ -70,7 +64,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '13',
-            'id_jenjang' => '1',
             'id_kelas' => '2',
             'nama' => 'Astutik',
             'nis' => '10607',
@@ -79,7 +72,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '14',
-            'id_jenjang' => '1',
             'id_kelas' => '2',
             'nama' => 'Kaila Hartanti Wibisono',
             'nis' => '10731',
@@ -88,7 +80,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '15',
-            'id_jenjang' => '1',
             'id_kelas' => '2',
             'nama' => 'Rany Dwi Agustina',
             'nis' => '10821',
@@ -97,7 +88,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '16',
-            'id_jenjang' => '1',
             'id_kelas' => '2',
             'nama' => 'Tata Eka Pratiwi',
             'nis' => '10871',
@@ -106,7 +96,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '17',
-            'id_jenjang' => '2',
             'id_kelas' => '3',
             'nama' => 'Afifah Nur Hidayah',
             'nis' => '10217',
@@ -114,7 +103,6 @@ class SiswaSeeder extends Seeder
         ]);
         Siswa::create([
             'id_user' => '18',
-            'id_jenjang' => '2',
             'id_kelas' => '3',
             'nama' => 'Della Ayu Nurlailli',
             'nis' => '10289',
@@ -123,7 +111,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '19',
-            'id_jenjang' => '2',
             'id_kelas' => '3',
             'nama' => 'Hawa Mahawening',
             'nis' => '10359',
@@ -132,7 +119,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '20',
-            'id_jenjang' => '2',
             'id_kelas' => '3',
             'nama' => 'Lefi Alisa Fibriana',
             'nis' => '10399',
@@ -141,7 +127,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '21',
-            'id_jenjang' => '2',
             'id_kelas' => '3',
             'nama' => 'Rava Rachmat Sangnerpa',
             'nis' => '10474',
@@ -150,7 +135,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '22',
-            'id_jenjang' => '2',
             'id_kelas' => '4',
             'nama' => 'Aditya Maulana Hardyansah',
             'nis' => '10215',
@@ -159,7 +143,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '23',
-            'id_jenjang' => '2',
             'id_kelas' => '4',
             'nama' => 'Elsa Amalia',
             'nis' => '10319',
@@ -168,7 +151,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '24',
-            'id_jenjang' => '2',
             'id_kelas' => '4',
             'nama' => 'Indah Ayu Wulandari',
             'nis' => '10370',
@@ -177,7 +159,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '25',
-            'id_jenjang' => '2',
             'id_kelas' => '4',
             'nama' => 'Iqbal Fauzansyah',
             'nis' => '10374',
@@ -186,7 +167,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '26',
-            'id_jenjang' => '2',
             'id_kelas' => '4',
             'nama' => 'Khoirul Nugroho',
             'nis' => '10387',
@@ -195,7 +175,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '27',
-            'id_jenjang' => '2',
             'id_kelas' => '5',
             'nama' => 'Andika Wahyu Pratama',
             'nis' => '10234',
@@ -204,7 +183,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '28',
-            'id_jenjang' => '2',
             'id_kelas' => '5',
             'nama' => 'Dini Suryaningrum',
             'nis' => '10306',
@@ -213,7 +191,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '29',
-            'id_jenjang' => '2',
             'id_kelas' => '5',
             'nama' => 'Haydar Rizal Ahmad',
             'nis' => '10360',
@@ -222,7 +199,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '30',
-            'id_jenjang' => '2',
             'id_kelas' => '5',
             'nama' => 'Nadia Saputri',
             'nis' => '10434',
@@ -231,7 +207,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '31',
-            'id_jenjang' => '2',
             'id_kelas' => '5',
             'nama' => 'Steven Wayan Ibrahim Yuliarto',
             'nis' => '10518',
@@ -240,7 +215,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '32',
-            'id_jenjang' => '3',
             'id_kelas' => '6',
             'nama' => 'Airlangga Wirya Permana',
             'nis' => '09922',
@@ -249,7 +223,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '33',
-            'id_jenjang' => '3',
             'id_kelas' => '6',
             'nama' => 'Brian Farinda Putra',
             'nis' => '09936',
@@ -258,7 +231,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '34',
-            'id_jenjang' => '3',
             'id_kelas' => '6',
             'nama' => 'Mahmud Subekti',
             'nis' => '10045',
@@ -267,7 +239,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '35',
-            'id_jenjang' => '3',
             'id_kelas' => '6',
             'nama' => 'Siti Wardaningrum',
             'nis' => '10171',
@@ -276,7 +247,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '36',
-            'id_jenjang' => '3',
             'id_kelas' => '6',
             'nama' => 'Uswatul Hasanah',
             'nis' => '10187',
@@ -285,7 +255,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '37',
-            'id_jenjang' => '3',
             'id_kelas' => '7',
             'nama' => 'Akbar Sukma Pamungkas ',
             'nis' => '09895',
@@ -294,7 +263,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '38',
-            'id_jenjang' => '3',
             'id_kelas' => '7',
             'nama' => 'Bintang Indah Sari',
             'nis' => '09935',
@@ -303,7 +271,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '39',
-            'id_jenjang' => '3',
             'id_kelas' => '7',
             'nama' => 'Guntur Wahyu Aji Pangestu',
             'nis' => '09999',
@@ -312,7 +279,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '40',
-            'id_jenjang' => '3',
             'id_kelas' => '7',
             'nama' => 'Oktiva Dwi Saputri',
             'nis' => '10096',
@@ -321,7 +287,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '41',
-            'id_jenjang' => '3',
             'id_kelas' => '7',
             'nama' => 'Rizky Yoga Pratama',
             'nis' => '10145',
@@ -330,7 +295,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '42',
-            'id_jenjang' => '3',
             'id_kelas' => '8',
             'nama' => 'Andrea Maharani Putri',
             'nis' => '09909',
@@ -339,7 +303,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '43',
-            'id_jenjang' => '3',
             'id_kelas' => '8',
             'nama' => 'Anisa Ayu Nofiyanti',
             'nis' => '09915',
@@ -348,7 +311,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '44',
-            'id_jenjang' => '3',
             'id_kelas' => '8',
             'nama' => 'David Prastiansyah',
             'nis' => '09945',
@@ -357,7 +319,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '45',
-            'id_jenjang' => '3',
             'id_kelas' => '8',
             'nama' => 'Intan Aulia Regitasari',
             'nis' => '10023',
@@ -366,7 +327,6 @@ class SiswaSeeder extends Seeder
 
         Siswa::create([
             'id_user' => '46',
-            'id_jenjang' => '3',
             'id_kelas' => '8',
             'nama' => 'Maulana Java Panggestu',
             'nis' => '10049',

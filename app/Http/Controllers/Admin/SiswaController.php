@@ -64,16 +64,14 @@ class SiswaController extends Controller
     }
     public function edit(Request $request, $nis){
         $request->validate([
-            'nama_jurusan'=> 'required',
+            'id_kelas'=> 'required',
             'nama' => 'required',
             'nis' => 'required',
             'tanggal_lahir' => 'required'
         ]);
 
         $Siswa = Siswa::where('nis', $nis)->update([
-            'id_user' => $find_user->id,
-            'id_jenjang' => $kelas->id_jenjang,
-            'id_kelas'=> $request->$nama_jurusan,
+            'id_kelas'=> $request->id_kelas,
             'nama' => $request->nama,
             'nis' => $request->nis,
             'tanggal_lahir' => $request->tanggal_lahir

@@ -17,15 +17,12 @@ class CreateSiswasTable extends Migration
         Schema::create('siswas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_jenjang');
             $table->unsignedBigInteger('id_kelas');
             $table->string('nama', 50);
             $table->string('nis', 6);
             $table->string('tanggal_lahir');
             $table->foreign('id_user')
                 ->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_jenjang')
-                ->references('id')->on('jenjangs')->onDelete('cascade');
             $table->foreign('id_kelas')
                 ->references('id')->on('kelas')->onDelete('cascade');
             $table->timestamps();
