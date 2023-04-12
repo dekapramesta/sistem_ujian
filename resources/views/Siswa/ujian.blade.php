@@ -142,7 +142,7 @@
                     res.data.map((dt, id) => {
                         id++
                         $('#soal_button').append(
-                            `<button id='getsoal' class="btn btn-outline-secondary mt-2 ms-2 fullscreen-btn" data-value="${dt.id}" data-index="${id}" >${id}</button>`
+                            `<button id='getsoal' class="btn btn-outline-secondary mt-2 ms-2" data-value="${dt.id}" data-index="${id}" >${id}</button>`
                         )
                     })
                 }
@@ -245,7 +245,7 @@
 
 <!-- Template Main JS File -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
-<script src="{{ asset('assets/js/full_screen.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/full_screen.js') }}"></script> --}}
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @if (session()->has('error'))

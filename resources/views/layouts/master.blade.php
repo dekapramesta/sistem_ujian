@@ -101,7 +101,7 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="{{ asset('assets/js/full_screen.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/full_screen.js') }}"></script> --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     @if (session()->has('error'))

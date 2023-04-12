@@ -32,4 +32,31 @@ $(function () {
             }
         }
     });
+    let keydownOn = true;
+    // let keypressOn = true;
+    // let keyupOn = true;
+    function addRow(event) {
+        if (event.key == "s") {
+            if (document.exitFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.documentElement.msRequestFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.documentElement.webkitRequestFullscreen(
+                    Element.ALLOW_KEYBOARD_INPUT
+                );
+            }
+            console.log("halo");
+        }
+    }
+
+    document.addEventListener("keydown", function (event) {
+        keydownOn && addRow(event);
+    });
+
+    // document.addEventListener("keyup", function (event) {
+    //     keyupOn && addRow(event);
+    // });
 });

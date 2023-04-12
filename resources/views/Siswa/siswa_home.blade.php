@@ -67,7 +67,7 @@
                                             {{ $ujn->detailujian->tanggal_ujian }}</p>
                                         @if ($ujn->status == 0)
                                             <a href="{{ route('siswa.ujian', $ujn->detailujian->id_headerujian) }}"
-                                                class="btn btn-primary fullscreen-btn">Ujian</a>
+                                                class="btn btn-primary">Ujian</a>
                                         @else
                                             @foreach ($nilai as $nl)
                                                 @if ($ujn->detailujian->id_headerujian == $nl->id_ujian)
@@ -89,5 +89,4 @@
             </div><!-- End Left side columns -->
         </div>
     </section>
-
 @endsection
