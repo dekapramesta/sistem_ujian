@@ -93,11 +93,11 @@
                                     <div class="col">Jumlah Soal
                                     </div>
                                     <div class="col text-end">
-                                        <form action="{{ route('ujian.selesai') }}" method="post">
+                                        <form action="{{ route('ujian.selesai') }}" method="post" id="submitujian">
                                             @csrf
                                             <input hidden type="text" value="{{ Request::segment(3) }}"
                                                 name="headerujian" id="">
-                                            <button type="submit" class="btn btn-danger btn-sm ">Selesai</button>
+                                            <button type="b" class="btn btn-danger btn-sm ">Selesai</button>
                                         </form>
                                     </div>
                                 </div>
@@ -124,13 +124,14 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(async function() {
+            let id_soal;
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $.ajax({
+            await $.ajax({
                 type: "POST",
                 url: "{{ route('ujian.getTemp') }}",
                 data: {
@@ -138,12 +139,21 @@
                 },
                 dataType: 'json',
                 success: function(res) {
+                    id_soal = res.data[0].id
                     console.log(res)
                     res.data.map((dt, id) => {
                         id++
-                        $('#soal_button').append(
-                            `<button id='getsoal' class="btn btn-outline-secondary mt-2 ms-2" data-value="${dt.id}" data-index="${id}" >${id}</button>`
-                        )
+                        if (dt.id_jawaban === null) {
+
+                            $('#soal_button').append(
+                                `<button id='getsoal' class="btn btn-outline-secondary mt-2 ms-2" data-value="${dt.id}" data-index="${id}" >${id}</button>`
+                            )
+                        } else {
+                            $('#soal_button').append(
+                                `<button id='getsoal' class="btn btn-secondary mt-2 ms-2" data-value="${dt.id}" data-index="${id}" >${id}</button>`
+                            )
+
+                        }
                     })
                 }
             });
@@ -152,7 +162,28 @@
                 getSoal($(this).data('value'))
 
             })
+            getSoal(id_soal)
+            $('#no_soal').html('1')
         })
+        document.getElementById('submitujian').addEventListener('submit', function(evt) {
+            evt.preventDefault();
+            swal({
+                    title: "Ingin Mengakhiri Ujian?",
+                    text: "Silahkan cek Ujian sebelum diahiri!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((isEnd) => {
+                    if (isEnd) {
+                        $('#submitujian').submit()
+                    }
+                });
+
+        })
+
+
+
 
         function getSoal(id) {
             $.ajaxSetup({
@@ -219,12 +250,13 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-
+                    console.log(id_temp)
+                    document.querySelector(`[data-value="${id_temp}"]`).className =
+                        "btn btn-secondary mt-2 ms-2";
 
                 }
             });
         }
-        getSoal(1)
     </script>
 </body>
 

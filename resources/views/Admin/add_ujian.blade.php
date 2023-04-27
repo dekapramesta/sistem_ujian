@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="d-flex flex-row">
                                         <label class="col-sm-2 col-form-label">Jenjang</label>
-                                        <select id="select" id="selectKelas" class="select2-js w-100" name="state">
+                                        <select id="kelas" id="selectKelas" class="select2-js w-100" name="state">
                                             @foreach ($jenjang as $jjg)
                                                 <option value="{{ $jjg->id }}">{{ $jjg->nama_jenjang }}</option>
                                             @endforeach
@@ -271,48 +271,147 @@
 
 
                 })
-                $('#tambahsw').click(function() {
+                $('#tambahsw').click(async function() {
                     siswa = ($('#selectsw').val())
-                    getSiswa(siswa)
+                    console.log('id_sw', siswa)
+                    let data = await getOneSiswa(siswa)
+                    console.log("first", data)
+                    data.map((dt) => {
+                        if (result.length === 0) {
+                            result.push(dt.kelas)
+                        } else {
+                            result.map((rs) => {
+                                kelasFinal.push(rs.id)
+                            })
+                            if (!kelasFinal.includes(dt.kelas.id)) {
+                                result.push(dt.kelas)
+                                kelasFinal.push(dt.kelas.id)
+                            }
+                        }
+
+                    })
+
+                    data.map((dt_sw) => {
+                        result.map((rs_sw, id_rs) => {
+                            if (dt_sw.kelas.id === rs_sw.id) {
+                                if (rs_sw.siswa === undefined) {
+                                    result[id_rs]['siswa'] = []
+                                    result[id_rs].siswa.push(dt_sw)
+                                    siswaFinal.push(dt_sw.id)
+                                } else {
+                                    if (!siswaFinal.includes(dt_sw.id)) {
+                                        siswaFinal.push(dt_sw.id)
+                                        result[id_rs].siswa.push(dt_sw)
+                                    }
+                                }
+                            }
+                        })
+                    })
+                    $('#table-kelas').html('')
+                    $('#table-siswa').html('')
+                    mappingKelaas(result)
+                    mappingSiswa(result)
+                    console.log("hasil oi", result)
+                    console.log("kelasfinal", kelasFinal)
+                    // if (result.length === 0) {
+                    //     result.push(data.kelas)
+                    //     console.log(result)
+                    // } else {
+                    //     result.map((rs) => {
+                    //         if (rs.id !== data.kelas.id) {
+                    //             result.push(data.kelas)
+                    //         }
+                    //     })
+                    //     console.log(result)
+                    // }
+
+
                 })
             });
-            $('#table-kelas').on('click', '#hapuskls', function() {
+            $('#table-kelas').on('click', '#hapuskls', async function() {
                 let index = parseInt($(this).data('index'))
                 console.log('index', index)
-                result.map((val, id) => {
-                    // console.log(val.id)
-                    if (val.id === index) {
-                        result.splice(id, 1)
-                        console.log("delete " + val.id)
-                    }
-                })
-                removeElement($(this).data('target'));
-                $('#table-siswa').html('')
-                mappingSiswa(result)
+                console.log(result)
+                if ($(this).is(':checked')) {
+                    let onekls = await getOneKelas(index)
+                    console.log("onekls", onekls[0])
+                    result.push(onekls[0])
+
+                    $(this).prop('checked', true);
+                    checkKelas(onekls[0].id)
+
+                } else {
+                    let onekls = await getOneKelas(index)
+                    console.log('onekelas', onekls)
+                    $(this).prop('checked', false);
+                    // console.log(index)
+                    removeKelasFinal(index)
+                    console.log("kleas", kelasFinal)
+                    uncheckKelas(onekls[0].id)
+                    result.map((val, id) => {
+                        // console.log(val.id)
+                        if (val.id === index) {
+                            result.splice(id, 1)
+                            console.log("delete " + val.id)
+                        }
+                    })
+                }
+                // if ($(this).prop("checked", false)) {
+                //     // result.push(getOneKelas(index))
+                //     console.log("first")
+                // } else if ($(this).prop("checked", true)) {
+                //     // result.map((val, id) => {
+                //     //     // console.log(val.id)
+                //     //     if (val.id === index) {
+                //     //         result.splice(id, 1)
+                //     //         console.log("delete " + val.id)
+                //     //     }
+                //     // })
+                //     console.log("second")
+                // }
+                console.log('hasil', result)
+                // removeElement($(this).data('target'));
+                // $('#table-siswa').html('')
+                // mappingSiswa(result)
 
 
                 console.log('array kelas', kelasFinal)
 
             })
-            $('#table-siswa').on('click', '#hapussw', function() {
+            $('#table-siswa').on('click', '#hapussw', async function() {
                 let index = parseInt($(this).data('index'))
-                result.map((val, id) => {
-                    // console.log(val.id)
-                    val.siswa.map((sw, swid) => {
-                        if (sw.id === index) {
-                            result[id].siswa.splice(swid, 1)
-                            if (result[id].siswa.length === 0) {
-                                result.splice(id, 1);
+                if ($(this).is(':checked')) {
+                    let onesw = await getOneSiswa([index])
+                    console.log('siswa', onesw)
+                    result.map((val, id) => {
+                        if (val.id === onesw[0].id_kelas) {
+                            result[id].siswa.push(onesw[0])
 
-                            }
                         }
-                    })
 
-                })
-                $('#table-kelas').html('')
-                $('#table-siswa').html('')
-                mappingKelaas(result)
-                mappingSiswa(result)
+
+                    })
+                    // result.push(getOneSiswa(index))
+
+                    $(this).prop('checked', true);
+
+                } else {
+                    $(this).prop('checked', false);
+                    result.map((val, id) => {
+                        // console.log(val.id)
+                        val.siswa.map((sw, swid) => {
+                            if (sw.id === index) {
+                                result[id].siswa.splice(swid, 1)
+                                if (result[id].siswa.length === 0) {
+                                    result.splice(id, 1);
+
+                                }
+                            }
+                        })
+
+                    })
+                }
+
                 console.log(result)
 
             })
@@ -330,6 +429,34 @@
             })
 
         });
+
+        function removeKelasFinal(id) {
+            kelasFinal.forEach((kls, kls_id) => {
+                if (parseInt(kls) === parseInt(id)) {
+                    kelasFinal.splice(kls_id, 1)
+                }
+            })
+            console.log("kelas final rmv", kelasFinal)
+        }
+
+
+        function uncheckKelas(id_kelas) {
+            console.log('id_kelas', id_kelas)
+            let $table = $('#table-siswa');
+
+            let $checkboxes = $table.find(`input[type="checkbox"][data-kelas="${id_kelas}"]`);
+
+            $checkboxes.prop('checked', false);
+        }
+
+        function checkKelas(id_kelas) {
+            console.log('id_kelas', id_kelas)
+            let $table = $('#table-siswa');
+
+            let $checkboxes = $table.find(`input[type="checkbox"][data-kelas="${id_kelas}"]`);
+
+            $checkboxes.prop('checked', true);
+        }
 
         function removeElement(element) {
             $('#' + element).remove()
@@ -361,7 +488,7 @@
                       <td>${sw.nama}</td>
                              <td class="">
                                 <div class="form-check d-flex justify-content-center">
-                                <input class="form-check-input" type="checkbox" id="hapussw" data-index="${sw.id}" data-target="rowsw${sw.nama}" checked/>
+                                <input class="form-check-input" type="checkbox" id="hapussw" data-index="${sw.id}" data-kelas="${sw.id_kelas}" data-target="rowsw${sw.nama}" checked/>
                                 </div>
                        </td>
                 </tr>
@@ -392,6 +519,46 @@
             });
         }
 
+        function ajaxSiswa(siswa) {
+            console.log('id siswa', siswa)
+
+            return $.ajax({
+                type: "POST",
+                url: "{{ route('api.siswaget') }}",
+                data: {
+                    id: siswa
+                },
+                dataType: 'json',
+                success: function(res) {
+                    console.log("siswa id", res)
+                    // hasilRes.push(res)
+                }
+            });
+        }
+        async function getOneSiswa(siswa) {
+            const data = await ajaxSiswa(siswa);
+            return data
+        }
+
+        function ajaxKelas(kelas) {
+            return $.ajax({
+                type: "POST",
+                url: "{{ route('api.getkelas') }}",
+                data: {
+                    id: [kelas]
+                },
+                dataType: 'json',
+                success: function(res) {
+
+                }
+            });
+        }
+
+        async function getOneKelas(kelas) {
+            const data = await ajaxKelas(kelas);
+            return data
+        }
+
         function getKelas(kelas) {
             $.ajax({
                 type: "POST",
@@ -402,9 +569,15 @@
                 dataType: 'json',
                 success: function(res) {
                     console.log(res)
+
                     res.map((rs) => {
-                        result.push(rs)
+                        if (!kelasFinal.includes(rs.id)) {
+                            result.push(rs)
+                            kelasFinal.push(rs.id)
+                        }
                     })
+                    $('#table-kelas').html('')
+                    $('#table-siswa').html('')
                     mappingKelaas(res)
                     mappingSiswa(res)
                     console.log(result)
@@ -414,12 +587,14 @@
         }
 
         function getKelasMapel(id) {
+            let kelas = $('#kelas').val()
             let result;
             $.ajax({
                 type: "POST",
                 url: "{{ route('api.getkelasmapel') }}",
                 data: {
-                    id: id
+                    id: id,
+                    kelas: kelas
                 },
                 dataType: 'json',
                 success: function(res) {
@@ -429,15 +604,20 @@
         }
 
         function getSiswaMapel(id) {
+            let kelas = $('#kelas').val()
+
             $.ajax({
                 type: "POST",
                 url: "{{ route('api.getsiswamapel') }}",
                 data: {
-                    id: id
+                    id: id,
+                    kelas: kelas
+
                 },
                 dataType: 'json',
                 success: function(res) {
                     mappingSelectSiswa(res)
+                    console.log('hasilsiswa', res)
                 }
             });
         }

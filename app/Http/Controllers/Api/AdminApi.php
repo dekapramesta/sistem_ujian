@@ -23,13 +23,31 @@ class AdminApi extends Controller
     }
     public function getKelas(Request $request)
     {
-        $kelas = mst_mapel_guru_kelas::with('kelas.jurusan')->where('id_mapels', $request->id)->groupBy('id_kelas')->get();
+        $kelas_jenjang = Kelas::where('id_jenjang', $request->kelas)->get()->toArray();
+        $array_kelas = array_column($kelas_jenjang, 'id');
+
+        $kelas = mst_mapel_guru_kelas::with('kelas.jurusan')->where('id_mapels', $request->id)->where(function ($query) use ($array_kelas) {
+            $query->whereIn('id_kelas', $array_kelas);
+        })->groupBy('id_kelas')->get();
         return response()->json($kelas, 200);
     }
+    // public function getKelasWithSiswa(Request $request)
+    // {
+
+    //     $siswa = Siswa::with('siswaone', 'jurusan')->whereHas('siswaone', function ($query) use ($request) {
+    //         return $query->where('id', $request->id);
+    //     })->get();
+    //     return response()->json($siswa);
+    // }
     public function getSiswaMapel(Request $request)
     {
-        $siswa = mst_mapel_guru_kelas::with('kelas.siswa')->where('id_mapels', $request->id)->groupBy('id_kelas')->get();
-        return response()->json($siswa, 200);
+        $kelas_jenjang = Kelas::where('id_jenjang', $request->kelas)->get()->toArray();
+        $array_kelas = array_column($kelas_jenjang, 'id');
+
+        $kelas = mst_mapel_guru_kelas::with('kelas.jurusan', 'kelas.siswa')->where('id_mapels', $request->id)->where(function ($query) use ($array_kelas) {
+            $query->whereIn('id_kelas', $array_kelas);
+        })->groupBy('id_kelas')->get();
+        return response()->json($kelas, 200);
     }
     public function getSiswaByKelas(Request $request)
     {
@@ -37,6 +55,13 @@ class AdminApi extends Controller
         $siswa = Kelas::with('siswa', 'jurusan')->whereHas('siswa', function ($query) {
             return $query->whereIn('id_kelas', $this->id_kelas);
         })->get();
+        return response()->json($siswa);
+    }
+
+    public function getSiswaById(Request $request)
+    {
+        # code...
+        $siswa = Siswa::with('kelas.jurusan')->select('*')->whereIn('id', $request->id)->get();
         return response()->json($siswa);
     }
 }

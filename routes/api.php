@@ -21,7 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('siswa', [ApiAdminApi::class, 'getSiswa'])->name('api.getsiswa');
+Route::post('siswaKelas', [ApiAdminApi::class, 'getKelasWithSiswa'])->name('api.getsiswaKelas');
 Route::post('kelas', [ApiAdminApi::class, 'getSiswaByKelas'])->name('api.getkelas');
 Route::post('getkelas', [ApiAdminApi::class, 'getKelas'])->name('api.getkelasmapel');
 Route::post('getsiswa', [ApiAdminApi::class, 'getSiswaMapel'])->name('api.getsiswamapel');
 Route::post('ujian', [JadwalUjian::class, 'postUjian'])->name('api.postujian');
+Route::post('siswa-get', [ApiAdminApi::class, 'getSiswaById'])->name('api.siswaget');
