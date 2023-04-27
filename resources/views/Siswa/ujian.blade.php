@@ -206,8 +206,8 @@
                         if (res.data.id_jawaban && (parseInt(res.data.id_jawaban) === parseInt(dt
                                 .id))) {
 
-                            $('#jawaban_place').append(` 
-                             <div class="form-check" >                             
+                            $('#jawaban_place').append(`
+                             <div class="form-check" >
                                         <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                             id="flexRadioDefault1" checked>
                                         <label class="form-check-label" for="flexRadioDefault1">
@@ -217,8 +217,8 @@
                                    `)
                         } else {
 
-                            $('#jawaban_place').append(` 
-                                                         <div class="form-check" >                             
+                            $('#jawaban_place').append(`
+                                                         <div class="form-check" >
                                                                     <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                                                         id="flexRadioDefault1" >
                                                                     <label class="form-check-label" for="flexRadioDefault1">
@@ -277,6 +277,7 @@
 
 <!-- Template Main JS File -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/full_screen.js') }}"></script> --}}
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @if (session()->has('error'))
