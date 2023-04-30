@@ -36,19 +36,22 @@ $(function () {
     // let keypressOn = true;
     // let keyupOn = true;
     function addRow(event) {
-        if (event.key == "s") {
-            if (document.exitFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.msExitFullscreen) {
-                document.documentElement.msRequestFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.webkitExitFullscreen) {
-                document.documentElement.webkitRequestFullscreen(
-                    Element.ALLOW_KEYBOARD_INPUT
-                );
-            }
+        if (event.key == "Escape") {
+            // if (document.exitFullscreen) {
+            //     document.documentElement.requestFullscreen();
+            // } else if (document.msExitFullscreen) {
+            //     document.documentElement.msRequestFullscreen();
+            // } else if (document.mozCancelFullScreen) {
+            //     document.documentElement.mozRequestFullScreen();
+            // } else if (document.webkitExitFullscreen) {
+            //     document.documentElement.webkitRequestFullscreen(
+            //         Element.ALLOW_KEYBOARD_INPUT
+            //     );
+            // }
+            event.preventDefault();
+
             console.log("halo");
+            return false;
         }
     }
 

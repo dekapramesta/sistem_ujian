@@ -177,10 +177,10 @@
                                                                 </div>
                                                                 <div class="row mb-3">
                                                                     <div class="col-sm-5">
-                                                                        <h6>Jumlah Soal</h6>
+                                                                        <h6>Jumlah Soal Yang Harus Diupload</h6>
                                                                     </div>
                                                                     <div class="col-sm-7">
-                                                                        <h6>{{ count($hdruj->soal) }}</h6>
+                                                                        <h6>{{ $hdruj->jumlah_soal }}</h6>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Default Card -->
