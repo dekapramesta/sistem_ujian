@@ -47,11 +47,11 @@ class SoalController extends Controller
         return view("Guru.soal", compact('jenjang', 'header_ujians', 'detail_ujian', 'id_mapels'));
     }
 
-    public function uploadSoal(Request $request, $id_header_ujians)
+    public function uploadSoal(Request $request, $id_header_ujians, $id_mapels)
     {
         Excel::import(new SoalImport($id_header_ujians), $request->file);
 
-        return redirect()->back();
+        return redirect()->route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $id_header_ujians]);
     }
 
     public function exportSoal($id_header_ujians)
@@ -71,6 +71,19 @@ class SoalController extends Controller
         return redirect()->back()->with('status', 'Image Has been uploaded');
     }
 
+    public function tambah_gambar($id_mapels, $id_header_ujians)
+    {
+        $id_mapels = $id_mapels;
+        $user = Auth::user();
+        $guru = Guru::where('id_user', $user->id)->first();
+        $header_ujians = HeaderUjian::where('id', $id_header_ujians)->first();
+
+        $soal = Soal::where('id_headerujian', $id_header_ujians)->where('soal_gambar', '=', 1)->get();
+        $jawaban = Jawaban::all();
+
+        return view("Guru.tambah_gambar", compact('header_ujians', 'soal', 'jawaban', 'id_mapels'));
+    }
+
     public function edit_soal($id_mapels, $id_header_ujians)
     {
         $id_mapels = $id_mapels;
@@ -87,8 +100,11 @@ class SoalController extends Controller
     public function update_soal(Request $request, $id_soal)
     {
         $jawaban = Jawaban::where('id_soals', $id_soal)->get();
+        $namafile_gambarsoal = time() . '.' . $request->soalgambar->extension();
+        $request->soalgambar->move(public_path('img/soal'), $namafile_gambarsoal);
         Soal::where('id', $id_soal)->update([
-            'soal' => $request->soaltext
+            'soal' => $request->soaltext,
+            'soal_gambar' => $namafile_gambarsoal
         ]);
         foreach ($jawaban as $jwb) {
             if ($request->status == $jwb->id) {
@@ -96,9 +112,12 @@ class SoalController extends Controller
             } else {
                 $status = 0;
             }
+            $namafile_gambarjawaban[$jwb->id] = time() . '.' . $request->jawabangambar[$jwb->id]->extension();
+            $request->jawabangambar[$jwb->id]->move(public_path('img/jawabans'), $namafile_gambarjawaban[$jwb->id]);
             Jawaban::where('id', $jwb->id)->update([
                 'jawaban' => $request->jawaban[$jwb->id],
-                'status'  => $status
+                'status'  => $status,
+                'jawaban_gambar' => $namafile_gambarjawaban[$jwb->id]
             ]);
         }
         return redirect()->back();

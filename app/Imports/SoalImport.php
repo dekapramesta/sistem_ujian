@@ -42,37 +42,37 @@ class SoalImport implements ToCollection, WithHeadingRow
                 $soal = Soal::create([
                     "id_headerujian" => $this->id,
                     "soal" => $row['soal'],
-                    "soal_gambar" => $row['soal_gambar'],
+                    "soal_gambar" => $row['gambar_soal_jawaban'],
                 ]);
 
                 Jawaban::create([
                     "id_soals" => $soal->id,
                     "jawaban" => $row['pilihan_1'],
-                    "jawaban_gambar" => $row['pilihan_1_gambar'],
+                    "jawaban_gambar" => $row['gambar_soal_jawaban'],
                     "status" => 0
                 ]);
                 Jawaban::create([
                     "id_soals" => $soal->id,
                     "jawaban" => $row['pilihan_2'],
-                    "jawaban_gambar" => $row['pilihan_2_gambar'],
+                    "jawaban_gambar" => $row['gambar_soal_jawaban'],
                     "status" => 0
                 ]);
                 Jawaban::create([
                     "id_soals" => $soal->id,
                     "jawaban" => $row['pilihan_3'],
-                    "jawaban_gambar" => $row['pilihan_3_gambar'],
+                    "jawaban_gambar" => $row['gambar_soal_jawaban'],
                     "status" => 0
                 ]);
                 Jawaban::create([
                     "id_soals" => $soal->id,
                     "jawaban" => $row['pilihan_4'],
-                    "jawaban_gambar" => $row['pilihan_4_gambar'],
+                    "jawaban_gambar" => $row['gambar_soal_jawaban'],
                     "status" => 0
                 ]);
                 Jawaban::create([
                     "id_soals" => $soal->id,
                     "jawaban" => $row['jawaban'],
-                    "jawaban_gambar" => $row['jawaban_gambar'],
+                    "jawaban_gambar" => $row['gambar_soal_jawaban'],
                     "status" => 1
                 ]);
             }
