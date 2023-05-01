@@ -64,7 +64,7 @@
                             <div class="card-body">
                                 {{-- <h5 class="card-title">ADMINISTRATOR <span>| {{ Auth::user()->name }}</span></h5> --}}
                                 <div class="d-flex align-items-center py-4">
-                                    <p class="me-4" id="no_soal"></p>
+                                    <p class="me-4 " id="no_soal"></p>
                                     <p id="soal"></p>
                                     {{-- <span class="text-danger small pt-1 fw-bold">{{ Auth::user()->email }}</span> <span class="text-muted small pt-2 ps-1">{{ now() }}</span> --}}
                                 </div>
@@ -91,6 +91,8 @@
                             <div class="card-header">
                                 <div class="row d-flex align-items-center">
                                     <div class="col">Jumlah Soal
+                                    </div>
+                                    <div class="col" id="demo">
                                     </div>
                                     <div class="col text-end">
                                         <form action="{{ route('ujian.selesai') }}" method="post" id="submitujian">
@@ -157,6 +159,52 @@
                     })
                 }
             });
+            await $.ajax({
+                type: "POST",
+                url: "{{ route('ujian.getTime') }}",
+                data: {
+                    id: '<?php echo Request::segment(3); ?>'
+                },
+                dataType: 'json',
+                success: function(res) {
+                    console.log(res)
+                    var countDownDate = new Date(res.end_time).getTime();
+
+                    // Update the count down every 1 second
+                    var x = setInterval(function() {
+
+                        // Get today's date and time
+                        var now = new Date().getTime();
+
+                        // Find the distance between now and the count down date
+                        var distance = countDownDate - now;
+
+                        // Time calculations for days, hours, minutes and seconds
+                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 *
+                            60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 *
+                            60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        // Output the result in an element with id="demo"
+                        document.getElementById("demo").innerHTML = hours +
+                            "Jam " +
+                            minutes + "Menit " + seconds + "Detik ";
+
+                        // If the count down is over, write some text 
+                        if (distance < 0) {
+                            clearInterval(x);
+                            document.getElementById("demo").innerHTML = "Selesai";
+                            $('#submitujian').submit()
+
+                        }
+                    }, 1000);
+                }
+            });
+
+
+
             $('#soal_button').on('click', '#getsoal', function() {
                 $('#no_soal').html(`${$(this).data('index')}`)
                 getSoal($(this).data('value'))
@@ -202,30 +250,37 @@
                     console.log(res)
                     $('#jawaban_place').html(``)
                     $('#soal').html(res.data.soal.soal)
-                    res.data.soal.jawaban.map((dt, index) => {
+                    let arr_soal = []
+                    arr_soal.push(res.data.soal.jawaban)
+                    let data_jawaban = arr_soal[0]
+                    for (let i = data_jawaban.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [data_jawaban[i], data_jawaban[j]] = [data_jawaban[j], data_jawaban[i]];
+                    }
+                    data_jawaban.map((dt, index) => {
                         if (res.data.id_jawaban && (parseInt(res.data.id_jawaban) === parseInt(dt
                                 .id))) {
 
                             $('#jawaban_place').append(`
-                             <div class="form-check" >
-                                        <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
-                                            id="flexRadioDefault1" checked>
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            <p>${dt.jawaban}</p>
-                                        </label>
-                                          </div>
-                                   `)
+                         <div class="form-check" >
+                                    <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
+                                        id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        <p>${dt.jawaban}</p>
+                                    </label>
+                                      </div>
+                               `)
                         } else {
 
                             $('#jawaban_place').append(`
-                                                         <div class="form-check" >
-                                                                    <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
-                                                                        id="flexRadioDefault1" >
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        <p>${dt.jawaban}</p>
-                                                                    </label>
-                                                                      </div>
-                                                               `)
+                                                     <div class="form-check" >
+                                                                <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
+                                                                    id="flexRadioDefault1" >
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                    <p>${dt.jawaban}</p>
+                                                                </label>
+                                                                  </div>
+                                                           `)
 
                         }
 

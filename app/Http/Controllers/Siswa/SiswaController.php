@@ -10,6 +10,7 @@ use App\Models\PesertaUjian;
 use App\Models\Siswa;
 use App\Models\Soal;
 use App\Models\Temp;
+use DateTime;
 use GuzzleHttp\Psr7\Header;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,10 +47,26 @@ class SiswaController extends Controller
         $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
 
         if ($temp->isEmpty()) {
-            $this->shuffleFisher(new Request(['data_ujian' => $ujian, 'siswa' => $siswa]));
+            $this->shuffleFisher(new Request(['data_ujian' => $ujian, 'siswa' => $siswa, 'total' => $ujian[0]->headerujian->jumlah_soal]));
             $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
         }
         return response()->json(['data' => $temp], 200);
+    }
+    public function getTime(Request $request)
+    {
+        # code...
+        $ujian = DetailUjian::where('id_headerujian', $request->id)->first();
+        // return response()->json(['data' => $ujian], 200);
+        $endTime = date('M d,Y H:i:s', strtotime('+' . $ujian->waktu_ujian . 'minutes', strtotime($ujian->tanggal_ujian)));
+        // $endTime = date("H:i:s", strtotime('+30 minutes', $ujian->tanggal_ujian));
+        $currentTime = date('Y:m:d H:i:s', time());
+        $first  = new DateTime($currentTime);
+        $second = new DateTime($endTime);
+
+        $diff = $first->diff($second);
+        $time_gap = $diff->format('%H:%I:%S');
+        $milliseconds = strtotime($time_gap) * 1000;
+        return response()->json(['time' => $milliseconds, 'jam' => $time_gap, 'end_time' => $endTime], 200);
     }
     public function getSoal(Request $request)
     {
@@ -68,10 +85,11 @@ class SiswaController extends Controller
             $arr_soal[$i] = $arr_soal[$r];
             $arr_soal[$r] = $tmp;
         }
-        foreach ($arr_soal as $uj) {
+
+        for ($ind = 0; $ind < $request->total; $ind++) {
             Temp::create([
-                'id_headerujian' => $uj->id_headerujian,
-                'id_soals' => $uj->id,
+                'id_headerujian' => $arr_soal[$ind]->id_headerujian,
+                'id_soals' => $arr_soal[$ind]->id,
                 'id_siswa' => $request->siswa->id
             ]);
         }
@@ -97,8 +115,13 @@ class SiswaController extends Controller
         $detail_ujian = DetailUjian::with('headerujian')->where([['id_headerujian', '=', $request->headerujian], ['id_kelas', '=', $siswa->id_kelas]])->first();
         foreach ($temp as $tmp) {
             array_push($jawaban, $tmp->jawaban);
-            if ($tmp->jawaban->status == true) {
-                $jawaban_benar += 1;
+            if ($tmp->id_jawaban != null) {
+
+                if ($tmp->jawaban->status == true) {
+                    $jawaban_benar += 1;
+                } else {
+                    $jawaban_salah += 1;
+                }
             } else {
                 $jawaban_salah += 1;
             }
