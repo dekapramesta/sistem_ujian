@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Admin\JadwalUjian;
 use App\Http\Controllers\Controller;
+use App\Models\jadwal_ujian;
 use App\Models\Kelas;
 use App\Models\mst_mapel_guru_kelas;
 use App\Models\Siswa;
@@ -63,5 +65,25 @@ class AdminApi extends Controller
         # code...
         $siswa = Siswa::with('kelas.jurusan')->select('*')->whereIn('id', $request->id)->get();
         return response()->json($siswa);
+    }
+
+    public function editJadwal(Request $request)
+    {
+        # code...
+        $result = [];
+        $nis = [];
+        $data = jadwal_ujian::with('headerujian.detailujian.pesertaujian')->where('id', $request->id)->first();
+        foreach ($data->headerujian as $hdr) {
+            foreach ($hdr->detailujian as $key => $dtl) {
+                array_push($result, Kelas::find($dtl->id_kelas));
+                $result[$key]['siswa'] = array();
+                foreach ($dtl->pesertaujian  as $pst_ind => $pst) {
+                    array_push($nis, Siswa::where('nis', $pst->nis)->first());
+                }
+                $result[$key]['siswa'] = $nis;
+            }
+        }
+
+        return response()->json(['data' => $data, 'result' => $result, 'nis' => $nis]);
     }
 }

@@ -39,6 +39,11 @@ class DetailUjian extends Model
         # code...
         return $this->hasMany(Soal::class, 'id_detail_ujians', 'id');
     }
+    public function pesertaujian()
+    {
+        # code...
+        return $this->hasMany(PesertaUjian::class, 'id_detail_ujians', 'id');
+    }
 
     // public function jadwal_ujian()
     // {
