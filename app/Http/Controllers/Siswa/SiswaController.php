@@ -10,6 +10,7 @@ use App\Models\PesertaUjian;
 use App\Models\Siswa;
 use App\Models\Soal;
 use App\Models\Temp;
+use DateTime;
 use GuzzleHttp\Psr7\Header;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,22 @@ class SiswaController extends Controller
             $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
         }
         return response()->json(['data' => $temp], 200);
+    }
+    public function getTime(Request $request)
+    {
+        # code...
+        $ujian = DetailUjian::where('id_headerujian', $request->id)->first();
+        // return response()->json(['data' => $ujian], 200);
+        $endTime = date('M d,Y H:i:s', strtotime('+' . $ujian->waktu_ujian . 'minutes', strtotime($ujian->tanggal_ujian)));
+        // $endTime = date("H:i:s", strtotime('+30 minutes', $ujian->tanggal_ujian));
+        $currentTime = date('Y:m:d H:i:s', time());
+        $first  = new DateTime($currentTime);
+        $second = new DateTime($endTime);
+
+        $diff = $first->diff($second);
+        $time_gap = $diff->format('%H:%I:%S');
+        $milliseconds = strtotime($time_gap) * 1000;
+        return response()->json(['time' => $milliseconds, 'jam' => $time_gap, 'end_time' => $endTime], 200);
     }
     public function getSoal(Request $request)
     {
@@ -98,8 +115,13 @@ class SiswaController extends Controller
         $detail_ujian = DetailUjian::with('headerujian')->where([['id_headerujian', '=', $request->headerujian], ['id_kelas', '=', $siswa->id_kelas]])->first();
         foreach ($temp as $tmp) {
             array_push($jawaban, $tmp->jawaban);
-            if ($tmp->jawaban->status == true) {
-                $jawaban_benar += 1;
+            if ($tmp->id_jawaban != null) {
+
+                if ($tmp->jawaban->status == true) {
+                    $jawaban_benar += 1;
+                } else {
+                    $jawaban_salah += 1;
+                }
             } else {
                 $jawaban_salah += 1;
             }
