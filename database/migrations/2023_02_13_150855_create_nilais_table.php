@@ -26,10 +26,10 @@ class CreateNilaisTable extends Migration
             $table->string('jumlah_salah', 50);
             $table->string('nilai', 20);
             $table->string('identitas', 10);
-            $table->foreign('id_ujian')
-            ->references('id')->on('ujians')->onDelete('cascade');
+            // $table->foreign('id_ujian')
+            // ->references('id')->on('ujians')->onDelete('cascade');
             $table->foreign('id_siswa')
-            ->references('id')->on('siswas')->onDelete('cascade');
+                ->references('id')->on('siswas')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -1,6 +1,17 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="pagetitle">
+    <h1>Data Jurusan</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">Master Data</li>
+        <li class="breadcrumb-item active">Data Jurusan</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+  <section class="section dashboard">
+    <div class="row">
 <div class="col-lg-12">
     <div class="row">
       <!-- Recent Sales -->
@@ -10,7 +21,7 @@
           <div class="card-body">
             <h5 class="card-title">Jurusan</h5>
             <div class="container">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah">Tambah +</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah" style="margin-bottom: 20px">Tambah +</button>
             <table class="table table-borderless datatable">
               <thead>
                 <tr>
@@ -25,10 +36,17 @@
                         <th scope="row">{{ ++$no }}</th>
                         <td>{{ $jurusan->nama_jurusan }}</td>
                         <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edit{{ $jurusan->identitas }}">Edit</button>
+                                <button class="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#edit{{ $jurusan->identitas }}"
+                                    style="width:70px"><i class="bi bi-pencil-square" style="font-size: 10pt"></i>
+                                    Edit</button>
+                                <button class="btn btn-danger btn-sm text-center" data-bs-toggle="modal" data-bs-target="#delete{{ $jurusan->identitas }}"
+                                    style="width:90px"><i class="bi bi-trash3-fill" style="font-size: 10pt"></i>
+                                    Hapus</button>
+                            </div>
+                            {{-- <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edit{{ $jurusan->identitas }}">Edit</button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $jurusan->identitas }}">Delete</button>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $jurusan->identitas }}">Delete</button> --}}
                         </td>
                     </tr>
                     <div class="modal" id="edit{{ $jurusan->identitas }}" tabindex="-1">
@@ -103,4 +121,6 @@
       </div>
     </div>
   </div>
+</div>
+</section>
 @endsection

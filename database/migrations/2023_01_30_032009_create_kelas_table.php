@@ -18,42 +18,15 @@ class CreateKelasTable extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_jurusan');
+            $table->unsignedBigInteger('id_jenjang');
             $table->string('nama_kelas', 10);
             $table->string('identitas', 10);
             $table->foreign('id_jurusan')
-            ->references('id')->on('jurusans')->onDelete('cascade');
+                ->references('id')->on('jurusans')->onDelete('cascade');
+            $table->foreign('id_jenjang')
+                ->references('id')->on('jenjangs');
             $table->timestamps();
         });
-
-        Kelas::create([
-            'id_jurusan' => '1',
-            'nama_kelas'=> '1',
-            'identitas' => Str::random(10),
-        ]);
-
-        Kelas::create([
-            'id_jurusan' => '1',
-            'nama_kelas'=> '2',
-            'identitas' => Str::random(10),
-        ]);
-
-        Kelas::create([
-            'id_jurusan' => '1',
-            'nama_kelas'=> '3',
-            'identitas' => Str::random(10),
-        ]);
-
-        Kelas::create([
-            'id_jurusan' => '2',
-            'nama_kelas'=> '1',
-            'identitas' => Str::random(10),
-        ]);
-
-        Kelas::create([
-            'id_jurusan' => '3',
-            'nama_kelas'=> '1',
-            'identitas' => Str::random(10),
-        ]);
     }
 
     /**

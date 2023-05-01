@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
 class LoginController extends Controller
 {
     /*
@@ -46,13 +45,12 @@ class LoginController extends Controller
                     $request->session()->regenerate();
                     return redirect()->route('admin.dashboard');
                 } elseif (Auth::user()->jabatan == "guru") {
-                    dd('belum dibuat');
-                    // $request->session()->regenerate();
-                    // return redirect()->route('admin.dashboard');
+                    $request->session()->regenerate();
+                    return redirect()->route('guru.mapel');
                 } elseif (Auth::user()->jabatan == "siswa") {
-                    dd('belum dibuat');
-                    // $request->session()->regenerate();
-                    // return redirect()->route('admin.dashboard');
+                    // dd('belum dibuat');
+                    $request->session()->regenerate();
+                    return redirect()->route('siswa.dashboard');
                 }
             } else {
                 return redirect()->route('login.view')->withErrors(['Akun Non-Aktif']);

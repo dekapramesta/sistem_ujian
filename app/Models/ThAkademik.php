@@ -15,4 +15,10 @@ class ThAkademik extends Model
     ];
 
     protected $primaryKey = 'id';
+
+    public function jadwal_ujian()
+    {
+        # code...
+        return $this->hasMany(jadwal_ujian::class, 'id_th_akademiks', 'id');
+    }
 }

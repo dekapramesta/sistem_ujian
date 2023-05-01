@@ -15,17 +15,16 @@ class SiswaController extends Controller
 {
     public function index() {
         $siswas = Siswa::orderBy('nama', 'ASC')->get();
-        $jenjangs = Jenjang::orderBy('nama_jenjang', 'ASC')->get();
-        $classes = Kelas::orderBy('nama_kelas', 'ASC')->get();
-        $jurusans = Jurusan::orderBy('nama_jurusan', 'ASC')->get();
-        dd($jenjangs);
+        $jenjangs = Jenjang::orderBy('nama_jenjang', 'Desc')->get();
+        $classes = Kelas::orderBy('nama_kelas', 'Desc')->get();
+        $jurusans = Jurusan::orderBy('nama_jurusan', 'Desc')->get();
+        // dd($jenjangs);
         return view("admin.siswa", compact('siswas','jenjangs', 'classes', 'jurusans'));
     }
 
     public function create(Request $request){
         $request->validate([
-            'id_jenjang' => 'required',
-            'id_kelas'=> 'required',
+            'nama_jurusan'=> 'required',
             'nama' => 'required',
             'nis' => 'required',
             'tanggal_lahir' => 'required'
@@ -43,13 +42,15 @@ class SiswaController extends Controller
         ]);
 
         $find_user = User::where('username', $request->nis)->first();
-
+        $nama_jurusan = $request->nama_jurusan;
+        $kelas = (Kelas::find($request->$nama_jurusan));
+        // dd($kelas->id_jenjang);
         // $input = $request->all();
 
         $Siswa = Siswa::create([
             'id_user' => $find_user->id,
-            'id_jenjang' => $request->id_jenjang,
-            'id_kelas'=> $request->id_kelas,
+            'id_jenjang' => $kelas->id_jenjang,
+            'id_kelas'=> $request->$nama_jurusan,
             'nama' => $request->nama,
             'nis' => $request->nis,
             'tanggal_lahir' => $request->tanggal_lahir
@@ -63,7 +64,6 @@ class SiswaController extends Controller
     }
     public function edit(Request $request, $nis){
         $request->validate([
-            'id_jenjang' => 'required',
             'id_kelas'=> 'required',
             'nama' => 'required',
             'nis' => 'required',
@@ -71,7 +71,6 @@ class SiswaController extends Controller
         ]);
 
         $Siswa = Siswa::where('nis', $nis)->update([
-            'id_jenjang' => $request->id_jenjang,
             'id_kelas'=> $request->id_kelas,
             'nama' => $request->nama,
             'nis' => $request->nis,

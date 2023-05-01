@@ -1,6 +1,17 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Dashboard</a></li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+  <section class="section dashboard">
+    <div class="row">
+
 <div class="col-lg-12">
     <div class="row">
 
@@ -67,7 +78,7 @@
                 <tr>
                   <th scope="col">Nomor</th>
                   <th scope="col">Nama Siswa</th>
-                  <th scope="col">Status</th>
+                  <th colspan="3" scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -116,5 +127,6 @@
 
     </div>
   </div><!-- End Left side columns -->
+</div>
+</section>
 @endsection
-Footer

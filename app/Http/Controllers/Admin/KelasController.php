@@ -7,18 +7,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Kelas;
 use App\Models\Jurusan;
+use App\Models\Jenjang;
 
 class KelasController extends Controller
 {
     public function index() {
         $kelas = Kelas::orderBy('nama_kelas', 'ASC')->get();
         $jurusans=Jurusan::orderBy('nama_jurusan', 'ASC')->get();
-        return view("admin.kelas", compact('kelas', 'jurusans'));
+        $jenjangs=Jenjang::orderBy('nama_jenjang', 'desc')->get();
+        // dd($kelas->jenjang);
+        return view("admin.kelas", compact('kelas', 'jenjangs', 'jurusans'));
     }
 
     public function create(Request $request){
         $request->validate([
             'id_jurusan' => 'required',
+            'id_jenjang' => 'required',
             'nama_kelas' => 'required',
         ]);
 
@@ -26,6 +30,7 @@ class KelasController extends Controller
 
         $Kelas = Kelas::create([
             'id_jurusan' => $request->id_jurusan,
+            'id_jenjang' => $request->id_jenjang,
             'nama_kelas' => $request->nama_kelas,
             'identitas' => Str::random(10),
         ]);
@@ -39,6 +44,7 @@ class KelasController extends Controller
     public function edit(Request $request, $identitas){
         $request->validate([
             'id_jurusan' => 'required',
+            'id_jenjang' => 'required',
             'nama_kelas' => 'required',
         ]);
 
@@ -46,6 +52,7 @@ class KelasController extends Controller
 
         $Kelas = Kelas::where('identitas', $identitas)->update([
             'id_jurusan' => $request->id_jurusan,
+            'id_jenjang' => $request->id_jenjang,
             'nama_kelas' => $request->nama_kelas,
         ]);
 

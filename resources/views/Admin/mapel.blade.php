@@ -1,6 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="pagetitle">
+    <h1>Data Mata Pelajaran</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">Master Data</li>
+        <li class="breadcrumb-item active">Data Mata Pelajaran</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
 <div class="col-lg-12">
     <div class="row">
       <!-- Recent Sales -->
@@ -128,4 +140,6 @@
       </div>
     </div>
   </div>
+</div>
+</section>
 @endsection

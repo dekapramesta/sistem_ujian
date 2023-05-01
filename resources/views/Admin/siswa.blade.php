@@ -1,6 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="pagetitle">
+    <h1>Data Siswa</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">Data Pengguna</li>
+        <li class="breadcrumb-item active">Data Siswa</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
 <div class="col-lg-12">
     <div class="row">
       <!-- Recent Sales -->
@@ -27,7 +39,7 @@
                 @foreach ($siswas as $no => $siswa)
                     <tr>
                         <th scope="row">{{ ++$no }}</th>
-                        <td>{{ $siswa->jenjang->nama_jenjang}}</td>
+                        <td>{{ $siswa->kelas->jenjang->nama_jenjang}}</td>
                         <td>{{ $siswa->kelas->jurusan->nama_jurusan.' '.$siswa->kelas->nama_kelas}}</td>
                         <td>{{ $siswa->nama }}</td>
                         <td>{{ $siswa->nis }}</td>
@@ -56,7 +68,7 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="modal-body">
-                                    <p><label>Jenjang :
+                                    {{-- <p><label>Jenjang :
                                         <select name="id_jenjang">
                                             @foreach ( $jenjangs as $jenjang )
                                                 @if($jenjang->id == $siswa->id_jenjang)
@@ -66,15 +78,15 @@
                                                 @endif
                                             @endforeach
                                         </select>
-                                    </label></p>
+                                    </label></p> --}}
                                     <p><label>Kelas :
                                         <select name="id_kelas">
                                             @foreach ( $classes as $class )
                                                 @if($class->id_jurusan == $siswa->kelas->id_jurusan)
                                                     @if($class->id == $siswa->id_kelas)
-                                                        <option value="{{ $class->id }}" selected>{{ $siswa->kelas->jurusan->nama_jurusan.' '.$class->nama_kelas }}</option>
+                                                        <option value="{{ $class->id }}" selected>{{ $class->jenjang->nama_jenjang.' '.$class->jurusan->nama_jurusan.' '.$class->nama_kelas }}</option>
                                                     @else
-                                                        <option value="{{ $class->id }}">{{ $siswa->kelas->jurusan->nama_jurusan.' '.$class->nama_kelas }}</option>
+                                                        <option value="{{ $class->id }}">{{ $class->jenjang->nama_jenjang.' '.$class->jurusan->nama_jurusan.' '.$class->nama_kelas }}</option>
                                                     @endif
                                                 @endif
                                             @endforeach
@@ -137,7 +149,7 @@
         <form method="POST" action="{{ route('admin.siswa.create') }}">
             @csrf
             <div class="modal-body">
-                <p><label>Jenjang :
+                {{-- <p><label>Jenjang :
                     <select name="id_jenjang">
                         @foreach ( $jenjangs as $jenjang )
                             @if($jenjang->id == $siswa->id_jenjang)
@@ -147,7 +159,7 @@
                             @endif
                         @endforeach
                     </select>
-                </label></p>
+                </label></p> --}}
                 <p><label>Jurusan :
                     <div>
                         @foreach ( $jurusans as $jurusan )
@@ -158,10 +170,10 @@
                 </label></p>
                 <p><label>Kelas :
                     @foreach ( $jurusans as $jurusan )
-                        <select class="{{ $jurusan->nama_jurusan }} select" name="id_kelas" id="{{ $jurusan->nama_jurusan }}" style="display: none;">
+                        <select class="{{ $jurusan->nama_jurusan }} select" name="{{ $jurusan->nama_jurusan }}" id="{{ $jurusan->nama_jurusan }}" style="display: none;">
                             @foreach ( $classes as $class )
                                 @if($class->jurusan->id == $jurusan->id)
-                                    <option value="{{ $class->id }}">{{ $class->jurusan->nama_jurusan.' '.$class->nama_kelas }}</option>
+                                    <option value="{{ $class->id }}">{{ $class->jenjang->nama_jenjang.' '.$class->jurusan->nama_jurusan.' '.$class->nama_kelas }}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -192,4 +204,6 @@
       </div>
     </div>
   </div>
+</div>
+</section>
 @endsection

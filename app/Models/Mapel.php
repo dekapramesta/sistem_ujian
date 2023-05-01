@@ -16,7 +16,29 @@ class Mapel extends Model
 
     protected $primaryKey = 'id';
 
-    public function jurusan(){
+    public function jurusan()
+    {
         return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id');
+    }
+
+    public function guru()
+    {
+        return $this->belongsToMany(Guru::class, 'mst_mapel_guru_kelas', 'id_mapel', 'id_guru');
+    }
+
+    public function kelas()
+    {
+        return $this->belongsToMany(Kelas::class, 'mst_mapel_guru_kelas', 'id_mapel', 'id_kelas');
+    }
+    // public function mst_mapel_guru_kelas()
+    // {
+    //     # code...
+    //     return $this->hasMany(mst_mapel_guru_kelas::class, 'id_jenjang', 'id');
+    // }
+
+    public function jadwal_ujian()
+    {
+        # code...
+        return $this->hasMany(jadwal_ujian::class, 'id_mapels', 'id');
     }
 }
