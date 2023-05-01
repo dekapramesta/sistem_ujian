@@ -46,7 +46,7 @@ class SiswaController extends Controller
         $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
 
         if ($temp->isEmpty()) {
-            $this->shuffleFisher(new Request(['data_ujian' => $ujian, 'siswa' => $siswa]));
+            $this->shuffleFisher(new Request(['data_ujian' => $ujian, 'siswa' => $siswa, 'total' => $ujian[0]->headerujian->jumlah_soal]));
             $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
         }
         return response()->json(['data' => $temp], 200);
@@ -68,10 +68,11 @@ class SiswaController extends Controller
             $arr_soal[$i] = $arr_soal[$r];
             $arr_soal[$r] = $tmp;
         }
-        foreach ($arr_soal as $uj) {
+
+        for ($ind = 0; $ind < $request->total; $ind++) {
             Temp::create([
-                'id_headerujian' => $uj->id_headerujian,
-                'id_soals' => $uj->id,
+                'id_headerujian' => $arr_soal[$ind]->id_headerujian,
+                'id_soals' => $arr_soal[$ind]->id,
                 'id_siswa' => $request->siswa->id
             ]);
         }

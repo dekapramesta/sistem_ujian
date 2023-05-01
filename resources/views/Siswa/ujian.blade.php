@@ -202,30 +202,37 @@
                     console.log(res)
                     $('#jawaban_place').html(``)
                     $('#soal').html(res.data.soal.soal)
-                    res.data.soal.jawaban.map((dt, index) => {
+                    let arr_soal = []
+                    arr_soal.push(res.data.soal.jawaban)
+                    let data_jawaban = arr_soal[0]
+                    for (let i = data_jawaban.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [data_jawaban[i], data_jawaban[j]] = [data_jawaban[j], data_jawaban[i]];
+                    }
+                    data_jawaban.map((dt, index) => {
                         if (res.data.id_jawaban && (parseInt(res.data.id_jawaban) === parseInt(dt
                                 .id))) {
 
                             $('#jawaban_place').append(`
-                             <div class="form-check" >
-                                        <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
-                                            id="flexRadioDefault1" checked>
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            <p>${dt.jawaban}</p>
-                                        </label>
-                                          </div>
-                                   `)
+                         <div class="form-check" >
+                                    <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
+                                        id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        <p>${dt.jawaban}</p>
+                                    </label>
+                                      </div>
+                               `)
                         } else {
 
                             $('#jawaban_place').append(`
-                                                         <div class="form-check" >
-                                                                    <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
-                                                                        id="flexRadioDefault1" >
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        <p>${dt.jawaban}</p>
-                                                                    </label>
-                                                                      </div>
-                                                               `)
+                                                     <div class="form-check" >
+                                                                <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
+                                                                    id="flexRadioDefault1" >
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                    <p>${dt.jawaban}</p>
+                                                                </label>
+                                                                  </div>
+                                                           `)
 
                         }
 
