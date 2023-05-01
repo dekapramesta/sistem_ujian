@@ -100,25 +100,40 @@ class SoalController extends Controller
     public function update_soal(Request $request, $id_soal)
     {
         $jawaban = Jawaban::where('id_soals', $id_soal)->get();
-        $namafile_gambarsoal = time() . '.' . $request->soalgambar->extension();
-        $request->soalgambar->move(public_path('img/soal'), $namafile_gambarsoal);
-        Soal::where('id', $id_soal)->update([
-            'soal' => $request->soaltext,
-            'soal_gambar' => $namafile_gambarsoal
-        ]);
+        if($request->soalgambar) {
+            $namafile_gambarsoal = time() . '.' . $request->soalgambar->extension();
+            $request->soalgambar->move(public_path('img/soal'), $namafile_gambarsoal);
+            Soal::where('id', $id_soal)->update([
+                'soal' => $request->soaltext,
+                'soal_gambar' => $namafile_gambarsoal
+            ]);
+        } else {
+            Soal::where('id', $id_soal)->update([
+                'soal' => $request->soaltext,
+            ]);
+        }
+
         foreach ($jawaban as $jwb) {
             if ($request->status == $jwb->id) {
                 $status = 1;
             } else {
                 $status = 0;
             }
-            $namafile_gambarjawaban[$jwb->id] = time() . '.' . $request->jawabangambar[$jwb->id]->extension();
-            $request->jawabangambar[$jwb->id]->move(public_path('img/jawabans'), $namafile_gambarjawaban[$jwb->id]);
-            Jawaban::where('id', $jwb->id)->update([
-                'jawaban' => $request->jawaban[$jwb->id],
-                'status'  => $status,
-                'jawaban_gambar' => $namafile_gambarjawaban[$jwb->id]
-            ]);
+            // if($request->jawabangambar[$jwb->id]) {
+            //     $namafile_gambarjawaban[$jwb->id] = time() . '.' . $request->jawabangambar[$jwb->id]->extension();
+            //     $request->jawabangambar[$jwb->id]->move(public_path('img/jawabans'), $namafile_gambarjawaban[$jwb->id]);
+            //     Jawaban::where('id', $jwb->id)->update([
+            //         'jawaban' => $request->jawaban[$jwb->id],
+            //         'status'  => $status,
+            //         'jawaban_gambar' => $namafile_gambarjawaban[$jwb->id]
+            //     ]);
+            // } else {
+                Jawaban::where('id', $jwb->id)->update([
+                    'jawaban' => $request->jawaban[$jwb->id],
+                    'status'  => $status,
+                ]);
+            // }
+
         }
         return redirect()->back();
     }
