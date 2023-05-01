@@ -21,7 +21,7 @@
 
                                 <h5 class="card-title-datatable">Bank Soal</h5>
                                 <div>
-                                    <a href="{{ asset('assets/template_soal/template_soal.csv') }}"><button type="button"
+                                    <a href="{{ asset('assets/template_soal/template_soal.xlsx') }}"><button type="button"
                                             class="btn btn-primary">Download
                                             Template</button></a>
                                 </div>
@@ -62,7 +62,7 @@
                                                             data-bs-target="#detail{{ $hdruj->id }}">Detail</button>
                                                         @if (count($hdruj->soal) > 0)
                                                             <a
-                                                                href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_detail_ujians' => $hdruj->id]) }}">
+                                                                href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
                                                                 <button type="button" class="btn btn-info">Edit
                                                                     Soal</button>
                                                             </a>
@@ -94,7 +94,7 @@
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <form method="POST"
-                                                                action="{{ route('soal.create', $hdruj->id) }}"
+                                                                action="{{ route('soal.create', ['id_header_ujians' => $hdruj->id, 'id_mapels' => $id_mapels]) }}"
                                                                 enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="modal-body">
@@ -210,7 +210,8 @@
                                                                                         </h6>
                                                                                     </div>
                                                                                     <div class="col-sm-4">
-                                                                                        <h6>{{ $dtl_uj->waktu_ujian }}</h6>
+                                                                                        <h6>{{ $dtl_uj->waktu_ujian }}
+                                                                                            Menit</h6>
                                                                                     </div>
                                                                                 @endif
                                                                             @endforeach

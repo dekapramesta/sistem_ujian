@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Edit Soal</h1>
+        <h1>Tambah Gambar Soal</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Bank Soal</li>
@@ -30,7 +30,7 @@
                                     {{ $header_ujians->jadwal_ujian->jenis_ujian }} -
                                     {{ $header_ujians->jadwal_ujian->th_akademiks->th_akademik }} - Semester
                                     {{ $header_ujians->jadwal_ujian->th_akademiks->nama_semester }}</h5>
-                                <h5 style="color: #012970;">Jumlah Soal : {{ count($soal) }}</h5>
+                                <h5 style="color: #012970;">Jumlah Soal Gambar : {{ count($soal) }}</h5>
 
 
                             </div>
@@ -44,8 +44,8 @@
                                             <h5 class="card-title-datatable">{{ $sl->soal }}</h5>
                                             <div>
                                                 <button data-bs-toggle="modal" data-bs-target="#edit{{ $sl->id }}"
-                                                    type="button" class="btn btn-primary">Edit Soal /
-                                                    Jawaban</button>
+                                                    type="button" class="btn btn-primary">Upload Gambar
+                                                    Soal/Jawaban</button>
                                             </div>
                                         </div>
                                         <div class="card-body p-3">
@@ -67,7 +67,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Edit Soal/Jawaban</h5>
+                                                        <h5 class="modal-title">Upload Gambar Soal/Jawaban</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
@@ -82,7 +82,7 @@
                                                                     Gambar</label>
                                                                 <input type="file" id="input-file-now-custom-1"
                                                                     class="dropify form-control" name="soalgambar"
-                                                                    @if ($sl->soal_gambar != null && $sl->soal_gambar != 1) data-default-file="{{ asset('img/soal/' . $sl->soal_gambar) }}" @endif />
+                                                                    @if ($sl->soal_gambar != null && $sl->soal_gambar != 1) data-default-file="{{ asset('img/soal/1682933078.jpg') }}" @endif />
                                                             </div>
                                                             <div class="row mb-3">
                                                                 <div class="col-sm-7">
@@ -105,9 +105,9 @@
                                                                             <input type="file"
                                                                                 id="input-file-now-custom-1"
                                                                                 class="dropify form-control"
-                                                                                name="jawabangambar[{{ $jwb->id }}]"
-                                                                                @if ($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1) data-default-file="{{ asset('img/jawabans/' . $jwb->jawaban_gambar) }}" @endif />
+                                                                                name="jawabangambar[{{ $jwb->id }}]" />
                                                                         </div>
+
                                                                         <div class="col-sm-5">
                                                                             <div
                                                                                 class="form-check d-flex justify-content-center">
