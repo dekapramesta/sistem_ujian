@@ -260,7 +260,7 @@
                 success: function(res) {
                     console.log('jwb', res.data.soal.jawaban)
                     let imageSoal;
-                    if (res.data.soal.soal_gambar !== null && res.data.soal.soal_gambar !== 1) {
+                    if (res.data.soal.soal_gambar !== null || res.data.soal.soal_gambar !== 1) {
                         imageSoal = `<img src="{{ asset('img/soal/${res.data.soal.soal_gambar}') }}"
                                                 alt="description of myimage" style="width:250px; height:300px">`
 
@@ -284,7 +284,7 @@
                         if (res.data.id_jawaban && (parseInt(res.data.id_jawaban) === parseInt(dt
                                 .id))) {
                             let imageTrue = ``
-                            if (dt.jawaban_gambar !== null && dt.jawaban_gambar !== 1) {
+                            if (dt.jawaban_gambar !== null || dt.jawaban_gambar !== 1) {
 
 
                                 imageTrue = `<div class="d-flex justify-content-center">
@@ -312,7 +312,7 @@
                                `)
                         } else {
                             let imageTrue = ``;
-                            if (dt.jawaban_gambar !== null && dt.jawaban_gambar !== 1) {
+                            if (dt.jawaban_gambar !== null || dt.jawaban_gambar !== 1) {
 
 
                                 imageTrue = `<div class="d-flex justify-content-center">
