@@ -259,10 +259,15 @@
                 dataType: 'json',
                 success: function(res) {
                     console.log('jwb', res.data.soal.jawaban)
-                    let imageSoal;
-                    if (res.data.soal.soal_gambar !== null || res.data.soal.soal_gambar !== 1) {
+                    let imageSoal = ``;
+                    if (res.data.soal.soal_gambar === null) {
+
+                    } else if (parseInt(res.data.soal.soal_gambar) === 1) {
+
+                    } else {
                         imageSoal = `<img src="{{ asset('img/soal/${res.data.soal.soal_gambar}') }}"
                                                 alt="description of myimage" style="width:250px; height:300px">`
+
 
                     }
 
@@ -284,13 +289,17 @@
                         if (res.data.id_jawaban && (parseInt(res.data.id_jawaban) === parseInt(dt
                                 .id))) {
                             let imageTrue = ``
-                            if (dt.jawaban_gambar !== null || dt.jawaban_gambar !== 1) {
+                            if (dt.jawaban_gambar === null) {
 
+                            } else if (parseInt(dt.jawaban_gambar) === 1) {
+
+                            } else {
 
                                 imageTrue = `<div class="d-flex justify-content-center">
-                                                        <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
-                                                            alt="description of myimage" style="width:250px; height:300px">
-                                                    </div>`;
+                                                                                        <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
+                                                                                            alt="description of myimage" style="width:250px; height:300px">
+                                                                                    </div>`;
+
                             }
 
 
@@ -312,13 +321,17 @@
                                `)
                         } else {
                             let imageTrue = ``;
-                            if (dt.jawaban_gambar !== null || dt.jawaban_gambar !== 1) {
+                            if (dt.jawaban_gambar === null) {
 
+                            } else if (parseInt(dt.jawaban_gambar) === 1) {
+
+                            } else {
 
                                 imageTrue = `<div class="d-flex justify-content-center">
-                                                        <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
-                                                            alt="description of myimage" style="width:250px; height:300px">
-                                                    </div>`;
+                                                                                        <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
+                                                                                            alt="description of myimage" style="width:250px; height:300px">
+                                                                                    </div>`;
+
                             }
 
                             console.log('oiasa', imageTrue)
