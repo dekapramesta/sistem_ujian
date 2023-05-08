@@ -63,9 +63,20 @@
                             </div>
                             <div class="card-body">
                                 {{-- <h5 class="card-title">ADMINISTRATOR <span>| {{ Auth::user()->name }}</span></h5> --}}
-                                <div class="d-flex align-items-center py-4">
-                                    <p class="me-4 " id="no_soal"></p>
-                                    <p id="soal"></p>
+                                <div class=" align-items-center py-4">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="d-flex justify-content-start">
+                                            <p class="me-4 " id="no_soal"></p>
+                                            <p id="soal"></p>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center" id="gambar-soal">
+
+                                        </div>
+                                    </div>
+
+
+
                                     {{-- <span class="text-danger small pt-1 fw-bold">{{ Auth::user()->email }}</span> <span class="text-muted small pt-2 ps-1">{{ now() }}</span> --}}
                                 </div>
                             </div>
@@ -247,9 +258,11 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    console.log(res)
+                    console.log('jwb', res.data)
                     $('#jawaban_place').html(``)
                     $('#soal').html(res.data.soal.soal)
+                    $('#gambar-soal').html(` <img src="{{ asset('img/soal/${res.data.soal.soal_gambar}') }}"
+                                                alt="description of myimage" style="width:250px; height:300px">`)
                     let arr_soal = []
                     arr_soal.push(res.data.soal.jawaban)
                     let data_jawaban = arr_soal[0]
@@ -258,6 +271,7 @@
                         [data_jawaban[i], data_jawaban[j]] = [data_jawaban[j], data_jawaban[i]];
                     }
                     data_jawaban.map((dt, index) => {
+                        console.log('gmb', dt.jawaban)
                         if (res.data.id_jawaban && (parseInt(res.data.id_jawaban) === parseInt(dt
                                 .id))) {
 
@@ -268,6 +282,10 @@
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         <p>${dt.jawaban}</p>
                                     </label>
+                                    <div class="d-flex justify-content-center">
+                                            <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
+                                                alt="description of myimage" style="width:250px; height:300px">
+                                        </div>
                                       </div>
                                `)
                         } else {
@@ -279,6 +297,10 @@
                                                                 <label class="form-check-label" for="flexRadioDefault1">
                                                                     <p>${dt.jawaban}</p>
                                                                 </label>
+                                                                <div class="d-flex justify-content-center">
+                                         <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
+                                                alt="description of myimage" style="width:250px; height:300px">
+                                        </div>
                                                                   </div>
                                                            `)
 
