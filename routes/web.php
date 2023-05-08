@@ -91,6 +91,9 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
             Route::get('/bank_soal/edit_soal/{id_mapels}/{id_header_ujians}', [BankSoalController::class, 'edit_soal'])->name('guru.edit_soal');
             Route::get('/bank_soal/tambah_gambar/{id_mapels}/{id_header_ujians}', [BankSoalController::class, 'tambah_gambar'])->name('guru.tambah_gambar');
             Route::post('/bank_soal/edit_soal/soal/{id_soal}', [BankSoalController::class, 'update_soal'])->name('guru.update_soal');
+            Route::post('/bank_soal/edit_soal/hapus_gambar', [BankSoalController::class, 'delete_soal_gambar'])->name('guru.delete_soal_gambar');
+            Route::post('/bank_soal/edit_soal/hapus_gambar_jawaban', [BankSoalController::class, 'delete_jawaban_gambar'])->name('guru.delete_jawaban_gambar');
+            Route::post('/bank_soal/edit_soal/selesai_upload_gambar/{id_soal}', [BankSoalController::class, 'selesai_upload_gambar'])->name('guru.selesai_upload_gambar');
             Route::delete('/bank_soal/hapus_soal/{id_header_ujians}', [BankSoalController::class, 'delete_soal'])->name('guru.delete_soal');
             Route::post('soal/{id_header_ujians}/{id_mapels}', [BankSoalController::class, 'uploadSoal'])->name('soal.create');
             Route::get('soal/{id_header_ujians}', [BankSoalController::class, 'exportSoal'])->name('soal.export');

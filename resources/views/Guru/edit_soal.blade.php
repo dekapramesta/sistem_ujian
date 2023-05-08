@@ -80,10 +80,18 @@
                                                             <div class="col-12 mb-3">
                                                                 <label for="soalgambar" class="form-label">Soal
                                                                     Gambar</label>
-                                                                <input type="file" id="input-file-now-custom-1"
-                                                                    class="dropify form-control" name="soalgambar"
+                                                                <input type="file" class="dropify form-control"
+                                                                    name="soalgambar" id="soalgambar{{ $sl->id }}"
                                                                     @if ($sl->soal_gambar != null && $sl->soal_gambar != 1) data-default-file="{{ asset('img/soal/' . $sl->soal_gambar) }}" @endif />
                                                             </div>
+                                                            @if ($sl->soal_gambar != null && $sl->soal_gambar != 1)
+                                                                <div class="col-12 d-grid gap-2 mb-3">
+                                                                    <button type="button" class="btn btn-danger"
+                                                                        id="btn_hapus_gambar_soal{{ $sl->id }}"
+                                                                        onclick="hapus_gambar_soal_{{ $sl->id }}('{{ $sl->soal_gambar }}')">Hapus
+                                                                        Gambar</button>
+                                                                </div>
+                                                            @endif
                                                             <div class="row mb-3">
                                                                 <div class="col-sm-7">
                                                                     <label for="jawaban" class="form-label">Jawaban</label>
@@ -103,10 +111,19 @@
                                                                                 class="form-control mb-2"
                                                                                 value="{{ $jwb->jawaban }}">
                                                                             <input type="file"
-                                                                                id="input-file-now-custom-1"
+                                                                                id="jawabangambar{{ $jwb->id }}"
                                                                                 class="dropify form-control"
                                                                                 name="jawabangambar[{{ $jwb->id }}]"
                                                                                 @if ($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1) data-default-file="{{ asset('img/jawabans/' . $jwb->jawaban_gambar) }}" @endif />
+                                                                            @if ($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1)
+                                                                                <div class="d-grid gap-2 mt-1">
+                                                                                    <button type="button"
+                                                                                        class="btn btn-danger"
+                                                                                        id="btn_hapus_gambar_jawaban{{ $jwb->id }}"
+                                                                                        onclick="hapus_gambar_jawaban_{{ $jwb->id }}('{{ $jwb->jawaban_gambar }}')">Hapus
+                                                                                        Gambar</button>
+                                                                                </div>
+                                                                            @endif
                                                                         </div>
                                                                         <div class="col-sm-5">
                                                                             <div
@@ -142,4 +159,94 @@
     <script>
         $('.dropify').dropify();
     </script>
+    @foreach ($soal as $sl)
+        <script type="text/javascript">
+            function hapus_gambar_soal_{{ $sl->id }}(soal_gambar) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                Swal.fire({
+                    title: 'Yakin ingin menghapus gambar?',
+                    text: "Anda tidak akan dapat mengembalikanya!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Hapus',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('guru.delete_soal_gambar') }}",
+                            data: {
+                                soal_gambar: soal_gambar
+                            },
+                            dataType: 'json',
+                            success: function(res) {
+                                $("#soalgambar{{ $sl->id }}").next(".dropify-clear").trigger(
+                                    "click");
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Gambar Telah Dihapus!',
+                                    'success'
+                                )
+                                document.getElementById("btn_hapus_gambar_soal{{ $sl->id }}")
+                                    .remove();
+
+                            }
+                        });
+                    }
+                })
+            }
+        </script>
+        @foreach ($jawaban as $jwb)
+            @if ($jwb->id_soals == $sl->id)
+                <script type="text/javascript">
+                    function hapus_gambar_jawaban_{{ $jwb->id }}(jawaban_gambar) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        Swal.fire({
+                            title: 'Yakin ingin menghapus gambar?',
+                            text: "Anda tidak akan dapat mengembalikanya!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Hapus',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{ route('guru.delete_jawaban_gambar') }}",
+                                    data: {
+                                        jawaban_gambar: jawaban_gambar
+                                    },
+                                    dataType: 'json',
+                                    success: function(res) {
+                                        $("#jawabangambar{{ $jwb->id }}").next(".dropify-clear").trigger(
+                                            "click");
+                                        Swal.fire(
+                                            'Deleted!',
+                                            'Gambar Telah Dihapus!',
+                                            'success'
+                                        )
+                                        document.getElementById("btn_hapus_gambar_jawaban{{ $jwb->id }}")
+                                            .remove();
+
+                                    }
+                                });
+                            }
+                        })
+                    }
+                </script>
+            @endif
+        @endforeach
+    @endforeach
 @endsection
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

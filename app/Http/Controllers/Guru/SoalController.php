@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Guru;
 
-use App\Exports\SoalExport;
 use App\Models\Guru;
 use App\Models\Soal;
 use App\Models\Kelas;
@@ -11,6 +10,7 @@ use App\Models\Ujian;
 use App\Models\Jawaban;
 use App\Models\Jenjang;
 use App\Models\ThAkademik;
+use App\Exports\SoalExport;
 use App\Imports\SoalImport;
 use App\Models\detail_soal;
 use App\Models\DetailUjian;
@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\Console\Input\Input;
 
 class SoalController extends Controller
@@ -51,7 +52,8 @@ class SoalController extends Controller
     {
         Excel::import(new SoalImport($id_header_ujians), $request->file);
 
-        return redirect()->route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $id_header_ujians]);
+        // return redirect()->route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $id_header_ujians]);
+        return redirect()->back();
     }
 
     public function exportSoal($id_header_ujians)
@@ -78,7 +80,7 @@ class SoalController extends Controller
         $guru = Guru::where('id_user', $user->id)->first();
         $header_ujians = HeaderUjian::where('id', $id_header_ujians)->first();
 
-        $soal = Soal::where('id_headerujian', $id_header_ujians)->where('soal_gambar', '=', 1)->get();
+        $soal = Soal::where('id_headerujian', $id_header_ujians)->get();
         $jawaban = Jawaban::all();
 
         return view("Guru.tambah_gambar", compact('header_ujians', 'soal', 'jawaban', 'id_mapels'));
@@ -119,23 +121,83 @@ class SoalController extends Controller
             } else {
                 $status = 0;
             }
-            // if($request->jawabangambar[$jwb->id]) {
-            //     $namafile_gambarjawaban[$jwb->id] = time() . '.' . $request->jawabangambar[$jwb->id]->extension();
-            //     $request->jawabangambar[$jwb->id]->move(public_path('img/jawabans'), $namafile_gambarjawaban[$jwb->id]);
-            //     Jawaban::where('id', $jwb->id)->update([
-            //         'jawaban' => $request->jawaban[$jwb->id],
-            //         'status'  => $status,
-            //         'jawaban_gambar' => $namafile_gambarjawaban[$jwb->id]
-            //     ]);
-            // } else {
+            if(isset($request->jawabangambar[$jwb->id])) {
+                $namafile_gambarjawaban[$jwb->id] = time() . '.' . $request->jawabangambar[$jwb->id]->extension();
+                $request->jawabangambar[$jwb->id]->move(public_path('img/jawabans'), $namafile_gambarjawaban[$jwb->id]);
+                Jawaban::where('id', $jwb->id)->update([
+                    'jawaban' => $request->jawaban[$jwb->id],
+                    'status'  => $status,
+                    'jawaban_gambar' => $namafile_gambarjawaban[$jwb->id]
+                ]);
+            } else {
                 Jawaban::where('id', $jwb->id)->update([
                     'jawaban' => $request->jawaban[$jwb->id],
                     'status'  => $status,
                 ]);
-            // }
+            }
 
         }
+        Alert::success('Berhasil', 'Berhasil Merubah Soal dan Jawaban');
         return redirect()->back();
+    }
+
+    public function selesai_upload_gambar($id_soal)
+    {
+        $jawaban = Jawaban::where('id_soals', $id_soal)->get();
+        Soal::where('id', $id_soal)->where('soal_gambar', 1)->update([
+            'soal_gambar' => null
+        ]);
+
+        foreach ($jawaban as $jwb) {
+            Jawaban::where('id', $jwb->id)->where('jawaban_gambar', 1)->update([
+                'jawaban_gambar' => null
+            ]);
+
+        }
+        Alert::success('Berhasil', 'Berhasil Menambah Gambar Soal dan Jawaban');
+        return redirect()->back();
+    }
+
+    public function delete_soal_gambar(Request $request)
+    {
+        if(file_exists(public_path('img/soal/'.$request->soal_gambar))) {
+            unlink(public_path('img/soal/'.$request->soal_gambar));
+        }
+        $Soal = Soal::where('soal_gambar', $request->soal_gambar)->update([
+            'soal_gambar' => 1
+        ]);
+        if($Soal) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Gambar Berhasil Dihapus!.',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Menghapus Gambar',
+            ]);
+        }
+    }
+
+    public function delete_jawaban_gambar(Request $request)
+    {
+        if(file_exists(public_path('img/jawabans/'.$request->jawaban_gambar))) {
+            unlink(public_path('img/jawabans/'.$request->jawaban_gambar));
+        }
+        $Jawaban = Jawaban::where('jawaban_gambar', $request->jawaban_gambar)->update([
+            'jawaban_gambar' => 1
+        ]);
+        if($Jawaban) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Gambar Berhasil Dihapus!.',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Menghapus Gambar',
+            ]);
+        }
     }
 
     public function delete_soal($id_header_ujians)
