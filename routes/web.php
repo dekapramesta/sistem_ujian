@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\JadwalUjian;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\UjianController;
 use App\Http\Controllers\Guru\DataNilaiController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\AuthController;
 
 use App\Http\Controllers\Guru\GuruHomeController;
 use App\Http\Controllers\Guru\SoalController as BankSoalController;
@@ -31,8 +31,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login.view');
-Route::post('login', [LoginController::class, 'LoginAction'])->name('login.action');
+Route::get('/', [AuthController::class, 'showLoginForm'])->name('login.view');
+Route::post('login', [AuthController::class, 'LoginAction'])->name('login.action');
+Route::get('kirim-otp', [AuthController::class, 'kirimOtp'])->name('login.kirim.otp');
+Route::post('verifikasi-otp', [AuthController::class, 'verifikasiOtp'])->name('login.verifikasi.otp');
+Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('login.password.reset');
+Route::post('save-password', [AuthController::class, 'savePassword'])->name('login.password.save');
 
 Route::middleware(['auth', 'levelAcces:admin'])->group(
     function () {

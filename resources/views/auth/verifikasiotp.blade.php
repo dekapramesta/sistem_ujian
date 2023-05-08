@@ -69,48 +69,23 @@
 
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Computer Based Test</h5>
-                    <p class="text-center small">Log In to Your Account</p>
+                    <p class="text-center small">Masukkan OTP</p>
                   </div>
 
-                  <form method="POST" action="{{ route('login.action') }}" class="row g-3 needs-validation" novalidate >
+                  <form method="POST" action="{{ route('login.password.reset') }}" class="row g-3 needs-validation" novalidate >
                     @csrf
                     <div class="col-12">
-                      <label for="email" class="form-label">Username</label>
+                      <label for="email" class="form-label">OTP</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">
-                            <i class="ri-admin-line"></i>
+                            <i class="ri-key-2-line"></i>
                         </span>
-                        <input type="text" name="username" class="form-control" id="email" required>
-                        <div class="invalid-feedback">Please enter your email.</div>
+                        <input type="number" name="otp" class="form-control" maxlength="6" id="email" required>
+                        <div class="invalid-feedback">Please enter otp.</div>
                       </div>
                     </div>
-
                     <div class="col-12">
-                      <label for="password" class="form-label">Password</label>
-                      {{-- <input type="password" name="password" class="form-control" id="password" required> --}}
-                      <div class="input-group has-validation">
-                        <input type="password" name="password" class="form-control" id="password" required>
-                        <span class="input-group-text" id="inputGroupPrepend">
-                            <i class="ri-eye-close-line" id="show" onclick="myFunction()" style="cursor : pointer"></i>
-                        </span>
-                        {{-- <input type="email" name="email" class="form-control" id="email" required> --}}
-                        {{-- <div class="invalid-feedback">Please enter your email.</div> --}}
-                      </div>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                      {{-- <span id="iconshow" name="iconshow" onclick="showPass()"
-                            class=" showbtn fa fa-eye-slash"></span> --}}
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div>
-
-                      <a href="{{ route('login.kirim.otp') }}">Lupa Password?</a>
-                    </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                      <button class="btn btn-primary w-100" type="submit">Verifikasi</button>
                     </div>
                   </form>
                 </div>

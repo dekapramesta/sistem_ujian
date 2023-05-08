@@ -17,6 +17,8 @@ class AdminSeeder extends Seeder
         Admin::create([
             'id_user' => '1',
             'nama' => 'Silvy',
+            "no_telp" => "081230185768",
+            "email" => "admin123@gmail.com",
         ]);
     }
 }

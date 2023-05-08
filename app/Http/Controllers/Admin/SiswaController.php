@@ -49,7 +49,7 @@ class SiswaController extends Controller
 
         $Siswa = Siswa::create([
             'id_user' => $find_user->id,
-            'id_jenjang' => $kelas->id_jenjang,
+            // 'id_jenjang' => $kelas->id_jenjang,
             'id_kelas'=> $request->$nama_jurusan,
             'nama' => $request->nama,
             'nis' => $request->nis,
