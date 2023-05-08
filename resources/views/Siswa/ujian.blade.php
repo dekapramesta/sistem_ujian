@@ -258,11 +258,18 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    console.log('jwb', res.data)
+                    console.log('jwb', res.data.soal.jawaban)
+                    let imageSoal;
+                    if (res.data.soal.soal_gambar !== null && res.data.soal.soal_gambar !== 1) {
+                        imageSoal = `<img src="{{ asset('img/soal/${res.data.soal.soal_gambar}') }}"
+                                                alt="description of myimage" style="width:250px; height:300px">`
+
+                    }
+
+                    console.log('cok', imageSoal)
                     $('#jawaban_place').html(``)
                     $('#soal').html(res.data.soal.soal)
-                    $('#gambar-soal').html(` <img src="{{ asset('img/soal/${res.data.soal.soal_gambar}') }}"
-                                                alt="description of myimage" style="width:250px; height:300px">`)
+                    $('#gambar-soal').html(imageSoal)
                     let arr_soal = []
                     arr_soal.push(res.data.soal.jawaban)
                     let data_jawaban = arr_soal[0]
@@ -271,9 +278,21 @@
                         [data_jawaban[i], data_jawaban[j]] = [data_jawaban[j], data_jawaban[i]];
                     }
                     data_jawaban.map((dt, index) => {
+
+
                         console.log('gmb', dt.jawaban)
                         if (res.data.id_jawaban && (parseInt(res.data.id_jawaban) === parseInt(dt
                                 .id))) {
+                            let imageTrue = `<div class="d-flex justify-content-center">
+                                            <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
+                                                alt="description of myimage" style="width:250px; height:300px">
+                                        </div>`;
+
+
+                            // if (dt.jawaban_gambar === null && dt.jawaban_gambar !== 1) {
+                            //     imageTrue = dt.jawaban_gambar
+                            // }
+                            console.log('oiasa', imageTrue)
 
                             $('#jawaban_place').append(`
                          <div class="form-check" >
@@ -282,13 +301,17 @@
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         <p>${dt.jawaban}</p>
                                     </label>
-                                    <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
-                                                alt="description of myimage" style="width:250px; height:300px">
-                                        </div>
+                                    ${imageTrue}
+
                                       </div>
                                `)
                         } else {
+                            let imageTrue = `<div class="d-flex justify-content-center">
+                                            <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
+                                                alt="description of myimage" style="width:250px; height:300px">
+                                        </div>`;
+
+                            console.log('oiasa', imageTrue)
 
                             $('#jawaban_place').append(`
                                                      <div class="form-check" >
@@ -297,10 +320,7 @@
                                                                 <label class="form-check-label" for="flexRadioDefault1">
                                                                     <p>${dt.jawaban}</p>
                                                                 </label>
-                                                                <div class="d-flex justify-content-center">
-                                         <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
-                                                alt="description of myimage" style="width:250px; height:300px">
-                                        </div>
+${imageTrue}
                                                                   </div>
                                                            `)
 
