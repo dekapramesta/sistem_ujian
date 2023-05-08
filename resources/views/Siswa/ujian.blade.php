@@ -283,10 +283,15 @@
                         console.log('gmb', dt.jawaban)
                         if (res.data.id_jawaban && (parseInt(res.data.id_jawaban) === parseInt(dt
                                 .id))) {
-                            let imageTrue = `<div class="d-flex justify-content-center">
-                                            <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
-                                                alt="description of myimage" style="width:250px; height:300px">
-                                        </div>`;
+                            let imageTrue = ``
+                            if (dt.jawaban_gambar !== null && dt.jawaban_gambar !== 1) {
+
+
+                                imageTrue = `<div class="d-flex justify-content-center">
+                                                        <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
+                                                            alt="description of myimage" style="width:250px; height:300px">
+                                                    </div>`;
+                            }
 
 
                             // if (dt.jawaban_gambar === null && dt.jawaban_gambar !== 1) {
@@ -306,10 +311,15 @@
                                       </div>
                                `)
                         } else {
-                            let imageTrue = `<div class="d-flex justify-content-center">
-                                            <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
-                                                alt="description of myimage" style="width:250px; height:300px">
-                                        </div>`;
+                            let imageTrue = ``;
+                            if (dt.jawaban_gambar !== null && dt.jawaban_gambar !== 1) {
+
+
+                                imageTrue = `<div class="d-flex justify-content-center">
+                                                        <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
+                                                            alt="description of myimage" style="width:250px; height:300px">
+                                                    </div>`;
+                            }
 
                             console.log('oiasa', imageTrue)
 
