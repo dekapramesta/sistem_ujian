@@ -71,7 +71,8 @@
                                                                     Soal</button>
                                                             </a>
                                                             <button type="button" class="btn btn-info"
-                                                                data-bs-toggle="modal" data-bs-target="#delete1">Delete
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete{{ $hdruj->id }}">Delete
                                                                 Soal</button>
                                                         @endif
                                                         @if (count($hdruj->soal) == 0)
