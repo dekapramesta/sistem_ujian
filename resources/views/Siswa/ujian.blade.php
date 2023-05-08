@@ -67,7 +67,7 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="d-flex justify-content-start">
                                             <p class="me-4 " id="no_soal"></p>
-                                            <p id="soal"></p>
+                                            <p id="soal" style='white-space: pre-line;'></p>
                                         </div>
 
                                         <div class="d-flex justify-content-center" id="gambar-soal">
