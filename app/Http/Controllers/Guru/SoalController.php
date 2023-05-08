@@ -52,8 +52,8 @@ class SoalController extends Controller
     {
         Excel::import(new SoalImport($id_header_ujians), $request->file);
 
-        // return redirect()->route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $id_header_ujians]);
-        return redirect()->back();
+        return redirect()->route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $id_header_ujians]);
+        // return redirect()->back();
     }
 
     public function exportSoal($id_header_ujians)
