@@ -52,11 +52,14 @@
                                                 <td>{{ $hdr->jadwal_ujian->jenis_ujian }}</td>
                                                 <td>
                                                     <div class="col text-center">
-                                                        <button class="btn btn-success btn-sm text-center"
-                                                            style="width:70px"><i class="bi bi-pencil-square" style="font-size: 10pt"></i>
-                                                            Edit</button>
+                                                        <a class="btn btn-success btn-sm text-center"
+                                                            href="{{ route('edit.ujian', ['id' => $hdr->jadwal_ujian->id]) }}"
+                                                            style="width:70px"><i class="bi bi-pencil-square"
+                                                                style="font-size: 10pt"></i>
+                                                            Edit</a>
                                                         <button class="btn btn-danger btn-sm text-center"
-                                                            style="width:90px"><i class="bi bi-trash3-fill" style="font-size: 10pt"></i>
+                                                            style="width:90px"><i class="bi bi-trash3-fill"
+                                                                style="font-size: 10pt"></i>
                                                             Hapus</button>
                                                     </div>
                                                 </td>
