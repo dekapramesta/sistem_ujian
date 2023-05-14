@@ -15,7 +15,7 @@ class PesertaUjianSeeder extends Seeder
     public function run()
     {
         PesertaUjian::create([
-            'nis' => '274526',
+            'nis' => '10554',
             'id_detail_ujians' => 1,
         ]);
     }

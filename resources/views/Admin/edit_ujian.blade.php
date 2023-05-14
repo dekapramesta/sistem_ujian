@@ -27,36 +27,24 @@
                                 <form>
                                     <div class="d-flex flex-row">
                                         <label class="col-sm-2 col-form-label">Jenis Ujian</label>
-                                        <select id="select_jenisujian" class="select2-js w-100" name="state">
-                                            <option value="UTS">UTS</option>
-                                            <option value="UAS">UAS</option>
-                                        </select>
+                                        <input type="text" id="select_jenisujian" disabled
+                                            class="form-control w-70 mb-2">
+
                                     </div>
                                     <div class="d-flex flex-row">
                                         <label class="col-sm-2 col-form-label">Jenjang</label>
-                                        <select id="kelas" id="selectKelas" class="select2-js w-100" name="state">
-                                            @foreach ($jenjang as $jjg)
-                                                <option value="{{ $jjg->id }}">{{ $jjg->nama_jenjang }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" id="selectKelas" disabled class="form-control w-70 mb-2">
                                     </div>
                                     <div class="d-flex flex-row">
                                         <label class="col-sm-2 col-form-label">Tahun Akademik</label>
-                                        <select id="tahun_akademik" class="select2-js w-100" name="state">
-                                            @foreach ($tahun_akademik as $thk)
-                                                <option value={{ $thk->id }}>
-                                                    {{ $thk->th_akademik . ' ' . $thk->nama_semester }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" id="tahun_akademik" disabled class="form-control w-70 mb-2">
+
                                     </div>
                                     <div class="d-flex flex-row">
                                         <label class="col-sm-2 col-form-label">Mata Pelajaran</label>
-                                        <select id="selectmapel" class="select2-js w-100" name="state">
-                                            <option disabled selected hidden>Pilih Mata Pelajaran</option>
-                                            @foreach ($mapel as $mpl)
-                                                <option value={{ $mpl->id }}>{{ $mpl->nama_mapel }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" id="selectmapel" disabled class="form-control w-70 mb-2">
+
+
                                     </div>
                                     <div class="d-flex flex-row mb-2">
                                         <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
@@ -91,8 +79,7 @@
                                         </div>
                                         <div class="col ms-2">
 
-                                            <button type="button" disabled class="btn btn-secondary btn-sm"
-                                                id="btn_md_kls">Pilih
+                                            <button type="button" class="btn btn-secondary btn-sm" id="btn_md_kls">Pilih
                                                 Kelas dan Siswa</button>
                                         </div>
 
@@ -236,10 +223,15 @@
             </div>
     </section>
     <script>
+        var KelasId;
+        var id_mapel
         let kelasFinal = [];
         let siswaFinal = [];
+        var jenis_ujian;
         let result = [];
         let siswaCount = 0;
+        var idJadwal;
+        var id_tahunakademik;
 
         $(document).ready(function() {
             $('.select2-js').select2();
@@ -254,7 +246,41 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    console.log(res)
+
+                    id_tahunakademik = res.data.id_th_akademiks
+                    jenis_ujian = res.data.jenis_ujian
+                    idJadwal = res.data.id
+                    console.log(res.data.headerujian[0].detailujian[0].tanggal_ujian)
+                    let dateUjian = res.data.headerujian[0].detailujian[0].tanggal_ujian
+                    let dateSplit = dateUjian.split(' ')
+                    $('#tahun_akademik').val(res.data.th_akademiks.th_akademik + '-' + res.data
+                        .th_akademiks.nama_semester)
+                    $('#select_jenisujian').val(res.data.jenis_ujian)
+                    $('#tanggal_ujian').val(dateSplit[0])
+                    $('#jam_ujian').val(dateSplit[1])
+                    $('#waktu_ujian').val(res.data.headerujian[0].detailujian[0].waktu_ujian)
+                    $('#jumlah_soal').val(res.data.headerujian[0].jumlah_soal)
+                    let jenjang;
+                    if (res.data.headerujian[0].id_jenjangs === 1) {
+                        jenjang = 10
+                    } else if (res.data.headerujian[0].id_jenjangs === 2) {
+                        jenjang = 11
+                    } else if (res.data.headerujian[0].id_jenjangs === 3) {
+                        jenjang = 12
+                    }
+                    $('#selectKelas').val(jenjang)
+                    $('#selectmapel').val(res.data.mapel.nama_mapel)
+                    result.push(...res.result)
+                    console.log(result)
+                    mappingKelaas(result)
+                    mappingSiswa(result)
+                    console.log("first", res.data.id_mapels)
+                    id_mapel = res.data.id_mapels
+                    KelasId = res.data.id_jenjangs
+                    // $('#tanggal_ujian').val(res.data.headerujian[0].detailujian[0].tanggal_ujian)
+                    console.log('hsl', res)
+
+
 
                 }
             });
@@ -269,6 +295,9 @@
                 $('#btn_md_kls').prop("disabled", false);
             })
             $("#btn_md_kls").click(function() {
+                console.log('id_mpl', id_mapel)
+                getKelasMapel(id_mapel)
+                getSiswaMapel(id_mapel)
                 console.log("first")
                 $('.select2-js-mdl').select2({
                     dropdownParent: $('#modalks')
@@ -325,18 +354,6 @@
                     mappingSiswa(result)
                     console.log("hasil oi", result)
                     console.log("kelasfinal", kelasFinal)
-                    // if (result.length === 0) {
-                    //     result.push(data.kelas)
-                    //     console.log(result)
-                    // } else {
-                    //     result.map((rs) => {
-                    //         if (rs.id !== data.kelas.id) {
-                    //             result.push(data.kelas)
-                    //         }
-                    //     })
-                    //     console.log(result)
-                    // }
-
 
                 })
             });
@@ -465,7 +482,7 @@
                 kelasFinal.push(dt.id)
                 $('#table-kelas').append(`
              <tr id="rowkls${dt.id}">
-                  <td>${dt.jurusan.nama_jurusan +' - '+ dt.nama_kelas }</td>
+                  <td>${dt.jurusan?.nama_jurusan +' - '+ dt.nama_kelas }</td>
                          <td class="text-center">
                            <div class="form-check d-flex justify-content-center">
                             <input class="form-check-input" type="checkbox" id="hapuskls" data-index="${dt.id}" data-target="rowkls${dt.id}" checked/>
@@ -479,11 +496,11 @@
 
         function mappingSiswa(datas) {
             datas.map((dt) => {
-                dt.siswa.map((sw) => {
-                    siswaFinal.push(sw.id)
+                dt.siswa?.map((sw) => {
+                    siswaFinal.push(sw?.id)
                     $('#table-siswa').append(`
-                 <tr id="rowsw${sw.id}">
-                      <td>${sw.nama}</td>
+                 <tr id="rowsw${sw?.id}">
+                      <td>${sw?.nama}</td>
                              <td class="">
                                 <div class="form-check d-flex justify-content-center">
                                 <input class="form-check-input" type="checkbox" id="hapussw" data-index="${sw.id}" data-kelas="${sw.id_kelas}" data-target="rowsw${sw.nama}" checked/>
@@ -585,7 +602,7 @@
         }
 
         function getKelasMapel(id) {
-            let kelas = $('#kelas').val()
+            let kelas = KelasId
             let result;
             $.ajax({
                 type: "POST",
@@ -602,7 +619,7 @@
         }
 
         function getSiswaMapel(id) {
-            let kelas = $('#kelas').val()
+            let kelas = KelasId
 
             $.ajax({
                 type: "POST",
@@ -649,31 +666,34 @@
         }
 
         function postUjian() {
+            console.log("result", result)
 
             let data = {
-                jenis_ujian: $('#select_jenisujian').val(),
+                id_jadwal: idJadwal,
+                jenis_ujian: jenis_ujian,
                 tanggal_ujian: $('#tanggal_ujian').val() + ' ' + $('#jam_ujian').val(),
                 waktu_ujian: $('#waktu_ujian').val(),
-                id_th_akademiks: $('#tahun_akademik').val(),
-                kelas: $('#kelas').val(),
+                id_th_akademiks: id_tahunakademik,
+                kelas: KelasId,
                 status: 0,
-                id_mapels: $('#selectmapel').val(),
+                id_mapels: id_mapel,
                 jumlah_soal: $('#jumlah_soal').val(),
                 data: result
             }
             $.ajax({
                 type: "POST",
-                url: "{{ route('api.postujian') }}",
+                url: "{{ route('api.ujianEdPost') }}",
                 data: data,
                 dataType: 'json',
                 success: function(res) {
+                    console.log('id_jadwal', idJadwal)
                     console.log(res)
                 }
             });
 
-            $(document).ajaxStop(function() {
-                window.location.href = "{{ route('jadwal.ujian') }}";
-            });
+            // $(document).ajaxStop(function() {
+            //     window.location.href = "{{ route('jadwal.ujian') }}";
+            // });
         }
     </script>
 @endsection
