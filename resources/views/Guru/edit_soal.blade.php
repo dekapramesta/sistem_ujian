@@ -41,7 +41,13 @@
                                     <div class="card" style="background: cornsilk">
                                         <div class="card-header  d-flex justify-content-between"
                                             style="background: cornsilk">
-                                            <h5 class="card-title-datatable">{{ $sl->soal }}</h5>
+                                            <div>
+                                                <h5 class="card-title-datatable">{{ $sl->soal }}</h5>
+                                                @if ($sl->soal_gambar != null && $sl->soal_gambar != 1)
+                                                    <img src="{{ asset('img/soal/' . $sl->soal_gambar) }}"
+                                                        alt="description of myimage" style="width:250px; height:300px">
+                                                @endif
+                                            </div>
                                             <div>
                                                 <button data-bs-toggle="modal" data-bs-target="#edit{{ $sl->id }}"
                                                     type="button" class="btn btn-primary">Edit Soal /
@@ -52,9 +58,17 @@
                                             <h6>Pilihan Jawaban :</h6>
                                             @foreach ($jawaban as $no => $jwb)
                                                 @if ($jwb->id_soals == $sl->id)
-                                                    <h6>{{ $jwb->jawaban }}
-                                                        {{ $jwb->status == 1 ? '(Jawaban Benar)' : '' }}
+                                                    <h6>- {{ $jwb->jawaban }}
+                                                        @if ($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1)
+                                                        @else
+                                                            {{ $jwb->status == 1 ? '(Jawaban Benar)' : '' }}
+                                                        @endif
                                                     </h6>
+                                                    @if ($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1)
+                                                        <img src="{{ asset('img/jawabans/' . $jwb->jawaban_gambar) }}"
+                                                            alt="description of myimage" style="width:250px; height:300px">
+                                                        {{ $jwb->status == 1 ? '(Jawaban Benar)' : '' }}
+                                                    @endif
                                                 @endif
                                             @endforeach
                                         </div>
