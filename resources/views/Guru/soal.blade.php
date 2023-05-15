@@ -48,6 +48,7 @@
                                             $a = 0;
                                         @endphp
                                         @foreach ($header_ujians as $hdruj)
+                                        @if ($hdruj->jadwal_ujian->status != 8)
                                             @if ($hdruj->jadwal_ujian->id_mapels == $id_mapels)
                                                 @php
                                                     $jml_soal = [];
@@ -303,6 +304,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @endif
                                             @endif
                                         @endforeach
                                     </tbody>
