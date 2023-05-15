@@ -279,6 +279,15 @@
                     KelasId = res.data.id_jenjangs
                     // $('#tanggal_ujian').val(res.data.headerujian[0].detailujian[0].tanggal_ujian)
                     console.log('hsl', res)
+                    result.map((rs) => {
+                        rs.siswa.map((sw) => {
+                            siswaCount += 1
+                        })
+                    })
+                    $('#val_sw_kls').val("Total Kelas : " + result.length + ", Total Siswa : " +
+                        siswaCount)
+
+
 
 
 
@@ -304,9 +313,11 @@
                 });
                 $('#modalks').appendTo("body").modal('show');
                 $('#tambahkls').click(function() {
+
                     kelas = ($('#selectkls').val())
                     console.log('addkls', kelas)
                     getKelas(kelas)
+
                     // console.log('kelas', kelasFinal)
                     // mappingKelaas(data)
 
@@ -591,8 +602,8 @@
                             kelasFinal.push(rs.id)
                         }
                     })
-                    $('#table-kelas').html('')
-                    $('#table-siswa').html('')
+                    // $('#table-kelas').html('')
+                    // $('#table-siswa').html('')
                     mappingKelaas(res)
                     mappingSiswa(res)
                     console.log(result)
@@ -691,9 +702,9 @@
                 }
             });
 
-            // $(document).ajaxStop(function() {
-            //     window.location.href = "{{ route('jadwal.ujian') }}";
-            // });
+            $(document).ajaxStop(function() {
+                window.location.href = "{{ route('jadwal.ujian') }}";
+            });
         }
     </script>
 @endsection
