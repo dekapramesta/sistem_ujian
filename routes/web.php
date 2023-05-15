@@ -92,6 +92,8 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
             Route::get('mapel', [GuruHomeController::class, 'mapel'])->name('guru.mapel');
             Route::get('dashboard/{id_mapels}', [GuruHomeController::class, 'index'])->name('guru.dashboard');
             Route::get('bank_soal/{id_mapels}', [BankSoalController::class, 'index'])->name('guru.bank_soal');
+            Route::get('/bank_soal/lihat_soal/{id_mapels}/{id_header_ujians}', [BankSoalController::class, 'lihat_soal'])->name('guru.lihat_soal');
+            Route::post('bank_soal/konfirmasi_ujian', [BankSoalController::class, 'konfirmasi_ujian'])->name('guru.konfirmasi_ujian');
             Route::get('/bank_soal/edit_soal/{id_mapels}/{id_header_ujians}', [BankSoalController::class, 'edit_soal'])->name('guru.edit_soal');
             Route::get('/bank_soal/tambah_gambar/{id_mapels}/{id_header_ujians}', [BankSoalController::class, 'tambah_gambar'])->name('guru.tambah_gambar');
             Route::post('/bank_soal/edit_soal/soal/{id_soal}', [BankSoalController::class, 'update_soal'])->name('guru.update_soal');

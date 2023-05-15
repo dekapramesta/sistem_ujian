@@ -82,17 +82,25 @@
                                                         <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                                             data-bs-target="#detail{{ $hdruj->id }}">Detail</button>
                                                         @if (count($hdruj->soal) > 0)
-                                                            @if ($jml_soal == null)
-                                                                <a
-                                                                    href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
-                                                                    <button type="button" class="btn btn-info">Edit
-                                                                        Soal</button>
-                                                                </a>
+                                                            @if ($hdruj->status == 0)
+                                                                @if ($jml_soal == null)
+                                                                    <a
+                                                                        href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+                                                                        <button type="button" class="btn btn-info">Edit
+                                                                            Soal</button>
+                                                                    </a>
+                                                                @else
+                                                                    <a
+                                                                        href="{{ route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+                                                                        <button type="button" class="btn btn-info">+
+                                                                            Gambar</button>
+                                                                    </a>
+                                                                @endif
                                                             @else
                                                                 <a
-                                                                    href="{{ route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
-                                                                    <button type="button" class="btn btn-info">+
-                                                                        Gambar</button>
+                                                                    href="{{ route('guru.lihat_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+                                                                    <button type="button" class="btn btn-info">Lihat
+                                                                        soal</button>
                                                                 </a>
                                                             @endif
 
@@ -100,10 +108,12 @@
                                                                 <button type="button" class="btn btn-info">Export
                                                                     Soal</button>
                                                             </a>
-                                                            <button type="button" class="btn btn-info"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#delete{{ $hdruj->id }}">Delete
-                                                                Soal</button>
+                                                            @if ($hdruj->status == 0)
+                                                                <button type="button" class="btn btn-info"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#delete{{ $hdruj->id }}">Delete
+                                                                    Soal</button>
+                                                            @endif
                                                         @endif
                                                         @if (count($hdruj->soal) == 0)
                                                             <button type="button" class="btn btn-success"
@@ -258,6 +268,10 @@
                                                             </div> --}}
                                                             </div>
                                                             <div class="modal-footer">
+                                                                <button type="button" class="btn btn-primary"
+                                                                    id="btn_konfirmasi_ujian{{ $hdruj->id }}"
+                                                                    onclick="konfirmasi_ujian_{{ $hdruj->id }}('{{ $hdruj->id }}')">Konfirmasi
+                                                                    Ujian</button>
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Close</button>
                                                             </div>
@@ -300,3 +314,48 @@
             </div>
     </section>
 @endsection
+@foreach ($header_ujians as $hdruj)
+    @if ($hdruj->jadwal_ujian->id_mapels == $id_mapels)
+        <script type="text/javascript">
+            function konfirmasi_ujian_{{ $hdruj->id }}(id_headerujian) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                Swal.fire({
+                    title: 'Yakin ingin mengkonfirmasi ujian?',
+                    text: "Anda tidak akan dapat mengedit dan menghapus soal setelah ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Konfirmasi',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('guru.konfirmasi_ujian') }}",
+                            data: {
+                                id_headerujian: id_headerujian
+                            },
+                            dataType: 'json',
+                            success: function(res) {
+                                Swal.fire(
+                                    'Terkonfirmasi!',
+                                    'Ujian Telah Dikonfirmasi!',
+                                    'success'
+                                )
+                                document.getElementById("btn_konfirmasi_ujian{{ $hdruj->id }}")
+                                    .remove();
+
+                            }
+                        });
+                    }
+                })
+            }
+        </script>
+    @endif
+@endforeach
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -75,8 +75,9 @@
                                                 <div>
                                                     <h5 class="card-title-datatable">{{ $sl->soal }}</h5>
                                                     @if ($sl->soal_gambar != null && $sl->soal_gambar != 1)
-                                                        <img src="{{ asset('img/soal/' . $sl->soal_gambar) }}"
-                                                            alt="description of myimage" style="width:250px; height:300px">
+                                                        <input type="file" class="dropify " disabled="disabled"
+                                                            name="disabled_gambar_soal" id="input-file-now-disabled-2"
+                                                            data-default-file="{{ asset('img/soal/' . $sl->soal_gambar) }}" />
                                                     @endif
                                                 </div>
                                                 <div>
@@ -103,10 +104,17 @@
                                                             @endif
                                                         </h6>
                                                         @if ($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1)
-                                                            <img src="{{ asset('img/jawabans/' . $jwb->jawaban_gambar) }}"
-                                                                alt="description of myimage"
-                                                                style="width:250px; height:300px">
-                                                            {{ $jwb->status == 1 ? '(Jawaban Benar)' : '' }}
+                                                            <div class=" d-flex justify-content-between">
+                                                                <div class="d-flex">
+                                                                    <input type="file" class="dropify w-25"
+                                                                        disabled="disabled" id="input-file-now-disabled-2"
+                                                                        data-default-file="{{ asset('img/jawabans/' . $jwb->jawaban_gambar) }}" />
+                                                                    <h6 class="w-100">
+                                                                        {{ $jwb->status == 1 ? '(Jawaban Benar)' : '' }}
+                                                                    </h6>
+                                                                </div>
+                                                                <div></div>
+                                                            </div>
                                                         @endif
                                                     @endif
                                                 @endforeach

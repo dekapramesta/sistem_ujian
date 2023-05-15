@@ -136,6 +136,19 @@ class SoalController extends Controller
         return view("Guru.edit_soal", compact('header_ujians', 'soal', 'jawaban', 'id_mapels'));
     }
 
+    public function lihat_soal($id_mapels, $id_header_ujians)
+    {
+        $id_mapels = $id_mapels;
+        $user = Auth::user();
+        $guru = Guru::where('id_user', $user->id)->first();
+        $header_ujians = HeaderUjian::where('id', $id_header_ujians)->first();
+
+        $soal = Soal::where('id_headerujian', $id_header_ujians)->get();
+        $jawaban = Jawaban::all();
+
+        return view("Guru.lihat_soal", compact('header_ujians', 'soal', 'jawaban', 'id_mapels'));
+    }
+
     public function update_soal(Request $request, $id_soal)
     {
         $jawaban = Jawaban::where('id_soals', $id_soal)->get();
@@ -233,6 +246,24 @@ class SoalController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal Menghapus Gambar',
+            ]);
+        }
+    }
+
+    public function konfirmasi_ujian(Request $request)
+    {
+        $HeaderUjian = HeaderUjian::where('id', $request->id_headerujian)->update([
+            'status' => 1
+        ]);
+        if($HeaderUjian) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Ujian Berhasil Dikonfirmasi!',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Mengkonfirmasi Ujian',
             ]);
         }
     }

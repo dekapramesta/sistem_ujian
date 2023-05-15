@@ -76,9 +76,6 @@ class SoalImport implements ToCollection, WithHeadingRow
                     "status" => 1
                 ]);
             }
-            HeaderUjian::where('id', $this->id)->update([
-                'status' => 1
-            ]);
             Alert::success('Berhasil Upload', 'Berhasil Menambahkan Soal');
         } else {
             Alert::warning('Gagal Upload', 'Jumlah Soal Kurang Dari Batas Yang Diberikan');
