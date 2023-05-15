@@ -44,16 +44,36 @@ class SoalController extends Controller
         })->get();
 
         $detail_ujian = DetailUjian::all();
+        $soal = Soal::all();
+        $jawaban = Jawaban::all();
 
-        return view("Guru.soal", compact('jenjang', 'header_ujians', 'detail_ujian', 'id_mapels'));
+        return view("Guru.soal", compact('jenjang', 'header_ujians', 'detail_ujian', 'id_mapels', 'soal', 'jawaban'));
     }
 
     public function uploadSoal(Request $request, $id_header_ujians, $id_mapels)
     {
         Excel::import(new SoalImport($id_header_ujians), $request->file);
 
-        return redirect()->route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $id_header_ujians]);
-        // return redirect()->back();
+        $soal = Soal::where('id_headerujian', $id_header_ujians)->get();
+        $jawaban = Jawaban::all();
+        $tambah_gambar = [];
+        foreach($soal as $sl) {
+            foreach($jawaban as $jwb) {
+                if($jwb->id_soals == $sl->id) {
+                    if($jwb->jawaban_gambar == 1) {
+                        array_push($tambah_gambar, $jwb->id_soals);
+                    }
+                }
+            }
+            if($sl->soal_gambar == 1) {
+                array_push($tambah_gambar, $sl->id);
+            }
+        }
+        if($tambah_gambar == null) {
+            return redirect()->back();
+        } else {
+            return redirect()->route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $id_header_ujians]);
+        }
     }
 
     public function exportSoal($id_header_ujians)
@@ -82,8 +102,25 @@ class SoalController extends Controller
 
         $soal = Soal::where('id_headerujian', $id_header_ujians)->get();
         $jawaban = Jawaban::all();
+        $tambah_gambar = [];
+        foreach($soal as $sl) {
+            foreach($jawaban as $jwb) {
+                if($jwb->id_soals == $sl->id) {
+                    if($jwb->jawaban_gambar == 1) {
+                        array_push($tambah_gambar, $jwb->id_soals);
+                    }
+                }
+            }
+            if($sl->soal_gambar == 1) {
+                array_push($tambah_gambar, $sl->id);
+            }
+        }
+        if($tambah_gambar == null) {
+            return redirect()->route('guru.bank_soal', ['id_mapels' => $id_mapels]);
+        } else {
+            return view("Guru.tambah_gambar", compact('header_ujians', 'soal', 'jawaban', 'id_mapels'));
+        }
 
-        return view("Guru.tambah_gambar", compact('header_ujians', 'soal', 'jawaban', 'id_mapels'));
     }
 
     public function edit_soal($id_mapels, $id_header_ujians)

@@ -49,6 +49,27 @@
                                         @endphp
                                         @foreach ($header_ujians as $hdruj)
                                             @if ($hdruj->jadwal_ujian->id_mapels == $id_mapels)
+                                                @php
+                                                    $jml_soal = [];
+                                                @endphp
+                                                @foreach ($soal as $sl)
+                                                    @if ($sl->id_headerujian == $hdruj->id)
+                                                        @foreach ($jawaban as $jwb)
+                                                            @if ($jwb->id_soals == $sl->id)
+                                                                @if ($jwb->jawaban_gambar == 1)
+                                                                    @php
+                                                                        array_push($jml_soal, $jwb->id_soals);
+                                                                    @endphp
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                        @if ($sl->soal_gambar == 1)
+                                                            @php
+                                                                array_push($jml_soal, $sl->id);
+                                                            @endphp
+                                                        @endif
+                                                    @endif
+                                                @endforeach
                                                 <tr>
                                                     <th scope="row">{{ ++$a }}</th>
                                                     <td>{{ $hdruj->jadwal_ujian->mapel->nama_mapel }}</td>
@@ -61,11 +82,20 @@
                                                         <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                                             data-bs-target="#detail{{ $hdruj->id }}">Detail</button>
                                                         @if (count($hdruj->soal) > 0)
-                                                            <a
-                                                                href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
-                                                                <button type="button" class="btn btn-info">Edit
-                                                                    Soal</button>
-                                                            </a>
+                                                            @if ($jml_soal == null)
+                                                                <a
+                                                                    href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+                                                                    <button type="button" class="btn btn-info">Edit
+                                                                        Soal</button>
+                                                                </a>
+                                                            @else
+                                                                <a
+                                                                    href="{{ route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+                                                                    <button type="button" class="btn btn-info">+
+                                                                        Gambar</button>
+                                                                </a>
+                                                            @endif
+
                                                             <a href="{{ route('soal.export', $hdruj->id) }}">
                                                                 <button type="button" class="btn btn-info">Export
                                                                     Soal</button>
