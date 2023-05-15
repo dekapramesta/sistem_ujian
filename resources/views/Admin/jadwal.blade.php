@@ -43,27 +43,30 @@
                                         $no = 1;
                                     @endphp
                                         @foreach ($header as $hdr)
-                                            <tr>
-                                                <td>{{ $no++ }}</td>
-                                                <td>{{ $hdr->jadwal_ujian->mapel->nama_mapel }}</td>
-                                                <td>{{ 'Kelas ' . $hdr->jenjang->nama_jenjang }}</td>
-                                                <td>{{ $hdr->jadwal_ujian->th_akademiks->th_akademik . ' ' . $hdr->jadwal_ujian->th_akademiks->nama_semester }}
-                                                </td>
-                                                <td>{{ $hdr->jadwal_ujian->jenis_ujian }}</td>
-                                                <td>
-                                                    <div class="col text-center">
-                                                        <a class="btn btn-success btn-sm text-center"
-                                                            href="{{ route('edit.ujian', ['id' => $hdr->jadwal_ujian->id]) }}"
-                                                            style="width:70px"><i class="bi bi-pencil-square"
-                                                                style="font-size: 10pt"></i>
-                                                            Edit</a>
-                                                        <button class="btn btn-danger btn-sm text-center"
-                                                            style="width:90px"><i class="bi bi-trash3-fill"
-                                                                style="font-size: 10pt"></i>
-                                                            Hapus</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            @if ($hdr->jadwal_ujian->status != 8)
+                                                <tr>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $hdr->jadwal_ujian->mapel->nama_mapel }}</td>
+                                                    <td>{{ 'Kelas ' . $hdr->jenjang->nama_jenjang }}</td>
+                                                    <td>{{ $hdr->jadwal_ujian->th_akademiks->th_akademik . ' ' . $hdr->jadwal_ujian->th_akademiks->nama_semester }}
+                                                    </td>
+                                                    <td>{{ $hdr->jadwal_ujian->jenis_ujian }}</td>
+                                                    <td>
+                                                        <div class="col text-center">
+                                                            <a class="btn btn-success btn-sm text-center"
+                                                                href="{{ route('edit.ujian', ['id' => $hdr->jadwal_ujian->id]) }}"
+                                                                style="width:70px"><i class="bi bi-pencil-square"
+                                                                    style="font-size: 10pt"></i>
+                                                                Edit</a>
+                                                            <a href="{{ route('delete.ujian', ['id' => $hdr->jadwal_ujian->id]) }}"
+                                                                class="btn btn-danger btn-sm text-center"
+                                                                style="width:90px"><i class="bi bi-trash3-fill"
+                                                                    style="font-size: 10pt"></i>
+                                                                Hapus</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>

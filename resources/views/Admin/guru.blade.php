@@ -89,23 +89,25 @@
                                                                             @foreach ($kelas as $kls)
                                                                                 @if (!empty($guru->mst_mapel_guru_kelas))
                                                                                     @php
-                                                                                        $id;
+                                                                                        $id = 1;
                                                                                     @endphp
                                                                                     @foreach ($guru->mst_mapel_guru_kelas as $mst)
                                                                                         @php
                                                                                             $id = $mst->id_kelas;
                                                                                         @endphp
                                                                                     @endforeach
-                                                                                    @if ($kls->id === $id)
-                                                                                        <option selected
-                                                                                            value="{{ $kls->id }}">
-                                                                                            {{ $kls->jenjang->nama_jenjang . ' ' . $kls->jurusan->nama_jurusan . ' ' . $kls->nama_kelas }}
-                                                                                        </option>
-                                                                                    @else
-                                                                                        <option
-                                                                                            value="{{ $kls->id }}">
-                                                                                            {{ $kls->jenjang->nama_jenjang . ' ' . $kls->jurusan->nama_jurusan . ' ' . $kls->nama_kelas }}
-                                                                                        </option>
+                                                                                    @if ($id != null)
+                                                                                        @if ($kls->id === $id)
+                                                                                            <option selected
+                                                                                                value="{{ $kls->id }}">
+                                                                                                {{ $kls->jenjang->nama_jenjang . ' ' . $kls->jurusan->nama_jurusan . ' ' . $kls->nama_kelas }}
+                                                                                            </option>
+                                                                                        @else
+                                                                                            <option
+                                                                                                value="{{ $kls->id }}">
+                                                                                                {{ $kls->jenjang->nama_jenjang . ' ' . $kls->jurusan->nama_jurusan . ' ' . $kls->nama_kelas }}
+                                                                                            </option>
+                                                                                        @endif
                                                                                     @endif
                                                                                 @endif
                                                                             @endforeach

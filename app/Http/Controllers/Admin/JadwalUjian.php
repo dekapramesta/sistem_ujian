@@ -116,4 +116,12 @@ class JadwalUjian extends Controller
         $tahun_akademik = ThAkademik::all();
         return view('admin.edit_ujian', compact('kelas', 'siswa', 'mapel', 'jenjang', 'tahun_akademik'));
     }
+
+    function deleteUjian($id)
+    {
+        $data = jadwal_ujian::find($id);
+        $data->status = 8;
+        $data->save();
+        return redirect()->route('jadwal.ujian');
+    }
 }
