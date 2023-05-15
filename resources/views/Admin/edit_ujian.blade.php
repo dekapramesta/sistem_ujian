@@ -444,6 +444,7 @@
 
             $('#submit_kls_sw').on('click', function() {
                 // console.log('siswa array', result)
+                siswaCount = 0;
                 result.map((rs) => {
                     rs.siswa.map((sw) => {
                         siswaCount += 1
