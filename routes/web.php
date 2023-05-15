@@ -77,6 +77,7 @@ Route::middleware(['auth', 'levelAcces:admin'])->group(
                 Route::get('jadwalujian', [JadwalUjian::class, 'index'])->name('jadwal.ujian');
                 Route::get('add/jadwalujian', [JadwalUjian::class, 'AddJadwalUjian'])->name('add.ujian');
                 Route::get('edit/jadwalujian/{id}', [JadwalUjian::class, 'editJadwal'])->name('edit.ujian');
+                Route::get('delete/jadwalujian/{id}', [JadwalUjian::class, 'deleteUjian'])->name('delete.ujian');
             }
         );
     }
