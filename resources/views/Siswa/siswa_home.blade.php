@@ -57,32 +57,35 @@
                     <div class="col">
                         <div class="row justify-content-start">
                             @foreach ($ujian as $ujn)
-                                @if ($ujn->detailujian->headerujian->status == 1)
-                                    <div class="card ms-2 me-2" style="width: 22rem;">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                {{ $ujn->detailujian->headerujian->jadwal_ujian->mapel->nama_mapel }}</h5>
-                                            <span
-                                                class="card-text fs-5">{{ $ujn->detailujian->headerujian->jadwal_ujian->jenis_ujian . ' ' . $ujn->detailujian->headerujian->jadwal_ujian->th_akademiks->th_akademik . ' - ' . $ujn->detailujian->headerujian->jadwal_ujian->th_akademiks->nama_semester }}</span>
-                                            <p class="card-text mt-2" style="font-size:13px;">Tanggal Dan Jam Ujian :
-                                                {{ $ujn->detailujian->tanggal_ujian }}</p>
+                                @if ($ujn->detailujian->headerujian->jadwal_ujian->status != 8)
+                                    @if ($ujn->detailujian->headerujian->status == 1)
+                                        <div class="card ms-2 me-2" style="width: 22rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    {{ $ujn->detailujian->headerujian->jadwal_ujian->mapel->nama_mapel }}
+                                                </h5>
+                                                <span
+                                                    class="card-text fs-5">{{ $ujn->detailujian->headerujian->jadwal_ujian->jenis_ujian . ' ' . $ujn->detailujian->headerujian->jadwal_ujian->th_akademiks->th_akademik . ' - ' . $ujn->detailujian->headerujian->jadwal_ujian->th_akademiks->nama_semester }}</span>
+                                                <p class="card-text mt-2" style="font-size:13px;">Tanggal Dan Jam Ujian :
+                                                    {{ $ujn->detailujian->tanggal_ujian }}</p>
 
-                                            @if ($ujn->status == 0)
-                                                @if ($ujn->detailujian->tanggal_ujian <= now())
-                                                    <a href="{{ route('siswa.ujian', $ujn->detailujian->id_headerujian) }}"
-                                                        class="btn btn-primary">Ujian</a>
-                                                @else
-                                                    <button class="btn btn-secondary">Belum Mulai</button>
-                                                @endif
-                                            @else
-                                                @foreach ($nilai as $nl)
-                                                    @if ($ujn->detailujian->id_headerujian == $nl->id_ujian)
-                                                        <span class="fs-3">Ujian Selesai</span>
+                                                @if ($ujn->status == 0)
+                                                    @if ($ujn->detailujian->tanggal_ujian <= now())
+                                                        <a href="{{ route('siswa.ujian', $ujn->detailujian->id_headerujian) }}"
+                                                            class="btn btn-primary">Ujian</a>
+                                                    @else
+                                                        <button class="btn btn-secondary">Belum Mulai</button>
                                                     @endif
-                                                @endforeach
-                                            @endif
+                                                @else
+                                                    @foreach ($nilai as $nl)
+                                                        @if ($ujn->detailujian->id_headerujian == $nl->id_ujian)
+                                                            <span class="fs-3">Ujian Selesai</span>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 @endif
                             @endforeach
 
