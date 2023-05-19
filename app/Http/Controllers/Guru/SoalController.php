@@ -172,7 +172,7 @@ class SoalController extends Controller
                 $status = 0;
             }
             if(isset($request->jawabangambar[$jwb->id])) {
-                $namafile_gambarjawaban[$jwb->id] = time() . '.' . $request->jawabangambar[$jwb->id]->extension();
+                $namafile_gambarjawaban[$jwb->id] = uniqid() . '.' . $request->jawabangambar[$jwb->id]->extension();
                 $request->jawabangambar[$jwb->id]->move(public_path('img/jawabans'), $namafile_gambarjawaban[$jwb->id]);
                 Jawaban::where('id', $jwb->id)->update([
                     'jawaban' => $request->jawaban[$jwb->id],
@@ -191,21 +191,25 @@ class SoalController extends Controller
         return redirect()->back();
     }
 
-    public function selesai_upload_gambar($id_soal)
+    public function selesai_upload_gambar($id_mapels, Request $request)
     {
-        $jawaban = Jawaban::where('id_soals', $id_soal)->get();
-        Soal::where('id', $id_soal)->where('soal_gambar', 1)->update([
-            'soal_gambar' => null
-        ]);
-
-        foreach ($jawaban as $jwb) {
-            Jawaban::where('id', $jwb->id)->where('jawaban_gambar', 1)->update([
-                'jawaban_gambar' => null
+        $array_id_soal = array_unique($request->input('array'));
+        foreach ($array_id_soal as $idsl) {
+            $jawaban = Jawaban::where('id_soals', $idsl)->get();
+            Soal::where('id', $idsl)->where('soal_gambar', 1)->update([
+                'soal_gambar' => null
             ]);
 
+            foreach ($jawaban as $jwb) {
+                Jawaban::where('id', $jwb->id)->where('jawaban_gambar', 1)->update([
+                    'jawaban_gambar' => null
+                ]);
+
+            }
         }
+
         Alert::success('Berhasil', 'Berhasil Menambah Gambar Soal dan Jawaban');
-        return redirect()->back();
+        return redirect()->route('guru.bank_soal', ['id_mapels' => $id_mapels]);
     }
 
     public function delete_soal_gambar(Request $request)
@@ -272,9 +276,20 @@ class SoalController extends Controller
     {
         $id_soals = Soal::where('id_headerujian', $id_header_ujians)->get();
         foreach ($id_soals as $idsl) {
+            $jawaban = Jawaban::where('id_soals', $idsl->id)->get();
+            foreach ($jawaban as $jwb) {
+                if($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1) {
+                    unlink(public_path('img/jawabans/'.$jwb->jawaban_gambar));
+                }
+            }
+
             DB::table('jawabans')->where('id_soals', $idsl->id)->delete();
+            if($idsl->soal_gambar != null && $idsl->soal_gambar != 1) {
+                unlink(public_path('img/soal/'.$idsl->soal_gambar));
+            }
         }
         DB::table('soals')->where('id_headerujian', $id_header_ujians)->delete();
+        Alert::success('Berhasil', 'Berhasil Menghapus Soal');
         return redirect()->back();
     }
 }

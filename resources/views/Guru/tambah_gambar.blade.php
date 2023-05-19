@@ -43,14 +43,25 @@
                                         @endphp
                                     @endif
                                 @endforeach
-                                <h5 class="card-title-datatable">
-                                    {{ $header_ujians->jadwal_ujian->mapel->nama_mapel }} -
-                                    {{ $header_ujians->jadwal_ujian->jenis_ujian }} -
-                                    {{ $header_ujians->jadwal_ujian->th_akademiks->th_akademik }} - Semester
-                                    {{ $header_ujians->jadwal_ujian->th_akademiks->nama_semester }}</h5>
-                                <h5 style="color: #012970;">Jumlah Soal Gambar : {{ count(array_unique($jml_soal)) }}</h5>
-
-
+                                <div>
+                                    <h5 class="card-title-datatable">
+                                        {{ $header_ujians->jadwal_ujian->mapel->nama_mapel }} -
+                                        {{ $header_ujians->jadwal_ujian->jenis_ujian }} -
+                                        {{ $header_ujians->jadwal_ujian->th_akademiks->th_akademik }} - Semester
+                                        {{ $header_ujians->jadwal_ujian->th_akademiks->nama_semester }}</h5>
+                                </div>
+                                <div>
+                                    <h5 style="color: #012970;">Jumlah Soal Gambar :
+                                        {{ count(array_unique($jml_soal)) }}</h5>
+                                    <form
+                                        action="{{ route('guru.selesai_upload_gambar', ['id_mapels' => $id_mapels, 'array' => $jml_soal]) }}"
+                                        method="post" enctype="multipart/form-data"
+                                        id="selesai_upload_gambar{{ $header_ujians->id }}">
+                                        @csrf
+                                        <button type="b" class="btn btn-info">Selesai Upload
+                                            Gambar</button>
+                                    </form>
+                                </div>
                             </div>
 
                             <div class="card-body p-3">
@@ -81,13 +92,6 @@
                                                     @endif
                                                 </div>
                                                 <div>
-                                                    <form action="{{ route('guru.selesai_upload_gambar', $sl->id) }}"
-                                                        method="post" enctype="multipart/form-data"
-                                                        id="selesai_upload_gambar{{ $sl->id }}">
-                                                        @csrf
-                                                        <button type="b" class="btn btn-info">Selesai Upload
-                                                            Gambar</button>
-                                                    </form>
                                                     <button data-bs-toggle="modal" data-bs-target="#edit{{ $sl->id }}"
                                                         type="button" class="btn btn-primary">Upload Gambar
                                                         Soal/Jawaban</button>
@@ -224,28 +228,28 @@
     <script>
         $('.dropify').dropify();
     </script>
+    <script type="text/javascript">
+        document.getElementById('selesai_upload_gambar{{ $header_ujians->id }}').addEventListener('submit', function(evt) {
+            evt.preventDefault();
+            Swal.fire({
+                title: 'Yakin ingin menyelesaikan upload gambar?',
+                text: "Cek terlebih dahulu sebelum menyelesaikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Selesai',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#selesai_upload_gambar{{ $header_ujians->id }}').submit()
+
+                }
+            })
+
+        })
+    </script>
     @foreach ($soal as $sl)
         @if ($sl->soal_gambar == 1 || in_array($sl->id, $tambah_gambar))
-            <script type="text/javascript">
-                document.getElementById('selesai_upload_gambar{{ $sl->id }}').addEventListener('submit', function(evt) {
-                    evt.preventDefault();
-                    Swal.fire({
-                        title: 'Yakin ingin menyelesaikan upload gambar?',
-                        text: "Cek terlebih dahulu sebelum menyelesaikan!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Selesai',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $('#selesai_upload_gambar{{ $sl->id }}').submit()
-
-                        }
-                    })
-
-                })
-            </script>
             <script type="text/javascript">
                 function hapus_gambar_soal_{{ $sl->id }}(soal_gambar) {
                     $.ajaxSetup({

@@ -30,28 +30,28 @@ class UserSeeder extends Seeder
         ]);
 
         $guru = User::create([
-            "username" => "kumala123@gmail.com",
+            "username" => "197404012003122008",
             "password" => bcrypt("kumala123"),
             "jabatan" => "guru",
             "verified" => '1',
         ]);
 
         $guru = User::create([
-            "username" => "resmiati123@gmail.com",
+            "username" => "196812282007012021",
             "password" => bcrypt("resmiati123"),
             "jabatan" => "guru",
             "verified" => '1'
         ]);
 
         $guru = User::create([
-            "username" => "dita123@gmail.com",
+            "username" => "197412172005012006",
             "password" => bcrypt("dita123"),
             "jabatan" => "guru",
             "verified" => '1'
         ]);
 
         $guru = User::create([
-            "username" => "heriwhy123@gmail.com",
+            "username" => "197801112005012009",
             "password" => bcrypt("heri123"),
             "jabatan" => "guru",
             "verified" => '1'
@@ -94,39 +94,39 @@ class UserSeeder extends Seeder
 
         ]);
 
-         $siswa = User::create([
-            "username" => "10584",
-            "password" => bcrypt("ananta123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10584",
+           "password" => bcrypt("ananta123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10607",
-            "password" => bcrypt("astutik123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10607",
+           "password" => bcrypt("astutik123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10731",
-            "password" => bcrypt("kaila123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10731",
+           "password" => bcrypt("kaila123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10821",
-            "password" => bcrypt("rani123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10821",
+           "password" => bcrypt("rani123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10871",
-            "password" => bcrypt("tata123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10871",
+           "password" => bcrypt("tata123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
         $siswa = User::create([
@@ -199,67 +199,67 @@ class UserSeeder extends Seeder
             "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10234",
-            "password" => bcrypt("andika123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10234",
+           "password" => bcrypt("andika123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10306",
-            "password" => bcrypt("dini123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10306",
+           "password" => bcrypt("dini123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10360",
-            "password" => bcrypt("haydar123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10360",
+           "password" => bcrypt("haydar123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10434",
-            "password" => bcrypt("nadia123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10434",
+           "password" => bcrypt("nadia123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10518",
-            "password" => bcrypt("steven123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10518",
+           "password" => bcrypt("steven123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "09922",
-            "password" => bcrypt("arlingga123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "09922",
+           "password" => bcrypt("arlingga123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "09936",
-            "password" => bcrypt("brian123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "09936",
+           "password" => bcrypt("brian123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10045",
-            "password" => bcrypt("mahmud123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10045",
+           "password" => bcrypt("mahmud123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10171",
-            "password" => bcrypt("siti123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10171",
+           "password" => bcrypt("siti123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
         $siswa = User::create([
@@ -269,39 +269,39 @@ class UserSeeder extends Seeder
             "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "09895",
-            "password" => bcrypt("akbar123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "09895",
+           "password" => bcrypt("akbar123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "09935",
-            "password" => bcrypt("bintang123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "09935",
+           "password" => bcrypt("bintang123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "09999",
-            "password" => bcrypt("guntur123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "09999",
+           "password" => bcrypt("guntur123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10096",
-            "password" => bcrypt("oktiva123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10096",
+           "password" => bcrypt("oktiva123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10145",
-            "password" => bcrypt("rizky123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10145",
+           "password" => bcrypt("rizky123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
         $siswa = User::create([
@@ -311,32 +311,32 @@ class UserSeeder extends Seeder
             "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "09915",
-            "password" => bcrypt("anisa123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "09915",
+           "password" => bcrypt("anisa123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "09945",
-            "password" => bcrypt("david123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "09945",
+           "password" => bcrypt("david123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10023",
-            "password" => bcrypt("intan123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10023",
+           "password" => bcrypt("intan123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
-         $siswa = User::create([
-            "username" => "10049",
-            "password" => bcrypt("maulana123"),
-            "jabatan" => "siswa",
-            "verified" => '1'
+        $siswa = User::create([
+           "username" => "10049",
+           "password" => bcrypt("maulana123"),
+           "jabatan" => "siswa",
+           "verified" => '1'
         ]);
 
     }
