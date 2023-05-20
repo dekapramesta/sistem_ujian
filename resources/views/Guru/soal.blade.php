@@ -48,262 +48,269 @@
                                             $a = 0;
                                         @endphp
                                         @foreach ($header_ujians as $hdruj)
-                                        @if ($hdruj->jadwal_ujian->status != 8)
-                                            @if ($hdruj->jadwal_ujian->id_mapels == $id_mapels)
-                                                @php
-                                                    $jml_soal = [];
-                                                @endphp
-                                                @foreach ($soal as $sl)
-                                                    @if ($sl->id_headerujian == $hdruj->id)
-                                                        @foreach ($jawaban as $jwb)
-                                                            @if ($jwb->id_soals == $sl->id)
-                                                                @if ($jwb->jawaban_gambar == 1)
-                                                                    @php
-                                                                        array_push($jml_soal, $jwb->id_soals);
-                                                                    @endphp
+                                            @if ($hdruj->jadwal_ujian->status != 8)
+                                                @if ($hdruj->jadwal_ujian->id_mapels == $id_mapels)
+                                                    @php
+                                                        $jml_soal = [];
+                                                    @endphp
+                                                    @foreach ($soal as $sl)
+                                                        @if ($sl->id_headerujian == $hdruj->id)
+                                                            @foreach ($jawaban as $jwb)
+                                                                @if ($jwb->id_soals == $sl->id)
+                                                                    @if ($jwb->jawaban_gambar == 1)
+                                                                        @php
+                                                                            array_push($jml_soal, $jwb->id_soals);
+                                                                        @endphp
+                                                                    @endif
                                                                 @endif
+                                                            @endforeach
+                                                            @if ($sl->soal_gambar == 1)
+                                                                @php
+                                                                    array_push($jml_soal, $sl->id);
+                                                                @endphp
                                                             @endif
-                                                        @endforeach
-                                                        @if ($sl->soal_gambar == 1)
-                                                            @php
-                                                                array_push($jml_soal, $sl->id);
-                                                            @endphp
                                                         @endif
-                                                    @endif
-                                                @endforeach
-                                                <tr>
-                                                    <th scope="row">{{ ++$a }}</th>
-                                                    <td>{{ $hdruj->jadwal_ujian->mapel->nama_mapel }}</td>
-                                                    <td>{{ $hdruj->jadwal_ujian->jenis_ujian }}</td>
-                                                    <td>Kelas {{ $hdruj->jenjang->nama_jenjang }}</td>
-                                                    <td>{{ $hdruj->jadwal_ujian->th_akademiks->th_akademik }}</td>
-                                                    <td>{{ $hdruj->jadwal_ujian->th_akademiks->nama_semester }}</td>
-                                                    <td>{{ count($hdruj->soal) }}</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                            data-bs-target="#detail{{ $hdruj->id }}">Detail</button>
-                                                        @if (count($hdruj->soal) > 0)
-                                                            @if ($hdruj->status == 0)
-                                                                @if ($jml_soal == null)
-                                                                    <a
-                                                                        href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
-                                                                        <button type="button" class="btn btn-info">Edit
-                                                                            Soal</button>
-                                                                    </a>
+                                                    @endforeach
+                                                    <tr>
+                                                        <th scope="row">{{ ++$a }}</th>
+                                                        <td>{{ $hdruj->jadwal_ujian->mapel->nama_mapel }}</td>
+                                                        <td>{{ $hdruj->jadwal_ujian->jenis_ujian }}</td>
+                                                        <td>Kelas {{ $hdruj->jenjang->nama_jenjang }}</td>
+                                                        <td>{{ $hdruj->jadwal_ujian->th_akademiks->th_akademik }}</td>
+                                                        <td>{{ $hdruj->jadwal_ujian->th_akademiks->nama_semester }}</td>
+                                                        <td>{{ count($hdruj->soal) }}</td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-info"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#detail{{ $hdruj->id }}">Detail</button>
+                                                            @if (count($hdruj->soal) > 0)
+                                                                @if ($hdruj->status == 0)
+                                                                    @if ($jml_soal == null)
+                                                                        <a
+                                                                            href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+                                                                            <button type="button" class="btn btn-info">Edit
+                                                                                Soal</button>
+                                                                        </a>
+                                                                    @else
+                                                                        <a
+                                                                            href="{{ route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+                                                                            <button type="button" class="btn btn-info">+
+                                                                                Gambar</button>
+                                                                        </a>
+                                                                    @endif
                                                                 @else
                                                                     <a
-                                                                        href="{{ route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
-                                                                        <button type="button" class="btn btn-info">+
-                                                                            Gambar</button>
+                                                                        href="{{ route('guru.lihat_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+                                                                        <button type="button" class="btn btn-info">Lihat
+                                                                            soal</button>
                                                                     </a>
                                                                 @endif
-                                                            @else
-                                                                <a
-                                                                    href="{{ route('guru.lihat_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
-                                                                    <button type="button" class="btn btn-info">Lihat
-                                                                        soal</button>
+
+                                                                <a href="{{ route('soal.export', $hdruj->id) }}">
+                                                                    <button type="button" class="btn btn-info">Export
+                                                                        Soal</button>
                                                                 </a>
+                                                                @if ($hdruj->status == 0)
+                                                                    <button type="button" class="btn btn-info"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#delete{{ $hdruj->id }}">Delete
+                                                                        Soal</button>
+                                                                @endif
                                                             @endif
-
-                                                            <a href="{{ route('soal.export', $hdruj->id) }}">
-                                                                <button type="button" class="btn btn-info">Export
-                                                                    Soal</button>
-                                                            </a>
-                                                            @if ($hdruj->status == 0)
-                                                                <button type="button" class="btn btn-info"
+                                                            @if (count($hdruj->soal) == 0)
+                                                                <button type="button" class="btn btn-success"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#delete{{ $hdruj->id }}">Delete
-                                                                    Soal</button>
+                                                                    data-bs-target="#tambah{{ $hdruj->id }}">+
+                                                                    Tambah Soal</button>
                                                             @endif
-                                                        @endif
-                                                        @if (count($hdruj->soal) == 0)
-                                                            <button type="button" class="btn btn-success"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#tambah{{ $hdruj->id }}">+
-                                                                Tambah Soal</button>
-                                                        @endif
 
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                    </tr>
 
-                                                {{-- Modal --}}
-                                                <div class="modal" id="tambah{{ $hdruj->id }}" tabindex="-1">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Tambah Soal</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <form method="POST"
-                                                                action="{{ route('soal.create', ['id_header_ujians' => $hdruj->id, 'id_mapels' => $id_mapels]) }}"
-                                                                enctype="multipart/form-data">
-                                                                @csrf
-                                                                <div class="modal-body">
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-sm-3">
-                                                                            <label for="inputNumber"
-                                                                                class="col-form-label">Soal
-                                                                                (Format
-                                                                                CSV)
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="col-sm-9">
-                                                                            <input class="form-control" type="file"
-                                                                                id="formFile" name="file">
-                                                                        </div>
-                                                                    </div>
+                                                    {{-- Modal --}}
+                                                    <div class="modal" id="tambah{{ $hdruj->id }}" tabindex="-1">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Tambah Soal</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
-                                                                    <input class="btn btn-primary" type="submit"
-                                                                        value="Upload">
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal" id="detail{{ $hdruj->id }}" tabindex="-1">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Detail Jadwal Ujian dan Soal</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="row mb-3">
-                                                                    <div class="col-sm-5">
-                                                                        <h6>MAPEL</h6>
-                                                                    </div>
-                                                                    <div class="col-sm-7">
-                                                                        <h6>{{ $hdruj->jadwal_ujian->mapel->nama_mapel }}
-                                                                        </h6>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mb-3">
-                                                                    <div class="col-sm-5">
-                                                                        <h6>Jenis Ujian</h6>
-                                                                    </div>
-                                                                    <div class="col-sm-7">
-                                                                        <h6>{{ $hdruj->jadwal_ujian->jenis_ujian }}</h6>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mb-3">
-                                                                    <div class="col-sm-5">
-                                                                        <h6>Jenjang</h6>
-                                                                    </div>
-                                                                    <div class="col-sm-7">
-                                                                        <h6>Kelas {{ $hdruj->jenjang->nama_jenjang }}</h6>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mb-3">
-                                                                    <div class="col-sm-5">
-                                                                        <h6>Tahun Akademik</h6>
-                                                                    </div>
-                                                                    <div class="col-sm-7">
-                                                                        <h6>{{ $hdruj->jadwal_ujian->th_akademiks->th_akademik }}
-                                                                        </h6>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mb-3">
-                                                                    <div class="col-sm-5">
-                                                                        <h6>Semester</h6>
-                                                                    </div>
-                                                                    <div class="col-sm-7">
-                                                                        <h6>{{ $hdruj->jadwal_ujian->th_akademiks->nama_semester }}
-                                                                        </h6>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mb-3">
-                                                                    <div class="col-sm-5">
-                                                                        <h6>Jumlah Soal Yang Harus Diupload</h6>
-                                                                    </div>
-                                                                    <div class="col-sm-7">
-                                                                        <h6>{{ $hdruj->jumlah_soal }}</h6>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Default Card -->
-                                                                <div class="card" style="background: cornsilk">
-                                                                    <div class="card-body">
-                                                                        <h5 class="card-title">Jadwal Ujian</h5>
+                                                                <form method="POST"
+                                                                    action="{{ route('soal.create', ['id_header_ujians' => $hdruj->id, 'id_mapels' => $id_mapels]) }}"
+                                                                    enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <div class="modal-body">
                                                                         <div class="row mb-3">
                                                                             <div class="col-sm-3">
-                                                                                <h6><strong>Kelas</strong></h6>
+                                                                                <label for="inputNumber"
+                                                                                    class="col-form-label">Soal
+                                                                                    (Format
+                                                                                    CSV)
+                                                                                </label>
                                                                             </div>
-                                                                            <div class="col-sm-5">
-                                                                                <h6><strong>Tanggal Ujian</strong></h6>
+                                                                            <div class="col-sm-9">
+                                                                                <input class="form-control" type="file"
+                                                                                    id="formFile" name="file">
                                                                             </div>
-                                                                            <div class="col-sm-4">
-                                                                                <h6><strong>Waktu Ujian</strong></h6>
-                                                                            </div>
-                                                                            @foreach ($detail_ujian as $dtl_uj)
-                                                                                @if ($hdruj->id == $dtl_uj->id_headerujian)
-                                                                                    <div class="col-sm-3">
-                                                                                        <h6>{{ $dtl_uj->kelas->jurusan->nama_jurusan }}
-                                                                                            -
-                                                                                            {{ $dtl_uj->kelas->nama_kelas }}
-                                                                                        </h6>
-                                                                                    </div>
-                                                                                    <div class="col-sm-5">
-                                                                                        <h6>{{ $dtl_uj->tanggal_ujian }}
-                                                                                        </h6>
-                                                                                    </div>
-                                                                                    <div class="col-sm-4">
-                                                                                        <h6>{{ $dtl_uj->waktu_ujian }}
-                                                                                            Menit</h6>
-                                                                                    </div>
-                                                                                @endif
-                                                                            @endforeach
-
                                                                         </div>
                                                                     </div>
-                                                                </div><!-- End Default Card -->
-                                                                {{-- <div class="row mb-3">
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
+                                                                        <input class="btn btn-primary" type="submit"
+                                                                            value="Upload">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal" id="detail{{ $hdruj->id }}" tabindex="-1">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Detail Jadwal Ujian dan Soal
+                                                                    </h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-sm-5">
+                                                                            <h6>MAPEL</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-7">
+                                                                            <h6>{{ $hdruj->jadwal_ujian->mapel->nama_mapel }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-sm-5">
+                                                                            <h6>Jenis Ujian</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-7">
+                                                                            <h6>{{ $hdruj->jadwal_ujian->jenis_ujian }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-sm-5">
+                                                                            <h6>Jenjang</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-7">
+                                                                            <h6>Kelas {{ $hdruj->jenjang->nama_jenjang }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-sm-5">
+                                                                            <h6>Tahun Akademik</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-7">
+                                                                            <h6>{{ $hdruj->jadwal_ujian->th_akademiks->th_akademik }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-sm-5">
+                                                                            <h6>Semester</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-7">
+                                                                            <h6>{{ $hdruj->jadwal_ujian->th_akademiks->nama_semester }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-sm-5">
+                                                                            <h6>Jumlah Soal Yang Harus Diupload</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-7">
+                                                                            <h6>{{ $hdruj->jumlah_soal }}</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Default Card -->
+                                                                    <div class="card" style="background: cornsilk">
+                                                                        <div class="card-body">
+                                                                            <h5 class="card-title">Jadwal Ujian</h5>
+                                                                            <div class="row mb-3">
+                                                                                <div class="col-sm-3">
+                                                                                    <h6><strong>Kelas</strong></h6>
+                                                                                </div>
+                                                                                <div class="col-sm-5">
+                                                                                    <h6><strong>Tanggal Ujian</strong></h6>
+                                                                                </div>
+                                                                                <div class="col-sm-4">
+                                                                                    <h6><strong>Waktu Ujian</strong></h6>
+                                                                                </div>
+                                                                                @foreach ($detail_ujian as $dtl_uj)
+                                                                                    @if ($hdruj->id == $dtl_uj->id_headerujian)
+                                                                                        <div class="col-sm-3">
+                                                                                            <h6>{{ $dtl_uj->kelas->jurusan->nama_jurusan }}
+                                                                                                -
+                                                                                                {{ $dtl_uj->kelas->nama_kelas }}
+                                                                                            </h6>
+                                                                                        </div>
+                                                                                        <div class="col-sm-5">
+                                                                                            <h6>{{ $dtl_uj->tanggal_ujian }}
+                                                                                            </h6>
+                                                                                        </div>
+                                                                                        <div class="col-sm-4">
+                                                                                            <h6>{{ $dtl_uj->waktu_ujian }}
+                                                                                                Menit</h6>
+                                                                                        </div>
+                                                                                    @endif
+                                                                                @endforeach
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div><!-- End Default Card -->
+                                                                    {{-- <div class="row mb-3">
                                                                 <label for="inputText" class="col-sm-2 col-form-label">Status Ujian</label>
                                                                 <div class="col-sm-10">
                                                                     <input type="text" name="status_ujian" class="form-control">
                                                                 </div>
                                                             </div> --}}
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-primary"
-                                                                    id="btn_konfirmasi_ujian{{ $hdruj->id }}"
-                                                                    onclick="konfirmasi_ujian_{{ $hdruj->id }}('{{ $hdruj->id }}')">Konfirmasi
-                                                                    Ujian</button>
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal" id="delete{{ $hdruj->id }}" tabindex="-1">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <form method="POST"
-                                                                action="{{ route('guru.delete_soal', $hdruj->id) }}">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <div class="modal-body">
-                                                                    Apakah Anda Yakin Ingin Mengahapus??
                                                                 </div>
                                                                 <div class="modal-footer">
+                                                                    @if (count($hdruj->soal) > 0)
+                                                                        <button type="button" class="btn btn-primary"
+                                                                            id="btn_konfirmasi_ujian{{ $hdruj->id }}"
+                                                                            onclick="konfirmasi_ujian_{{ $hdruj->id }}('{{ $hdruj->id }}')">Konfirmasi
+                                                                            Ujian</button>
+                                                                    @endif
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">Close</button>
-                                                                    <button class="btn btn-danger"
-                                                                        type="submit">Hapus</button>
                                                                 </div>
-                                                            </form>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+
+                                                    <div class="modal" id="delete{{ $hdruj->id }}" tabindex="-1">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <form method="POST"
+                                                                    action="{{ route('guru.delete_soal', $hdruj->id) }}">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <div class="modal-body">
+                                                                        Apakah Anda Yakin Ingin Mengahapus??
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
+                                                                        <button class="btn btn-danger"
+                                                                            type="submit">Hapus</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 @endif
                                             @endif
                                         @endforeach

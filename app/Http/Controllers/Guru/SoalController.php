@@ -130,7 +130,7 @@ class SoalController extends Controller
         $guru = Guru::where('id_user', $user->id)->first();
         $header_ujians = HeaderUjian::where('id', $id_header_ujians)->first();
 
-        $soal = Soal::where('id_headerujian', $id_header_ujians)->get();
+        $soal = Soal::where('id_headerujian', $id_header_ujians)->paginate(10);
         $jawaban = Jawaban::all();
 
         return view("Guru.edit_soal", compact('header_ujians', 'soal', 'jawaban', 'id_mapels'));

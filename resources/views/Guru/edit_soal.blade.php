@@ -30,7 +30,7 @@
                                     {{ $header_ujians->jadwal_ujian->jenis_ujian }} -
                                     {{ $header_ujians->jadwal_ujian->th_akademiks->th_akademik }} - Semester
                                     {{ $header_ujians->jadwal_ujian->th_akademiks->nama_semester }}</h5>
-                                <h5 style="color: #012970;">Jumlah Soal : {{ count($soal) }}</h5>
+                                <h5 style="color: #012970;">Jumlah Soal : {{ $soal->total() }}</h5>
 
 
                             </div>
@@ -171,7 +171,35 @@
                                         </form>
                                     </div>
                                 @endforeach
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        @if ($soal->previousPageUrl())
+                                            <li class="page-item">
+                                                <a class="page-link" href={{ $soal->previousPageUrl() }}>
+                                                    Previous
+                                                </a>
+                                            </li>
+                                        @else
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                                    Previous
+                                                </a>
+                                            </li>
+                                        @endif
 
+                                        @foreach ($soal->getUrlRange(1, $soal->lastPage()) as $page => $url)
+                                            <li class="page-item{{ $page == $soal->currentPage() ? ' active' : '' }}"><a
+                                                    class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                            </li>
+                                        @endforeach
+
+                                        @if ($soal->nextPageUrl())
+                                            <li class="page-item"><a class="page-link"
+                                                    href={{ $soal->nextPageUrl() }}>Next</a></li>
+                                        @else
+                                        @endif
+                                    </ul>
+                                </nav>
                             </div>
                         </div><!-- End Recent Sales -->
                     </div>

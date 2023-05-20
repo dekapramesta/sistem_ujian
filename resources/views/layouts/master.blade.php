@@ -56,11 +56,21 @@
 <body>
     @include('sweetalert::alert')
 
-    @include('particials.header')
+
 
     @php
         $prefix = Request::route()->getPrefix();
     @endphp
+    @if ($prefix == '/admin')
+        @include('particials.header')
+    @elseif ($prefix == '/guru')
+        @include('Guru.particials.header')
+    @elseif ($prefix == '/siswa')
+        @include('particials.header')
+    @elseif ($prefix != '/ujian')
+        @include('particials.header')
+    @endif
+
     @if ($prefix == '/admin')
         @include('particials.sidebar')
     @elseif ($prefix == '/guru')
