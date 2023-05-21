@@ -78,7 +78,13 @@ class SoalController extends Controller
 
     public function exportSoal($id_header_ujians)
     {
-        return Excel::download(new SoalExport($id_header_ujians), 'soal.xlsx');
+        $header_ujians = HeaderUjian::where('id', $id_header_ujians)->first();
+        $judul = $header_ujians->jadwal_ujian->mapel->nama_mapel . ' - ' .
+        $header_ujians->jadwal_ujian->jenis_ujian . ' - ' .
+        $header_ujians->jadwal_ujian->th_akademiks->th_akademik . ' - Semester ' .
+        $header_ujians->jadwal_ujian->th_akademiks->nama_semester;
+        $judul = str_replace('/', '-', $judul);
+        return Excel::download(new SoalExport($id_header_ujians), $judul.'.xlsx');
     }
 
     public function save(Request $request)
