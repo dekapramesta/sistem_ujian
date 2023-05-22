@@ -309,12 +309,12 @@
                             console.log('oiasa', imageTrue)
 
                             $('#jawaban_place').append(`
-                         <div class="form-check">
-                                    <input class="form-check-input ms-4" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
+                         <div class="form-check ms-4 d-flex" style="padding-left:0">
+                                    <input class="form-check-input ms-4" style="float:none" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                         id="flexRadioDefault1" checked>
-                                    <label class="form-check-label ms-2" for="flexRadioDefault1">
-                                        <p style="white-space: pre-line;">${dt.jawaban}</p>
-                                    </label>
+                                        <div>
+                                        <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
+                                        </div>
                                     ${imageTrue}
 
                                       </div>
@@ -337,12 +337,12 @@
                             console.log('oiasa', imageTrue)
 
                             $('#jawaban_place').append(`
-                                                     <div class="form-check" >
-                                                                <input class="form-check-input ms-4" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
+                                                     <div class="form-check ms-4 d-flex" style="padding-left:0" >
+                                                                <input class="form-check-input ms-4" style="float:none" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                                                     id="flexRadioDefault1" >
-                                                                <label class="form-check-label ms-2" for="flexRadioDefault1">
-                                                                    <p style="white-space: pre-line;">${dt.jawaban}</p>
-                                                                </label>
+                                                                    <div>
+                                                                        <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
+                                                                    </div>
 ${imageTrue}
                                                                   </div>
                                                            `)
