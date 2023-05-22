@@ -109,6 +109,7 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
             Route::get('data_nilai/{id_mapels}', [DataNilaiController::class, 'index'])->name('guru.data_nilai');
             Route::match(['get', 'post'], 'data_nilai/hasil/{id_mapels}', [DataNilaiController::class, 'hasil_cari'])->name('guru.hasil_cari');
             Route::get('data_nilai/hasil/export/{id_header_ujians}', [DataNilaiController::class, 'exportNilai'])->name('nilai.export');
+            Route::get('profil', [ProfilController::class, 'index'])->name('guru.profil');
         });
     }
 );

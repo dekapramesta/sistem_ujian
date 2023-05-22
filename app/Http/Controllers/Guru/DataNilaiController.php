@@ -50,7 +50,6 @@ class DataNilaiController extends Controller
     public function exportNilai($id_header_ujian)
     {
         $detail_ujians = DetailUjian::where('id_headerujian', $id_header_ujian)->get();
-        $nilais = Nilai::where('id_ujian', $id_header_ujian)->get();
 
         $header_ujians = HeaderUjian::where('id', $id_header_ujian)->first();
 
@@ -63,12 +62,11 @@ class DataNilaiController extends Controller
         $sheetsData = [];
 
         foreach ($detail_ujians as $dtluj) {
-            $nilais =Nilai::with('siswa')->whereHas('siswa', function ($query) use ($dtluj) {
-                return $query->where('id_kelas', $dtluj->id_kelas);
-            })->get();
             $sheetsData[] = [
                 'title' => $dtluj->kelas->jurusan->nama_jurusan . ' - ' . $dtluj->kelas->nama_kelas,
-                'data' => $nilais,
+                'data' => Nilai::with('siswa')->whereHas('siswa', function ($query) use ($dtluj) {
+                    return $query->where('id_kelas', $dtluj->id_kelas);
+                })->get(),
             ];
         }
         return Excel::download(new MultipleSheetsExport($sheetsData), 'Nilai '.$judul.'.xlsx');
