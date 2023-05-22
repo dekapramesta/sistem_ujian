@@ -310,8 +310,10 @@
 
                             $('#jawaban_place').append(`
                          <div class="form-check ms-4 d-flex" style="padding-left:0">
+                            <div class="" style="width:flex:0 0 auto">
                                     <input class="form-check-input ms-4" style="float:none" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                         id="flexRadioDefault1" checked>
+                                        </div>
                                         <div>
                                         <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
                                         </div>
@@ -338,8 +340,10 @@
 
                             $('#jawaban_place').append(`
                                                      <div class="form-check ms-4 d-flex" style="padding-left:0" >
+                                                            <div class="" style="flex:0 0 auto">
                                                                 <input class="form-check-input ms-4" style="float:none" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                                                     id="flexRadioDefault1" >
+                                                            </div>
                                                                     <div>
                                                                         <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
                                                                     </div>
