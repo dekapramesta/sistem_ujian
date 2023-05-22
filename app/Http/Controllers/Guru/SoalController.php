@@ -84,7 +84,7 @@ class SoalController extends Controller
         $header_ujians->jadwal_ujian->th_akademiks->th_akademik . ' - Semester ' .
         $header_ujians->jadwal_ujian->th_akademiks->nama_semester;
         $judul = str_replace('/', '-', $judul);
-        return Excel::download(new SoalExport($id_header_ujians), $judul.'.xlsx');
+        return Excel::download(new SoalExport($id_header_ujians), 'Soal '.$judul.'.xlsx');
     }
 
     public function save(Request $request)

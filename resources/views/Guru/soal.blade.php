@@ -273,7 +273,7 @@
                                                             </div> --}}
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    @if (count($hdruj->soal) > 0)
+                                                                    @if (count($hdruj->soal) > 0 && $hdruj->status == 0)
                                                                         <button type="button" class="btn btn-primary"
                                                                             id="btn_konfirmasi_ujian{{ $hdruj->id }}"
                                                                             onclick="konfirmasi_ujian_{{ $hdruj->id }}('{{ $hdruj->id }}')">Konfirmasi
@@ -350,6 +350,7 @@
                             },
                             dataType: 'json',
                             success: function(res) {
+                                location.reload();
                                 Swal.fire(
                                     'Terkonfirmasi!',
                                     'Ujian Telah Dikonfirmasi!',
