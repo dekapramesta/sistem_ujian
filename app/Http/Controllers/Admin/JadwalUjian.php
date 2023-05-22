@@ -119,7 +119,7 @@ class JadwalUjian extends Controller
 
     function deleteUjian($id)
     {
-        $data = jadwal_ujian::find($id);
+        $data = HeaderUjian::find($id);
         $data->status = 8;
         $data->save();
         return redirect()->route('jadwal.ujian');

@@ -43,7 +43,7 @@
                                         $no = 1;
                                     @endphp
                                         @foreach ($header as $hdr)
-                                            @if ($hdr->jadwal_ujian->status != 8)
+                                            @if ($hdr->status != 8)
                                                 <tr>
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $hdr->jadwal_ujian->mapel->nama_mapel }}</td>
@@ -54,11 +54,11 @@
                                                     <td>
                                                         <div class="col text-center">
                                                             <a class="btn btn-success btn-sm text-center"
-                                                                href="{{ route('edit.ujian', ['id' => $hdr->jadwal_ujian->id]) }}"
+                                                                href="{{ route('edit.ujian', ['id' => $hdr->id]) }}"
                                                                 style="width:70px"><i class="bi bi-pencil-square"
                                                                     style="font-size: 10pt"></i>
                                                                 Edit</a>
-                                                            <a href="{{ route('delete.ujian', ['id' => $hdr->jadwal_ujian->id]) }}"
+                                                            <a href="{{ route('delete.ujian', ['id' => $hdr->id]) }}"
                                                                 class="btn btn-danger btn-sm text-center"
                                                                 style="width:90px"><i class="bi bi-trash3-fill"
                                                                     style="font-size: 10pt"></i>

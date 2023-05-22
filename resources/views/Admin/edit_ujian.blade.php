@@ -246,37 +246,37 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-
-                    id_tahunakademik = res.data.id_th_akademiks
-                    jenis_ujian = res.data.jenis_ujian
-                    idJadwal = res.data.id
-                    console.log(res.data.headerujian[0].detailujian[0].tanggal_ujian)
-                    let dateUjian = res.data.headerujian[0].detailujian[0].tanggal_ujian
+                    console.log(res)
+                    id_tahunakademik = res.data.jadwal_ujian.id_th_akademiks
+                    jenis_ujian = res.data.jadwal_ujian.jenis_ujian
+                    idJadwal = res.data.jadwal_ujian.id
+                    console.log(res.data.detailujian[0].tanggal_ujian)
+                    let dateUjian = res.data.detailujian[0].tanggal_ujian
                     let dateSplit = dateUjian.split(' ')
-                    $('#tahun_akademik').val(res.data.th_akademiks.th_akademik + '-' + res.data
-                        .th_akademiks.nama_semester)
-                    $('#select_jenisujian').val(res.data.jenis_ujian)
+                    $('#tahun_akademik').val(res.data.jadwal_ujian.th_akademiks.th_akademik + '-' + res
+                        .data.jadwal_ujian.th_akademiks.nama_semester)
+                    $('#select_jenisujian').val(res.data.jadwal_ujian.jenis_ujian)
                     $('#tanggal_ujian').val(dateSplit[0])
                     $('#jam_ujian').val(dateSplit[1])
-                    $('#waktu_ujian').val(res.data.headerujian[0].detailujian[0].waktu_ujian)
-                    $('#jumlah_soal').val(res.data.headerujian[0].jumlah_soal)
+                    $('#waktu_ujian').val(res.data.detailujian[0].waktu_ujian)
+                    $('#jumlah_soal').val(res.data.jumlah_soal)
                     let jenjang;
-                    if (res.data.headerujian[0].id_jenjangs === 1) {
+                    if (res.data.id_jenjangs === 1) {
                         jenjang = 10
-                    } else if (res.data.headerujian[0].id_jenjangs === 2) {
+                    } else if (res.data.id_jenjangs === 2) {
                         jenjang = 11
-                    } else if (res.data.headerujian[0].id_jenjangs === 3) {
+                    } else if (res.data.id_jenjangs === 3) {
                         jenjang = 12
                     }
                     $('#selectKelas').val(jenjang)
-                    $('#selectmapel').val(res.data.mapel.nama_mapel)
+                    $('#selectmapel').val(res.data.jadwal_ujian.mapel.nama_mapel)
                     result.push(...res.result)
                     console.log(result)
                     mappingKelaas(result)
                     mappingSiswa(result)
-                    console.log("first", res.data.id_mapels)
-                    id_mapel = res.data.id_mapels
-                    KelasId = res.data.id_jenjangs
+                    console.log("first", res.data.jadwal_ujian.id_mapels)
+                    id_mapel = res.data.jadwal_ujian.id_mapels
+                    KelasId = res.data.jadwal_ujian.id_jenjangs
                     // $('#tanggal_ujian').val(res.data.headerujian[0].detailujian[0].tanggal_ujian)
                     console.log('hsl', res)
                     result.map((rs) => {
@@ -681,7 +681,7 @@
             console.log("result", result)
 
             let data = {
-                id_jadwal: idJadwal,
+                id_header: '<?php echo Request::segment(4); ?>',
                 jenis_ujian: jenis_ujian,
                 tanggal_ujian: $('#tanggal_ujian').val() + ' ' + $('#jam_ujian').val(),
                 waktu_ujian: $('#waktu_ujian').val(),

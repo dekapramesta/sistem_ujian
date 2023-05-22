@@ -76,18 +76,17 @@ class AdminApi extends Controller
         # code...
         $result = [];
         $nis = [];
-        $data = jadwal_ujian::with('headerujian.detailujian.pesertaujian', 'mapel', 'th_akademiks')->where('id', $request->id)->first();
-        foreach ($data->headerujian as $hdr) {
-            foreach ($hdr->detailujian as $key => $dtl) {
-                array_push($result, Kelas::with('jurusan')->where('id', $dtl->id_kelas)->first());
-                $result[$key]['siswa'] = array();
-                foreach ($dtl->pesertaujian  as $pst_ind => $pst) {
-                    array_push($nis, Siswa::where('nis', $pst->nis)->first());
-                }
-                $result[$key]['siswa'] = $nis;
-                $nis = [];
+        $data = HeaderUjian::with('detailujian.pesertaujian', 'jadwal_ujian.mapel', 'jadwal_ujian.th_akademiks')->where('id', $request->id)->first();
+        foreach ($data->detailujian as $key => $dtl) {
+            array_push($result, Kelas::with('jurusan')->where('id', $dtl->id_kelas)->first());
+            $result[$key]['siswa'] = array();
+            foreach ($dtl->pesertaujian  as $pst_ind => $pst) {
+                array_push($nis, Siswa::where('nis', $pst->nis)->first());
             }
+            $result[$key]['siswa'] = $nis;
+            $nis = [];
         }
+
 
         return response()->json(['data' => $data, 'result' => $result, 'nis' => $nis]);
     }
@@ -100,45 +99,28 @@ class AdminApi extends Controller
         $notDeletCheck = 0;
 
         $gurus = [];
-        $id_header = 0;
+        $id_header = $request->id_header;
         $id = 0;
 
 
         foreach ($request->data as $dt) {
 
-            $id = $request->id_jadwal;
             $mst_mpl_guru_kls = mst_mapel_guru_kelas::where(['id_mapels' => $request->id_mapels, 'id_kelas' => $dt['id']])->first();
 
             // return response()->json($dataJdw);
 
 
-            $header = HeaderUjian::where(['id_jadwalujian' => $id, 'id_gurus' => $mst_mpl_guru_kls->id_gurus, 'id_jenjangs' => $dt['id_jenjang']])->first();
+            $header = HeaderUjian::find($id_header);
             // return response()->json($header);
 
 
 
-            if (empty($header)) {
 
-                if (!in_array($mst_mpl_guru_kls->id_gurus, $gurus)) {
-                    $header = HeaderUjian::create([
-                        'id_jadwalujian' => $id,
-                        'id_gurus' => $mst_mpl_guru_kls->id_gurus,
-                        'id_jenjangs' => $dt['id_jenjang'],
-                        'jumlah_soal' => $request->jumlah_soal,
-                        "status" => 0
-                    ]);
-                    // return response()->json($dataJdw);
-                    $id_header = $header->id;
-                    array_push($gurus, $mst_mpl_guru_kls->id_gurus);
-                }
-                // return response()->json("oi");
-            } else {
 
-                $header->jumlah_soal = $request->jumlah_soal;
-                $header->save();
-                $id_header = $header->id;
-                // return response()->json("oi");
-            }
+            $header->jumlah_soal = $request->jumlah_soal;
+            $header->save();
+            // return response()->json("oi");
+
 
 
 
