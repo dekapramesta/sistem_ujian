@@ -203,7 +203,7 @@
                             "Jam " +
                             minutes + "Menit " + seconds + "Detik ";
 
-                        // If the count down is over, write some text 
+                        // If the count down is over, write some text
                         if (distance < 0) {
                             clearInterval(x);
                             document.getElementById("demo").innerHTML = "Selesai";
@@ -309,10 +309,10 @@
                             console.log('oiasa', imageTrue)
 
                             $('#jawaban_place').append(`
-                         <div class="form-check" >
-                                    <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
+                         <div class="form-check">
+                                    <input class="form-check-input ms-4" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                         id="flexRadioDefault1" checked>
-                                    <label class="form-check-label" for="flexRadioDefault1">
+                                    <label class="form-check-label ms-2" for="flexRadioDefault1">
                                         <p>${dt.jawaban}</p>
                                     </label>
                                     ${imageTrue}
@@ -338,9 +338,9 @@
 
                             $('#jawaban_place').append(`
                                                      <div class="form-check" >
-                                                                <input class="form-check-input" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
+                                                                <input class="form-check-input ms-4" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                                                     id="flexRadioDefault1" >
-                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                <label class="form-check-label ms-2" for="flexRadioDefault1">
                                                                     <p>${dt.jawaban}</p>
                                                                 </label>
 ${imageTrue}
