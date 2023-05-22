@@ -313,7 +313,7 @@
                                     <input class="form-check-input ms-4" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                         id="flexRadioDefault1" checked>
                                     <label class="form-check-label ms-2" for="flexRadioDefault1">
-                                        <p>${dt.jawaban}</p>
+                                        <p style="white-space: pre-line;">${dt.jawaban}</p>
                                     </label>
                                     ${imageTrue}
 
@@ -341,7 +341,7 @@
                                                                 <input class="form-check-input ms-4" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                                                     id="flexRadioDefault1" >
                                                                 <label class="form-check-label ms-2" for="flexRadioDefault1">
-                                                                    <p>${dt.jawaban}</p>
+                                                                    <p style="white-space: pre-line;">${dt.jawaban}</p>
                                                                 </label>
 ${imageTrue}
                                                                   </div>
