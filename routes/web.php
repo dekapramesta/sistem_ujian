@@ -43,6 +43,7 @@ Route::middleware(['auth', 'levelAcces:admin'])->group(
         Route::get('admin', [AdminController::class, 'index'])->name('admin.dashboard');
         Route::prefix('admin')->group(
             function () {
+                Route::post('monitoring', [AdminController::class, 'getMonitoring'])->name('admin.moniotring');
                 Route::get('th_akademik', [ThAkademikController::class, 'index'])->name('admin.th_akademik');
                 Route::post('th_akademik', [ThAkademikController::class, 'create'])->name('admin.th_akademik.create');
                 Route::put('th_akademik/{identitas}', [ThAkademikController::class, 'edit'])->name('admin.th_akademik.edit');

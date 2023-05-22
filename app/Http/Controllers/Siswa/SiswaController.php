@@ -47,6 +47,10 @@ class SiswaController extends Controller
         $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
 
         if ($temp->isEmpty()) {
+            $detail_ujian = DetailUjian::with('headerujian')->where([['id_headerujian', '=', $request->id], ['id_kelas', '=', $siswa->id_kelas]])->first();
+            $pesertaujian = PesertaUjian::where([['id_detail_ujians', '=', $detail_ujian->id], ['nis', '=', $siswa->nis]])->first();
+            $pesertaujian->status = 7;
+            $pesertaujian->save();
             $this->shuffleFisher(new Request(['data_ujian' => $ujian, 'siswa' => $siswa, 'total' => $ujian[0]->headerujian->jumlah_soal]));
             $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
         }
