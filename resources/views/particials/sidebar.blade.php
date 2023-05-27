@@ -17,7 +17,7 @@
             <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ route('admin.th_akademik') }}">
-                        <i class="bi bi-circle"></i><span>Data Tahun Ajar</span>
+                        <i class="bi bi-circle"></i><span>Data Tahun Akademik</span>
                     </a>
                 </li>
                 <li>

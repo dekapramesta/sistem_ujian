@@ -92,7 +92,7 @@ class AuthController extends Controller
                 $noTelp = Siswa::where('id_user', $user->id)->first();
             }
 
-            $message = "Hi, ".$noTelp->nama."!\n\nKode OTP Anda *".$otp."*, masukkan kode OTP berikut untuk mengganti password Anda. Jangan bagikan kode OTP kepada siapapun termasuk pihak Shopee\n\n-Admin";
+            $message = "Hi, ".$noTelp->nama."!\n\nKode OTP Anda *".$otp."*, masukkan kode OTP berikut untuk mengganti password Anda. Jangan bagikan kode OTP kepada siapapun\n\n-Admin";
 
             $curl = curl_init();
             curl_setopt_array($curl, array(

@@ -20,7 +20,7 @@
         <div class="card recent-sales overflow-auto">
 
           <div class="card-body">
-            <h5 class="card-title">Data Kelas</h5>
+            <h5 class="card-title">Kelas</h5>
             <div class="container">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah">Tambah +</button>
             <table class="table table-borderless datatable">

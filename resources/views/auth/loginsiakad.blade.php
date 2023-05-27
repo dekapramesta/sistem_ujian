@@ -5,12 +5,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+  <title>CBT - SMAN 1 KAWEDANAN</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+  <link href="{{ asset('assets/img/smasaka.png') }}" rel="icon">
   <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -101,11 +101,11 @@
                             class=" showbtn fa fa-eye-slash"></span> --}}
                     </div>
 
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div>
+                      </div> --}}
 
                       <a href="{{ route('login.kirim.otp') }}">Lupa Password?</a>
                     </div>
