@@ -169,7 +169,17 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+                    @php
+                        use App\Models\Guru;
+                        $user_header = Auth::user();
+                        $guru_header = Guru::where('id_user', $user_header->id)->first();
+                    @endphp
+                    @if ($guru_header->foto_profil)
+                        <img src="{{ asset('img/user/' . $guru_header->foto_profil) }}" alt="Profile"
+                            class="rounded-circle">
+                    @else
+                        <img src="{{ asset('/img/user/default.png') }}" alt="Profile" class="rounded-circle">
+                    @endif
                     {{-- <span class="d-none d-md-block dropdown-toggle ps-2">{{ Str::ucfirst(Auth::user()->name) }}</span> --}}
                     <span class="d-none d-md-block dropdown-toggle ps-2"></span>
 
