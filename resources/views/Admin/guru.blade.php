@@ -47,113 +47,15 @@
                                                         @endphp
                                                         {{ $tanggal . '-' . $bulan . '-' . $tahun }}</td>
                                                     <td>
-                                                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                            data-bs-target="#edit{{ $guru->nip }}">Edit</button>
+                                                        <button type="button" class="btn btn-info"
+                                                            onclick="editGuru('{{ $guru }}')">Edit</button>
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                                             data-bs-target="#delete{{ $guru->nip }}">Delete</button>
                                                     </td>
                                                 </tr>
-                                                <div class="modal" id="edit{{ $guru->nip }}" tabindex="-1">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Edit Data Guru</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <form method="POST"
-                                                                action="{{ route('admin.guru.edit', $guru->nip) }}">
-                                                                @csrf
-                                                                @method('PUT')
-                                                                <div class="modal-body">
-                                                                    <div class="d-flex row px-3">
-                                                                        <input type="text" hidden
-                                                                            value="{{ $guru->id }}" name="id_guru">
-                                                                        <label>Nama Guru :</label><input type="text"
-                                                                            class="form-control" name="nama"
-                                                                            value="{{ $guru->nama }}">
-                                                                        <label class="mt-2">NIP :</label><input
-                                                                            type="text" class="form-control"
-                                                                            name="nip" value="{{ $guru->nip }}">
 
-                                                                        <label class="mt-2">Tanggal Lahir: </label>
-                                                                        <input type="date" class="form-control"
-                                                                            name="tanggal_lahir"
-                                                                            value="{{ $guru->tanggal_lahir }}">
-                                                                        <label class="col-sm-2 mt-2 col-form-label">Kelas
-                                                                            :</label>
-                                                                        <select class="form-select" name="kelas">
-
-                                                                            @foreach ($kelas as $kls)
-                                                                                @if (!empty($guru->mst_mapel_guru_kelas))
-                                                                                    @php
-                                                                                        $id = 1;
-                                                                                    @endphp
-                                                                                    @foreach ($guru->mst_mapel_guru_kelas as $mst)
-                                                                                        @php
-                                                                                            $id = $mst->id_kelas;
-                                                                                        @endphp
-                                                                                    @endforeach
-                                                                                    @if ($id != null)
-                                                                                        @if ($kls->id === $id)
-                                                                                            <option selected
-                                                                                                value="{{ $kls->id }}">
-                                                                                                {{ $kls->jenjang->nama_jenjang . ' ' . $kls->jurusan->nama_jurusan . ' ' . $kls->nama_kelas }}
-                                                                                            </option>
-                                                                                        @else
-                                                                                            <option
-                                                                                                value="{{ $kls->id }}">
-                                                                                                {{ $kls->jenjang->nama_jenjang . ' ' . $kls->jurusan->nama_jurusan . ' ' . $kls->nama_kelas }}
-                                                                                            </option>
-                                                                                        @endif
-                                                                                    @endif
-                                                                                @endif
-                                                                            @endforeach
-
-                                                                        </select>
-                                                                        <label
-                                                                            class="col-sm-2 mt-2 col-form-label">Mapel</label>
-                                                                        <select class="form-select" name="mapel">
-                                                                            @foreach ($mapel as $mpl)
-                                                                                @if (!empty($guru->mst_mapel_guru_kelas))
-                                                                                    @php
-                                                                                        $id;
-                                                                                    @endphp
-                                                                                    @foreach ($guru->mst_mapel_guru_kelas as $mst)
-                                                                                        @php
-                                                                                            $id = $mst->id_mapels;
-                                                                                        @endphp
-                                                                                    @endforeach
-                                                                                    @if ($mpl->id === $id)
-                                                                                        <option selected
-                                                                                            value="{{ $mpl->id }}">
-                                                                                            {{ $mpl->nama_mapel }}
-                                                                                        </option>
-                                                                                    @else
-                                                                                        <option
-                                                                                            value="{{ $mpl->id }}">
-                                                                                            {{ $mpl->nama_mapel }}
-                                                                                        </option>
-                                                                                    @endif
-                                                                                @endif
-                                                                            @endforeach
-
-
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
-                                                                    <input class="btn btn-primary" type="submit"
-                                                                        value="Save changes">
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
                                                 <div class="modal" id="delete{{ $guru->nip }}" tabindex="-1">
                                                     <div class="modal-dialog">
@@ -197,44 +99,37 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <form method="POST" action="{{ route('admin.guru.create') }}">
+                            <form id="tambah_guru">
                                 @csrf
                                 <div class="modal-body">
                                     <div class="d-flex row px-3">
 
 
-                                        <label>Nama Guru :</label><input type="text" class="form-control"
-                                            name="nama">
+                                        <label>Nama Guru :</label><input type="text" class="form-control" name="nama">
 
                                         <label class="mt-2">NIP : </label><input type="text" class="form-control"
                                             name="nip">
                                         <label class="mt-2">Tanggal :</label>
                                         <input type="date" class="form-control" name="tanggal_lahir">
+                                        <div class="card rounded mt-3">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Kelas Dan Mapel</h5>
+                                                <div class="col mt-2" id="dynamic-form-container">
 
-                                        <label class="col-sm-2 mt-2 col-form-label">Kelas :</label>
-                                        <select class="form-select" name="kelas">
-                                            <option disabled hidden selected>Select an option</option>
-                                            @foreach ($kelas as $kls)
-                                                <option value="{{ $kls->id }}">
-                                                    {{ $kls->jenjang->nama_jenjang . ' ' . $kls->jurusan->nama_jurusan . ' ' . $kls->nama_kelas }}
-                                                </option>
-                                            @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                        </select>
-                                        <label class="col-sm-2 mt-2 col-form-label">Mapel</label>
-                                        <select class="form-select" name="mapel">
-                                            <option disabled hidden selected>Select an option</option>
-                                            @foreach ($mapel as $mpl)
-                                                <option value="{{ $mpl->id }}">{{ $mpl->nama_mapel }}</option>
-                                            @endforeach
+                                        <button type="button" class="btn btn-primary btn-sm mt-2" id="add-option">Tambah
+                                            Mapel Kelas</button>
 
-                                        </select>
+
+
                                     </div>
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <input class="btn btn-primary" type="submit" value="Save changes">
                                 </div>
                             </form>
@@ -242,5 +137,295 @@
                     </div>
                 </div>
             </div>
+            <div class="modal" id="edit_guru" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Data Guru</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="edit_guru_form">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="d-flex row px-3">
+                                    <input type="text" hidden value="" id="id_guru" name="id_guru">
+                                    <label>Nama Guru :</label><input type="text" id="nama_edit" class="form-control"
+                                        name="nama" value="">
+                                    <label class="mt-2">NIP :</label><input id="nip_edit" type="text"
+                                        class="form-control" name="nip" value="">
+
+                                    <label class="mt-2">Tanggal Lahir: </label>
+                                    <input type="date" class="form-control" id="tgl_edit" name="tanggal_lahir"
+                                        value="">
+                                    <div class="card rounded mt-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Kelas Dan Mapel</h5>
+                                            <div class="col mt-2" id="dynamic-form-container-edit">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="btn btn-primary btn-sm mt-2" id="edit-option">Tambah
+                                        Mapel Kelas</button>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <input class="btn btn-primary" type="submit" value="Save changes">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
     </section>
+    <script>
+        var kelas = JSON.parse('<?php echo $kelas; ?>');
+        var mapel = JSON.parse('<?php echo $mapel; ?>');
+        var indexEdit = 0;
+        $(document).ready(function() {
+            var container = $("#dynamic-form-container");
+            var index = 0;
+
+
+            console.log(kelas)
+            $("#add-option").click(function() {
+
+                container.append(
+                    `<div class="mt-2 d-flex flex-row justify-content-between" id='row-select${index}'></div>`
+                )
+                var select = $('<select class="form-control"></select>').attr('name', 'kelas[]')
+                    .attr('class',
+                        'form-select').attr('style', 'width:10rem');
+                var select2 = $('<select class="form-control ms-2"></select>').attr('name',
+                        'mapel[]')
+                    .attr('class',
+                        'form-select ms-3').attr('style', 'width:10rem');
+
+
+
+                var optionDisableKls = $('<option disabled hidden selected ></option>').text('Pilih Kelas');
+                var optionDisableMpl = $('<option disabled hidden selected ></option>').text('Pilih Maple');
+                // var optionDisableMpl = $('<option></option>').attr('value').text('Option 2');
+
+                select.append(optionDisableKls);
+                kelas.map((kls) => {
+                    select.append($('<option></option>').attr('value', kls.id).text(kls.jenjang
+                        .nama_jenjang +
+                        ' ' + kls.jurusan.nama_jurusan + ' ' + kls.nama_kelas));
+
+                })
+                select2.append(optionDisableMpl);
+                mapel.map((mpl) => {
+                    select2.append($('<option></option>').attr('value', mpl.id).text(mpl
+                        .nama_mapel));
+                })
+                // select2.append(option4);
+
+
+                var removeButton = $('<button></button>').attr('type', 'button').attr('class',
+                    'btn btn-danger btn-sm ms-3').text('Remove');
+                removeButton.click(function() {
+                    $(this).parent().remove();
+                });
+
+                $(`#row-select${index}`).append(select);
+                $(`#row-select${index}`).append(select2);
+                $(`#row-select${index}`).append(removeButton);
+                index += 1
+            });
+            $("#edit-option").click(function() {
+                console.log(indexEdit)
+                var containerEdit = $("#dynamic-form-container-edit");
+                containerEdit.append(
+                    `<div class="mt-2 d-flex flex-row justify-content-between" id='row-selectedit${indexEdit}'></div>`
+                )
+                var select = $('<select class="form-control"></select>').attr('name', 'kelas[]')
+                    .attr('class',
+                        'form-select').attr('style', 'width:10rem');
+                var select2 = $('<select class="form-control ms-2"></select>').attr('name',
+                        'mapel[]')
+                    .attr('class',
+                        'form-select ms-3').attr('style', 'width:10rem');
+
+
+
+                var optionDisableKls = $('<option disabled hidden selected ></option>').text('Pilih Kelas');
+                var optionDisableMpl = $('<option disabled hidden selected ></option>').text('Pilih Maple');
+                // var optionDisableMpl = $('<option></option>').attr('value').text('Option 2');
+
+                select.append(optionDisableKls);
+                kelas.map((kls) => {
+                    select.append($('<option></option>').attr('value', kls.id).text(kls.jenjang
+                        .nama_jenjang +
+                        ' ' + kls.jurusan.nama_jurusan + ' ' + kls.nama_kelas));
+
+                })
+                select2.append(optionDisableMpl);
+                mapel.map((mpl) => {
+                    select2.append($('<option></option>').attr('value', mpl.id).text(mpl
+                        .nama_mapel));
+                })
+                // select2.append(option4);
+
+
+                var removeButton = $('<button></button>').attr('type', 'button').attr('class',
+                    'btn btn-danger btn-sm ms-3').text('Remove');
+                removeButton.click(function() {
+                    $(this).parent().remove();
+                });
+
+                $(`#row-selectedit${indexEdit}`).append(select);
+                $(`#row-selectedit${indexEdit}`).append(select2);
+                $(`#row-selectedit${indexEdit}`).append(removeButton);
+                indexEdit += 1
+            });
+
+            $("#tambah_guru").submit(function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('admin.guru.create') }}",
+                    data: formData,
+                    dataType: 'json',
+                    success: function(res) {
+                        console.log(res)
+                        swal("Detail", res.result.join(', '), "info").then((result) => {
+                            if (result) {
+                                location.reload();
+                            }
+                        });
+
+                        setTimeout(function() {
+
+                            location.reload();
+                        }, 5000);
+
+                    }
+                });
+                // Optional: Display form data
+            });
+
+
+            $("#edit_guru_form").submit(function(event) {
+                event.preventDefault();
+                let formDataEdit = $(this).serialize();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('admin.guru.edit') }}",
+                    data: formDataEdit,
+                    dataType: 'json',
+                    success: function(res) {
+                        console.log(res)
+                        swal("Detail", res.result.join(', '), "info").then((result) => {
+                            if (result) {
+                                location.reload();
+                            }
+                        });
+
+                        setTimeout(function() {
+                            location.reload();
+                        }, 5000);
+
+                    }
+                });
+                // Optional: Display form data
+            });
+
+
+        });
+
+        function editGuru(data) {
+            var containerEdit = $("#dynamic-form-container-edit");
+            containerEdit.html('')
+
+
+            let datas = JSON.parse(data)
+            $('#id_guru').val(datas.id)
+            $('#nama_edit').val(datas.nama)
+            $('#nip_edit').val(datas.nip)
+            $('#tgl_edit').val(datas.tanggal_lahir)
+            console.log(datas)
+            $('#edit_guru').modal('show');
+            datas.mst_mapel_guru_kelas.map((dt) => {
+
+                containerEdit.append(
+                    `<div class="mt-2 d-flex flex-row justify-content-between" id='row-selectedit${indexEdit}'></div>`
+                )
+                let select = $('<select class="form-control"></select>').attr('name', 'kelas[]')
+                    .attr('class',
+                        'form-select').attr('style', 'width:10rem');
+                let select2 = $('<select class="form-control ms-2"></select>').attr('name',
+                        'mapel[]')
+                    .attr('class',
+                        'form-select ms-3').attr('style', 'width:10rem');
+
+
+
+                let optionDisableKls = $('<option disabled hidden selected ></option>').text('Pilih Kelas');
+                let optionDisableMpl = $('<option disabled hidden selected ></option>').text('Pilih Maple');
+                // let optionDisableMpl = $('<option></option>').attr('value').text('Option 2');
+
+                select.append(optionDisableKls);
+                kelas.map((kls) => {
+                    if (parseInt(kls.id) === parseInt(dt.id_kelas)) {
+                        select.append($('<option selected></option>').attr('value', kls
+                            .id).text(
+                            kls
+                            .jenjang.nama_jenjang +
+                            ' ' + kls.jurusan.nama_jurusan + ' ' + kls
+                            .nama_kelas));
+                    } else {
+                        select.append($('<option></option>').attr('value', kls.id).text(
+                            kls
+                            .jenjang
+                            .nama_jenjang +
+                            ' ' + kls.jurusan.nama_jurusan + ' ' + kls
+                            .nama_kelas));
+                    }
+
+
+                })
+                select2.append(optionDisableMpl);
+                mapel.map((mpl) => {
+                    if (parseInt(mpl.id) === parseInt(dt.id_mapels)) {
+
+                        select2.append($('<option selected></option>').attr('value', mpl.id)
+                            .text(mpl
+                                .nama_mapel));
+                    } else {
+                        select2.append($('<option></option>').attr('value', mpl.id).text(mpl
+                            .nama_mapel));
+
+                    }
+                })
+                // select2.append(option4);
+                let removeButton = $('<button></button>').attr('type', 'button').attr('class',
+                    'btn btn-danger btn-sm ms-3').text('Remove');
+                removeButton.click(function() {
+                    $(this).parent().remove();
+                });
+                $(`#row-selectedit${indexEdit}`).append(`<input hidden name="mst_id[]" value="${dt.id}"></input>`);
+                $(`#row-selectedit${indexEdit}`).append(select);
+                $(`#row-selectedit${indexEdit}`).append(select2);
+                $(`#row-selectedit${indexEdit}`).append(removeButton);
+                indexEdit += 1
+
+
+            })
+
+        }
+    </script>
 @endsection

@@ -66,7 +66,7 @@ Route::middleware(['auth', 'levelAcces:admin'])->group(
 
                 Route::get('guru', [GuruController::class, 'index'])->name('admin.guru');
                 Route::post('guru', [GuruController::class, 'create'])->name('admin.guru.create');
-                Route::put('guru/{nip}', [GuruController::class, 'edit'])->name('admin.guru.edit');
+                Route::post('guru/edit', [GuruController::class, 'edit'])->name('admin.guru.edit');
                 Route::delete('guru/{nip}', [GuruController::class, 'delete'])->name('admin.guru.delete');
 
 
