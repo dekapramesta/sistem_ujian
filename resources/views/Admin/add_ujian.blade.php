@@ -143,17 +143,25 @@
                                         <div class="tab-pane fade show active " id="kelas-overview">
                                             <label class="col-sm-2 col-form-label">Kelas</label>
                                             <div class="row">
-                                                <div class="col-8">
+                                                <div class="col">
                                                     <select class="select2-js-mdl w-100" style="width: 100%;"
                                                         id="selectkls" name="kelas" multiple="">
 
                                                     </select>
-                                                </div>
-                                                <div class="col-4 d-flex justify-content-center ">
+                                                    <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+                                                    <div class="col">
+                                                        <input type="date" id="tgl_ujian_kls"
+                                                            class="form-control w-70">
+                                                    </div>
+                                                    <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
+                                                    <div class="col">
+                                                        <input type="time" id="jam_ujian_kls"
+                                                            class="form-control w-70">
+                                                    </div>
                                                     <button id="tambahkls" type="button"
-                                                        class="btn btn-secondary btn-sm d-flex align-items-center justify-content-center "
-                                                        style="height:90% ; width: 80%">Tambah</button>
+                                                        class="btn btn-secondary btn-sm d-flex align-items-center justify-content-center mt-2 w-100">Tambah</button>
                                                 </div>
+
                                             </div>
                                         </div>
                                         <div class="tab-pane fade " id="siswa-overview">
@@ -161,17 +169,24 @@
                                             <div class="d-flex flex-column">
                                                 <label class="col-sm-2 col-form-label">Siswa</label>
                                                 <div class="row">
-                                                    <div class="col-8">
+                                                    <div class="col">
                                                         <select class="select2-js-mdl w-100" id="selectsw"
                                                             style="width: 100%;" name="siswa" multiple="">
 
                                                         </select>
+                                                        <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+                                                    <div class="col">
+                                                        <input type="date" id="tgl_ujian_sw"
+                                                            class="form-control w-70">
                                                     </div>
-                                                    <div class="col-4 d-flex justify-content-center ">
+                                                    <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
+                                                    <div class="col">
+                                                        <input type="time" id="jam_ujian_sw"
+                                                            class="form-control w-70">
+                                                    </div>
+                                                    </div>
                                                         <button id="tambahsw" type="button"
-                                                            class="btn btn-secondary btn-sm d-flex align-items-center justify-content-center "
-                                                            style="height:90% ; width: 80%">Tambah</button>
-                                                    </div>
+                                                            class="btn btn-secondary mt-2 btn-sm d-flex align-items-center justify-content-center w-100">Tambah</button>
 
                                                 </div>
                                             </div>
@@ -187,6 +202,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Nama Kelas</th>
+                                                        <th scope="col">Tanggal Dan Jam</th>
                                                         <th scope="col" class="text-center">Aksi</th>
 
                                                     </tr>
@@ -278,12 +294,16 @@
                     console.log("first", data)
                     data.map((dt) => {
                         if (result.length === 0) {
+                            dt.kelas.tgl_ujian = $('#tgl_ujian_sw') 
+                            dt.kelas.jam_ujian = $('#jam_ujian_sw') 
                             result.push(dt.kelas)
                         } else {
                             result.map((rs) => {
                                 kelasFinal.push(rs.id)
                             })
                             if (!kelasFinal.includes(dt.kelas.id)) {
+                                dt.kelas.tgl_ujian = $('#tgl_ujian_sw').val()
+                            dt.kelas.jam_ujian = $('#jam_ujian_sw').val() 
                                 result.push(dt.kelas)
                                 kelasFinal.push(dt.kelas.id)
                             }
@@ -468,6 +488,7 @@
                 $('#table-kelas').append(`
              <tr id="rowkls${dt.id}">
                   <td>${dt.jurusan.nama_jurusan +' - '+ dt.nama_kelas }</td>
+                  <td>${dt.tgl_ujian +' - '+ dt.jam_ujian }</td>
                          <td class="text-center">
                            <div class="form-check d-flex justify-content-center">
                             <input class="form-check-input" type="checkbox" id="hapuskls" data-index="${dt.id}" data-target="rowkls${dt.id}" checked/>
@@ -572,11 +593,13 @@
 
                     res.map((rs) => {
                         if (!kelasFinal.includes(rs.id)) {
+                            rs.jam_ujian = $('#jam_ujian_kls').val()
+                            rs.tgl_ujian = $('#tgl_ujian_kls').val()
                             result.push(rs)
                             kelasFinal.push(rs.id)
                         }
                     })
-                    $('#table-kelas').html('')
+                    // $('#table-kelas').html('')
                     $('#table-siswa').html('')
                     mappingKelaas(res)
                     mappingSiswa(res)
