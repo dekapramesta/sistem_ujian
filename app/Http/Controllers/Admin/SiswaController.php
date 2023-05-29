@@ -80,6 +80,7 @@ class SiswaController extends Controller
         $real_tgl = str_replace("-","",$tgl);
         // dd($real_tgl);
         $user = User::where('id',$request->id_user)->update([
+            'username'=>$request->nis,
 'password'=>bcrypt($real_tgl)
         ]);
         $Siswa = Siswa::where('id_user', $request->id_user)->update([
