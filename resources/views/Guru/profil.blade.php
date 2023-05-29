@@ -112,10 +112,22 @@
                                             Profil</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input type="file" class="dropify form-control" name="foto_profil"
-                                                id="foto_profil"
+                                                id="foto_profil{{ $guru->id }}"
                                                 @if ($guru->foto_profil != null) data-default-file="{{ asset('/img/user/' . $guru->foto_profil) }}" @endif />
                                         </div>
                                     </div>
+                                    @if ($guru->foto_profil != null)
+                                        <div class="row mb-3">
+                                            <label for="foto_profil" class="col-md-4 col-lg-3 col-form-label"></label>
+                                            <div class="col-md-8 col-lg-9 d-grid gap-2 mb-3">
+                                                <button type="button" class="btn btn-danger"
+                                                    id="btn_hapus_foto_profil{{ $guru->id }}"
+                                                    onclick="hapus_foto_profil_{{ $guru->id }}('{{ $guru->foto_profil }}')">Hapus
+                                                    Foto
+                                                    Profil</button>
+                                            </div>
+                                        </div>
+                                    @endif
 
                                     <div class="row mb-3">
                                         <label for="no_telp" class="col-md-4 col-lg-3 col-form-label">No Telepon</label>
@@ -189,6 +201,51 @@
         </div>
     </section>
     <script>
-        $('.dropify').dropify();
+        $('.dropify').dropify({
+            showRemove: false,
+        });
     </script>
+    <script type="text/javascript">
+        function hapus_foto_profil_{{ $guru->id }}(foto_profil) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            Swal.fire({
+                title: 'Yakin ingin menghapus foto profil?',
+                text: "Anda tidak akan dapat mengembalikanya!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('guru.delete_foto_profil') }}",
+                        data: {
+                            foto_profil: foto_profil
+                        },
+                        dataType: 'json',
+                        success: function(res) {
+                            $("#foto_profil{{ $guru->id }}").next(".dropify-clear").trigger(
+                                "click");
+                            Swal.fire(
+                                'Deleted!',
+                                'Foto Profil Telah Dihapus!',
+                                'success'
+                            )
+                            document.getElementById("btn_hapus_foto_profil{{ $guru->id }}")
+                                .remove();
+                            location.reload();
+
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection

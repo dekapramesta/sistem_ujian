@@ -49,6 +49,27 @@ class ProfilController extends Controller
         return redirect()->back();
     }
 
+    public function delete_foto_profil(Request $request)
+    {
+        if(file_exists(public_path('img/user/'.$request->foto_profil))) {
+            unlink(public_path('img/user/'.$request->foto_profil));
+        }
+        $Guru = Guru::where('foto_profil', $request->foto_profil)->update([
+            'foto_profil' => null
+        ]);
+        if($Guru) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Foto Profil Berhasil Dihapus!.',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Menghapus Foto Profil',
+            ]);
+        }
+    }
+
     public function edit_password(Request $request)
     {
         $user = Auth::user();

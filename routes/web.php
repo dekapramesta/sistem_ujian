@@ -114,6 +114,7 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
             Route::get('profil', [ProfilController::class, 'index'])->name('guru.profil');
             Route::post('profil/edit_profil', [ProfilController::class, 'edit_profil'])->name('guru.edit_profil');
             Route::post('profil/edit_password', [ProfilController::class, 'edit_password'])->name('guru.edit_password');
+            Route::post('profil/hapus_foto_profil', [ProfilController::class, 'delete_foto_profil'])->name('guru.delete_foto_profil');
         });
     }
 );
