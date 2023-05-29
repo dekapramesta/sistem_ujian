@@ -9,6 +9,7 @@ use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\mst_mapel_guru_kelas;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Mockery\Undefined;
 
@@ -44,10 +45,12 @@ class GuruController extends Controller
             array_push($response, 'Guru Sudah Ada');
             return response()->json(['result' => $response]);
         }
+        $tgl = Carbon::parse($request->tanggal_lahir)->format('d-m-Y');
+        $real_tgl = str_replace("-","",$tgl);
 
         $User = User::create([
             'username' => $request->nip,
-            'password' => bcrypt($password),
+            'password' => bcrypt($real_tgl),
             'jabatan' => 'guru',
             'verified' => 1
         ]);
@@ -117,11 +120,13 @@ class GuruController extends Controller
         $bulan = substr($request->tanggal_lahir, 5, 2);
         $tahun = substr($request->tanggal_lahir, 0, 4);
         $password = $tanggal . '' . $bulan . '' . $tahun;
+        $tgl = Carbon::parse($request->tanggal_lahir)->format('d-m-Y');
+        $real_tgl = str_replace("-","",$tgl);
 
         $gr = Guru::where('id',$request->id_guru)->first();
         $users = User::where('id',$gr->id_user)->update([
             'username'=>$request->nip,
-            'password'=>bcrypt($password)
+            'password'=>bcrypt($real_tgl)
         ]);
 
 

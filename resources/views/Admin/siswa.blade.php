@@ -97,7 +97,7 @@
                                     <p><label>NIS :<input type="text" class="form-control" name="nis" value="{{ $siswa->nis }}"></label></p>
                                     <fieldset>
                                         <p><label>Tanggal Lahir:
-                                        <input type="date" name="tanggal_lahir" value="{{ $siswa->tanggal_lahir }}"></label></p>
+                                        <input type="date" name="tanggal_lahir" class="form-control" value="{{ $siswa->tanggal_lahir }}"></label></p>
                                     </fieldset>
                                 </label></p>
                                 </div>

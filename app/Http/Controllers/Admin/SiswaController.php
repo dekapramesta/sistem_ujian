@@ -9,7 +9,7 @@ use App\Models\Jenjang;
 use App\Models\Kelas;
 use App\Models\Jurusan;
 use App\Models\User;
-
+use Carbon\Carbon;
 
 class SiswaController extends Controller
 {
@@ -34,10 +34,12 @@ class SiswaController extends Controller
         $bulan = substr($request->tanggal_lahir,5,2);
         $tahun = substr($request->tanggal_lahir,0,4);
         $password = $tanggal.''.$bulan.''.$tahun;
+        $tgl = Carbon::parse($request->tanggal_lahir)->format('d-m-Y');
+        $real_tgl = str_replace("-","",$tgl);
 
         $User = User::create([
             'username' => $request->nis,
-            'password' => bcrypt($password),
+            'password' => bcrypt($real_tgl),
             'jabatan' => 'siswa',
             'verified'=>'1'
         ]);
@@ -74,9 +76,11 @@ class SiswaController extends Controller
         $bulan = substr($request->tanggal_lahir,5,2);
         $tahun = substr($request->tanggal_lahir,0,4);
         $password = $tanggal.''.$bulan.''.$tahun;
-
+        $tgl = Carbon::parse($request->tanggal_lahir)->format('d-m-Y');
+        $real_tgl = str_replace("-","",$tgl);
+        // dd($real_tgl);
         $user = User::where('id',$request->id_user)->update([
-'password'=>bcrypt($password)
+'password'=>bcrypt($real_tgl)
         ]);
         $Siswa = Siswa::where('id_user', $request->id_user)->update([
             'id_kelas'=> $request->id_kelas,
