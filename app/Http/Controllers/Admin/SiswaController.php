@@ -27,7 +27,7 @@ class SiswaController extends Controller
             'nama_jurusan'=> 'required',
             'nama' => 'required',
             'nis' => 'required',
-            'tanggal_lahir' => 'required'
+            'tanggal_lahir' => 'required',
         ]);
 
         $tanggal = substr($request->tanggal_lahir,8,2);
@@ -38,7 +38,8 @@ class SiswaController extends Controller
         $User = User::create([
             'username' => $request->nis,
             'password' => bcrypt($password),
-            'jabatan' => 'Siswa',
+            'jabatan' => 'siswa',
+            'verified'=>'1'
         ]);
 
         $find_user = User::where('username', $request->nis)->first();
@@ -76,6 +77,8 @@ class SiswaController extends Controller
             'nis' => $request->nis,
             'tanggal_lahir' => $request->tanggal_lahir
         ]);
+
+
 
         if($Siswa){
             return back()->with('success', 'Berhasil Edit Data');

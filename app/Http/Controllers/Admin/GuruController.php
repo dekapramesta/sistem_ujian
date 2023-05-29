@@ -113,8 +113,21 @@ class GuruController extends Controller
             'nip' => $request->nip,
             'tanggal_lahir' => $request->tanggal_lahir
         ]);
+        $tanggal = substr($request->tanggal_lahir, 8, 2);
+        $bulan = substr($request->tanggal_lahir, 5, 2);
+        $tahun = substr($request->tanggal_lahir, 0, 4);
+        $password = $tanggal . '' . $bulan . '' . $tahun;
+
+        $gr = Guru::where('id',$request->id_guru)->first();
+        $users = User::where('id',$gr->id_user)->update([
+            'username'=>$request->nip,
+            'password'=>bcrypt($password)
+        ]);
+
 
         $response = array();
+        // array_push($response, $gr->id_user);
+
         $mstall = mst_mapel_guru_kelas::where('id_gurus', $request->id_guru)->get();
         foreach ($mstall as $mst_all) {
             // $mst_edit = mst_mapel_guru_kelas::find($mst_all->id);
