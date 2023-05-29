@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Dashboard - NiceAdmin Bootstrap Template</title>
+    <title>CBT - SMAN 1 KAWEDANAN</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/smasaka.png') }}" rel="icon">
     <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -53,7 +53,7 @@
   ======================================================== -->
 </head>
 
-<body>
+<body class="{{ request()->is('guru/profil*') ? 'toggle-sidebar' : '' }}">
     @include('sweetalert::alert')
 
 

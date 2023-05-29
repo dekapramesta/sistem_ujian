@@ -14,7 +14,7 @@
 
 body {
     font-family: "Open Sans", sans-serif;
-    background: #e3ffe2;
+    background: #F6FFDE;
     color: #444444;
 }
 
@@ -95,7 +95,7 @@ h6 {
 }
 
 .back-to-top:hover {
-    background: #6776f4;
+    background: #C9F4AA;
     color: #fff;
 }
 
@@ -257,7 +257,7 @@ h6 {
     padding: 20px 0 15px 0;
     font-size: 18px;
     font-weight: 500;
-    color: #012970;
+    color: #000000;
     font-family: "Poppins", sans-serif;
 }
 
@@ -1259,7 +1259,7 @@ h6 {
 }
 
 .error-404 .btn:hover {
-    background: #3e4f6f;
+    background: #82cd47;
 }
 
 @media (min-width: 992px) {
