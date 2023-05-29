@@ -70,8 +70,15 @@ class SiswaController extends Controller
             'nis' => 'required',
             'tanggal_lahir' => 'required'
         ]);
+        $tanggal = substr($request->tanggal_lahir,8,2);
+        $bulan = substr($request->tanggal_lahir,5,2);
+        $tahun = substr($request->tanggal_lahir,0,4);
+        $password = $tanggal.''.$bulan.''.$tahun;
 
-        $Siswa = Siswa::where('nis', $nis)->update([
+        $user = User::where('id',$request->id_user)->update([
+'password'=>bcrypt($password)
+        ]);
+        $Siswa = Siswa::where('id_user', $request->id_user)->update([
             'id_kelas'=> $request->id_kelas,
             'nama' => $request->nama,
             'nis' => $request->nis,

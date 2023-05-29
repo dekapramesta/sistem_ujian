@@ -79,6 +79,7 @@
                                             @endforeach
                                         </select>
                                     </label></p> --}}
+                                    <input type="text" name="id_user" hidden value="{{$siswa->id_user}}">
                                     <p><label>Kelas :
                                         <select name="id_kelas">
                                             @foreach ( $classes as $class )
