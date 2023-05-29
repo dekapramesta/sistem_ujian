@@ -18,7 +18,7 @@ class CreateMstMapelGuruKelasTable extends Migration
             $table->unsignedBigInteger('id_mapels');
             $table->unsignedBigInteger('id_gurus');
             $table->unsignedBigInteger('id_kelas');
-            $table->unsignedBigInteger('id_jenjang');
+            $table->unsignedBigInteger('id_jenjang')->nullable();
             $table->foreign('id_mapels')
                 ->references('id')->on('mapels');
             $table->foreign('id_gurus')

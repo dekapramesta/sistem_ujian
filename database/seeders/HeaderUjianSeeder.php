@@ -20,7 +20,7 @@ class HeaderUjianSeeder extends Seeder
             'id_gurus' => 1,
             'id_jenjangs' => 1,
             'jumlah_soal' => 6,
-            'status' => 1
+            'status' => 0
         ]);
     }
 }

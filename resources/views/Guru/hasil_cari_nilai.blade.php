@@ -62,6 +62,10 @@
                                     {{ $ujian->jadwal_ujian->jenis_ujian }}
                                     {{ $ujian->jadwal_ujian->th_akademiks->th_akademik }} - Semester
                                     {{ $ujian->jadwal_ujian->th_akademiks->nama_semester }} </h6>
+                                <a href="{{ route('nilai.export', $id_header_ujian) }}">
+                                    <button type="button" class="btn btn-info">Export
+                                        Nilai</button>
+                                </a>
                             </div>
                             <div class="card-body pt-3">
 
@@ -70,7 +74,8 @@
 
                                     @foreach ($detail_ujians as $dtluj)
                                         <li class="nav-item">
-                                            <button class="nav-link {{ $loop->first ? 'active' : '' }}" data-bs-toggle="tab"
+                                            <button class="nav-link {{ $loop->first ? 'active' : '' }}"
+                                                data-bs-toggle="tab"
                                                 data-bs-target="#{{ $dtluj->kelas->jurusan->nama_jurusan }}-{{ $dtluj->kelas->nama_kelas }}">{{ $dtluj->kelas->jurusan->nama_jurusan }}
                                                 -
                                                 {{ $dtluj->kelas->nama_kelas }}</button>

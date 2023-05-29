@@ -18,7 +18,8 @@ class CreatePesertaUjiansTable extends Migration
             $table->string('nis', 6);
             $table->unsignedBigInteger('id_detail_ujians');
             $table->foreign('id_detail_ujians')
-                ->references('id')->on('detail_ujians');
+                ->references('id')->on('detail_ujians')->onUpdate('cascade')
+                ->onDelete('cascade');;
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

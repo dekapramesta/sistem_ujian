@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="pagetitle">
-    <h1>Tahun Ajar</h1>
+    <h1>Data Tahun Akademik</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item">Master Data</li>
-        <li class="breadcrumb-item active">Tahun Ajar</li>
+        <li class="breadcrumb-item active">Tahun Akademik</li>
       </ol>
     </nav>
   </div><!-- End Page Title -->
@@ -28,7 +28,7 @@
               <thead>
                 <tr>
                   <th scope="col">Nomor</th>
-                  <th scope="col">Tahun Ajaran</th>
+                  <th scope="col">Tahun Akademik</th>
                   <th scope="col">Semester</th>
                   <th scope="col">Aksi</th>
                 </tr>

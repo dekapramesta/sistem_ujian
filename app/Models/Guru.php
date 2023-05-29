@@ -12,7 +12,9 @@ class Guru extends Model
         'id_user',
         'nama',
         'nip',
-        'tanggal_lahir'
+        'tanggal_lahir',
+        'no_telp',
+        'email'
     ];
 
     protected $primaryKey = 'id';

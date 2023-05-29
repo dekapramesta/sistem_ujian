@@ -20,10 +20,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
-        'email',
         'password',
         'jabatan',
         'verified',
+        'otp'
     ];
 
     /**
@@ -41,4 +41,17 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
+
+    public function siswa()
+    {
+        return $this->hasOne(User::class, 'id_user', 'id');
+    }
+    public function guru()
+    {
+        return $this->hasOne(User::class, 'id_user', 'id');
+    }
+    public function admin()
+    {
+        return $this->hasOne(User::class, 'id_user', 'id');
+    }
 }

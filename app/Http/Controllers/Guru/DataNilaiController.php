@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Guru;
 
 use App\Models\Guru;
 use App\Models\Mapel;
+use App\Models\Nilai;
+use App\Models\DetailUjian;
 use App\Models\HeaderUjian;
+use App\Exports\NilaiExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\DetailUjian;
-use App\Models\Nilai;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\MultipleSheetsExport;
 
 class DataNilaiController extends Controller
 {
@@ -39,8 +42,33 @@ class DataNilaiController extends Controller
         $nilais = Nilai::where('id_ujian', $request->id_header_ujian)->get();
         $header_ujians = HeaderUjian::where('id_gurus', $guru->id)->get();
         $detail_ujians = DetailUjian::where('id_headerujian', $request->id_header_ujian)->get();
-        // dd($detail_ujians);
+        $id_header_ujian = $request->id_header_ujian;
 
-        return view('Guru.hasil_cari_nilai', compact('id_mapels', 'nama_mapel', 'ujian', 'nilais', 'header_ujians', 'detail_ujians'));
+        return view('Guru.hasil_cari_nilai', compact('id_mapels', 'nama_mapel', 'ujian', 'nilais', 'header_ujians', 'detail_ujians', 'id_header_ujian'));
+    }
+
+    public function exportNilai($id_header_ujian)
+    {
+        $detail_ujians = DetailUjian::where('id_headerujian', $id_header_ujian)->get();
+
+        $header_ujians = HeaderUjian::where('id', $id_header_ujian)->first();
+
+        $judul = $header_ujians->jadwal_ujian->mapel->nama_mapel . ' - ' .
+        $header_ujians->jadwal_ujian->jenis_ujian . ' - ' .
+        $header_ujians->jadwal_ujian->th_akademiks->th_akademik . ' - Semester ' .
+        $header_ujians->jadwal_ujian->th_akademiks->nama_semester;
+        $judul = str_replace('/', '-', $judul);
+
+        $sheetsData = [];
+
+        foreach ($detail_ujians as $dtluj) {
+            $sheetsData[] = [
+                'title' => $dtluj->kelas->jurusan->nama_jurusan . ' - ' . $dtluj->kelas->nama_kelas,
+                'data' => Nilai::with('siswa')->whereHas('siswa', function ($query) use ($dtluj) {
+                    return $query->where('id_kelas', $dtluj->id_kelas);
+                })->get(),
+            ];
+        }
+        return Excel::download(new MultipleSheetsExport($sheetsData), 'Nilai '.$judul.'.xlsx');
     }
 }

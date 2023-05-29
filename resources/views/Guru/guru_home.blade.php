@@ -228,6 +228,97 @@
                         </div>
                     </div>
 
+                    <div class="col-xxl-12 col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Monitoring <span>| Berlangsung Hari Ini</span></h5>
+
+                                <div class="splide" role="group" aria-label="Splide Basic HTML Example">
+                                    <div class="splide__track ">
+                                        <ul class="splide__list">
+                                            @foreach ($ujian as $ujn)
+                                                <li class="splide__slide px-2 py-2">
+                                                    <div class="card">
+                                                        <button onclick="ShowMonitoring({{ $ujn->id }})"
+                                                            class="btn btn-white w-100">
+                                                            <div class="card-body text-center">
+                                                                <h5 class="card-title">
+                                                                    {{ $ujn->jadwal_ujian->mapel->nama_mapel }}</h5>
+                                                                <p class="card-text">Jenjang :
+                                                                    {{ $ujn->jadwal_ujian->jenjang->nama_jenjang }}</p>
+                                                                <p class="card-text">
+                                                                    {{ $ujn->detailujian[0]->tanggal_ujian }}
+                                                                    @php
+                                                                        $currentDate = Carbon::now();
+                                                                        $ujianDate = Carbon::parse($ujn->detailujian[0]->tanggal_ujian);
+                                                                    @endphp
+
+                                                                    @if (
+                                                                        $ujn->detailujian[0]->tanggal_ujian <= Carbon::now() &&
+                                                                            $ujianDate->addMinutes($ujn->detailujian[0]->waktu_ujian) >= Carbon::now())
+                                                                        {{ 'Berlangsung' }}
+                                                                    @elseif(
+                                                                        $ujn->detailujian[0]->tanggal_ujian <= Carbon::now() &&
+                                                                            $ujianDate->addMinutes($ujn->detailujian[0]->waktu_ujian) <= Carbon::now())
+                                                                        {{ 'Selesai' }}
+                                                                    @elseif($ujn->detailujian[0]->tanggal_ujian >= Carbon::now())
+                                                                        {{ 'Belum Mulai' }}
+                                                                    @endif
+                                                                </p>
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                            {{-- <li class="splide__slide">
+                                            <div class="card" style="width: 18rem;">
+                                                <button href="#" class="btn btn-white w-100">
+                                                    <div class="card-body text-center">
+                                                        <h5 class="card-title">Biologi 2</h5>
+                                                        <p class="card-text">21-05-2023 15:00</p>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </li>
+                                        <li class="splide__slide">
+                                            <div class="card" style="width: 18rem;">
+                                                <button href="#" class="btn btn-white w-100">
+                                                    <div class="card-body text-center">
+                                                        <h5 class="card-title">Biologi 3</h5>
+                                                        <p class="card-text">21-05-2023 15:00</p>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul> --}}
+                                    </div>
+
+                                </div>
+                                <div class="col py-3 text-center" id="title_mapel">
+
+
+                                </div>
+                                <table class="table table-borderless datatable">
+
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nama Siswa</th>
+                                            <th scope="col">Kelas</th>
+                                            <th colspan="3" scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table_ujian">
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
 
 
                     <!-- Recent Sales -->
@@ -247,6 +338,7 @@
                                     <li><a class="dropdown-item" href="#">This Year</a></li>
                                 </ul>
                             </div>
+
 
                             <div class="card-body">
                                 <h5 class="card-title">Hasil Ujian <span>| Today</span></h5>
@@ -296,6 +388,48 @@
                                             <td>$165</td>
                                             <td><span class="badge bg-success">Approved</span></td>
                                         </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#">#2644</a></th>
+                                            <td>Angus Grady</td>
+                                            <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
+                                            <td>$67</td>
+                                            <td><span class="badge bg-danger">Rejected</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#">#2644</a></th>
+                                            <td>Raheem Lehner</td>
+                                            <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                            <td>$165</td>
+                                            <td><span class="badge bg-success">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#">#2644</a></th>
+                                            <td>Angus Grady</td>
+                                            <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
+                                            <td>$67</td>
+                                            <td><span class="badge bg-danger">Rejected</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#">#2644</a></th>
+                                            <td>Raheem Lehner</td>
+                                            <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                            <td>$165</td>
+                                            <td><span class="badge bg-success">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#">#2644</a></th>
+                                            <td>Angus Grady</td>
+                                            <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
+                                            <td>$67</td>
+                                            <td><span class="badge bg-danger">Rejected</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#">#2644</a></th>
+                                            <td>Raheem Lehner</td>
+                                            <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                                            <td>$165</td>
+                                            <td><span class="badge bg-success">Approved</span></td>
+                                        </tr>
                                     </tbody>
                                 </table>
 
@@ -309,3 +443,78 @@
         </div>
     </section>
 @endsection
+
+<script src="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+" rel="stylesheet">
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var splide = new Splide('.splide', {
+            type: 'loop',
+            padding: '5rem',
+        });
+
+        splide.mount();
+    });
+    let IntervalUjian;
+
+    function IntervalSet(id) {
+        IntervalUjian = setInterval(() => {
+            getMonitor(id)
+        }, 5000);
+    }
+
+    function ShowMonitoring(id) {
+        clearInterval(IntervalUjian);
+        getMonitor(id);
+        IntervalSet(id);
+    }
+
+    function getMonitor(id) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "{{ route('admin.moniotring') }}",
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function(res) {
+                console.log(res)
+
+                $('#table_ujian').html('')
+                $('#title_mapel').html(
+                    `<span class="badge bg-success w-100 fs-6">${res.jadwal_ujian.mapel.nama_mapel}</span>`
+                )
+                res.detailujian.map((dt) => {
+                    dt.pesertaujian.map((ps) => {
+                        $('#table_ujian').append(` <tr>
+                                            <th scope="row"><a href="#">${ps.siswa.nama}</a></th>
+                                            <td>${dt.kelas.jenjang.nama_jenjang}-${dt.kelas.jurusan.nama_jurusan}-${dt.kelas.nama_kelas}</td>
+                                            <td>${checkStatus(ps.status)}</td>
+                                        </tr>`)
+                    })
+                })
+
+            }
+        });
+    }
+
+    function checkStatus(sts) {
+        if (parseInt(sts) === 0) {
+            return "<span class='badge bg-danger'>Belum Masuk</span>"
+        } else if (parseInt(sts) === 1) {
+            return "<span class='badge bg-success'>Selesai</span>"
+        } else if (parseInt(sts) === 7) {
+            return "<span class='badge bg-info'>Sedang Mengerjakan</span>"
+
+        }
+    }
+</script>

@@ -106,4 +106,22 @@ class JadwalUjian extends Controller
         }
         return response()->json("success");
     }
+    public function editJadwal($id)
+    {
+        # code...
+        $kelas = Kelas::all();
+        $siswa = Siswa::all();
+        $mapel = Mapel::all();
+        $jenjang = Jenjang::all();
+        $tahun_akademik = ThAkademik::all();
+        return view('admin.edit_ujian', compact('kelas', 'siswa', 'mapel', 'jenjang', 'tahun_akademik'));
+    }
+
+    function deleteUjian($id)
+    {
+        $data = HeaderUjian::find($id);
+        $data->status = 8;
+        $data->save();
+        return redirect()->route('jadwal.ujian');
+    }
 }

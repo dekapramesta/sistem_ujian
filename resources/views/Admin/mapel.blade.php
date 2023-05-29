@@ -39,11 +39,18 @@
                         <td>{{ $mapel->jurusan->nama_jurusan}}</td>
                         <td>{{ $mapel->nama_mapel }}</td>
                         <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edit{{ $mapel->identitas }}">Edit</button>
+                            <button class="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#edit{{ $mapel->identitas }}"
+                                style="width:70px"><i class="bi bi-pencil-square" style="font-size: 10pt"></i>
+                                Edit</button>
+                            <button class="btn btn-danger btn-sm text-center" data-bs-toggle="modal" data-bs-target="#delete{{ $mapel->identitas }}"
+                                style="width:90px"><i class="bi bi-trash3-fill" style="font-size: 10pt"></i>
+                                Hapus</button>
+                        </td>
+                            {{-- <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edit{{ $mapel->identitas }}">Edit</button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $mapel->identitas }}">Delete</button>
-                        </td>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $mapel->identitas }}">Delete</button> --}}
+                        {{-- </td> --}}
                     </tr>
                     <div class="modal" id="edit{{ $mapel->identitas }}" tabindex="-1">
                         <div class="modal-dialog">

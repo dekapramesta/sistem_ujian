@@ -22,9 +22,11 @@ class CreateDetailUjiansTable extends Migration
             $table->string('token', 10)->nullable();
             $table->boolean('status');
             $table->foreign('id_headerujian')
-                ->references('id')->on('header_ujians');
+                ->references('id')->on('header_ujians')->onUpdate('cascade')
+                ->onDelete('cascade');;
             $table->foreign('id_kelas')
-                ->references('id')->on('kelas');
+                ->references('id')->on('kelas')->onUpdate('cascade')
+                ->onDelete('cascade');;
             $table->timestamps();
         });
     }
