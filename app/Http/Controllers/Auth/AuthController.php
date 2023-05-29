@@ -59,7 +59,7 @@ class AuthController extends Controller
                 return redirect()->route('login.view')->withErrors(['Akun Non-Aktif']);
             }
         } else {
-            return redirect()->route('login.view')->withErrors(['email atau Password salah']);
+            return redirect()->route('login.view')->withErrors(['Username atau Password salah']);
         }
     }
 
