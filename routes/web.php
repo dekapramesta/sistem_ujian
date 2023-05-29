@@ -38,6 +38,7 @@ Route::get('kirim-otp', [AuthController::class, 'kirimOtp'])->name('login.kirim.
 Route::post('verifikasi-otp', [AuthController::class, 'verifikasiOtp'])->name('login.verifikasi.otp');
 Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('login.password.reset');
 Route::post('save-password', [AuthController::class, 'savePassword'])->name('login.password.save');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'levelAcces:admin'])->group(
     function () {

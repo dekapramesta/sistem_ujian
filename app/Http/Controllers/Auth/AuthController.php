@@ -80,15 +80,15 @@ class AuthController extends Controller
         $kirimOtp = User::where('username', $request->username)->update([
             'otp' => $otp,
         ]);
-        if($kirimOtp){
+        if($kirimOtp) {
             $user = User::where('username', $request->username)->first();
-            $request->session()->put('user_id',$user->id);
+            $request->session()->put('user_id', $user->id);
 
-            if($user->jabatan == "admin"){
+            if($user->jabatan == "admin") {
                 $noTelp = Admin::where('id_user', $user->id)->first();
-            }else if($user->jabatan == "guru"){
+            } elseif($user->jabatan == "guru") {
                 $noTelp = Guru::where('id_user', $user->id)->first();
-            }else if($user->jabatan == "siswa"){
+            } elseif($user->jabatan == "siswa") {
                 $noTelp = Siswa::where('id_user', $user->id)->first();
             }
 
@@ -129,9 +129,9 @@ class AuthController extends Controller
         );
 
         $cekOtp = User::where('otp', $request->otp)->first();
-        if($cekOtp){
+        if($cekOtp) {
             return view('auth.resetpassword');
-        }else{
+        } else {
             return redirect()->back();
         }
     }
@@ -145,19 +145,25 @@ class AuthController extends Controller
             ]
         );
 
-        if($request->password == $request->password2){
+        if($request->password == $request->password2) {
             $user_id = $request->session()->get('user_id');
 
             $savePassword = User::where('id', $user_id)->update([
                 'password' => bcrypt($request->password),
             ]);
 
-            if($savePassword){
+            if($savePassword) {
                 $request->session()->forget('user_id');
                 return redirect()->route('login.view');
             }
-        }else{
+        } else {
             return redirect()->back();
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login.view');
     }
 }
