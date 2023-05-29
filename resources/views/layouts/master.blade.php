@@ -53,7 +53,7 @@
   ======================================================== -->
 </head>
 
-<body>
+<body class="{{ request()->is('guru/profil*') ? 'toggle-sidebar' : '' }}">
     @include('sweetalert::alert')
 
 

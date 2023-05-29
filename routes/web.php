@@ -14,6 +14,7 @@ use App\Http\Controllers\Guru\DataNilaiController;
 use App\Http\Controllers\Auth\AuthController;
 
 use App\Http\Controllers\Guru\GuruHomeController;
+use App\Http\Controllers\Guru\ProfilController;
 use App\Http\Controllers\Guru\SoalController as BankSoalController;
 
 /*
@@ -110,6 +111,8 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
             Route::match(['get', 'post'], 'data_nilai/hasil/{id_mapels}', [DataNilaiController::class, 'hasil_cari'])->name('guru.hasil_cari');
             Route::get('data_nilai/hasil/export/{id_header_ujians}', [DataNilaiController::class, 'exportNilai'])->name('nilai.export');
             Route::get('profil', [ProfilController::class, 'index'])->name('guru.profil');
+            Route::post('profil/edit_profil', [ProfilController::class, 'edit_profil'])->name('guru.edit_profil');
+            Route::post('profil/edit_password', [ProfilController::class, 'edit_password'])->name('guru.edit_password');
         });
     }
 );
