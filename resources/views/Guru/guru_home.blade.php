@@ -1,6 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
+    @php
+        use Carbon\Carbon;
+    @endphp
     <div class="pagetitle">
         <h1>Dashboard</h1>
         <nav>

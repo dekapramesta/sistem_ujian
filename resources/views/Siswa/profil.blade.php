@@ -23,13 +23,13 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                        @if ($guru->foto_profil)
-                            <img src="{{ asset('img/user/' . $guru->foto_profil) }}" alt="Profile" class="rounded-circle">
+                        @if ($siswa->foto_profil)
+                            <img src="{{ asset('img/user/' . $siswa->foto_profil) }}" alt="Profile" class="rounded-circle">
                         @else
                             <img src="{{ asset('/img/user/default.png') }}" alt="Profile" class="rounded-circle">
                         @endif
-                        <h2>{{ $guru->nama }}</h2>
-                        <h3>NIP. {{ $guru->nip }}</h3>
+                        <h2>{{ $siswa->nama }}</h2>
+                        <h3>NIS. {{ $siswa->nis }}</h3>
                     </div>
                 </div>
 
@@ -74,15 +74,15 @@
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label ">Nama</div>
-                                    <div class="col-lg-9 col-md-8">{{ $guru->nama }}</div>
+                                    <div class="col-lg-9 col-md-8">{{ $siswa->nama }}</div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">NIP</div>
-                                    <div class="col-lg-9 col-md-8">{{ $guru->nip }}</div>
+                                    <div class="col-lg-3 col-md-4 label">NIS</div>
+                                    <div class="col-lg-9 col-md-8">{{ $siswa->nis }}</div>
                                 </div>
                                 @php
-                                    $formattedDate = strftime('%d %B %Y', strtotime($guru->tanggal_lahir));
+                                    $formattedDate = strftime('%d %B %Y', strtotime($siswa->tanggal_lahir));
                                 @endphp
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Tanggal Lahir</div>
@@ -91,12 +91,12 @@
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">No Telepon</div>
-                                    <div class="col-lg-9 col-md-8">{{ $guru->no_telp }}</div>
+                                    <div class="col-lg-9 col-md-8">{{ $siswa->no_telp }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Email</div>
-                                    <div class="col-lg-9 col-md-8">{{ $guru->email }}</div>
+                                    <div class="col-lg-9 col-md-8">{{ $siswa->email }}</div>
                                 </div>
 
                             </div>
@@ -104,7 +104,7 @@
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                 <!-- Profile Edit Form -->
-                                <form action="{{ route('guru.edit_profil') }}" method="post"
+                                <form action="{{ route('siswa.edit_profil') }}" method="post"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row mb-3">
@@ -112,17 +112,17 @@
                                             Profil</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input type="file" class="dropify form-control" name="foto_profil"
-                                                id="foto_profil{{ $guru->id }}"
-                                                @if ($guru->foto_profil != null) data-default-file="{{ asset('/img/user/' . $guru->foto_profil) }}" @endif />
+                                                id="foto_profil{{ $siswa->id }}"
+                                                @if ($siswa->foto_profil != null) data-default-file="{{ asset('/img/user/' . $siswa->foto_profil) }}" @endif />
                                         </div>
                                     </div>
-                                    @if ($guru->foto_profil != null)
+                                    @if ($siswa->foto_profil != null)
                                         <div class="row mb-3">
                                             <label for="foto_profil" class="col-md-4 col-lg-3 col-form-label"></label>
                                             <div class="col-md-8 col-lg-9 d-grid gap-2 mb-3">
                                                 <button type="button" class="btn btn-danger"
-                                                    id="btn_hapus_foto_profil{{ $guru->id }}"
-                                                    onclick="hapus_foto_profil_{{ $guru->id }}('{{ $guru->foto_profil }}')">Hapus
+                                                    id="btn_hapus_foto_profil{{ $siswa->id }}"
+                                                    onclick="hapus_foto_profil_{{ $siswa->id }}('{{ $siswa->foto_profil }}')">Hapus
                                                     Foto
                                                     Profil</button>
                                             </div>
@@ -133,7 +133,7 @@
                                         <label for="no_telp" class="col-md-4 col-lg-3 col-form-label">No Telepon</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="no_telp" type="text" class="form-control" id="no_telp"
-                                                value="{{ $guru->no_telp }}">
+                                                value="{{ $siswa->no_telp }}">
                                         </div>
                                     </div>
 
@@ -141,7 +141,7 @@
                                         <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="email" type="text" class="form-control" id="email"
-                                                value="{{ $guru->email }}">
+                                                value="{{ $siswa->email }}">
                                         </div>
                                     </div>
 
@@ -155,7 +155,7 @@
                             <div class="tab-pane fade {{ session('ubah_password') == 'profile-change-password' ? 'show active' : '' }} pt-3"
                                 id="profile-change-password">
                                 <!-- Change Password Form -->
-                                <form action="{{ route('guru.edit_password') }}" method="post"
+                                <form action="{{ route('siswa.edit_password') }}" method="post"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row mb-3">
@@ -260,7 +260,7 @@
         }
     </script>
     <script type="text/javascript">
-        function hapus_foto_profil_{{ $guru->id }}(foto_profil) {
+        function hapus_foto_profil_{{ $siswa->id }}(foto_profil) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -278,20 +278,20 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "POST",
-                        url: "{{ route('guru.delete_foto_profil') }}",
+                        url: "{{ route('siswa.delete_foto_profil') }}",
                         data: {
                             foto_profil: foto_profil
                         },
                         dataType: 'json',
                         success: function(res) {
-                            $("#foto_profil{{ $guru->id }}").next(".dropify-clear").trigger(
+                            $("#foto_profil{{ $siswa->id }}").next(".dropify-clear").trigger(
                                 "click");
                             Swal.fire(
                                 'Deleted!',
                                 'Foto Profil Telah Dihapus!',
                                 'success'
                             )
-                            document.getElementById("btn_hapus_foto_profil{{ $guru->id }}")
+                            document.getElementById("btn_hapus_foto_profil{{ $siswa->id }}")
                                 .remove();
                             location.reload();
 

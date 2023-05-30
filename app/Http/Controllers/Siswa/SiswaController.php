@@ -19,16 +19,16 @@ class SiswaController extends Controller
 {
     public function index()
     {
-        $data = Siswa::where('id_user', Auth::user()->id)->first();
-        $ujian = PesertaUjian::where('nis', $data->nis)->get();
-        $nilai = Nilai::where('id_siswa', $data->id)->get();
+        $siswa = Siswa::where('id_user', Auth::user()->id)->first();
+        $ujian = PesertaUjian::where('nis', $siswa->nis)->get();
+        $nilai = Nilai::where('id_siswa', $siswa->id)->get();
         // $ujian = PesertaUjian::with('detailujian.headerujian.jadwal_ujian.mapel')->whereHas('peserta', function ($query) use ($data) {
         //     return $query->where('id', $data->id);
         // })->get();
         // dd($ujian);
 
         // dd($ujian);
-        return view("siswa.siswa_home", compact('ujian', 'nilai'));
+        return view("siswa.siswa_home", compact('ujian', 'nilai', 'siswa'));
     }
     public function ujian()
     {

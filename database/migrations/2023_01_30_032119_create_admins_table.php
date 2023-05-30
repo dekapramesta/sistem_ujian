@@ -19,6 +19,7 @@ class CreateAdminsTable extends Migration
             $table->string('nama', 50);
             $table->string('no_telp', 50) -> nullable();
             $table->string('email', 50) -> nullable();
+            $table->string('foto_profil')->nullable();
             $table->foreign('id_user')
             ->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

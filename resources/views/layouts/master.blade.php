@@ -53,7 +53,8 @@
   ======================================================== -->
 </head>
 
-<body class="{{ request()->is('guru/profil*') ? 'toggle-sidebar' : '' }}">
+<body
+    class="{{ request()->is('guru/profil*') || request()->is('admin/profil*') || request()->is('siswa/profil*') ? 'toggle-sidebar' : '' }}">
     @include('sweetalert::alert')
 
 
@@ -62,11 +63,11 @@
         $prefix = Request::route()->getPrefix();
     @endphp
     @if ($prefix == '/admin')
-        @include('particials.header')
+        @include('Admin.particials.header')
     @elseif ($prefix == '/guru')
         @include('Guru.particials.header')
     @elseif ($prefix == '/siswa')
-        @include('particials.header')
+        @include('Siswa.particials.header')
     @elseif ($prefix != '/ujian')
         @include('particials.header')
     @endif

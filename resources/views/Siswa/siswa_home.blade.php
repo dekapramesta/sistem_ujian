@@ -35,7 +35,7 @@
                             </div>
                             <div class="card-body">
                                 {{-- <h5 class="card-title">ADMINISTRATOR <span>| {{ Auth::user()->name }}</span></h5> --}}
-                                <h5 class="card-title">Siswa <span>|</span></h5>
+                                <h5 class="card-title">Siswa <span>| {{ $siswa->nama }}</span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
