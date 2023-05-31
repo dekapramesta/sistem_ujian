@@ -2,7 +2,6 @@
 
 
 @section('content')
-
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
@@ -105,7 +104,7 @@
                                 <div class="row mb-3 mt-2">
                                     <label class="col-sm-2 col-form-label">Submit Button</label>
                                     <div class="col-sm-10">
-                                        <button onclick="postUjian()" type="submit" class="btn btn-primary">Submit
+                                        <button type="button" id="submit_ujian" class="btn btn-primary">Submit
                                             Form</button>
                                     </div>
                                 </div>
@@ -119,15 +118,16 @@
                 <div class="modal fade bd-example-modal-lg" id="modalks" role="dialog"
                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
-                        
+
                         <div class="modal-content">
-                            <div class="loader-wrapper" id="loader-1" style=" position: fixed;
+                            <div class="loader-wrapper" id="loader-1"
+                                style=" position: fixed;
                             top: 50%;
                             left: 50%;
                             transform: translate(-50%, -50%);  background-color: rgba(128, 128, 128, 0.5);">
                                 <div id="loader"></div>
                             </div>
-                            
+
                             <div class="card">
                                 <div class="card-header d-flex justify-content-center">
                                     <h3 class="fs-4">Tambah Kelas dan Siswa</h3>
@@ -183,19 +183,21 @@
                                                             style="width: 100%;" name="siswa" multiple="">
 
                                                         </select>
-                                                        <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
-                                                    <div class="col">
-                                                        <input type="date" id="tgl_ujian_sw"
-                                                            class="form-control w-70">
+                                                        <label for="inputDate"
+                                                            class="col-sm-2 col-form-label">Date</label>
+                                                        <div class="col">
+                                                            <input type="date" id="tgl_ujian_sw"
+                                                                class="form-control w-70">
+                                                        </div>
+                                                        <label for="inputTime"
+                                                            class="col-sm-2 col-form-label">Time</label>
+                                                        <div class="col">
+                                                            <input type="time" id="jam_ujian_sw"
+                                                                class="form-control w-70">
+                                                        </div>
                                                     </div>
-                                                    <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
-                                                    <div class="col">
-                                                        <input type="time" id="jam_ujian_sw"
-                                                            class="form-control w-70">
-                                                    </div>
-                                                    </div>
-                                                        <button id="tambahsw" type="button"
-                                                            class="btn btn-secondary mt-2 btn-sm d-flex align-items-center justify-content-center w-100">Tambah</button>
+                                                    <button id="tambahsw" type="button"
+                                                        class="btn btn-secondary mt-2 btn-sm d-flex align-items-center justify-content-center w-100">Tambah</button>
 
                                                 </div>
                                             </div>
@@ -264,7 +266,7 @@
         const loaders = document.getElementsByClassName('loader-wrapper');
         let kelasFinal = [];
         let siswaFinal = [];
-        let result = [];
+        var result = [];
         let siswaCount = 0;
 
         $(document).ready(function() {
@@ -288,29 +290,29 @@
                     dropdownParent: $('#modalks')
                 });
                 $('#modalks').appendTo("body").modal('show');
-                $('#tambahkls').click(async function (){
+                $('#tambahkls').click(async function() {
                     kelas = ($('#selectkls').val())
 
-                    if($('#jam_ujian_kls').val().length===0){
+                    if ($('#jam_ujian_kls').val().length === 0) {
                         swal("Mohon Maaf", "Jam Kosong", "error");
 
-                    }else if($('#tgl_ujian_kls').val().length===0){
+                    } else if ($('#tgl_ujian_kls').val().length === 0) {
                         swal("Mohon Maaf", "Tanggal Kosong", "error");
 
-                    }else if(kelas.length===0){
+                    } else if (kelas.length === 0) {
                         swal("Mohon Maaf", "Kelas Kosong", "error");
 
-                    }else{
+                    } else {
                         loaders[0].style.display = "inherit";
                         console.log('addkls', kelas)
                         await getKelas(kelas)
                         loaders[0].style.display = "none";
-                       
+
                         $('#selectkls').val('').trigger('change');
                         // $('#jam_ujian_kls').val('').trigger('change')
                         // $('#tgl_ujian_kls').val('').trigger('change') // Clear the selected option
                     }
-                   
+
 
                     // console.log('kelas', kelasFinal)
                     // mappingKelaas(data)
@@ -320,16 +322,16 @@
                 $('#tambahsw').click(async function() {
                     siswa = ($('#selectsw').val())
 
-                    if($('#jam_ujian_sw').val().length===0){
+                    if ($('#jam_ujian_sw').val().length === 0) {
                         swal("Mohon Maaf", "Jam Kosong", "error");
 
-                    }else if($('#tgl_ujian_sw').val().length===0){
+                    } else if ($('#tgl_ujian_sw').val().length === 0) {
                         swal("Mohon Maaf", "Tanggal Kosong", "error");
 
-                    }else if(siswa.length===0){
+                    } else if (siswa.length === 0) {
                         swal("Mohon Maaf", "Kelas Kosong", "error");
 
-                    }else{
+                    } else {
                         loaders[0].style.display = "inherit";
 
                         console.log('id_sw', siswa)
@@ -337,31 +339,38 @@
                         console.log("first", data)
                         data.map((dt) => {
                             if (result.length === 0) {
-                                dt.kelas.tgl_ujian = $('#tgl_ujian_sw') 
-                                dt.kelas.jam_ujian = $('#jam_ujian_sw') 
+                                dt.kelas.tgl_ujian = $('#tgl_ujian_sw').val()
+                                dt.kelas.jam_ujian = $('#jam_ujian_sw').val()
                                 result.push(dt.kelas)
                             } else {
                                 result.map((rs) => {
                                     kelasFinal.push(rs.id)
                                 })
                                 if (!kelasFinal.includes(dt.kelas.id)) {
+
                                     dt.kelas.tgl_ujian = $('#tgl_ujian_sw').val()
-                                dt.kelas.jam_ujian = $('#jam_ujian_sw').val() 
+                                    dt.kelas.jam_ujian = $('#jam_ujian_sw').val()
                                     result.push(dt.kelas)
                                     kelasFinal.push(dt.kelas.id)
                                 }
                             }
-    
+
                         })
-    
+
                         data.map((dt_sw) => {
                             result.map((rs_sw, id_rs) => {
                                 if (dt_sw.kelas.id === rs_sw.id) {
                                     if (rs_sw.siswa === undefined) {
+                                        swal("Informasi",
+                                            "Tanggal dan Jam Kelas Ini Mengikuti Data yg Di Input Pertama Kali",
+                                            "info");
                                         result[id_rs]['siswa'] = []
                                         result[id_rs].siswa.push(dt_sw)
                                         siswaFinal.push(dt_sw.id)
                                     } else {
+                                        swal("Informasi",
+                                            "Tanggal dan Jam Kelas Ini Mengikuti Data yg Di Input Pertama Kali",
+                                            "info");
                                         if (!siswaFinal.includes(dt_sw.id)) {
                                             siswaFinal.push(dt_sw.id)
                                             result[id_rs].siswa.push(dt_sw)
@@ -411,23 +420,9 @@
                         }
                     })
                 }
-                // if ($(this).prop("checked", false)) {
-                //     // result.push(getOneKelas(index))
-                //     console.log("first")
-                // } else if ($(this).prop("checked", true)) {
-                //     // result.map((val, id) => {
-                //     //     // console.log(val.id)
-                //     //     if (val.id === index) {
-                //     //         result.splice(id, 1)
-                //     //         console.log("delete " + val.id)
-                //     //     }
-                //     // })
-                //     console.log("second")
-                // }
+
                 console.log('hasil', result)
-                // removeElement($(this).data('target'));
-                // $('#table-siswa').html('')
-                // mappingSiswa(result)
+
 
 
                 console.log('array kelas', kelasFinal)
@@ -480,6 +475,45 @@
                 })
                 $("#modalks").modal('hide');
                 $('#val_sw_kls').val("Total Kelas : " + result.length + ", Total Siswa : " + siswaCount)
+
+            })
+            $('#submit_ujian').on('click', async function() {
+                // console.log('siswa array', result)
+                let postData = await {
+                    ...result
+                }
+
+                try {
+
+
+                    await $.ajax({
+                        type: "POST",
+                        url: "{{ route('api.postujian') }}",
+                        data: {
+                            jenis_ujian: $('#select_jenisujian').val(),
+                            tanggal_ujian: $('#tanggal_ujian').val() + ' ' + $(
+                                    '#jam_ujian')
+                                .val(),
+                            waktu_ujian: $('#waktu_ujian').val(),
+                            id_th_akademiks: $('#tahun_akademik').val(),
+                            kelas: $('#kelas').val(),
+                            status: 0,
+                            id_mapels: $('#selectmapel').val(),
+                            jumlah_soal: $('#jumlah_soal').val(),
+                            data: postData
+                        },
+                        dataType: 'json',
+                        success: function(res) {
+                            console.log(res)
+                        }
+                    });
+
+
+
+                } catch (error) {
+                    console.log('erro lu', error)
+
+                }
 
             })
 
@@ -708,32 +742,40 @@
             })
         }
 
-        function postUjian() {
+        // async function postUjian() {
 
-            let data = {
-                jenis_ujian: $('#select_jenisujian').val(),
-                tanggal_ujian: $('#tanggal_ujian').val() + ' ' + $('#jam_ujian').val(),
-                waktu_ujian: $('#waktu_ujian').val(),
-                id_th_akademiks: $('#tahun_akademik').val(),
-                kelas: $('#kelas').val(),
-                status: 0,
-                id_mapels: $('#selectmapel').val(),
-                jumlah_soal: $('#jumlah_soal').val(),
-                data: result
-            }
-            $.ajax({
-                type: "POST",
-                url: "{{ route('api.postujian') }}",
-                data: data,
-                dataType: 'json',
-                success: function(res) {
-                    console.log(res)
-                }
-            });
+        //     try {
 
-            $(document).ajaxStop(function() {
-                window.location.href = "{{ route('jadwal.ujian') }}";
-            });
-        }
+        //         console.log('kene cok', result);
+
+        //         let postData = await result
+        //         await $.ajax({
+        //             type: "POST",
+        //             url: "{{ route('api.postujian') }}",
+        //             data: {
+        //                 jenis_ujian: $('#select_jenisujian').val(),
+        //                 tanggal_ujian: $('#tanggal_ujian').val() + ' ' + $('#jam_ujian').val(),
+        //                 waktu_ujian: $('#waktu_ujian').val(),
+        //                 id_th_akademiks: $('#tahun_akademik').val(),
+        //                 kelas: $('#kelas').val(),
+        //                 status: 0,
+        //                 id_mapels: $('#selectmapel').val(),
+        //                 jumlah_soal: $('#jumlah_soal').val(),
+        //                 data: [postData]
+        //             },
+        //             dataType: 'json',
+        //             success: function(res) {
+        //                 console.log(res)
+        //             }
+        //         });
+        //     } catch (error) {
+        //         console.log('erro lu', error)
+
+        //     }
+
+        //     // $(document).ajaxStop(function() {
+        //     //     window.location.href = "{{ route('jadwal.ujian') }}";
+        //     // });
+        // }
     </script>
 @endsection
