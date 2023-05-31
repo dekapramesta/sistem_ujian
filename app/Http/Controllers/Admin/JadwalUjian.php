@@ -100,7 +100,7 @@ class JadwalUjian extends Controller
         //         ]);
         //     }
         // }
-        return response()->json("oi");
+        return response()->json("success");
     }
     public function editJadwal($id)
     {

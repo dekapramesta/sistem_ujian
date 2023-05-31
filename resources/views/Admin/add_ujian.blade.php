@@ -479,29 +479,28 @@
             })
             $('#submit_ujian').on('click', async function() {
                 // console.log('siswa array', result)
-                let postData = await {
-                    ...result
+                console.log(result)
+                let data = {
+                    jenis_ujian: $('#select_jenisujian').val(),
+                    tanggal_ujian: $('#tanggal_ujian').val() + ' ' + $(
+                            '#jam_ujian')
+                        .val(),
+                    waktu_ujian: $('#waktu_ujian').val(),
+                    id_th_akademiks: $('#tahun_akademik').val(),
+                    kelas: $('#kelas').val(),
+                    status: 0,
+                    id_mapels: $('#selectmapel').val(),
+                    jumlah_soal: $('#jumlah_soal').val(),
+                    data: result
                 }
 
                 try {
-
+                    console.log(data)
 
                     await $.ajax({
                         type: "POST",
                         url: "{{ route('api.postujian') }}",
-                        data: {
-                            jenis_ujian: $('#select_jenisujian').val(),
-                            tanggal_ujian: $('#tanggal_ujian').val() + ' ' + $(
-                                    '#jam_ujian')
-                                .val(),
-                            waktu_ujian: $('#waktu_ujian').val(),
-                            id_th_akademiks: $('#tahun_akademik').val(),
-                            kelas: $('#kelas').val(),
-                            status: 0,
-                            id_mapels: $('#selectmapel').val(),
-                            jumlah_soal: $('#jumlah_soal').val(),
-                            data: postData
-                        },
+                        data: data,
                         dataType: 'json',
                         success: function(res) {
                             console.log(res)
