@@ -86,10 +86,6 @@ class JadwalUjian extends Controller
                 array_push($gurus, $mst_mpl_guru_kls->id_gurus);
             }
 
-            // $searhDtl = DetailUjian::where([['id_kelas', '=', $dt['id']], ['id_headerujian', '=', $id_header]])->first();
-            // if ($searhDtl != null) {
-            //     continue;
-            // }
             $detail = DetailUjian::create([
                 'id_headerujian' => $id_header,
                 'id_kelas' => $dt['id'],

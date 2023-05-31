@@ -2,6 +2,7 @@
 
 
 @section('content')
+
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
@@ -118,7 +119,15 @@
                 <div class="modal fade bd-example-modal-lg" id="modalks" role="dialog"
                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
+                        
                         <div class="modal-content">
+                            <div class="loader-wrapper" id="loader-1" style=" position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);  background-color: rgba(128, 128, 128, 0.5);">
+                                <div id="loader"></div>
+                            </div>
+                            
                             <div class="card">
                                 <div class="card-header d-flex justify-content-center">
                                     <h3 class="fs-4">Tambah Kelas dan Siswa</h3>
@@ -252,6 +261,7 @@
             </div>
     </section>
     <script>
+        const loaders = document.getElementsByClassName('loader-wrapper');
         let kelasFinal = [];
         let siswaFinal = [];
         let result = [];
@@ -278,10 +288,30 @@
                     dropdownParent: $('#modalks')
                 });
                 $('#modalks').appendTo("body").modal('show');
-                $('#tambahkls').click(function() {
+                $('#tambahkls').click(async function (){
                     kelas = ($('#selectkls').val())
-                    console.log('addkls', kelas)
-                    getKelas(kelas)
+
+                    if($('#jam_ujian_kls').val().length===0){
+                        swal("Mohon Maaf", "Jam Kosong", "error");
+
+                    }else if($('#tgl_ujian_kls').val().length===0){
+                        swal("Mohon Maaf", "Tanggal Kosong", "error");
+
+                    }else if(kelas.length===0){
+                        swal("Mohon Maaf", "Kelas Kosong", "error");
+
+                    }else{
+                        loaders[0].style.display = "inherit";
+                        console.log('addkls', kelas)
+                        await getKelas(kelas)
+                        loaders[0].style.display = "none";
+                       
+                        $('#selectkls').val('').trigger('change');
+                        // $('#jam_ujian_kls').val('').trigger('change')
+                        // $('#tgl_ujian_kls').val('').trigger('change') // Clear the selected option
+                    }
+                   
+
                     // console.log('kelas', kelasFinal)
                     // mappingKelaas(data)
 
@@ -289,61 +319,66 @@
                 })
                 $('#tambahsw').click(async function() {
                     siswa = ($('#selectsw').val())
-                    console.log('id_sw', siswa)
-                    let data = await getOneSiswa(siswa)
-                    console.log("first", data)
-                    data.map((dt) => {
-                        if (result.length === 0) {
-                            dt.kelas.tgl_ujian = $('#tgl_ujian_sw') 
-                            dt.kelas.jam_ujian = $('#jam_ujian_sw') 
-                            result.push(dt.kelas)
-                        } else {
-                            result.map((rs) => {
-                                kelasFinal.push(rs.id)
-                            })
-                            if (!kelasFinal.includes(dt.kelas.id)) {
-                                dt.kelas.tgl_ujian = $('#tgl_ujian_sw').val()
-                            dt.kelas.jam_ujian = $('#jam_ujian_sw').val() 
+
+                    if($('#jam_ujian_sw').val().length===0){
+                        swal("Mohon Maaf", "Jam Kosong", "error");
+
+                    }else if($('#tgl_ujian_sw').val().length===0){
+                        swal("Mohon Maaf", "Tanggal Kosong", "error");
+
+                    }else if(siswa.length===0){
+                        swal("Mohon Maaf", "Kelas Kosong", "error");
+
+                    }else{
+                        loaders[0].style.display = "inherit";
+
+                        console.log('id_sw', siswa)
+                        let data = await getOneSiswa(siswa)
+                        console.log("first", data)
+                        data.map((dt) => {
+                            if (result.length === 0) {
+                                dt.kelas.tgl_ujian = $('#tgl_ujian_sw') 
+                                dt.kelas.jam_ujian = $('#jam_ujian_sw') 
                                 result.push(dt.kelas)
-                                kelasFinal.push(dt.kelas.id)
-                            }
-                        }
-
-                    })
-
-                    data.map((dt_sw) => {
-                        result.map((rs_sw, id_rs) => {
-                            if (dt_sw.kelas.id === rs_sw.id) {
-                                if (rs_sw.siswa === undefined) {
-                                    result[id_rs]['siswa'] = []
-                                    result[id_rs].siswa.push(dt_sw)
-                                    siswaFinal.push(dt_sw.id)
-                                } else {
-                                    if (!siswaFinal.includes(dt_sw.id)) {
-                                        siswaFinal.push(dt_sw.id)
-                                        result[id_rs].siswa.push(dt_sw)
-                                    }
+                            } else {
+                                result.map((rs) => {
+                                    kelasFinal.push(rs.id)
+                                })
+                                if (!kelasFinal.includes(dt.kelas.id)) {
+                                    dt.kelas.tgl_ujian = $('#tgl_ujian_sw').val()
+                                dt.kelas.jam_ujian = $('#jam_ujian_sw').val() 
+                                    result.push(dt.kelas)
+                                    kelasFinal.push(dt.kelas.id)
                                 }
                             }
+    
                         })
-                    })
-                    $('#table-kelas').html('')
-                    $('#table-siswa').html('')
-                    mappingKelaas(result)
-                    mappingSiswa(result)
-                    console.log("hasil oi", result)
-                    console.log("kelasfinal", kelasFinal)
-                    // if (result.length === 0) {
-                    //     result.push(data.kelas)
-                    //     console.log(result)
-                    // } else {
-                    //     result.map((rs) => {
-                    //         if (rs.id !== data.kelas.id) {
-                    //             result.push(data.kelas)
-                    //         }
-                    //     })
-                    //     console.log(result)
-                    // }
+    
+                        data.map((dt_sw) => {
+                            result.map((rs_sw, id_rs) => {
+                                if (dt_sw.kelas.id === rs_sw.id) {
+                                    if (rs_sw.siswa === undefined) {
+                                        result[id_rs]['siswa'] = []
+                                        result[id_rs].siswa.push(dt_sw)
+                                        siswaFinal.push(dt_sw.id)
+                                    } else {
+                                        if (!siswaFinal.includes(dt_sw.id)) {
+                                            siswaFinal.push(dt_sw.id)
+                                            result[id_rs].siswa.push(dt_sw)
+                                        }
+                                    }
+                                }
+                            })
+                        })
+                        $('#table-kelas').html('')
+                        $('#table-siswa').html('')
+                        mappingKelaas(result)
+                        mappingSiswa(result)
+                        console.log("hasil oi", result)
+                        console.log("kelasfinal", kelasFinal)
+                        loaders[0].style.display = "none";
+                        $('#selectsw').val('').trigger('change');
+                    }
 
 
                 })
