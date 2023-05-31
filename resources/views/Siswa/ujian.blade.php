@@ -317,7 +317,7 @@
                                         <div>
                                         <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
                                         </div>
-                                        <div class="d-none">
+                                        <div class="">
                                     ${imageTrue}
                                     </div>
 
@@ -349,7 +349,7 @@
                                                                     <div>
                                                                         <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
                                                                     </div>
-                                                                    <div class="d-none">
+                                                                    <div class="">
                                     ${imageTrue}
                                     </div>
                                                                   </div>
