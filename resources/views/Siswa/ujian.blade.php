@@ -295,7 +295,7 @@
 
                             } else {
 
-                                imageTrue = `<div class="d-block justify-content-center">
+                                imageTrue = `<div class="ms-4 justify-content-center">
                                                                                         <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
                                                                                             alt="description of myimage" style="width:250px; height:300px">
                                                                                     </div>`;
@@ -320,7 +320,7 @@
 
 
                                       </div>
-                                      <div class="d-block ms-4 style="flex:0 0 auto">
+                                      <div class="d-flex justify-content-center ms-4 style="flex:0 0 auto">
                                     ${imageTrue}
                                     </div>
                                `)
@@ -352,7 +352,7 @@
                                                                     </div>
 
                                                                   </div>
-                                                                  <div class="d-block ms-4" style="flex:0 0 auto">
+                                                                  <div class="d-flex justify-content-center ms-4" style="flex:0 0 auto">
                                     ${imageTrue}
                                     </div>
                                                            `)
