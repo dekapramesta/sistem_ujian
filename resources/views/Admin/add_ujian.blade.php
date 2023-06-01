@@ -358,8 +358,9 @@
                         })
 
                         data.map((dt_sw) => {
+                            delete dt_sw.kelas
                             result.map((rs_sw, id_rs) => {
-                                if (dt_sw.kelas.id === rs_sw.id) {
+                                if (dt_sw.id_kelas === rs_sw.id) {
                                     if (rs_sw.siswa === undefined) {
                                         swal("Informasi",
                                             "Tanggal dan Jam Kelas Ini Mengikuti Data yg Di Input Pertama Kali",
@@ -367,6 +368,7 @@
                                         result[id_rs]['siswa'] = []
                                         result[id_rs].siswa.push(dt_sw)
                                         siswaFinal.push(dt_sw.id)
+
                                     } else {
                                         swal("Informasi",
                                             "Tanggal dan Jam Kelas Ini Mengikuti Data yg Di Input Pertama Kali",
