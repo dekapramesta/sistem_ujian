@@ -82,12 +82,15 @@ class SiswaController extends Controller
     public function shuffleFisher(Request $request)
     {
         # code...
-        $arr_soal = $request->data_ujian;
-        for ($i = count($arr_soal) - 1; $i > 0; $i--) {
-            $r = rand(0, $i);
-            $tmp = $arr_soal[$i];
-            $arr_soal[$i] = $arr_soal[$r];
-            $arr_soal[$r] = $tmp;
+        $arr_soal = $request->data_ujian;   // soal 3 = siapa megawati
+                                            // soal 5 = siapa sukarno
+
+
+        for ($i = count($arr_soal) - 1; $i > 0; $i--) { // => $i=5
+            $r = rand(0, $i);  // random angka 0 - jumlah soal yang diupload => $r=3 
+            $tmp = $arr_soal[$i]; // mengambil soal data terakhir            => range data soal ke-5 =siapa sukarno
+            $arr_soal[$i] = $arr_soal[$r]; //Tukar posisi (x) dengan data terakhir range 1 sampai dengan i  =>data soal 5 = data soal 3; data soal 5 = siapa megawati
+            $arr_soal[$r] = $tmp; //Tukar posisi (x) dengan data terakhir range 1 sampai dengan i => data soal 3 = siapa sukarno
         }
 
         for ($ind = 0; $ind < $request->total; $ind++) {
