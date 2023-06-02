@@ -137,7 +137,7 @@ class AdminApi extends Controller
             $detail = DetailUjian::create([
                 'id_headerujian' => $id_header,
                 'id_kelas' => $dt['id'],
-                'tanggal_ujian' => $request->tanggal_ujian,
+                'tanggal_ujian' => $dt['tgl_ujian'].' '.$dt['jam_ujian'],
                 'waktu_ujian' => $request->waktu_ujian,
                 'status' => 0
             ]);

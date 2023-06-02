@@ -58,18 +58,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="d-flex flex-row mb-2">
-                                        <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
-                                        <div class="col-sm-10">
-                                            <input type="date" id="tanggal_ujian" class="form-control w-70">
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row mb-2">
-                                        <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
-                                        <div class="col-sm-10">
-                                            <input type="time" id="jam_ujian" class="form-control w-70">
-                                        </div>
-                                    </div>
+
                                     <div class="d-flex flex-row mb-2">
                                         <label for="inputTime" class="col-sm-2 col-form-label">Waktu Ujian</label>
                                         <div class="col-sm-10">
@@ -267,7 +256,8 @@
         let kelasFinal = [];
         let siswaFinal = [];
         var result = [];
-        let siswaCount = 0;
+        let tempDeleteKls = []
+        let tempDeleteSw = []
 
         $(document).ready(function() {
             $('.select2-js').select2();
@@ -401,7 +391,33 @@
                 if ($(this).is(':checked')) {
                     let onekls = await getOneKelas(index)
                     console.log("onekls", onekls[0])
+                    onekls[0].tgl_ujian = $('#tgl_ujian_kls').val()
+                    onekls[0].jam_ujian = $('#jam_ujian_kls').val()
+                    delete onekls[0].siswa
                     result.push(onekls[0])
+                    let findKelas = result.findIndex((item) => parseInt(item.id) === onekls[0].id)
+                    result[findKelas].siswa = []
+                    // let indeDel = null;
+                    let indeDel = [];
+
+                    console.log(tempDeleteSw)
+                    tempDeleteSw.map((sw, ind) => {
+                        console.log('oiii')
+                        console.log(sw)
+                        if (parseInt(sw.id_kelas) === parseInt(onekls[0].id)) {
+                            console.log('masukk')
+                            indeDel.push(parseInt(ind - 1))
+
+                            result[findKelas].siswa.push(sw)
+                            // tempDeleteSw.splice(findKelas, 1)
+                        }
+
+
+                    })
+                    indeDel.map((del) => {
+                        tempDeleteSw.splice(del, 1)
+                    })
+                    // result.push(onekls[0])
 
                     $(this).prop('checked', true);
                     checkKelas(onekls[0].id)
@@ -417,10 +433,17 @@
                     result.map((val, id) => {
                         // console.log(val.id)
                         if (val.id === index) {
+                            val.siswa.map((psd) => {
+                                tempDeleteSw.push(psd)
+                            })
                             result.splice(id, 1)
+
                             console.log("delete " + val.id)
                         }
+
                     })
+                    console.log("delete sw", tempDeleteSw)
+
                 }
 
                 console.log('hasil', result)
@@ -431,10 +454,24 @@
 
             })
             $('#table-siswa').on('click', '#hapussw', async function() {
+
                 let index = parseInt($(this).data('index'))
                 if ($(this).is(':checked')) {
                     let onesw = await getOneSiswa([index])
-                    console.log('siswa', onesw)
+                    // onesw[0].tgl_ujian = $('#tgl_ujian_sw').val()
+                    // onesw[0].jam_ujian = $('#jam_ujian_sw').val()
+                    console.log('siswa cuyyy', onesw[0].id_kelas)
+                    let findKelasInDelete = tempDeleteKls.findIndex((dtk) => parseInt(dtk.id) ===
+                        parseInt(onesw[0].id_kelas))
+                    console.log('testing cy', tempDeleteKls[0])
+                    console.log('array habis backup', tempDeleteKls[findKelasInDelete])
+
+                    if (findKelasInDelete !== undefined) {
+                        result.push(tempDeleteKls[findKelasInDelete])
+                        tempDeleteKls.splice(findKelasInDelete, 1)
+                        checkKelasPar(onesw[0].id_kelas)
+                        console.log('backup', result)
+                    }
                     result.map((val, id) => {
                         if (val.id === onesw[0].id_kelas) {
                             result[id].siswa.push(onesw[0])
@@ -453,9 +490,14 @@
                         // console.log(val.id)
                         val.siswa.map((sw, swid) => {
                             if (sw.id === index) {
+                                tempDeleteSw.push(result[id].siswa[swid])
                                 result[id].siswa.splice(swid, 1)
                                 if (result[id].siswa.length === 0) {
+                                    tempDeleteKls.push(result[id])
                                     result.splice(id, 1);
+                                    removeKelasFinal(val.id)
+                                    console.log("kleas", kelasFinal)
+                                    uncheckKelasPar(val.id)
 
                                 }
                             }
@@ -465,11 +507,15 @@
                 }
 
                 console.log(result)
+                console.log('kelas delete', tempDeleteKls)
+                console.log('siswa delete', tempDeleteSw)
 
             })
 
             $('#submit_kls_sw').on('click', function() {
                 // console.log('siswa array', result)
+                let siswaCount = 0;
+
                 result.map((rs) => {
                     rs.siswa.map((sw) => {
                         siswaCount += 1
@@ -484,9 +530,6 @@
                 console.log(result)
                 let data = {
                     jenis_ujian: $('#select_jenisujian').val(),
-                    tanggal_ujian: $('#tanggal_ujian').val() + ' ' + $(
-                            '#jam_ujian')
-                        .val(),
                     waktu_ujian: $('#waktu_ujian').val(),
                     id_th_akademiks: $('#tahun_akademik').val(),
                     kelas: $('#kelas').val(),
@@ -506,6 +549,10 @@
                         dataType: 'json',
                         success: function(res) {
                             console.log(res)
+                            $(document).ajaxStop(function() {
+                                window.location.href =
+                                    "{{ route('jadwal.ujian') }}";
+                            });
                         }
                     });
 
@@ -544,6 +591,24 @@
             let $table = $('#table-siswa');
 
             let $checkboxes = $table.find(`input[type="checkbox"][data-kelas="${id_kelas}"]`);
+
+            $checkboxes.prop('checked', true);
+        }
+
+        function uncheckKelasPar(id_kelas) {
+            console.log('id_kelas', id_kelas)
+            let $table = $('#table-kelas');
+
+            let $checkboxes = $table.find(`input[type="checkbox"][data-index="${id_kelas}"]`);
+
+            $checkboxes.prop('checked', false);
+        }
+
+        function checkKelasPar(id_kelas) {
+            console.log('id_kelas', id_kelas)
+            let $table = $('#table-kelas');
+
+            let $checkboxes = $table.find(`input[type="checkbox"][data-index="${id_kelas}"]`);
 
             $checkboxes.prop('checked', true);
         }
@@ -659,20 +724,24 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    console.log(res)
-
+                    console.log('kelaslur', res)
+                    let mappinObj = [];
                     res.map((rs) => {
-                        if (!kelasFinal.includes(rs.id)) {
+                        let foundKelas = result.find(item => item.id === rs.id)
+                        if (foundKelas === undefined) {
                             rs.jam_ujian = $('#jam_ujian_kls').val()
                             rs.tgl_ujian = $('#tgl_ujian_kls').val()
                             result.push(rs)
-                            kelasFinal.push(rs.id)
+                            mappinObj.push(rs)
                         }
+                        console.log('golekkelas', foundKelas)
+
                     })
+                    mappingKelaas(mappinObj)
+                    mappingSiswa(mappinObj)
                     // $('#table-kelas').html('')
-                    $('#table-siswa').html('')
-                    mappingKelaas(res)
-                    mappingSiswa(res)
+                    // $('#table-siswa').html('')
+
                     console.log(result)
 
                 }
