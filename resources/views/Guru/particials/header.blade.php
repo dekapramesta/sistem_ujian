@@ -187,7 +187,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        {{-- <h6>{{ Auth::user()->username }}</h6> --}}
+                        <h6>{{ Str::before($guru_header->nama, ' ') }}</h6>
                         <h6></h6>
                         <span>Guru</span>
                     </li>
