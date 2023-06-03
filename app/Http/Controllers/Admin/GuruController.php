@@ -130,41 +130,54 @@ class GuruController extends Controller
                                 $mst_edit->id_mapels = $mgr['id_mapel'];
                                 $mst_edit->id_kelas = $mgr['id_kelas'];
                                 $mst_edit->save();
+
                                 array_push($response, $mst_edit->kelas->jenjang->nama_jenjang . ' ' . $mst_edit->kelas->nama_kelas . ' ' . $mst_edit->kelas->jurusan->nama_jurusan . ' Mapel ' . $mst_edit->mapel->nama_mapel . ' Sukses');
                             } else {
 
                                 array_push($response, $mst_check->kelas->jenjang->nama_jenjang . ' ' . $mst_check->kelas->nama_kelas . ' ' . $mst_check->kelas->jurusan->nama_jurusan . ' Mapel ' . $mst_check->mapel->nama_mapel . ' Sudah ada');
                             }
                         } catch (Exception $th) {
-                            return response()->json(['result' => [$th->getMessage()]]);
+                            return response()->json(['result' => ['masuk kene']]);
                         }
                     }
                 }
             } else {
-                mst_mapel_guru_kelas::where('id', $mst_all->id)->delete();
+                // mst_mapel_guru_kelas::where('id', $mst_all->id)->delete();
+
+                $edit= mst_mapel_guru_kelas::where('id',$mst_all->id)->first();
+                $edit->id_gurus = null;
+                $edit->save();
+
             }
         }
-
         foreach ($mst_guru as $mgr_null) {
             if ($mgr_null['id'] == null) {
 
-                $check_mst = mst_mapel_guru_kelas::where('id_kelas', $mgr['id_kelas'])->where('id_mapels', $mgr['id_mapel'])->first();
+                $check_mst = mst_mapel_guru_kelas::where('id_kelas', $mgr_null['id_kelas'])->where('id_mapels', $mgr_null['id_mapel'])->whereNotNull('id_gurus')->first();
                 if (!$check_mst) {
+                    $edit_mst = mst_mapel_guru_kelas::where('id_kelas', $mgr_null['id_kelas'])->where('id_mapels', $mgr_null['id_mapel'])->first();
+                    if(!$edit_mst){
+                        $mst = mst_mapel_guru_kelas::create([
+                            'id_mapels' => $mgr_null['id_mapel'],
+                            'id_kelas' => $mgr_null['id_kelas'],
+                            'id_gurus' => $request->id_guru,
+                        ]);
+                        array_push($response, $mst->kelas->jenjang->nama_jenjang . ' ' . $mst->kelas->nama_kelas . ' ' . $mst->kelas->jurusan->nama_jurusan . ' Mapel ' . $mst->mapel->nama_mapel . ' Sukses');
 
-                    $mst = mst_mapel_guru_kelas::create([
-                        'id_mapels' => $mgr['id_mapel'],
-                        'id_kelas' => $mgr['id_kelas'],
-                        'id_gurus' => $request->id_guru,
-                    ]);
+                    }else{
+                        $edit_mst->id_gurus = $request->id_guru;
+                        $edit_mst->save();
+                        array_push($response, $edit_mst->kelas->jenjang->nama_jenjang . ' ' . $edit_mst->kelas->nama_kelas . ' ' . $edit_mst->kelas->jurusan->nama_jurusan . ' Mapel ' . $edit_mst->mapel->nama_mapel . ' Sukses');
 
+                    }
                     // array_push($response, $check_mst->kelas->jenjang->nama_jenjang . ' ' . $check_mst->kelas->nama_kelas . ' ' . $check_mst->kelas->jurusan->nama_jurusan . ' Mapel ' . $check_mst->mapel->nama_mapel . ' Sukses');
-                    array_push($response, $check_mst->kelas->jenjang->nama_jenjang . ' ' . $check_mst->kelas->nama_kelas . ' ' . $check_mst->kelas->jurusan->nama_jurusan . ' Mapel ' . $check_mst->mapel->nama_mapel . ' Sukses');
+
                 } else {
                     array_push($response, $check_mst->kelas->jenjang->nama_jenjang . ' ' . $check_mst->kelas->nama_kelas . ' ' . $check_mst->kelas->jurusan->nama_jurusan . ' Mapel ' . $check_mst->mapel->nama_mapel . ' Sudah ada');
                     // array_push($response, $check_mst->kelas->jenjang->nama_jenjang);
                 }
             }
-        }
+        }	
 
         return response()->json(['result' => $response]);
     }

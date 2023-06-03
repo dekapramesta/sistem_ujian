@@ -409,7 +409,6 @@
                             indeDel.push(parseInt(ind - 1))
 
                             result[findKelas].siswa.push(sw)
-                            // tempDeleteSw.splice(findKelas, 1)
                         }
 
 
@@ -417,7 +416,6 @@
                     indeDel.map((del) => {
                         tempDeleteSw.splice(del, 1)
                     })
-                    // result.push(onekls[0])
 
                     $(this).prop('checked', true);
                     checkKelas(onekls[0].id)

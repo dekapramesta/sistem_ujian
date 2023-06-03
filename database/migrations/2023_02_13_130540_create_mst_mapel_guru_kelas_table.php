@@ -16,7 +16,7 @@ class CreateMstMapelGuruKelasTable extends Migration
         Schema::create('mst_mapel_guru_kelas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_mapels');
-            $table->unsignedBigInteger('id_gurus');
+            $table->unsignedBigInteger('id_gurus')->nullable();
             $table->unsignedBigInteger('id_kelas');
             $table->unsignedBigInteger('id_jenjang')->nullable();
             $table->foreign('id_mapels')
