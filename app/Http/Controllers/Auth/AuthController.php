@@ -42,21 +42,23 @@ class AuthController extends Controller
             ]
         );
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-            // dd('oit');
-            if (Auth::user()->verified == 1) {
-                if (Auth::user()->jabatan == "admin") {
-                    $request->session()->regenerate();
-                    return redirect()->route('admin.dashboard');
-                } elseif (Auth::user()->jabatan == "guru") {
-                    $request->session()->regenerate();
+            if (Auth::user()->jabatan == "admin") {
+                $request->session()->regenerate();
+                return redirect()->route('admin.dashboard');
+            } elseif (Auth::user()->jabatan == "guru") {
+                $request->session()->regenerate();
+                if(Auth::user()->verified == 0) {
+                    return redirect()->route('guru.aktivasi');
+                } else {
                     return redirect()->route('guru.mapel');
-                } elseif (Auth::user()->jabatan == "siswa") {
-                    // dd('belum dibuat');
-                    $request->session()->regenerate();
+                }
+            } elseif (Auth::user()->jabatan == "siswa") {
+                $request->session()->regenerate();
+                if(Auth::user()->verified == 0) {
+                    return redirect()->route('siswa.aktivasi');
+                } else {
                     return redirect()->route('siswa.dashboard');
                 }
-            } else {
-                return redirect()->route('login.view')->withErrors(['Akun Non-Aktif']);
             }
         } else {
             return redirect()->route('login.view')->withErrors(['Username atau Password salah']);

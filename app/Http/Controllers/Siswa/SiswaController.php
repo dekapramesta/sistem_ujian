@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Siswa;
 
-use App\Http\Controllers\Controller;
-use App\Models\DetailUjian;
-use App\Models\HeaderUjian;
-use App\Models\Nilai;
-use App\Models\PesertaUjian;
-use App\Models\Siswa;
+use DateTime;
 use App\Models\Soal;
 use App\Models\Temp;
-use DateTime;
+use App\Models\User;
+use App\Models\Nilai;
+use App\Models\Siswa;
+use App\Models\DetailUjian;
+use App\Models\HeaderUjian;
 use GuzzleHttp\Psr7\Header;
+use App\Models\PesertaUjian;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SiswaController extends Controller
 {
@@ -30,6 +32,31 @@ class SiswaController extends Controller
         // dd($ujian);
         return view("siswa.siswa_home", compact('ujian', 'nilai', 'siswa'));
     }
+
+    public function aktivasi()
+    {
+        $user = Auth::user();
+        $siswa = Siswa::where('id_user', $user->id)->first();
+        return view('Siswa.aktivasi', compact('siswa'));
+    }
+
+    public function aktivasi_siswa(Request $request)
+    {
+        $user = Auth::user();
+        $siswa = Siswa::where('id_user', $user->id)->first();
+        if($request->password == $request->konfirmasi_password) {
+            User::where('id', $user->id)->update([
+                'password'  => bcrypt($request->password),
+                'verified'  => 1
+            ]);
+            Alert::success('Berhasil', 'Berhasil Merubah Password dan Aktivasi');
+            return redirect()->route('siswa.dashboard');
+        } else {
+            Alert::error('Gagal', 'Password Baru tidak sama dengan Konfirmasi Password Baru');
+            return redirect()->back();
+        }
+    }
+
     public function ujian()
     {
         # code...
@@ -83,11 +110,10 @@ class SiswaController extends Controller
     {
         # code...
         $arr_soal = $request->data_ujian;   // soal 3 = siapa megawati
-                                            // soal 5 = siapa sukarno
-
+        // soal 5 = siapa sukarno
 
         for ($i = count($arr_soal) - 1; $i > 0; $i--) { // => $i=5
-            $r = rand(0, $i);  // random angka 0 - jumlah soal yang diupload => $r=3 
+            $r = rand(0, $i);  // random angka 0 - jumlah soal yang diupload => $r=3
             $tmp = $arr_soal[$i]; // mengambil soal data terakhir            => range data soal ke-5 =siapa sukarno
             $arr_soal[$i] = $arr_soal[$r]; //Tukar posisi (x) dengan data terakhir range 1 sampai dengan i  =>data soal 5 = data soal 3; data soal 5 = siapa megawati
             $arr_soal[$r] = $tmp; //Tukar posisi (x) dengan data terakhir range 1 sampai dengan i => data soal 3 = siapa sukarno

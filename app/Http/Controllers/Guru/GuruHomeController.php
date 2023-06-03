@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guru;
 use Carbon\Carbon;
 use App\Models\Guru;
 use App\Models\Soal;
+use App\Models\User;
 use App\Models\Mapel;
 use App\Models\Jawaban;
 use App\Models\HeaderUjian;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\mst_mapel_guru_kelas;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class GuruHomeController extends Controller
 {
@@ -30,6 +32,30 @@ class GuruHomeController extends Controller
         })->get();
 
         return view("Guru.guru_home", compact('guru', 'id_mapels', 'nama_mapel', 'mst', 'currentDate', 'ujian'));
+    }
+
+    public function aktivasi()
+    {
+        $user = Auth::user();
+        $guru = Guru::where('id_user', $user->id)->first();
+        return view('Guru.aktivasi', compact('guru'));
+    }
+
+    public function aktivasi_guru(Request $request)
+    {
+        $user = Auth::user();
+        $guru = Guru::where('id_user', $user->id)->first();
+        if($request->password == $request->konfirmasi_password) {
+            User::where('id', $user->id)->update([
+                'password'  => bcrypt($request->password),
+                'verified'  => 1
+            ]);
+            Alert::success('Berhasil', 'Berhasil Merubah Password dan Aktivasi');
+            return redirect()->route('guru.mapel');
+        } else {
+            Alert::error('Gagal', 'Password Baru tidak sama dengan Konfirmasi Password Baru');
+            return redirect()->back();
+        }
     }
 
     public function mapel()

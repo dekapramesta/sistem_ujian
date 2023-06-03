@@ -37,6 +37,13 @@ class AdminApi extends Controller
         })->groupBy('id_kelas')->get();
         return response()->json($kelas, 200);
     }
+    public function getUjian(Request $request)
+    {
+        $header_ujians = HeaderUjian::with('jadwal_ujian.th_akademiks')->where('id_jenjangs', $request->id_jenjang)->whereHas('jadwal_ujian', function ($query) use ($request) {
+            return $query->where('id_mapels', $request->id);
+        })->get();
+        return response()->json($header_ujians, 200);
+    }
     // public function getKelasWithSiswa(Request $request)
     // {
 

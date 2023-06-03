@@ -89,4 +89,11 @@
                 </li>
             </ul>
         </li><!-- End Charts Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link " href="{{ route('admin.data_nilai') }}">
+                <i class="bi bi-bar-chart"></i>
+                <span>DATA NILAI</span>
+            </a>
+        </li>
 </aside><!-- End Sidebar-->

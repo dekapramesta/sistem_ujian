@@ -22,11 +22,11 @@ class CreateHeaderUjiansTable extends Migration
             $table->boolean('status');
             $table->timestamps();
             $table->foreign('id_jadwalujian')
-                ->references('id')->on('jadwal_ujians');
+                ->references('id')->on('jadwal_ujians')->onDelete('cascade');
             $table->foreign('id_gurus')
-                ->references('id')->on('gurus');
+                ->references('id')->on('gurus')->onDelete('cascade');
             $table->foreign('id_jenjangs')
-                ->references('id')->on('jenjangs');
+                ->references('id')->on('jenjangs')->onDelete('cascade');
         });
     }
 

@@ -22,7 +22,7 @@ class CreateSoalsTable extends Migration
             $table->longText('soal');
             $table->string('soal_gambar')->nullable();
             $table->foreign('id_headerujian')
-                ->references('id')->on('header_ujians');
+                ->references('id')->on('header_ujians')->onDelete('cascade');
             $table->timestamps();
         });
     }

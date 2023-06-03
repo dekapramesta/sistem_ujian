@@ -1,50 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\Guru;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Guru;
 use App\Models\Mapel;
 use App\Models\Nilai;
+use App\Models\Jenjang;
 use App\Models\DetailUjian;
 use App\Models\HeaderUjian;
-use App\Exports\NilaiExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Models\mst_mapel_guru_kelas;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\MultipleSheetsExport;
 
 class DataNilaiController extends Controller
 {
-    public function index($id_mapels)
+    public function index()
     {
-        $id_mapels = $id_mapels;
-        $nama_mapel = Mapel::where('id', $id_mapels)->first();
-
-        $user = Auth::user();
-        $guru = Guru::where('id_user', $user->id)->first();
-        $header_ujians = HeaderUjian::where('id_gurus', $guru->id)->get();
-
-        return view('Guru.data_nilai', compact('id_mapels', 'nama_mapel', 'header_ujians'));
+        $mapel = Mapel::all();
+        $mst_mapel_guru_kelas = mst_mapel_guru_kelas::all();
+        $jenjang = Jenjang::all();
+        return view('Admin.data_nilai', compact('mapel', 'mst_mapel_guru_kelas', 'jenjang'));
     }
 
-    public function hasil_cari($id_mapels, Request $request)
+    public function hasil_cari(Request $request)
     {
-        $request->validate([
-            'id_header_ujian' => 'required',
-        ]);
-        $id_mapels = $id_mapels;
-        $user = Auth::user();
-        $guru = Guru::where('id_user', $user->id)->first();
-        $nama_mapel = Mapel::where('id', $id_mapels)->first();
+        $mapel = Mapel::all();
+        $mst_mapel_guru_kelas = mst_mapel_guru_kelas::all();
+        $jenjang = Jenjang::all();
+
+        $mapel_hasil = Mapel::where('id', $request->id_mapel)->first();
         $ujian = HeaderUjian::where('id', $request->id_header_ujian)->first();
-
-        $nilais = Nilai::where('id_ujian', $request->id_header_ujian)->get();
-        $header_ujians = HeaderUjian::where('id_gurus', $guru->id)->get();
         $detail_ujians = DetailUjian::where('id_headerujian', $request->id_header_ujian)->get();
-        $id_header_ujian = $request->id_header_ujian;
+        $nilais = Nilai::where('id_ujian', $request->id_header_ujian)->get();
 
-        return view('Guru.hasil_cari_nilai', compact('id_mapels', 'nama_mapel', 'ujian', 'nilais', 'header_ujians', 'detail_ujians', 'id_header_ujian'));
+        return view('Admin.hasil_cari_nilai', compact('mapel', 'mst_mapel_guru_kelas', 'jenjang', 'mapel_hasil', 'ujian', 'detail_ujians', 'nilais'));
     }
 
     public function exportNilai($id_header_ujian)
@@ -71,5 +61,20 @@ class DataNilaiController extends Controller
             ];
         }
         return Excel::download(new MultipleSheetsExport($sheetsData), 'Nilai '.$judul.'.xlsx');
+
+    }
+
+    public function contoh()
+    {
+        $arr_soal = [1,2,3,4,5,6];
+
+        for ($i = count($arr_soal) - 1; $i > 0; $i--) { // => $i=5
+            $r = rand(0, $i);  // random angka 0 - jumlah soal yang diupload => $r=3
+            $tmp = $arr_soal[$i]; // mengambil soal data terakhir            => range data soal ke-5 =siapa sukarno
+            $arr_soal[$i] = $arr_soal[$r]; //Tukar posisi (x) dengan data terakhir range 1 sampai dengan i  =>data soal 5 = data soal 3; data soal 5 = siapa megawati
+            $arr_soal[$r] = $tmp; //Tukar posisi (x) dengan data terakhir range 1 sampai dengan i => data soal 3 = siapa sukarno
+        }
+
+        dd($arr_soal);
     }
 }

@@ -23,11 +23,11 @@ class CreateJadwalUjiansTable extends Migration
             $table->string('jenis_ujian');
             $table->tinyInteger('status');
             $table->foreign('id_th_akademiks')
-                ->references('id')->on('th_akademiks');
+                ->references('id')->on('th_akademiks')->onDelete('cascade');
             $table->foreign('id_mapels')
-                ->references('id')->on('mapels');
+                ->references('id')->on('mapels')->onDelete('cascade');
             $table->foreign('id_jenjangs')
-                ->references('id')->on('jenjangs');
+                ->references('id')->on('jenjangs')->onDelete('cascade');
             $table->timestamps();
         });
     }

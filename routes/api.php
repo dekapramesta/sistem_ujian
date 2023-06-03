@@ -29,3 +29,5 @@ Route::post('ujian', [JadwalUjian::class, 'postUjian'])->name('api.postujian');
 Route::post('edit-ujian', [ApiAdminApi::class, 'editJadwal'])->name('api.editujian');
 Route::post('post-edit-ujian', [ApiAdminApi::class, 'postUjianEd'])->name('api.ujianEdPost');
 Route::post('siswa-get', [ApiAdminApi::class, 'getSiswaById'])->name('api.siswaget');
+
+Route::post('getujian', [ApiAdminApi::class, 'getUjian'])->name('api.getujian');

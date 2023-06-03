@@ -24,7 +24,9 @@
                             </div>
 
                             <div class="card-body p-3">
-                                <form action="">
+                                <form method="POST" action="{{ route('guru.hasil_cari', $id_mapels) }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
                                     <div class="row mb-5">
                                         <label class="col-sm-3 col-form-label" style="font-size: 15px">Pilih Ujian</label>
                                         <div class="col-sm-9">
@@ -34,7 +36,8 @@
                                                 @foreach ($header_ujians as $hdruj)
                                                     @if ($hdruj->jadwal_ujian->id_mapels == $id_mapels)
                                                         <option value="{{ $hdruj->id }}">
-                                                            {{ $hdruj->jadwal_ujian->jenis_ujian }}
+                                                            {{ $hdruj->jadwal_ujian->jenis_ujian }} Kelas
+                                                            {{ $hdruj->jenjang->nama_jenjang }}
                                                             {{ $hdruj->jadwal_ujian->th_akademiks->th_akademik }} - Semester
                                                             {{ $hdruj->jadwal_ujian->th_akademiks->nama_semester }}</option>
                                                     @endif
@@ -59,7 +62,7 @@
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
                                 <h6 class="card-title-datatable-small">Data Nilai {{ $nama_mapel->nama_mapel }}
-                                    {{ $ujian->jadwal_ujian->jenis_ujian }}
+                                    {{ $ujian->jadwal_ujian->jenis_ujian }} Kelas {{ $ujian->jenjang->nama_jenjang }}
                                     {{ $ujian->jadwal_ujian->th_akademiks->th_akademik }} - Semester
                                     {{ $ujian->jadwal_ujian->th_akademiks->nama_semester }} </h6>
                                 <a href="{{ route('nilai.export', $id_header_ujian) }}">

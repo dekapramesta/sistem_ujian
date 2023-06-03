@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>CBT - SMAN 1 KAWEDANAN</title>
+    <title>Aktivasi Akun</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -32,8 +32,7 @@
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
     <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Mar 09 2023 with Bootstrap v5.2.3
+  * Template Name: NiceAdmin - v2.5.0
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
@@ -45,11 +44,10 @@
             background-size: 20% auto !important;
         }
     </style>
-
 </head>
 
 <body>
-
+    @include('sweetalert::alert')
     <main>
         <div class="container">
 
@@ -66,100 +64,70 @@
                                 </a>
                             </div><!-- End Logo -->
 
-                            @if ($errors->any())
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <div class="pt-4 pb-2">
-                                            @foreach ($errors->all() as $error)
-                                                <li class="text-danger text-center pb-0">{{ $error }}
-                                                </li>
-                                            @endforeach
-
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
                             <div class="card mb-3">
 
                                 <div class="card-body">
 
                                     <div class="pt-4 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Computer Based Test</h5>
-                                        <p class="text-center small">Log In to Your Account</p>
+                                        <h5 class="card-title text-center pb-0 fs-4">AKTIVASI AKUN SISWA</h5>
+                                        <p class="text-center small">Aktivasi akun dan ganti password anda</p>
                                     </div>
 
-                                    <form method="POST" action="{{ route('login.action') }}"
-                                        class="row g-3 needs-validation" novalidate>
+                                    <form class="row g-3 needs-validation" action="{{ route('siswa.aktivasi_siswa') }}"
+                                        method="POST" enctype="multipart/form-data" novalidate>
                                         @csrf
-                                        <div class="col-12">
-                                            <label for="email" class="form-label">Username</label>
-                                            <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend">
-                                                    <i class="ri-admin-line"></i>
-                                                </span>
-                                                <input type="text" name="username" class="form-control"
-                                                    id="email" required>
-                                                <div class="invalid-feedback">Please enter your email.</div>
-                                            </div>
+                                        <div class="col-12 text-center">
+                                            <h5>Nama : {{ $siswa->nama }}</h5>
+                                            <h5>NIS: {{ $siswa->nis }}</h5>
                                         </div>
-
                                         <div class="col-12">
-                                            <label for="password" class="form-label">Password</label>
-                                            {{-- <input type="password" name="password" class="form-control" id="password" required> --}}
-                                            <div class="input-group has-validation">
+                                            <label for="yourPassword" class="form-label">Password Baru</label>
+                                            <div class="input-group">
                                                 <input type="password" name="password" class="form-control"
                                                     id="password" required>
                                                 <span class="input-group-text" id="inputGroupPrepend">
-                                                    <i class="ri-eye-close-line" id="show" onclick="myFunction()"
-                                                        style="cursor : pointer"></i>
+                                                    <i class="ri-eye-close-line" id="show-2"
+                                                        onclick="myFunctionNewPass()" style="cursor : pointer"></i>
                                                 </span>
-                                                {{-- <input type="email" name="email" class="form-control" id="email" required> --}}
-                                                {{-- <div class="invalid-feedback">Please enter your email.</div> --}}
                                             </div>
-                                            <div class="invalid-feedback">Please enter your password!</div>
-                                            {{-- <span id="iconshow" name="iconshow" onclick="showPass()"
-                            class=" showbtn fa fa-eye-slash"></span> --}}
+                                            <div class="invalid-feedback">Password baru wajib diisi</div>
                                         </div>
 
-                                        {{-- <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div> --}}
+                                        <div class="col-12">
+                                            <label for="yourPassword" class="form-label">Konfirmasi Password
+                                                Baru</label>
+                                            <div class="input-group">
+                                                <input type="password" name="konfirmasi_password" class="form-control"
+                                                    id="konfirmasi_password" required>
+                                                <span class="input-group-text" id="inputGroupPrepend">
+                                                    <i class="ri-eye-close-line" id="show-3"
+                                                        onclick="myFunctionRePass()" style="cursor : pointer"></i>
+                                                </span>
+                                            </div>
+                                            <div class="invalid-feedback">Konfirmasi password
+                                                baru wajib diisi!</div>
+                                        </div>
 
-                                        <a href="{{ route('login.kirim.otp') }}">Lupa Password?</a>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100" style="background-color: #82cd47;"
+                                                type="submit">Aktivasi</button>
+                                        </div>
+                                    </form>
+
                                 </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100" style="background-color: #82cd47;"
-                                        type="submit">Login</button>
-                                </div>
-                                </form>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
-        </div>
-        </section>
+
+            </section>
+
         </div>
     </main><!-- End #main -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
-
-    <script>
-        function myFunction() {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-                document.getElementById("show").className = "ri-eye-line";
-            } else {
-                x.type = "password";
-                document.getElementById("show").className = "ri-eye-close-line";
-            }
-        }
-    </script>
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
@@ -173,6 +141,29 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script>
+        function myFunctionNewPass() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+                document.getElementById("show-2").className = "ri-eye-line";
+            } else {
+                x.type = "password";
+                document.getElementById("show-2").className = "ri-eye-close-line";
+            }
+        }
+
+        function myFunctionRePass() {
+            var x = document.getElementById("konfirmasi_password");
+            if (x.type === "password") {
+                x.type = "text";
+                document.getElementById("show-3").className = "ri-eye-line";
+            } else {
+                x.type = "password";
+                document.getElementById("show-3").className = "ri-eye-close-line";
+            }
+        }
+    </script>
 
 </body>
 

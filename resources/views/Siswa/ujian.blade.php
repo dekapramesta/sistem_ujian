@@ -270,8 +270,6 @@
 
 
                     }
-
-                    console.log('cok', imageSoal)
                     $('#jawaban_place').html(``)
                     $('#soal').html(res.data.soal.soal)
                     $('#gambar-soal').html(imageSoal)
