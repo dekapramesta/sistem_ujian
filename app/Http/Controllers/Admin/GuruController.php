@@ -52,7 +52,7 @@ class GuruController extends Controller
             'username' => $request->nip,
             'password' => bcrypt($real_tgl),
             'jabatan' => 'guru',
-            'verified' => 1
+            'verified' => 0
         ]);
 
         $find_user = User::where('username', $request->nip)->first();
@@ -195,7 +195,7 @@ class GuruController extends Controller
                     // array_push($response, $check_mst->kelas->jenjang->nama_jenjang);
                 }
             }
-        }	
+        }
 
         return response()->json(['result' => $response]);
     }

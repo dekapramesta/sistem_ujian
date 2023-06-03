@@ -31,3 +31,9 @@ Route::post('post-edit-ujian', [ApiAdminApi::class, 'postUjianEd'])->name('api.u
 Route::post('siswa-get', [ApiAdminApi::class, 'getSiswaById'])->name('api.siswaget');
 
 Route::post('getujian', [ApiAdminApi::class, 'getUjian'])->name('api.getujian');
+
+
+Route::post('get_detailujian', [ApiAdminApi::class, 'get_detailujian'])->name('api.get_detailujian');
+Route::post('get_mapelhasil', [ApiAdminApi::class, 'get_mapelhasil'])->name('api.get_mapelhasil');
+Route::post('get_headerhasil', [ApiAdminApi::class, 'get_headerhasil'])->name('api.get_headerhasil');
+Route::post('get_nilaihasil', [ApiAdminApi::class, 'get_nilaihasil'])->name('api.get_nilaihasil');

@@ -13,16 +13,18 @@ use Carbon\Carbon;
 
 class SiswaController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $siswas = Siswa::orderBy('nama', 'ASC')->get();
         $jenjangs = Jenjang::orderBy('nama_jenjang', 'Desc')->get();
         $classes = Kelas::orderBy('nama_kelas', 'Desc')->get();
         $jurusans = Jurusan::orderBy('nama_jurusan', 'Desc')->get();
         // dd($jenjangs);
-        return view("admin.siswa", compact('siswas','jenjangs', 'classes', 'jurusans'));
+        return view("admin.siswa", compact('siswas', 'jenjangs', 'classes', 'jurusans'));
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $request->validate([
             'nama_jurusan'=> 'required',
             'nama' => 'required',
@@ -30,18 +32,18 @@ class SiswaController extends Controller
             'tanggal_lahir' => 'required',
         ]);
 
-        $tanggal = substr($request->tanggal_lahir,8,2);
-        $bulan = substr($request->tanggal_lahir,5,2);
-        $tahun = substr($request->tanggal_lahir,0,4);
+        $tanggal = substr($request->tanggal_lahir, 8, 2);
+        $bulan = substr($request->tanggal_lahir, 5, 2);
+        $tahun = substr($request->tanggal_lahir, 0, 4);
         $password = $tanggal.''.$bulan.''.$tahun;
         $tgl = Carbon::parse($request->tanggal_lahir)->format('d-m-Y');
-        $real_tgl = str_replace("-","",$tgl);
+        $real_tgl = str_replace("-", "", $tgl);
 
         $User = User::create([
             'username' => $request->nis,
             'password' => bcrypt($real_tgl),
             'jabatan' => 'siswa',
-            'verified'=>'1'
+            'verified'=> 0
         ]);
 
         $find_user = User::where('username', $request->nis)->first();
@@ -59,27 +61,28 @@ class SiswaController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir
         ]);
 
-        if($Siswa){
+        if($Siswa) {
             return back()->with('success', 'Berhasil Tambah Data');
-        }else{
+        } else {
             return back()->with('error', 'Gagal Tambah Data');
         }
     }
-    public function edit(Request $request, $nis){
+    public function edit(Request $request, $nis)
+    {
         $request->validate([
             'id_kelas'=> 'required',
             'nama' => 'required',
             'nis' => 'required',
             'tanggal_lahir' => 'required'
         ]);
-        $tanggal = substr($request->tanggal_lahir,8,2);
-        $bulan = substr($request->tanggal_lahir,5,2);
-        $tahun = substr($request->tanggal_lahir,0,4);
+        $tanggal = substr($request->tanggal_lahir, 8, 2);
+        $bulan = substr($request->tanggal_lahir, 5, 2);
+        $tahun = substr($request->tanggal_lahir, 0, 4);
         $password = $tanggal.''.$bulan.''.$tahun;
         $tgl = Carbon::parse($request->tanggal_lahir)->format('d-m-Y');
-        $real_tgl = str_replace("-","",$tgl);
+        $real_tgl = str_replace("-", "", $tgl);
         // dd($real_tgl);
-        $user = User::where('id',$request->id_user)->update([
+        $user = User::where('id', $request->id_user)->update([
             'username'=>$request->nis,
 'password'=>bcrypt($real_tgl)
         ]);
@@ -92,20 +95,21 @@ class SiswaController extends Controller
 
 
 
-        if($Siswa){
+        if($Siswa) {
             return back()->with('success', 'Berhasil Edit Data');
-        }else{
+        } else {
             return back()->with('error', 'Gagal Edit Data');
         }
     }
 
-    public function delete(Request $request, $nis){
+    public function delete(Request $request, $nis)
+    {
 
         $Siswa = Siswa::where('nis', $nis)->delete();
 
-        if($Siswa){
+        if($Siswa) {
             return back()->with('success', 'Berhasil Hapus Data');
-        }else{
+        } else {
             return back()->with('error', 'Gagal Hapus Data');
         }
     }
