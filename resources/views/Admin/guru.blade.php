@@ -335,9 +335,9 @@
                             }
                         });
 
-                        setTimeout(function() {
-                            location.reload();
-                        }, 5000);
+                        // setTimeout(function() {
+                        //     location.reload();
+                        // }, 5000);
 
                     }
                 });
