@@ -22,7 +22,7 @@
           <div class="card-body">
             <h5 class="card-title">Data Siswa</h5>
             <div class="container">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah">Tambah +</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah" style="margin-bottom: 20px" >Tambah +</button>
             <table class="table table-borderless datatable">
               <thead>
                 <tr>
@@ -54,7 +54,7 @@
                             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edit{{ $siswa->nis }}">Edit</button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $siswa->nis }}">Delete</button>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $siswa->nis }}">Hapus</button>
                         </td>
                     </tr>
                     <div class="modal" id="edit{{ $siswa->nis }}" tabindex="-1">
@@ -102,8 +102,8 @@
                                 </label></p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <input class="btn btn-primary" type="submit" value="Save changes">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    <input class="btn btn-primary" type="submit" value="Simpan">
                                 </div>
                              </form>
                           </div>
@@ -123,7 +123,7 @@
                                     Apakah Anda Yakin Ingin Mengahapus??
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     <input class="btn btn-danger" type="submit" value="Hapus">
                                 </div>
                             </form>
@@ -198,8 +198,8 @@
                 </fieldset>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <input class="btn btn-primary" type="submit" value="Save changes">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <input class="btn btn-primary" type="submit" value="Simpan">
             </div>
          </form>
       </div>

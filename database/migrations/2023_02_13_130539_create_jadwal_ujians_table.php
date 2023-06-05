@@ -20,7 +20,7 @@ class CreateJadwalUjiansTable extends Migration
             $table->unsignedBigInteger('id_jenjangs');
             // $table->date('tanggal_ujian');
             // $table->time('waktu_ujian');
-            $table->string('jenis_ujian');
+            $table->string('jenis_ujian', 6);
             $table->tinyInteger('status');
             $table->foreign('id_th_akademiks')
                 ->references('id')->on('th_akademiks')->onDelete('cascade');

@@ -19,9 +19,9 @@ class CreateGurusTable extends Migration
             $table->unsignedBigInteger('id_user');
             $table->string('nama', 50);
             $table->string('nip', 20);
-            $table->string('tanggal_lahir');
-            $table->string('no_telp') -> nullable();
-            $table->string('email') -> nullable();
+            $table->string('tanggal_lahir', 10);
+            $table->string('no_telp', 14) -> nullable();
+            $table->string('email', 25) -> nullable();
             $table->string('foto_profil')->nullable();
             $table->foreign('id_user')
                 ->references('id')->on('users')->onDelete('cascade');

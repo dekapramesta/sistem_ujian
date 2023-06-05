@@ -20,9 +20,9 @@ class CreateSiswasTable extends Migration
             $table->unsignedBigInteger('id_kelas');
             $table->string('nama', 50);
             $table->string('nis', 6);
-            $table->string('tanggal_lahir');
-            $table->string('no_telp') -> nullable();
-            $table->string('email') -> nullable();
+            $table->string('tanggal_lahir', 10);
+            $table->string('no_telp', 14) -> nullable();
+            $table->string('email', 25) -> nullable();
             $table->string('foto_profil') -> nullable();
             $table->foreign('id_user')
                 ->references('id')->on('users')->onDelete('cascade');

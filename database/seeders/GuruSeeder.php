@@ -16,8 +16,8 @@ class GuruSeeder extends Seeder
     {
         Guru::create([
             "id_user" => 2,
-            "nama" => "tono",
-            "nip" => "2128127",
+            "nama" => "Drs Sutono",
+            "nip" => "196508102008011007",
             "tanggal_lahir" => "1970-01-12",
             "no_telp" => "081212121212",
             "email" => "guru123@gmail.com"
