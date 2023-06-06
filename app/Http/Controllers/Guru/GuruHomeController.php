@@ -27,11 +27,18 @@ class GuruHomeController extends Controller
         $mst = mst_mapel_guru_kelas::where('id_mapels', $id_mapels)->where('id_gurus', $guru->id)->get();
         // dd($mst);
         $currentDate = Carbon::now()->toDateString();
-        $ujian = HeaderUjian::with('detailujian')->whereHas('detailujian', function ($query) use ($currentDate) {
+        $ujian = HeaderUjian::with('detailujian', 'jadwal_ujian')->where('id_gurus', $guru->id)->whereHas('detailujian', function ($query) use ($currentDate) {
             return $query->whereDate('tanggal_ujian', $currentDate);
         })->get();
 
         return view("Guru.guru_home", compact('guru', 'id_mapels', 'nama_mapel', 'mst', 'currentDate', 'ujian'));
+    }
+
+    public function getMonitoring(Request $request)
+    {
+        # code...
+        $monitoring = HeaderUjian::with('detailujian.pesertaujian.siswa', 'jadwal_ujian.mapel', 'detailujian.kelas.jenjang', 'detailujian.kelas.jurusan')->where('id', $request->id)->first();
+        return response()->json($monitoring);
     }
 
     public function aktivasi()

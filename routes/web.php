@@ -114,6 +114,7 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
             Route::get('mapel', [GuruHomeController::class, 'mapel'])->name('guru.mapel');
 
             Route::get('dashboard/{id_mapels}', [GuruHomeController::class, 'index'])->name('guru.dashboard');
+            Route::post('monitoring', [GuruHomeController::class, 'getMonitoring'])->name('guru.moniotring');
 
             Route::get('bank_soal/{id_mapels}', [BankSoalController::class, 'index'])->name('guru.bank_soal');
             Route::get('/bank_soal/lihat_soal/{id_mapels}/{id_header_ujians}', [BankSoalController::class, 'lihat_soal'])->name('guru.lihat_soal');

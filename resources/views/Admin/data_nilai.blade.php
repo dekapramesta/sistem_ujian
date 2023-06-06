@@ -195,33 +195,33 @@
                         <ul class="nav nav-tabs nav-tabs-bordered">
 
                             ${detailUjians.map((dtluj, index) => `
-                                    <li class="nav-item">
-                                        <button class="nav-link ${index === 0 ? 'active' : ''}" data-bs-toggle="tab" data-bs-target="#${dtluj.kelas.jurusan.nama_jurusan}-${dtluj.kelas.nama_kelas}">
-                                            ${dtluj.kelas.jurusan.nama_jurusan} - ${dtluj.kelas.nama_kelas}
-                                        </button>
-                                    </li>
-                                `).join('')}
+                                                <li class="nav-item">
+                                                    <button class="nav-link ${index === 0 ? 'active' : ''}" data-bs-toggle="tab" data-bs-target="#${dtluj.kelas.jurusan.nama_jurusan}-${dtluj.kelas.nama_kelas}">
+                                                        ${dtluj.kelas.jurusan.nama_jurusan} - ${dtluj.kelas.nama_kelas}
+                                                    </button>
+                                                </li>
+                                            `).join('')}
 
                         </ul>
                         <div class="tab-content pt-2">
 
                             ${detailUjians.map((dtluj, index) => `
-                                    <div class="tab-pane fade ${index === 0 ? 'show active' : ''} profile-overview pt-2" id="${dtluj.kelas.jurusan.nama_jurusan}-${dtluj.kelas.nama_kelas}">
-                                        <table class="table table-borderless datatable">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Nama</th>
-                                                    <th>NIS</th>
-                                                    <th>Jawaban Benar</th>
-                                                    <th>Jawaban Salah</th>
-                                                    <th>Nilai</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                ${nilais
-                                                    .filter(nli => nli.siswa.id_kelas === dtluj.id_kelas)
-                                                    .map((nli, index) => `
+                                                <div class="tab-pane fade ${index === 0 ? 'show active' : ''} profile-overview pt-2" id="${dtluj.kelas.jurusan.nama_jurusan}-${dtluj.kelas.nama_kelas}">
+                                                    <table class="table table-borderless datatable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No</th>
+                                                                <th>Nama</th>
+                                                                <th>NIS</th>
+                                                                <th>Jawaban Benar</th>
+                                                                <th>Jawaban Salah</th>
+                                                                <th>Nilai</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            ${nilais
+                                                                .filter(nli => nli.siswa.id_kelas === dtluj.id_kelas)
+                                                                .map((nli, index) => `
                                                     <tr>
                                                         <th scope="row">${index + 1}</th>
                                                         <td>${nli.siswa.nama}</td>
@@ -231,16 +231,17 @@
                                                         <td>${nli.nilai}</td>
                                                     </tr>
                                                 `)
-                                                    .join('')}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                `).join('')}
+                                                                .join('')}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            `).join('')}
 
                         </div><!-- End Bordered Tabs -->
                     </div>
                 </div>`
                 )
+                new simpleDatatables.DataTable('.datatable');
             })
 
 
@@ -303,7 +304,7 @@
                     },
                     dataType: 'json',
                     success: function(res) {
-                        console.log("ajax hasil nilai", res)
+                        // console.log("ajax hasil nilai", res)
                         // hasilRes.push(res)
                     }
                 });
