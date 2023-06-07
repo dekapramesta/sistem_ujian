@@ -22,9 +22,9 @@ class CreateNilaisTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_ujian');
             $table->unsignedBigInteger('id_siswa');
-            $table->string('jumlah_benar', 50);
-            $table->string('jumlah_salah', 50);
-            $table->string('nilai', 20);
+            $table->bigInteger('jumlah_benar')->length(5);
+            $table->bigInteger('jumlah_salah')->length(5);
+            $table->bigInteger('nilai')->length(10);
             $table->string('identitas', 10);
             // $table->foreign('id_ujian')
             // ->references('id')->on('ujians')->onDelete('cascade');

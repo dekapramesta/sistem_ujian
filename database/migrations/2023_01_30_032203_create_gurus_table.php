@@ -17,12 +17,12 @@ class CreateGurusTable extends Migration
         Schema::create('gurus', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
-            $table->string('nama', 50);
-            $table->string('nip', 20);
-            $table->string('tanggal_lahir', 10);
-            $table->string('no_telp', 14) -> nullable();
+            $table->text('nama', 50);
+            $table->bigInteger('nip')->length(14);
+            $table->date('tanggal_lahir');
+            $table->bigInteger('no_telp')->length(14) -> nullable();
             $table->string('email', 25) -> nullable();
-            $table->string('foto_profil')->nullable();
+            $table->string('foto_profil', 25)->nullable();
             $table->foreign('id_user')
                 ->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

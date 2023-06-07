@@ -17,9 +17,9 @@ class CreateAdminsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_user');
             $table->string('nama', 50);
-            $table->string('no_telp', 14) -> nullable();
+            $table->bigInteger('no_telp')->length(14) -> nullable();
             $table->string('email', 25) -> nullable();
-            $table->string('foto_profil')->nullable();
+            $table->string('foto_profil', 25)->nullable();
             $table->foreign('id_user')
             ->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

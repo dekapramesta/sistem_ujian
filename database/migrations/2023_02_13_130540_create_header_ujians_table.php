@@ -18,7 +18,7 @@ class CreateHeaderUjiansTable extends Migration
             $table->unsignedBigInteger('id_jadwalujian');
             $table->unsignedBigInteger('id_gurus');
             $table->unsignedBigInteger('id_jenjangs');
-            $table->integer('jumlah_soal');
+            $table->biginteger('jumlah_soal')->length(5);
             $table->boolean('status');
             $table->timestamps();
             $table->foreign('id_jadwalujian')
