@@ -240,38 +240,40 @@
                                     <div class="splide__track ">
                                         <ul class="splide__list">
                                             @foreach ($ujian as $ujn)
-                                                <li class="splide__slide px-2 py-2">
-                                                    <div class="card">
-                                                        <button onclick="ShowMonitoring({{ $ujn->id }})"
-                                                            class="btn btn-white w-100">
-                                                            <div class="card-body text-center">
-                                                                <h5 class="card-title">
-                                                                    {{ $ujn->jadwal_ujian->mapel->nama_mapel }}</h5>
-                                                                <p class="card-text">Jenjang :
-                                                                    {{ $ujn->jadwal_ujian->jenjang->nama_jenjang }}</p>
-                                                                <p class="card-text">
-                                                                    {{ $ujn->detailujian[0]->tanggal_ujian }}
-                                                                    @php
-                                                                        $currentDate = Carbon::now();
-                                                                        $ujianDate = Carbon::parse($ujn->detailujian[0]->tanggal_ujian);
-                                                                    @endphp
+                                                @if ($ujn->jadwal_ujian->id_mapels == $id_mapels)
+                                                    <li class="splide__slide px-2 py-2">
+                                                        <div class="card">
+                                                            <button onclick="ShowMonitoring({{ $ujn->id }})"
+                                                                class="btn btn-white w-100">
+                                                                <div class="card-body text-center">
+                                                                    <h5 class="card-title">
+                                                                        {{ $ujn->jadwal_ujian->mapel->nama_mapel }}</h5>
+                                                                    <p class="card-text">Jenjang :
+                                                                        {{ $ujn->jadwal_ujian->jenjang->nama_jenjang }}</p>
+                                                                    <p class="card-text">
+                                                                        {{ $ujn->detailujian[0]->tanggal_ujian }}
+                                                                        @php
+                                                                            $currentDate = Carbon::now();
+                                                                            $ujianDate = Carbon::parse($ujn->detailujian[0]->tanggal_ujian);
+                                                                        @endphp
 
-                                                                    @if (
-                                                                        $ujn->detailujian[0]->tanggal_ujian <= Carbon::now() &&
-                                                                            $ujianDate->addMinutes($ujn->detailujian[0]->waktu_ujian) >= Carbon::now())
-                                                                        {{ 'Berlangsung' }}
-                                                                    @elseif(
-                                                                        $ujn->detailujian[0]->tanggal_ujian <= Carbon::now() &&
-                                                                            $ujianDate->addMinutes($ujn->detailujian[0]->waktu_ujian) <= Carbon::now())
-                                                                        {{ 'Selesai' }}
-                                                                    @elseif($ujn->detailujian[0]->tanggal_ujian >= Carbon::now())
-                                                                        {{ 'Belum Mulai' }}
-                                                                    @endif
-                                                                </p>
-                                                            </div>
-                                                        </button>
-                                                    </div>
-                                                </li>
+                                                                        @if (
+                                                                            $ujn->detailujian[0]->tanggal_ujian <= Carbon::now() &&
+                                                                                $ujianDate->addMinutes($ujn->detailujian[0]->waktu_ujian) >= Carbon::now())
+                                                                            {{ 'Berlangsung' }}
+                                                                        @elseif(
+                                                                            $ujn->detailujian[0]->tanggal_ujian <= Carbon::now() &&
+                                                                                $ujianDate->addMinutes($ujn->detailujian[0]->waktu_ujian) <= Carbon::now())
+                                                                            {{ 'Selesai' }}
+                                                                        @elseif($ujn->detailujian[0]->tanggal_ujian >= Carbon::now())
+                                                                            {{ 'Belum Mulai' }}
+                                                                        @endif
+                                                                    </p>
+                                                                </div>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+                                                @endif
                                             @endforeach
                                             {{-- <li class="splide__slide">
                                             <div class="card" style="width: 18rem;">
@@ -367,7 +369,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
         });
         $.ajax({
             type: "POST",
-            url: "{{ route('admin.moniotring') }}",
+            url: "{{ route('guru.moniotring') }}",
             data: {
                 id: id
             },
