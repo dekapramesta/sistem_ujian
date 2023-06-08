@@ -18,15 +18,17 @@ class CreateDetailUjiansTable extends Migration
             $table->unsignedBigInteger('id_headerujian');
             $table->unsignedBigInteger('id_kelas');
             $table->dateTime('tanggal_ujian', $precision = 0);
-            $table->time('waktu_ujian');
+            $table->string('waktu_ujian');
             $table->string('token', 10)->nullable();
             $table->boolean('status');
             $table->foreign('id_headerujian')
                 ->references('id')->on('header_ujians')->onUpdate('cascade')
-                ->onDelete('cascade');;
+                ->onDelete('cascade');
+                ;
             $table->foreign('id_kelas')
                 ->references('id')->on('kelas')->onUpdate('cascade')
-                ->onDelete('cascade');;
+                ->onDelete('cascade');
+                ;
             $table->timestamps();
         });
     }

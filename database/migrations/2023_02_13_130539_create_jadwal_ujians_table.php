@@ -18,8 +18,8 @@ class CreateJadwalUjiansTable extends Migration
             $table->unsignedBigInteger('id_th_akademiks');
             $table->unsignedBigInteger('id_mapels');
             $table->unsignedBigInteger('id_jenjangs');
-            $table->date('tanggal_ujian');
-            $table->string('waktu_ujian');
+            // $table->date('tanggal_ujian');
+            // $table->time('waktu_ujian');
             $table->string('jenis_ujian', 6);
             $table->tinyInteger('status');
             $table->foreign('id_th_akademiks')
