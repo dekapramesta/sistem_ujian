@@ -20,7 +20,7 @@ class CreateSoalsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_headerujian');
             $table->longText('soal');
-            $table->string('soal_gambar')->nullable();
+            $table->string('soal_gambar', 25)->nullable();
             $table->foreign('id_headerujian')
                 ->references('id')->on('header_ujians')->onDelete('cascade');
             $table->timestamps();

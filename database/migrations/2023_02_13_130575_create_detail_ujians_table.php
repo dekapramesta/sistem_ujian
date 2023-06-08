@@ -18,7 +18,7 @@ class CreateDetailUjiansTable extends Migration
             $table->unsignedBigInteger('id_headerujian');
             $table->unsignedBigInteger('id_kelas');
             $table->dateTime('tanggal_ujian', $precision = 0);
-            $table->integer('waktu_ujian');
+            $table->time('waktu_ujian');
             $table->string('token', 10)->nullable();
             $table->boolean('status');
             $table->foreign('id_headerujian')
