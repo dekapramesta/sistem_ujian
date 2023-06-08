@@ -62,7 +62,7 @@
                                     <div class="d-flex flex-row mb-2">
                                         <label for="inputTime" class="col-sm-2 col-form-label">Waktu Ujian</label>
                                         <div class="col-sm-10">
-                                            <input type="number" id="waktu_ujian" class="form-control w-70">
+                                            <input type="text" id="waktu_ujian" class="form-control w-70">
                                         </div>
                                     </div>
                                     <div class="d-flex flex-row mb-2">
@@ -251,7 +251,14 @@
 
             </div>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
+        flatpickr("#waktu_ujian", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i:S",
+            time_24hr: true,
+        });
         const loaders = document.getElementsByClassName('loader-wrapper');
         let kelasFinal = [];
         let siswaFinal = [];
