@@ -70,6 +70,7 @@ Route::middleware(['auth', 'levelAcces:admin'])->group(
                 Route::post('kelas', [KelasController::class, 'create'])->name('admin.kelas.create');
                 Route::put('kelas/{identitas}', [KelasController::class, 'edit'])->name('admin.kelas.edit');
                 Route::delete('kelas/{identitas}', [KelasController::class, 'delete'])->name('admin.kelas.delete');
+                Route::post('kelas/update-naik', [KelasController::class, 'updateSiswa'])->name('admin.updatenaik');
 
                 Route::get('guru', [GuruController::class, 'index'])->name('admin.guru');
                 Route::post('guru', [GuruController::class, 'create'])->name('admin.guru.create');
