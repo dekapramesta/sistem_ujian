@@ -22,7 +22,7 @@
           <div class="card-body">
             <h5 class="card-title">Mata Pelajaran</h5>
             <div class="container">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah">Tambah +</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah" style="margin-bottom: 20px">Tambah +</button>
             <table class="table table-borderless datatable">
               <thead>
                 <tr>
@@ -74,12 +74,12 @@
                                             @endforeach
                                         </select>
                                     </label></p>
-                                        <p><label>Jenis Mata Pelajaran :<input type="text" class="form-control" name="nama_mapel" value="{{ $mapel->nama_mapel }}"></label></p>
+                                        <p><label>Mata Pelajaran :<input type="text" class="form-control" name="nama_mapel" value="{{ $mapel->nama_mapel }}"></label></p>
                                 </label></p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <input class="btn btn-primary" type="submit" value="Save changes">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    <input class="btn btn-primary" type="submit" value="Simpan">
                                 </div>
                              </form>
                           </div>
@@ -99,7 +99,7 @@
                                     Apakah Anda Yakin Ingin Mengahapus??
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     <input class="btn btn-danger" type="submit" value="Hapus">
                                 </div>
                             </form>
@@ -137,11 +137,11 @@
                         @endforeach
                     </select>
                 </label></p>
-                <p><label>Jenis Mata Pelajaran :<input type="text" class="form-control" name="nama_mapel"></label></p>
+                <p><label>Mata Pelajaran :<input type="text" class="form-control" name="nama_mapel"></label></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <input class="btn btn-primary" type="submit" value="Save changes">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <input class="btn btn-primary" type="submit" value="Simpan">
             </div>
          </form>
       </div>

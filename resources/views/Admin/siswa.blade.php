@@ -22,7 +22,7 @@
           <div class="card-body">
             <h5 class="card-title">Data Siswa</h5>
             <div class="container">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah">Tambah +</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah" style="margin-bottom: 20px" >Tambah +</button>
             <table class="table table-borderless datatable">
               <thead>
                 <tr>
@@ -54,7 +54,7 @@
                             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#edit{{ $siswa->nis }}">Edit</button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $siswa->nis }}">Delete</button>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#delete{{ $siswa->nis }}">Hapus</button>
                         </td>
                     </tr>
                     <div class="modal" id="edit{{ $siswa->nis }}" tabindex="-1">
@@ -79,6 +79,7 @@
                                             @endforeach
                                         </select>
                                     </label></p> --}}
+                                    <input type="text" name="id_user" hidden value="{{$siswa->id_user}}">
                                     <p><label>Kelas :
                                         <select name="id_kelas">
                                             @foreach ( $classes as $class )
@@ -96,13 +97,13 @@
                                     <p><label>NIS :<input type="text" class="form-control" name="nis" value="{{ $siswa->nis }}"></label></p>
                                     <fieldset>
                                         <p><label>Tanggal Lahir:
-                                        <input type="date" name="tanggal_lahir" value="{{ $siswa->tanggal_lahir }}"></label></p>
+                                        <input type="date" name="tanggal_lahir" class="form-control" value="{{ $siswa->tanggal_lahir }}"></label></p>
                                     </fieldset>
                                 </label></p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <input class="btn btn-primary" type="submit" value="Save changes">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    <input class="btn btn-primary" type="submit" value="Simpan">
                                 </div>
                              </form>
                           </div>
@@ -122,7 +123,7 @@
                                     Apakah Anda Yakin Ingin Mengahapus??
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                     <input class="btn btn-danger" type="submit" value="Hapus">
                                 </div>
                             </form>
@@ -197,8 +198,8 @@
                 </fieldset>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <input class="btn btn-primary" type="submit" value="Save changes">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <input class="btn btn-primary" type="submit" value="Simpan">
             </div>
          </form>
       </div>

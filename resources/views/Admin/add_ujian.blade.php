@@ -251,7 +251,14 @@
 
             </div>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
+        // flatpickr("#waktu_ujian", {
+        //     enableTime: true,
+        //     noCalendar: true,
+        //     dateFormat: "H:i:S",
+        //     time_24hr: true,
+        // });
         const loaders = document.getElementsByClassName('loader-wrapper');
         let kelasFinal = [];
         let siswaFinal = [];

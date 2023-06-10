@@ -53,7 +53,8 @@ class DataNilaiController extends Controller
 
         $header_ujians = HeaderUjian::where('id', $id_header_ujian)->first();
 
-        $judul = $header_ujians->jadwal_ujian->mapel->nama_mapel . ' - ' .
+        $judul = $header_ujians->jadwal_ujian->mapel->nama_mapel . ' - Kelas ' .
+        $header_ujians->jenjang->nama_jenjang . ' - '.
         $header_ujians->jadwal_ujian->jenis_ujian . ' - ' .
         $header_ujians->jadwal_ujian->th_akademiks->th_akademik . ' - Semester ' .
         $header_ujians->jadwal_ujian->th_akademiks->nama_semester;

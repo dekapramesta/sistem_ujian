@@ -24,7 +24,7 @@ class CreateKelasTable extends Migration
             $table->foreign('id_jurusan')
                 ->references('id')->on('jurusans')->onDelete('cascade');
             $table->foreign('id_jenjang')
-                ->references('id')->on('jenjangs');
+                ->references('id')->on('jenjangs')->onDelete('cascade');
             $table->timestamps();
         });
     }

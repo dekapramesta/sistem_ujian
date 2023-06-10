@@ -36,7 +36,8 @@
                                                 @foreach ($header_ujians as $hdruj)
                                                     @if ($hdruj->jadwal_ujian->id_mapels == $id_mapels)
                                                         <option value="{{ $hdruj->id }}">
-                                                            {{ $hdruj->jadwal_ujian->jenis_ujian }}
+                                                            {{ $hdruj->jadwal_ujian->jenis_ujian }} Kelas
+                                                            {{ $hdruj->jenjang->nama_jenjang }}
                                                             {{ $hdruj->jadwal_ujian->th_akademiks->th_akademik }} - Semester
                                                             {{ $hdruj->jadwal_ujian->th_akademiks->nama_semester }}</option>
                                                     @endif

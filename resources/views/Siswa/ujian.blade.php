@@ -270,8 +270,6 @@
 
 
                     }
-
-                    console.log('cok', imageSoal)
                     $('#jawaban_place').html(``)
                     $('#soal').html(res.data.soal.soal)
                     $('#gambar-soal').html(imageSoal)
@@ -295,7 +293,7 @@
 
                             } else {
 
-                                imageTrue = `<div class="d-flex justify-content-center">
+                                imageTrue = `<div class="ms-4 justify-content-center">
                                                                                         <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
                                                                                             alt="description of myimage" style="width:250px; height:300px">
                                                                                     </div>`;
@@ -317,11 +315,12 @@
                                         <div>
                                         <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
                                         </div>
-                                        <div class="d-none">
-                                    ${imageTrue}
-                                    </div>
+
 
                                       </div>
+                                      <div class="d-flex justify-content-center ms-4 style="flex:0 0 auto">
+                                    ${imageTrue}
+                                    </div>
                                `)
                         } else {
                             let imageTrue = ``;
@@ -331,7 +330,7 @@
 
                             } else {
 
-                                imageTrue = `<div class="d-flex justify-content-center">
+                                imageTrue = `<div class="d-block justify-content-center">
                                                                                         <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
                                                                                             alt="description of myimage" style="width:250px; height:300px">
                                                                                     </div>`;
@@ -349,10 +348,11 @@
                                                                     <div>
                                                                         <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
                                                                     </div>
-                                                                    <div class="d-none">
+
+                                                                  </div>
+                                                                  <div class="d-flex justify-content-center ms-4" style="flex:0 0 auto">
                                     ${imageTrue}
                                     </div>
-                                                                  </div>
                                                            `)
 
                         }

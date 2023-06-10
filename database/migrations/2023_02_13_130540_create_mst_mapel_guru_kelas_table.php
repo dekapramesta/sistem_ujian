@@ -20,13 +20,13 @@ class CreateMstMapelGuruKelasTable extends Migration
             $table->unsignedBigInteger('id_kelas');
             $table->unsignedBigInteger('id_jenjang')->nullable();
             $table->foreign('id_mapels')
-                ->references('id')->on('mapels');
+                ->references('id')->on('mapels')->onDelete('cascade');
             $table->foreign('id_gurus')
-                ->references('id')->on('gurus');
+                ->references('id')->on('gurus')->onDelete('cascade');
             $table->foreign('id_kelas')
-                ->references('id')->on('kelas');
+                ->references('id')->on('kelas')->onDelete('cascade');
             $table->foreign('id_jenjang')
-                ->references('id')->on('jenjangs');
+                ->references('id')->on('jenjangs')->onDelete('cascade');
         });
     }
 

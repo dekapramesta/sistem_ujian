@@ -20,14 +20,14 @@ class CreateJadwalUjiansTable extends Migration
             $table->unsignedBigInteger('id_jenjangs');
             // $table->date('tanggal_ujian');
             // $table->time('waktu_ujian');
-            $table->string('jenis_ujian');
+            $table->string('jenis_ujian', 6);
             $table->tinyInteger('status');
             $table->foreign('id_th_akademiks')
-                ->references('id')->on('th_akademiks');
+                ->references('id')->on('th_akademiks')->onDelete('cascade');
             $table->foreign('id_mapels')
-                ->references('id')->on('mapels');
+                ->references('id')->on('mapels')->onDelete('cascade');
             $table->foreign('id_jenjangs')
-                ->references('id')->on('jenjangs');
+                ->references('id')->on('jenjangs')->onDelete('cascade');
             $table->timestamps();
         });
     }

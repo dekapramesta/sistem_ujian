@@ -44,6 +44,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
         integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
@@ -55,7 +56,8 @@
   ======================================================== -->
 </head>
 
-<body class="{{ request()->is('guru/profil*') ? 'toggle-sidebar' : '' }}">
+<body
+    class="{{ request()->is('guru/profil*') || request()->is('admin/profil*') || request()->is('siswa/profil*') ? 'toggle-sidebar' : '' }}">
     @include('sweetalert::alert')
 
 
@@ -64,11 +66,11 @@
         $prefix = Request::route()->getPrefix();
     @endphp
     @if ($prefix == '/admin')
-        @include('particials.header')
+        @include('Admin.particials.header')
     @elseif ($prefix == '/guru')
         @include('Guru.particials.header')
     @elseif ($prefix == '/siswa')
-        @include('particials.header')
+        @include('Siswa.particials.header')
     @elseif ($prefix != '/ujian')
         @include('particials.header')
     @endif
