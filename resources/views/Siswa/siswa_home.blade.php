@@ -79,7 +79,7 @@
                                                 @else
                                                     @foreach ($nilai as $nl)
                                                         @if ($ujn->detailujian->id_headerujian == $nl->id_ujian)
-                                                            <span class="fs-3">Ujian Selesai</span>
+                                                            <span class="fs-3">{{ $nl->nilai }}</span>
                                                         @endif
                                                     @endforeach
                                                 @endif
