@@ -299,14 +299,7 @@
                         loaders[0].style.display = "none";
 
                         $('#selectkls').val('').trigger('change');
-                        // $('#jam_ujian_kls').val('').trigger('change')
-                        // $('#tgl_ujian_kls').val('').trigger('change') // Clear the selected option
                     }
-
-
-                    // console.log('kelas', kelasFinal)
-                    // mappingKelaas(data)
-
 
                 })
                 $('#tambahsw').click(async function() {
