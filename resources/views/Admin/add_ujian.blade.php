@@ -61,8 +61,9 @@
 
                                     <div class="d-flex flex-row mb-2">
                                         <label for="inputTime" class="col-sm-2 col-form-label">Waktu Ujian</label>
-                                        <div class="col-sm-10">
-                                            <input type="number" id="waktu_ujian" class="form-control w-70">
+                                        <div class="d-flex row-sm-10 align-items-center">
+                                            <input type="number" id="waktu_ujian" class="form-control">
+                                            <span class="fs-6 ms-2">Menit</span>
                                         </div>
                                     </div>
                                     <div class="d-flex flex-row mb-2">
@@ -271,6 +272,12 @@
 
             let kelas = [];
             let siswa = [];
+            $('#waktu_ujian').on('keyup', function() {
+                if ($('#selectmapel').val()) {
+                    $('#btn_md_kls').prop("disabled", false);
+                }
+
+            })
 
 
             $('#selectmapel').change(function() {
@@ -279,7 +286,11 @@
                 resetOption("selectsw")
                 getKelasMapel(idMapel)
                 getSiswaMapel(idMapel)
-                $('#btn_md_kls').prop("disabled", false);
+
+                if ($('#waktu_ujian').val()) {
+                    $('#btn_md_kls').prop("disabled", false);
+
+                }
             })
             $("#btn_md_kls").click(function() {
                 console.log("first")
@@ -306,14 +317,7 @@
                         loaders[0].style.display = "none";
 
                         $('#selectkls').val('').trigger('change');
-                        // $('#jam_ujian_kls').val('').trigger('change')
-                        // $('#tgl_ujian_kls').val('').trigger('change') // Clear the selected option
                     }
-
-
-                    // console.log('kelas', kelasFinal)
-                    // mappingKelaas(data)
-
 
                 })
                 $('#tambahsw').click(async function() {
@@ -623,12 +627,26 @@
         }
 
         function mappingKelaas(datas) {
+            console.log('ambil menit', $('#waktu_ujian').val())
             datas.map((dt) => {
+                let tgl_start = new Date(dt.tgl_ujian + ' ' + dt.jam_ujian)
+                let options = {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    timeZone: 'Asia/Jakarta'
+                };
+                let formattedDate = tgl_start.toLocaleString('id-ID', options);
+                let endDate = new Date(tgl_start.getTime() + parseInt($('#waktu_ujian').val() * 60000))
+                    .toLocaleString('id-ID', options);
+
                 kelasFinal.push(dt.id)
                 $('#table-kelas').append(`
              <tr id="rowkls${dt.id}">
                   <td>${dt.jurusan.nama_jurusan +' - '+ dt.nama_kelas }</td>
-                  <td>${dt.tgl_ujian +' - '+ dt.jam_ujian }</td>
+                  <td>${ formattedDate + ' - ' + endDate}</td>
                          <td class="text-center">
                            <div class="form-check d-flex justify-content-center">
                             <input class="form-check-input" type="checkbox" id="hapuskls" data-index="${dt.id}" data-target="rowkls${dt.id}" checked/>

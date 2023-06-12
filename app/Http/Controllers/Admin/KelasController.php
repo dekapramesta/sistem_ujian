@@ -8,18 +8,21 @@ use Illuminate\Support\Str;
 use App\Models\Kelas;
 use App\Models\Jurusan;
 use App\Models\Jenjang;
+use App\Models\Siswa;
 
 class KelasController extends Controller
 {
-    public function index() {
-        $kelas = Kelas::orderBy('nama_kelas', 'ASC')->get();
-        $jurusans=Jurusan::orderBy('nama_jurusan', 'ASC')->get();
-        $jenjangs=Jenjang::orderBy('nama_jenjang', 'desc')->get();
-        // dd($kelas->jenjang);
-        return view("admin.kelas", compact('kelas', 'jenjangs', 'jurusans'));
+    public function index()
+    {
+        $kelas = Kelas::with('siswa')->orderBy('nama_kelas', 'ASC')->get();
+        $siswa = Siswa::all();
+        $jurusans = Jurusan::orderBy('nama_jurusan', 'ASC')->get();
+        $jenjangs = Jenjang::orderBy('nama_jenjang', 'desc')->get();
+        return view("admin.kelas", compact('kelas', 'jenjangs', 'jurusans', 'siswa'));
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $request->validate([
             'id_jurusan' => 'required',
             'id_jenjang' => 'required',
@@ -35,13 +38,14 @@ class KelasController extends Controller
             'identitas' => Str::random(10),
         ]);
 
-        if($Kelas){
+        if ($Kelas) {
             return back()->with('success', 'Berhasil Tambah Data');
-        }else{
+        } else {
             return back()->with('error', 'Gagal Tambah Data');
         }
     }
-    public function edit(Request $request, $identitas){
+    public function edit(Request $request, $identitas)
+    {
         $request->validate([
             'id_jurusan' => 'required',
             'id_jenjang' => 'required',
@@ -56,21 +60,32 @@ class KelasController extends Controller
             'nama_kelas' => $request->nama_kelas,
         ]);
 
-        if($Kelas){
+        if ($Kelas) {
             return back()->with('success', 'Berhasil Edit Data');
-        }else{
+        } else {
             return back()->with('error', 'Gagal Edit Data');
         }
     }
 
-    public function delete(Request $request, $identitas){
+    public function delete(Request $request, $identitas)
+    {
 
-        $Kelas= Kelas::where('identitas', $identitas)->delete();
+        $Kelas = Kelas::where('identitas', $identitas)->delete();
 
-        if($Kelas){
+        if ($Kelas) {
             return back()->with('success', 'Berhasil Hapus Data');
-        }else{
+        } else {
             return back()->with('error', 'Gagal Hapus Data');
         }
+    }
+    public function updateSiswa(Request $request)
+    {
+        # code...
+        foreach ($request->siswa as $siswa) {
+            $siswaUp = Siswa::find($siswa);
+            $siswaUp->id_kelas = $request->kelas;
+            $siswaUp->save();
+        }
+        return back()->with('success', 'Berhasil Edit Data');
     }
 }
