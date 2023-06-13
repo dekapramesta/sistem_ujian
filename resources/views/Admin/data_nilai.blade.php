@@ -237,7 +237,7 @@
                                                 </div>
                                             `).join('')}
 
-                        </div><!-- End Bordered Tabs -->
+                        </div>
                     </div>
                 </div>`
                 )
