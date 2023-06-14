@@ -49,7 +49,7 @@ class ThAkademikController extends Controller
         if($ThAkademik) {
             return back()->with('success', 'Berhasil Tambah Data');
         } else {
-            return back()->withInput()->withErrors($validator);
+            return back()->with('error', 'Gagal Tambah Data')->withInput()->withErrors($validator);
         }
     }
     public function edit(Request $request, $identitas)
