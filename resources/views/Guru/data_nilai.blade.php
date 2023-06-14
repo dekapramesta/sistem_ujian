@@ -27,7 +27,7 @@
                                 <form method="POST" action="{{ route('guru.hasil_cari', $id_mapels) }}"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <div class="row mb-3">
+                                    {{-- <div class="row mb-3">
                                         <label class="col-sm-3 col-form-label">Pilih Jenjang</label>
                                         <div class="col-sm-9">
                                             <select class="select2-js w-100" aria-label="Default select example"
@@ -43,7 +43,7 @@
                                                 <span class="text-danger">Ujian Harus Dipilih</span>
                                             @endif
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row mb-3">
                                         <label class="col-sm-3 col-form-label">Pilih Ujian</label>
                                         <div class="col-sm-9">
@@ -69,8 +69,7 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-12 d-flex flex-row-reverse">
-                                            <button disabled id="btn_submit" type="button"
-                                                class="btn btn-primary">Search</button>
+                                            <button id="btn_submit" type="submit" class="btn btn-primary">Search</button>
                                         </div>
                                     </div>
                                 </form>
@@ -83,7 +82,7 @@
     <script>
         $('.select2-js').select2();
     </script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             let val_idmapel = {{ $id_mapels }}
             let val_idjenjang
@@ -105,5 +104,5 @@
                 }
             })
         });
-    </script>
+    </script> --}}
 @endsection
