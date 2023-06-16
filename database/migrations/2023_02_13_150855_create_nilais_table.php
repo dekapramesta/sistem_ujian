@@ -8,7 +8,6 @@ use App\Models\Nilai;
 use App\Models\Ujian;
 use App\Models\Siswa;
 
-
 class CreateNilaisTable extends Migration
 {
     /**
@@ -24,7 +23,7 @@ class CreateNilaisTable extends Migration
             $table->unsignedBigInteger('id_siswa');
             $table->tinyInteger('jumlah_benar');
             $table->tinyInteger('jumlah_salah');
-            $table->float('nilai', 3, 2 );
+            $table->float('nilai', 5, 2);
             $table->string('identitas', 10);
             // $table->foreign('id_ujian')
             // ->references('id')->on('ujians')->onDelete('cascade');

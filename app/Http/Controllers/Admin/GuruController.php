@@ -46,7 +46,7 @@ class GuruController extends Controller
             return response()->json(['result' => $response]);
         }
         $tgl = Carbon::parse($request->tanggal_lahir)->format('d-m-Y');
-        $real_tgl = str_replace("-","",$tgl);
+        $real_tgl = str_replace("-", "", $tgl);
 
         $User = User::create([
             'username' => $request->nip,
@@ -121,12 +121,12 @@ class GuruController extends Controller
         $tahun = substr($request->tanggal_lahir, 0, 4);
         $password = $tanggal . '' . $bulan . '' . $tahun;
         $tgl = Carbon::parse($request->tanggal_lahir)->format('d-m-Y');
-        $real_tgl = str_replace("-","",$tgl);
+        $real_tgl = str_replace("-", "", $tgl);
 
-        $gr = Guru::where('id',$request->id_guru)->first();
-        $users = User::where('id',$gr->id_user)->update([
+        $gr = Guru::where('id', $request->id_guru)->first();
+        $users = User::where('id', $gr->id_user)->update([
             'username'=>$request->nip,
-            'password'=>bcrypt($real_tgl)
+            // 'password'=>bcrypt($real_tgl)
         ]);
 
 
@@ -162,7 +162,7 @@ class GuruController extends Controller
             } else {
                 // mst_mapel_guru_kelas::where('id', $mst_all->id)->delete();
 
-                $edit= mst_mapel_guru_kelas::where('id',$mst_all->id)->first();
+                $edit= mst_mapel_guru_kelas::where('id', $mst_all->id)->first();
                 $edit->id_gurus = null;
                 $edit->save();
 
@@ -174,7 +174,7 @@ class GuruController extends Controller
                 $check_mst = mst_mapel_guru_kelas::where('id_kelas', $mgr_null['id_kelas'])->where('id_mapels', $mgr_null['id_mapel'])->whereNotNull('id_gurus')->first();
                 if (!$check_mst) {
                     $edit_mst = mst_mapel_guru_kelas::where('id_kelas', $mgr_null['id_kelas'])->where('id_mapels', $mgr_null['id_mapel'])->first();
-                    if(!$edit_mst){
+                    if(!$edit_mst) {
                         $mst = mst_mapel_guru_kelas::create([
                             'id_mapels' => $mgr_null['id_mapel'],
                             'id_kelas' => $mgr_null['id_kelas'],
@@ -182,7 +182,7 @@ class GuruController extends Controller
                         ]);
                         array_push($response, $mst->kelas->jenjang->nama_jenjang . ' ' . $mst->kelas->nama_kelas . ' ' . $mst->kelas->jurusan->nama_jurusan . ' Mapel ' . $mst->mapel->nama_mapel . ' Sukses');
 
-                    }else{
+                    } else {
                         $edit_mst->id_gurus = $request->id_guru;
                         $edit_mst->save();
                         array_push($response, $edit_mst->kelas->jenjang->nama_jenjang . ' ' . $edit_mst->kelas->nama_kelas . ' ' . $edit_mst->kelas->jurusan->nama_jurusan . ' Mapel ' . $edit_mst->mapel->nama_mapel . ' Sukses');
