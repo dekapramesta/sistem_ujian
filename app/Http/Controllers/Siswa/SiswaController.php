@@ -162,6 +162,8 @@ class SiswaController extends Controller
         $nilai = ($jawaban_benar / $detail_ujian->headerujian->jumlah_soal) * 100;
         $searchNilai = Nilai::where('id_siswa', $siswa->id)->where('id_ujian', $request->headerujian)->first();
         $searchNilai->nilai = round($nilai, 2);
+        $searchNilai->jumlah_benar = $jawaban_benar;
+        $searchNilai->jumlah_salah = $jawaban_salah;
         $searchNilai->save();
 
         // Nilai::create([
