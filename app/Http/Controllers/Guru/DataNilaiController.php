@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\MultipleSheetsExport;
+use App\Models\Jenjang;
 
 class DataNilaiController extends Controller
 {
@@ -24,8 +25,9 @@ class DataNilaiController extends Controller
         $user = Auth::user();
         $guru = Guru::where('id_user', $user->id)->first();
         $header_ujians = HeaderUjian::where('id_gurus', $guru->id)->get();
+        $jenjang = Jenjang::all();
 
-        return view('Guru.data_nilai', compact('id_mapels', 'nama_mapel', 'header_ujians'));
+        return view('Guru.data_nilai', compact('id_mapels', 'nama_mapel', 'header_ujians', 'jenjang'));
     }
 
     public function hasil_cari($id_mapels, Request $request)

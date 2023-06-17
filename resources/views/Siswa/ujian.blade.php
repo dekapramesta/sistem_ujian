@@ -138,13 +138,13 @@
             class="bi bi-arrow-up-short"></i></a>
     <script type="text/javascript">
         $(document).ready(async function() {
-            let id_soal;
+            let id_soal; //membuat variable id_soal
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') //csrf
                 }
             });
-            await $.ajax({
+            await $.ajax({ // memanggil button nomer soal
                 type: "POST",
                 url: "{{ route('ujian.getTemp') }}",
                 data: {
@@ -152,7 +152,7 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    id_soal = res.data[0].id
+                    id_soal = res.data[0].id //menambah value id_soal
                     console.log(res)
                     res.data.map((dt, id) => {
                         id++
@@ -170,7 +170,7 @@
                     })
                 }
             });
-            await $.ajax({
+            await $.ajax({  // memanggil waktu countdown ujian
                 type: "POST",
                 url: "{{ route('ujian.getTime') }}",
                 data: {
@@ -200,8 +200,8 @@
 
                         // Output the result in an element with id="demo"
                         document.getElementById("demo").innerHTML = hours +
-                            "Jam " +
-                            minutes + "Menit " + seconds + "Detik ";
+                            " Jam " +
+                            minutes + " Menit " + seconds + " Detik ";
 
                         // If the count down is over, write some text
                         if (distance < 0) {
@@ -224,7 +224,7 @@
             getSoal(id_soal)
             $('#no_soal').html('1')
         })
-        document.getElementById('submitujian').addEventListener('submit', function(evt) {
+        document.getElementById('submitujian').addEventListener('submit', function(evt) {  // ketika siswa menekan tombol selesai
             evt.preventDefault();
             swal({
                     title: "Ingin Mengakhiri Ujian?",
@@ -244,7 +244,7 @@
 
 
 
-        function getSoal(id) {
+        function getSoal(id) { // untuk menampilkan soal
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

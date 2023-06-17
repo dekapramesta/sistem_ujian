@@ -30,6 +30,7 @@
                                         <select id="select_jenisujian" class="select2-js w-100" name="state">
                                             <option value="UTS">UTS</option>
                                             <option value="UAS">UAS</option>
+                                            <option value="Pre-Test">Pre-Test</option>
                                         </select>
                                     </div>
                                     <div class="d-flex flex-row">

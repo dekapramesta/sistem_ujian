@@ -88,14 +88,14 @@ class SiswaController extends Controller
         # code...
         $ujian = DetailUjian::where('id_headerujian', $request->id)->first();
         // return response()->json(['data' => $ujian], 200);
-        $endTime = date('M d,Y H:i:s', strtotime('+' . $ujian->waktu_ujian . 'minutes', strtotime($ujian->tanggal_ujian)));
+        $endTime = date('M d,Y H:i:s', strtotime('+' . $ujian->waktu_ujian . 'minutes', strtotime($ujian->tanggal_ujian))); // +400minutes 2023-06-09 14:21:20
         // $endTime = date("H:i:s", strtotime('+30 minutes', $ujian->tanggal_ujian));
         $currentTime = date('Y:m:d H:i:s', time());
         $first  = new DateTime($currentTime);
         $second = new DateTime($endTime);
 
         $diff = $first->diff($second);
-        $time_gap = $diff->format('%H:%I:%S');
+        $time_gap = $diff->format('%H:%I:%S'); // 02:00:00
         $milliseconds = strtotime($time_gap) * 1000;
         return response()->json(['time' => $milliseconds, 'jam' => $time_gap, 'end_time' => $endTime], 200);
     }
