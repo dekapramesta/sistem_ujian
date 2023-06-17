@@ -152,6 +152,10 @@
                                                                             <div class="col-sm-9">
                                                                                 <input class="form-control" type="file"
                                                                                     id="formFile" name="file">
+                                                                                @error('file')
+                                                                                    <span
+                                                                                        class="text-danger">{{ $message }}</span>
+                                                                                @enderror
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -350,6 +354,7 @@
                             },
                             dataType: 'json',
                             success: function(res) {
+                                // console.log(res);
                                 location.reload();
                                 Swal.fire(
                                     'Terkonfirmasi!',
@@ -365,6 +370,16 @@
                 })
             }
         </script>
+    @endif
+    @if ($errors->any())
+        @if (session('modal') === 'tambah')
+            <script>
+                window.addEventListener('DOMContentLoaded', () => {
+                    const modal = new bootstrap.Modal(document.getElementById('tambah{{ session('id_header_ujians') }}'));
+                    modal.show();
+                });
+            </script>
+        @endif
     @endif
 @endforeach
 

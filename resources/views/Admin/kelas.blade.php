@@ -76,45 +76,63 @@
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <div class="modal-body">
-                                                                    <p><label>Jenjang :
-                                                                            <select name="id_jenjang">
+                                                                    <div class="row mb-3">
+                                                                        <label class="col-sm-3 col-form-label">Jenjang
+                                                                            :</label>
+                                                                        <div class="col-sm-9">
+                                                                            <select class="form-select"
+                                                                                name="id_jenjang_edit"
+                                                                                aria-label="Default select example">
+                                                                                <option selected disabled>Pilih Jenjang
+                                                                                </option>
                                                                                 @foreach ($jenjangs as $jenjang)
-                                                                                    @if ($jenjang->id == $kelas->id_jenjang)
-                                                                                        <option value="{{ $jenjang->id }}"
-                                                                                            selected>
-                                                                                            {{ $jenjang->nama_jenjang }}
-                                                                                        </option>
-                                                                                    @else
-                                                                                        <option
-                                                                                            value="{{ $jenjang->id }}">
-                                                                                            {{ $jenjang->nama_jenjang }}
-                                                                                        </option>
-                                                                                    @endif
+                                                                                    <option value="{{ $jenjang->id }}"
+                                                                                        {{ $kelas->id_jenjang == $jenjang->id ? 'selected' : '' }}>
+                                                                                        {{ $jenjang->nama_jenjang }}
+                                                                                    </option>
                                                                                 @endforeach
                                                                             </select>
-                                                                        </label></p>
-                                                                    <p><label>Jurusan :
-                                                                            <select name="id_jurusan">
+                                                                            @error('id_jenjang_edit')
+                                                                                <span
+                                                                                    class="text-danger">{{ $message }}</span>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-3">
+                                                                        <label class="col-sm-3 col-form-label">Jurusan
+                                                                            :</label>
+                                                                        <div class="col-sm-9">
+                                                                            <select class="form-select"
+                                                                                name="id_jurusan_edit"
+                                                                                aria-label="Default select example">
+                                                                                <option selected disabled>Pilih Jurusan
+                                                                                </option>
                                                                                 @foreach ($jurusans as $jurusan)
-                                                                                    @if ($jurusan->id == $kelas->id_jurusan)
-                                                                                        <option value="{{ $jurusan->id }}"
-                                                                                            selected>
-                                                                                            {{ $jurusan->nama_jurusan }}
-                                                                                        </option>
-                                                                                    @else
-                                                                                        <option
-                                                                                            value="{{ $jurusan->id }}">
-                                                                                            {{ $jurusan->nama_jurusan }}
-                                                                                        </option>
-                                                                                    @endif
+                                                                                    <option value="{{ $jurusan->id }}"
+                                                                                        {{ $kelas->id_jurusan == $jurusan->id ? 'selected' : '' }}>
+                                                                                        {{ $jurusan->nama_jurusan }}
+                                                                                    </option>
                                                                                 @endforeach
                                                                             </select>
-                                                                        </label></p>
-                                                                    <p><label>Nama Kelas :<input type="text"
-                                                                                class="form-control" name="nama_kelas"
-                                                                                value="{{ $kelas->nama_kelas }}"></label>
-                                                                    </p>
-                                                                    </label></p>
+                                                                            @error('id_jurusan_edit')
+                                                                                <span
+                                                                                    class="text-danger">{{ $message }}</span>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-3">
+                                                                        <label class="col-sm-3 col-form-label">Nama Kelas
+                                                                            :</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control"
+                                                                                name="nama_kelas_edit"
+                                                                                value="{{ $kelas->nama_kelas }}">
+                                                                            @error('nama_kelas_edit')
+                                                                                <span
+                                                                                    class="text-danger">{{ $message }}</span>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"
@@ -172,24 +190,52 @@
                             <form method="POST" action="{{ route('admin.kelas.create') }}">
                                 @csrf
                                 <div class="modal-body">
-                                    <p><label>Jenjang :
-                                            <select name="id_jenjang">
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label">Jenjang :</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-select" name="id_jenjang"
+                                                aria-label="Default select example">
+                                                <option selected disabled>Pilih Jenjang</option>
                                                 @foreach ($jenjangs as $jenjang)
-                                                    <option value="{{ $jenjang->id }}">{{ $jenjang->nama_jenjang }}
+                                                    <option value="{{ $jenjang->id }}"
+                                                        {{ old('id_jenjang') == $jenjang->id ? 'selected' : '' }}>
+                                                        {{ $jenjang->nama_jenjang }}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                        </label></p>
-                                    <p><label>Jurusan :
-                                            <select name="id_jurusan">
+                                            @error('id_jenjang')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label">Jurusan :</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-select" name="id_jurusan"
+                                                aria-label="Default select example">
+                                                <option selected disabled>Pilih Jurusan</option>
                                                 @foreach ($jurusans as $jurusan)
-                                                    <option value="{{ $jurusan->id }}">{{ $jurusan->nama_jurusan }}
+                                                    <option value="{{ $jurusan->id }}"
+                                                        {{ old('id_jurusan') == $jurusan->id ? 'selected' : '' }}>
+                                                        {{ $jurusan->nama_jurusan }}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                        </label></p>
-                                    <p><label>Nama Kelas :<input type="text" class="form-control"
-                                                name="nama_kelas"></label></p>
+                                            @error('id_jurusan')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label">Nama Kelas :</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="nama_kelas"
+                                                value="{{ old('nama_kelas') }}">
+                                            @error('nama_kelas')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -274,4 +320,22 @@
 
         }
     </script>
+
+    @if ($errors->any())
+        @if (session('modal') === 'create')
+            <script>
+                window.addEventListener('DOMContentLoaded', () => {
+                    const modal = new bootstrap.Modal(document.getElementById('tambah'));
+                    modal.show();
+                });
+            </script>
+        @elseif (session('modal') === 'edit')
+            <script>
+                window.addEventListener('DOMContentLoaded', () => {
+                    const modal = new bootstrap.Modal(document.getElementById('edit{{ session('identitas') }}'));
+                    modal.show();
+                });
+            </script>
+        @endif
+    @endif
 @endsection
