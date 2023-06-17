@@ -44,7 +44,7 @@ class SiswaController extends Controller
     {
         $user = Auth::user();
         $siswa = Siswa::where('id_user', $user->id)->first();
-        if($request->password == $request->konfirmasi_password) {
+        if ($request->password == $request->konfirmasi_password) {
             User::where('id', $user->id)->update([
                 'password'  => bcrypt($request->password),
                 'verified'  => 1
@@ -160,14 +160,18 @@ class SiswaController extends Controller
             }
         }
         $nilai = ($jawaban_benar / $detail_ujian->headerujian->jumlah_soal) * 100;
-        Nilai::create([
-            'id_ujian' => $request->headerujian,
-            'id_siswa' => $siswa->id,
-            'jumlah_benar' => $jawaban_benar,
-            'jumlah_salah' => $jawaban_salah,
-            'nilai' => round($nilai, 2),
-            'identitas' => $siswa->nis
-        ]);
+        $searchNilai = Nilai::where('id_siswa', $siswa->id)->where('id_ujian', $request->headerujian)->first();
+        $searchNilai->nilai = round($nilai, 2);
+        $searchNilai->save();
+
+        // Nilai::create([
+        //     'id_ujian' => $request->headerujian,
+        //     'id_siswa' => $siswa->id,
+        //     'jumlah_benar' => $jawaban_benar,
+        //     'jumlah_salah' => $jawaban_salah,
+        //     'nilai' => round($nilai, 2),
+        //     'identitas' => $siswa->nis
+        // ]);
         $pesertaujian = PesertaUjian::where([['id_detail_ujians', '=', $detail_ujian->id], ['nis', '=', $siswa->nis]])->first();
         $pesertaujian->status = 1;
         $pesertaujian->save();
