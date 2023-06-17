@@ -12,7 +12,7 @@ class Admin extends Model
         'id_user',
         'nama',
         'no_telp',
-        'email',
+        // 'email',
         'foto profil'
     ];
 
