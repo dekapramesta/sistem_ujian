@@ -150,6 +150,7 @@ Route::middleware(['auth', 'levelAcces:siswa'])->group(
             Route::get('aktivasi', [SiswaSiswaController::class, 'aktivasi'])->name('siswa.aktivasi');
             Route::post('aktivasi_guru', [SiswaSiswaController::class, 'aktivasi_siswa'])->name('siswa.aktivasi_siswa');
             Route::get('dashboard', [App\Http\Controllers\Siswa\SiswaController::class, 'index'])->name('siswa.dashboard');
+            Route::get('slicing', [App\Http\Controllers\Siswa\SiswaController::class, 'slicing'])->name('siswa.slicing');
 
             Route::get('profil', [SiswaProfilController::class, 'index'])->name('siswa.profil');
             Route::post('profil/edit_profil', [SiswaProfilController::class, 'edit_profil'])->name('siswa.edit_profil');

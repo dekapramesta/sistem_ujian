@@ -180,4 +180,8 @@ class SiswaController extends Controller
         return redirect()->route('siswa.dashboard');
         // dd($jawaban);
     }
+    function slicing()
+    {
+        return view('siswa.slicing');
+    }
 }
