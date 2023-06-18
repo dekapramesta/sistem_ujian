@@ -80,14 +80,21 @@
     @elseif ($prefix == '/guru')
         @include('Guru.particials.sidebar')
     @elseif ($prefix == '/siswa')
-        @include('Siswa.particials.sidebar')
+        {{-- @include('Siswa.particials.sidebar') --}}
     @elseif ($prefix != '/ujian')
         @include('particials.sidebar')
     @endif
 
+    @if ($prefix == '/siswa')
+        <main id="main-ujian" class="main-ujian">
 
 
-    <main id="main" class="main">
+
+            @yield('content')
+
+
+
+    </main @else <main id="main" class="main">
 
 
 
@@ -95,48 +102,51 @@
 
 
 
-    </main><!-- End #main -->
+        </main @endif
 
-    {{-- @include('particials.footer') --}}
+        >
+        <!-- End #main -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+        {{-- @include('particials.footer') --}}
 
-
-    <!-- Vendor JS Files -->
-    <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
-    <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/quill/quill.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+                class="bi bi-arrow-up-short"></i></a>
 
 
-    <!-- Template Main JS File -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="{{ asset('assets/js/full_screen.js') }}"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- Vendor JS Files -->
+        <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
+        <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/quill/quill.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+        <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
 
-    @if (session()->has('error'))
-        ;
+
+        <!-- Template Main JS File -->
+        <script src="{{ asset('assets/js/main.js') }}"></script>
+        <script src="{{ asset('assets/js/full_screen.js') }}"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        @if (session()->has('error'))
+            ;
+            <script>
+                swal("Mohon Maaf", "{{ session('error') }}", "error");
+            </script>
+        @endif
+
+        @if (session()->has('success'))
+            ;
+            <script>
+                swal("Berhasil", "{{ session('success') }}", "success");
+            </script>
+        @endif
         <script>
-            swal("Mohon Maaf", "{{ session('error') }}", "error");
+            if (window.history.replaceState) {
+                window.history.replaceState(null, null, window.location.href);
+            }
         </script>
-    @endif
-
-    @if (session()->has('success'))
-        ;
-        <script>
-            swal("Berhasil", "{{ session('success') }}", "success");
-        </script>
-    @endif
-    <script>
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-    </script>
 
 </body>
 
