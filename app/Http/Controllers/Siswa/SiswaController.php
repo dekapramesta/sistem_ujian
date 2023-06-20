@@ -51,7 +51,7 @@ class SiswaController extends Controller
                 'verified'  => 1
             ]);
 
-            if($save){
+            if($save) {
                 $no_telp = substr($request->no_telp, 0, 3) === "628" ? '08'.substr($request->no_telp, 3) : $request->no_telp;
                 Siswa::where('id_user', $user->id)->update([
                     'no_telp' => ($no_telp),
@@ -190,8 +190,12 @@ class SiswaController extends Controller
         return redirect()->route('siswa.dashboard');
         // dd($jawaban);
     }
-    function slicing()
+    public function slicing()
     {
-        return view('siswa.slicing');
+        return view('Siswa.slicing');
+    }
+    public function slicing_fix()
+    {
+        return view('Siswa.slicing_fix');
     }
 }

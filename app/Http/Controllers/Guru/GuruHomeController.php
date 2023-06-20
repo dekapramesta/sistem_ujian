@@ -58,9 +58,9 @@ class GuruHomeController extends Controller
                 'verified'  => 1
             ]);
 
-            if($save){
+            if($save) {
                 $no_telp = substr($request->no_telp, 0, 3) === "628" ? '08'.substr($request->no_telp, 3) : $request->no_telp;
-                Siswa::where('id_user', $user->id)->update([
+                Guru::where('id_user', $user->id)->update([
                     'no_telp' => ($no_telp),
                 ]);
             }
