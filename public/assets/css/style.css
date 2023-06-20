@@ -14,7 +14,7 @@
 
 body {
     font-family: "Open Sans", sans-serif;
-    background: #F6FFDE;
+    background: #f6ffde;
     color: #444444;
 }
 
@@ -95,7 +95,7 @@ h6 {
 }
 
 .back-to-top:hover {
-    background: #C9F4AA;
+    background: #c9f4aa;
     color: #fff;
 }
 

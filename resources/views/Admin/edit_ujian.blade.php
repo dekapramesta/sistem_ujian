@@ -593,6 +593,16 @@
             console.log("kelas final rmv", kelasFinal)
         }
 
+        function checkvalue(val, label) {
+            if (!val) {
+                swal("Mohon Maaf", `${label} Kosong`, "error");
+
+            } else {
+                return val
+            }
+        }
+
+
 
         function uncheckKelas(id_kelas) {
             console.log('id_kelas', id_kelas)
@@ -811,16 +821,17 @@
 
         function postUjian() {
             console.log("result", result)
-
+            if (result.length === 0) return swal("Mohon Maaf", "Data Kelas Dan Siswa Kosong",
+                "error");
             let data = {
                 id_header: '<?php echo Request::segment(4); ?>',
-                jenis_ujian: jenis_ujian,
-                waktu_ujian: $('#waktu_ujian').val(),
-                id_th_akademiks: id_tahunakademik,
-                kelas: KelasId,
+                jenis_ujian: checkvalue(jenis_ujian, 'Jenis Ujian'),
+                waktu_ujian: checkvalue($('#waktu_ujian').val(), 'Waktu Ujian'),
+                id_th_akademiks: checkvalue(id_tahunakademik, 'Tahun Akademik'),
+                kelas: checkvalue(KelasId, 'Kelas'),
                 status: 0,
-                id_mapels: id_mapel,
-                jumlah_soal: $('#jumlah_soal').val(),
+                id_mapels: checkvalue(id_mapel, 'Mata Pelajaran'),
+                jumlah_soal: checkvalue($('#jumlah_soal').val(), 'Jumlah Soal'),
                 data: result
             }
             $.ajax({

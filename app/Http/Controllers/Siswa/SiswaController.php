@@ -170,18 +170,28 @@ class SiswaController extends Controller
             }
         }
         $nilai = ($jawaban_benar / $detail_ujian->headerujian->jumlah_soal) * 100;
-        Nilai::create([
-            'id_ujian' => $request->headerujian,
-            'id_siswa' => $siswa->id,
-            'jumlah_benar' => $jawaban_benar,
-            'jumlah_salah' => $jawaban_salah,
-            'nilai' => round($nilai, 2),
-            'identitas' => $siswa->nis
-        ]);
+        $searchNilai = Nilai::where('id_siswa', $siswa->id)->where('id_ujian', $request->headerujian)->first();
+        $searchNilai->nilai = round($nilai, 2);
+        $searchNilai->jumlah_benar = $jawaban_benar;
+        $searchNilai->jumlah_salah = $jawaban_salah;
+        $searchNilai->save();
+
+        // Nilai::create([
+        //     'id_ujian' => $request->headerujian,
+        //     'id_siswa' => $siswa->id,
+        //     'jumlah_benar' => $jawaban_benar,
+        //     'jumlah_salah' => $jawaban_salah,
+        //     'nilai' => round($nilai, 2),
+        //     'identitas' => $siswa->nis
+        // ]);
         $pesertaujian = PesertaUjian::where([['id_detail_ujians', '=', $detail_ujian->id], ['nis', '=', $siswa->nis]])->first();
         $pesertaujian->status = 1;
         $pesertaujian->save();
         return redirect()->route('siswa.dashboard');
         // dd($jawaban);
+    }
+    function slicing()
+    {
+        return view('siswa.slicing');
     }
 }
