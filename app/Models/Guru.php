@@ -14,7 +14,6 @@ class Guru extends Model
         'nip',
         'tanggal_lahir',
         'no_telp',
-        'email'
     ];
 
     protected $primaryKey = 'id';

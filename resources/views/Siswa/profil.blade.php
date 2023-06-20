@@ -94,10 +94,10 @@
                                     <div class="col-lg-9 col-md-8">{{ $siswa->no_telp }}</div>
                                 </div>
 
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Email</div>
                                     <div class="col-lg-9 col-md-8">{{ $siswa->email }}</div>
-                                </div>
+                                </div> --}}
 
                             </div>
 
@@ -137,13 +137,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
+                                    {{-- <div class="row mb-3">
                                         <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="email" type="text" class="form-control" id="email"
                                                 value="{{ $siswa->email }}">
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">Simpan</button>

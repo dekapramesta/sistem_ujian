@@ -109,6 +109,15 @@
                                         </div>
 
                                         <div class="col-12">
+                                            <label for="no_telp" class="form-label">No. Telp</label>
+                                            <div class="input-group">
+                                                <input type="number" name="no_telp" class="form-control"
+                                                    id="no_telp" required>
+                                            </div>
+                                            <div class="invalid-feedback">Nomor Telepon baru wajib diisi</div>
+                                        </div>
+
+                                        <div class="col-12">
                                             <button class="btn btn-primary w-100" style="background-color: #82cd47;"
                                                 type="submit">Aktivasi</button>
                                         </div>

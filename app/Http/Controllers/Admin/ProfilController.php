@@ -28,20 +28,20 @@ class ProfilController extends Controller
             $request->foto_profil->move(public_path('img/user'), $namafile_fotoprofil);
             Admin::where('id_user', $user->id)->update([
                 'no_telp' => $request->no_telp,
-                'email' => $request->email,
+                // 'email' => $request->email,
                 'foto_profil' => $namafile_fotoprofil
             ]);
-            User::where('id', $user->id)->update([
-                'username'  => $request->email
-            ]);
+            // User::where('id', $user->id)->update([
+            //     'username'  => $request->email
+            // ]);
         } else {
             Admin::where('id_user', $user->id)->update([
                 'no_telp' => $request->no_telp,
-                'email' => $request->email
+                // 'email' => $request->email
             ]);
-            User::where('id', $user->id)->update([
-                'username'  => $request->email
-            ]);
+            // User::where('id', $user->id)->update([
+            //     'username'  => $request->email
+            // ]);
         }
         Alert::success('Berhasil', 'Berhasil Merubah Profil');
         return redirect()->back();
