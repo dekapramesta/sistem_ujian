@@ -2,12 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DataNilaiController as AdminDataNilaiController;
 use App\Http\Controllers\Admin\ThAkademikController;
 use App\Http\Controllers\Admin\JurusanController;
 use App\Http\Controllers\Admin\MapelController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\Admin\JadwalUjian;
+use App\Http\Controllers\Admin\ProfilController as AdminProfilController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\UjianController;
 use App\Http\Controllers\Guru\DataNilaiController;
@@ -16,6 +18,8 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Guru\GuruHomeController;
 use App\Http\Controllers\Guru\ProfilController;
 use App\Http\Controllers\Guru\SoalController as BankSoalController;
+use App\Http\Controllers\Siswa\ProfilController as SiswaProfilController;
+use App\Http\Controllers\Siswa\SiswaController as SiswaSiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,9 +46,10 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'levelAcces:admin'])->group(
     function () {
-        Route::get('admin', [AdminController::class, 'index'])->name('admin.dashboard');
         Route::prefix('admin')->group(
             function () {
+                Route::get('admin', [AdminController::class, 'index'])->name('admin.dashboard');
+
                 Route::post('monitoring', [AdminController::class, 'getMonitoring'])->name('admin.moniotring');
                 Route::get('th_akademik', [ThAkademikController::class, 'index'])->name('admin.th_akademik');
                 Route::post('th_akademik', [ThAkademikController::class, 'create'])->name('admin.th_akademik.create');
@@ -65,6 +70,7 @@ Route::middleware(['auth', 'levelAcces:admin'])->group(
                 Route::post('kelas', [KelasController::class, 'create'])->name('admin.kelas.create');
                 Route::put('kelas/{identitas}', [KelasController::class, 'edit'])->name('admin.kelas.edit');
                 Route::delete('kelas/{identitas}', [KelasController::class, 'delete'])->name('admin.kelas.delete');
+                Route::post('kelas/update-naik', [KelasController::class, 'updateSiswa'])->name('admin.updatenaik');
 
                 Route::get('guru', [GuruController::class, 'index'])->name('admin.guru');
                 Route::post('guru', [GuruController::class, 'create'])->name('admin.guru.create');
@@ -81,6 +87,16 @@ Route::middleware(['auth', 'levelAcces:admin'])->group(
                 Route::get('add/jadwalujian', [JadwalUjian::class, 'AddJadwalUjian'])->name('add.ujian');
                 Route::get('edit/jadwalujian/{id}', [JadwalUjian::class, 'editJadwal'])->name('edit.ujian');
                 Route::get('delete/jadwalujian/{id}', [JadwalUjian::class, 'deleteUjian'])->name('delete.ujian');
+
+                Route::get('profil', [AdminProfilController::class, 'index'])->name('admin.profil');
+                Route::post('profil/edit_profil', [AdminProfilController::class, 'edit_profil'])->name('admin.edit_profil');
+                Route::post('profil/edit_password', [AdminProfilController::class, 'edit_password'])->name('admin.edit_password');
+                Route::post('profil/hapus_foto_profil', [AdminProfilController::class, 'delete_foto_profil'])->name('admin.delete_foto_profil');
+
+                Route::get('nilai', [AdminDataNilaiController::class, 'index'])->name('admin.data_nilai');
+                Route::match(['get', 'post'], 'nilai/hasil', [AdminDataNilaiController::class, 'hasil_cari'])->name('admin.hasil_cari');
+                Route::get('nilai/hasil/export/{id_header_ujians}', [AdminDataNilaiController::class, 'exportNilai'])->name('admin.nilai_export');
+                Route::get('contoh', [AdminDataNilaiController::class, 'contoh'])->name('admin.contoh');
             }
         );
     }
@@ -93,8 +109,14 @@ Route::middleware(['auth', 'levelAcces:admin'])->group(
 Route::middleware(['auth', 'levelAcces:guru'])->group(
     function () {
         Route::group(['prefix' => 'guru/'], function () {
+
+            Route::get('aktivasi', [GuruHomeController::class, 'aktivasi'])->name('guru.aktivasi');
+            Route::post('aktivasi_guru', [GuruHomeController::class, 'aktivasi_guru'])->name('guru.aktivasi_guru');
             Route::get('mapel', [GuruHomeController::class, 'mapel'])->name('guru.mapel');
+
             Route::get('dashboard/{id_mapels}', [GuruHomeController::class, 'index'])->name('guru.dashboard');
+            Route::post('monitoring', [GuruHomeController::class, 'getMonitoring'])->name('guru.moniotring');
+
             Route::get('bank_soal/{id_mapels}', [BankSoalController::class, 'index'])->name('guru.bank_soal');
             Route::get('/bank_soal/lihat_soal/{id_mapels}/{id_header_ujians}', [BankSoalController::class, 'lihat_soal'])->name('guru.lihat_soal');
             Route::post('bank_soal/konfirmasi_ujian', [BankSoalController::class, 'konfirmasi_ujian'])->name('guru.konfirmasi_ujian');
@@ -108,9 +130,11 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
             Route::post('soal/{id_header_ujians}/{id_mapels}', [BankSoalController::class, 'uploadSoal'])->name('soal.create');
             Route::get('soal/{id_header_ujians}', [BankSoalController::class, 'exportSoal'])->name('soal.export');
             Route::post('poto', [BankSoalController::class, 'save'])->name('poto.create');
+
             Route::get('data_nilai/{id_mapels}', [DataNilaiController::class, 'index'])->name('guru.data_nilai');
             Route::match(['get', 'post'], 'data_nilai/hasil/{id_mapels}', [DataNilaiController::class, 'hasil_cari'])->name('guru.hasil_cari');
             Route::get('data_nilai/hasil/export/{id_header_ujians}', [DataNilaiController::class, 'exportNilai'])->name('nilai.export');
+
             Route::get('profil', [ProfilController::class, 'index'])->name('guru.profil');
             Route::post('profil/edit_profil', [ProfilController::class, 'edit_profil'])->name('guru.edit_profil');
             Route::post('profil/edit_password', [ProfilController::class, 'edit_password'])->name('guru.edit_password');
@@ -123,7 +147,15 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
 Route::middleware(['auth', 'levelAcces:siswa'])->group(
     function () {
         Route::group(['prefix' => 'siswa/'], function () {
+            Route::get('aktivasi', [SiswaSiswaController::class, 'aktivasi'])->name('siswa.aktivasi');
+            Route::post('aktivasi_siswa', [SiswaSiswaController::class, 'aktivasi_siswa'])->name('siswa.aktivasi_siswa');
             Route::get('dashboard', [App\Http\Controllers\Siswa\SiswaController::class, 'index'])->name('siswa.dashboard');
+            Route::get('slicing', [App\Http\Controllers\Siswa\SiswaController::class, 'slicing'])->name('siswa.slicing');
+
+            Route::get('profil', [SiswaProfilController::class, 'index'])->name('siswa.profil');
+            Route::post('profil/edit_profil', [SiswaProfilController::class, 'edit_profil'])->name('siswa.edit_profil');
+            Route::post('profil/edit_password', [SiswaProfilController::class, 'edit_password'])->name('siswa.edit_password');
+            Route::post('profil/hapus_foto_profil', [SiswaProfilController::class, 'delete_foto_profil'])->name('siswa.delete_foto_profil');
         });
         Route::group(['prefix' => 'ujian/'], function () {
             Route::get('start/{id}', [App\Http\Controllers\Siswa\SiswaController::class, 'ujian'])->name('siswa.ujian');

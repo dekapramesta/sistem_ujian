@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Admin\JadwalUjian;
-use App\Http\Controllers\Controller;
+use App\Models\Kelas;
+use App\Models\Mapel;
+use App\Models\Nilai;
+use App\Models\Siswa;
 use App\Models\DetailUjian;
 use App\Models\HeaderUjian;
-use App\Models\jadwal_ujian;
-use App\Models\Kelas;
-use App\Models\mst_mapel_guru_kelas;
-use App\Models\PesertaUjian;
-use App\Models\Siswa;
 use GuzzleHttp\Psr7\Header;
+use App\Models\jadwal_ujian;
+use App\Models\PesertaUjian;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\mst_mapel_guru_kelas;
+use App\Http\Controllers\Admin\JadwalUjian;
 
 class AdminApi extends Controller
 {
@@ -36,6 +38,47 @@ class AdminApi extends Controller
             $query->whereIn('id_kelas', $array_kelas);
         })->groupBy('id_kelas')->get();
         return response()->json($kelas, 200);
+    }
+    public function getUjian(Request $request)
+    {
+        $header_ujians = HeaderUjian::with('jadwal_ujian.th_akademiks')->where('id_jenjangs', $request->id_jenjang)->whereHas('jadwal_ujian', function ($query) use ($request) {
+            return $query->where('id_mapels', $request->id);
+        })->get();
+        return response()->json($header_ujians, 200);
+    }
+
+    public function get_detailujian(Request $request)
+    {
+
+        $detail_ujians = DetailUjian::with('headerujian', 'kelas.jurusan')->where('id_headerujian', $request->id_header)->get();
+        return response()->json($detail_ujians, 200);
+        // $mapel_hasil = Mapel::where('id', $request->id_mapel)->first();
+        // $ujian = HeaderUjian::where('id', $request->id_header_ujian)->first();
+        // $detail_ujians = DetailUjian::where('id_headerujian', $request->id_header_ujian)->get();
+        // $nilais = Nilai::where('id_ujian', $request->id_header_ujian)->get();
+
+        // return view('Admin.hasil_cari_nilai', compact('mapel', 'mst_mapel_guru_kelas', 'jenjang', 'mapel_hasil', 'ujian', 'detail_ujians', 'nilais'));
+    }
+
+    public function get_mapelhasil(Request $request)
+    {
+
+        $mapel_hasil = Mapel::where('id', $request->id_mapel)->first();
+        return response()->json($mapel_hasil, 200);
+    }
+
+    public function get_headerhasil(Request $request)
+    {
+
+        $header_hasil = HeaderUjian::with('jadwal_ujian.th_akademiks', 'jenjang')->where('id', $request->id_header_ujian)->first();
+        return response()->json($header_hasil, 200);
+    }
+
+    public function get_nilaihasil(Request $request)
+    {
+
+        $nilai_hasil = Nilai::with('siswa')->where('id_ujian', $request->id_header_ujian)->get();
+        return response()->json($nilai_hasil, 200);
     }
     // public function getKelasWithSiswa(Request $request)
     // {
@@ -137,7 +180,7 @@ class AdminApi extends Controller
             $detail = DetailUjian::create([
                 'id_headerujian' => $id_header,
                 'id_kelas' => $dt['id'],
-                'tanggal_ujian' => $request->tanggal_ujian,
+                'tanggal_ujian' => $dt['tgl_ujian'].' '.$dt['jam_ujian'],
                 'waktu_ujian' => $request->waktu_ujian,
                 'status' => 0
             ]);

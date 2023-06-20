@@ -17,10 +17,10 @@ class CreateJawabansTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_soals');
             $table->longText('jawaban');
-            $table->string('jawaban_gambar', 255)->nullable();
+            $table->string('jawaban_gambar', 25)->nullable();
             $table->boolean('status');
             $table->foreign('id_soals')
-                ->references('id')->on('soals');
+                ->references('id')->on('soals')->onDelete('cascade');
             $table->timestamps();
         });
     }

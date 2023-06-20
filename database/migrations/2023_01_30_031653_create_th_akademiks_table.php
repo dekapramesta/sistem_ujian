@@ -22,12 +22,6 @@ class CreateThAkademiksTable extends Migration
             $table->string('identitas', 10);
             $table->timestamps();
         });
-
-        ThAkademik::create([
-            'th_akademik' => '2022/2023',
-            'nama_semester' => 'Genap',
-            'identitas' => Str::random(10),
-        ]);
     }
 
     /**

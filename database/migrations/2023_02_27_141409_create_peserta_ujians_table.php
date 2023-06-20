@@ -15,7 +15,7 @@ class CreatePesertaUjiansTable extends Migration
     {
         Schema::create('peserta_ujians', function (Blueprint $table) {
             $table->id();
-            $table->string('nis', 6);
+            $table->string('nis', 7);
             $table->unsignedBigInteger('id_detail_ujians');
             $table->foreign('id_detail_ujians')
                 ->references('id')->on('detail_ujians')->onUpdate('cascade')

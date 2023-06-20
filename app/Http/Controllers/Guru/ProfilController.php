@@ -36,13 +36,11 @@ class ProfilController extends Controller
             $request->foto_profil->move(public_path('img/user'), $namafile_fotoprofil);
             Guru::where('id_user', $user->id)->update([
                 'no_telp' => $request->no_telp,
-                'email' => $request->email,
                 'foto_profil' => $namafile_fotoprofil
             ]);
         } else {
             Guru::where('id_user', $user->id)->update([
                 'no_telp' => $request->no_telp,
-                'email' => $request->email
             ]);
         }
         Alert::success('Berhasil', 'Berhasil Merubah Profil');

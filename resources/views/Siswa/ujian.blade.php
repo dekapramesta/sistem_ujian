@@ -138,13 +138,13 @@
             class="bi bi-arrow-up-short"></i></a>
     <script type="text/javascript">
         $(document).ready(async function() {
-            let id_soal;
+            let id_soal; //membuat variable id_soal
             $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') //csrf
                 }
             });
-            await $.ajax({
+            await $.ajax({ // memanggil button nomer soal
                 type: "POST",
                 url: "{{ route('ujian.getTemp') }}",
                 data: {
@@ -152,7 +152,7 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    id_soal = res.data[0].id
+                    id_soal = res.data[0].id //menambah value id_soal
                     console.log(res)
                     res.data.map((dt, id) => {
                         id++
@@ -170,7 +170,7 @@
                     })
                 }
             });
-            await $.ajax({
+            await $.ajax({  // memanggil waktu countdown ujian
                 type: "POST",
                 url: "{{ route('ujian.getTime') }}",
                 data: {
@@ -200,8 +200,8 @@
 
                         // Output the result in an element with id="demo"
                         document.getElementById("demo").innerHTML = hours +
-                            "Jam " +
-                            minutes + "Menit " + seconds + "Detik ";
+                            " Jam " +
+                            minutes + " Menit " + seconds + " Detik ";
 
                         // If the count down is over, write some text
                         if (distance < 0) {
@@ -224,7 +224,7 @@
             getSoal(id_soal)
             $('#no_soal').html('1')
         })
-        document.getElementById('submitujian').addEventListener('submit', function(evt) {
+        document.getElementById('submitujian').addEventListener('submit', function(evt) {  // ketika siswa menekan tombol selesai
             evt.preventDefault();
             swal({
                     title: "Ingin Mengakhiri Ujian?",
@@ -244,7 +244,7 @@
 
 
 
-        function getSoal(id) {
+        function getSoal(id) { // untuk menampilkan soal
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -270,8 +270,6 @@
 
 
                     }
-
-                    console.log('cok', imageSoal)
                     $('#jawaban_place').html(``)
                     $('#soal').html(res.data.soal.soal)
                     $('#gambar-soal').html(imageSoal)
@@ -295,7 +293,7 @@
 
                             } else {
 
-                                imageTrue = `<div class="d-flex justify-content-center">
+                                imageTrue = `<div class="ms-4 justify-content-center">
                                                                                         <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
                                                                                             alt="description of myimage" style="width:250px; height:300px">
                                                                                     </div>`;
@@ -317,11 +315,12 @@
                                         <div>
                                         <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
                                         </div>
-                                        <div class="d-none">
-                                    ${imageTrue}
-                                    </div>
+
 
                                       </div>
+                                      <div class="d-flex justify-content-center ms-4 style="flex:0 0 auto">
+                                    ${imageTrue}
+                                    </div>
                                `)
                         } else {
                             let imageTrue = ``;
@@ -331,7 +330,7 @@
 
                             } else {
 
-                                imageTrue = `<div class="d-flex justify-content-center">
+                                imageTrue = `<div class="d-block justify-content-center">
                                                                                         <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
                                                                                             alt="description of myimage" style="width:250px; height:300px">
                                                                                     </div>`;
@@ -349,10 +348,11 @@
                                                                     <div>
                                                                         <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
                                                                     </div>
-                                                                    <div class="d-none">
+
+                                                                  </div>
+                                                                  <div class="d-flex justify-content-center ms-4" style="flex:0 0 auto">
                                     ${imageTrue}
                                     </div>
-                                                                  </div>
                                                            `)
 
                         }

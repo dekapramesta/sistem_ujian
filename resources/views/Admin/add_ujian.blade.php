@@ -30,6 +30,7 @@
                                         <select id="select_jenisujian" class="select2-js w-100" name="state">
                                             <option value="UTS">UTS</option>
                                             <option value="UAS">UAS</option>
+                                            <option value="Pre-Test">Pre-Test</option>
                                         </select>
                                     </div>
                                     <div class="d-flex flex-row">
@@ -58,22 +59,12 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="d-flex flex-row mb-2">
-                                        <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
-                                        <div class="col-sm-10">
-                                            <input type="date" id="tanggal_ujian" class="form-control w-70">
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row mb-2">
-                                        <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
-                                        <div class="col-sm-10">
-                                            <input type="time" id="jam_ujian" class="form-control w-70">
-                                        </div>
-                                    </div>
+
                                     <div class="d-flex flex-row mb-2">
                                         <label for="inputTime" class="col-sm-2 col-form-label">Waktu Ujian</label>
-                                        <div class="col-sm-10">
-                                            <input type="number" id="waktu_ujian" class="form-control w-70">
+                                        <div class="d-flex row-sm-10 align-items-center">
+                                            <input type="number" id="waktu_ujian" class="form-control">
+                                            <span class="fs-6 ms-2">Menit</span>
                                         </div>
                                     </div>
                                     <div class="d-flex flex-row mb-2">
@@ -104,7 +95,7 @@
                                 <div class="row mb-3 mt-2">
                                     <label class="col-sm-2 col-form-label">Submit Button</label>
                                     <div class="col-sm-10">
-                                        <button onclick="postUjian()" type="submit" class="btn btn-primary">Submit
+                                        <button type="button" id="submit_ujian" class="btn btn-primary">Submit
                                             Form</button>
                                     </div>
                                 </div>
@@ -118,7 +109,16 @@
                 <div class="modal fade bd-example-modal-lg" id="modalks" role="dialog"
                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
+
                         <div class="modal-content">
+                            <div class="loader-wrapper" id="loader-1"
+                                style=" position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);  background-color: rgba(128, 128, 128, 0.5);">
+                                <div id="loader"></div>
+                            </div>
+
                             <div class="card">
                                 <div class="card-header d-flex justify-content-center">
                                     <h3 class="fs-4">Tambah Kelas dan Siswa</h3>
@@ -143,17 +143,25 @@
                                         <div class="tab-pane fade show active " id="kelas-overview">
                                             <label class="col-sm-2 col-form-label">Kelas</label>
                                             <div class="row">
-                                                <div class="col-8">
+                                                <div class="col">
                                                     <select class="select2-js-mdl w-100" style="width: 100%;"
                                                         id="selectkls" name="kelas" multiple="">
 
                                                     </select>
-                                                </div>
-                                                <div class="col-4 d-flex justify-content-center ">
+                                                    <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+                                                    <div class="col">
+                                                        <input type="date" id="tgl_ujian_kls"
+                                                            class="form-control w-70">
+                                                    </div>
+                                                    <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
+                                                    <div class="col">
+                                                        <input type="time" id="jam_ujian_kls"
+                                                            class="form-control w-70">
+                                                    </div>
                                                     <button id="tambahkls" type="button"
-                                                        class="btn btn-secondary btn-sm d-flex align-items-center justify-content-center "
-                                                        style="height:90% ; width: 80%">Tambah</button>
+                                                        class="btn btn-secondary btn-sm d-flex align-items-center justify-content-center mt-2 w-100">Tambah</button>
                                                 </div>
+
                                             </div>
                                         </div>
                                         <div class="tab-pane fade " id="siswa-overview">
@@ -161,17 +169,26 @@
                                             <div class="d-flex flex-column">
                                                 <label class="col-sm-2 col-form-label">Siswa</label>
                                                 <div class="row">
-                                                    <div class="col-8">
+                                                    <div class="col">
                                                         <select class="select2-js-mdl w-100" id="selectsw"
                                                             style="width: 100%;" name="siswa" multiple="">
 
                                                         </select>
+                                                        <label for="inputDate"
+                                                            class="col-sm-2 col-form-label">Date</label>
+                                                        <div class="col">
+                                                            <input type="date" id="tgl_ujian_sw"
+                                                                class="form-control w-70">
+                                                        </div>
+                                                        <label for="inputTime"
+                                                            class="col-sm-2 col-form-label">Time</label>
+                                                        <div class="col">
+                                                            <input type="time" id="jam_ujian_sw"
+                                                                class="form-control w-70">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-4 d-flex justify-content-center ">
-                                                        <button id="tambahsw" type="button"
-                                                            class="btn btn-secondary btn-sm d-flex align-items-center justify-content-center "
-                                                            style="height:90% ; width: 80%">Tambah</button>
-                                                    </div>
+                                                    <button id="tambahsw" type="button"
+                                                        class="btn btn-secondary mt-2 btn-sm d-flex align-items-center justify-content-center w-100">Tambah</button>
 
                                                 </div>
                                             </div>
@@ -187,6 +204,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Nama Kelas</th>
+                                                        <th scope="col">Tanggal Dan Jam</th>
                                                         <th scope="col" class="text-center">Aksi</th>
 
                                                     </tr>
@@ -235,17 +253,32 @@
 
             </div>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
+        // flatpickr("#waktu_ujian", {
+        //     enableTime: true,
+        //     noCalendar: true,
+        //     dateFormat: "H:i:S",
+        //     time_24hr: true,
+        // });
+        const loaders = document.getElementsByClassName('loader-wrapper');
         let kelasFinal = [];
         let siswaFinal = [];
-        let result = [];
-        let siswaCount = 0;
+        var result = [];
+        let tempDeleteKls = []
+        let tempDeleteSw = []
 
         $(document).ready(function() {
             $('.select2-js').select2();
 
             let kelas = [];
             let siswa = [];
+            $('#waktu_ujian').on('keyup', function() {
+                if ($('#selectmapel').val()) {
+                    $('#btn_md_kls').prop("disabled", false);
+                }
+
+            })
 
 
             $('#selectmapel').change(function() {
@@ -254,7 +287,11 @@
                 resetOption("selectsw")
                 getKelasMapel(idMapel)
                 getSiswaMapel(idMapel)
-                $('#btn_md_kls').prop("disabled", false);
+
+                if ($('#waktu_ujian').val()) {
+                    $('#btn_md_kls').prop("disabled", false);
+
+                }
             })
             $("#btn_md_kls").click(function() {
                 console.log("first")
@@ -262,68 +299,99 @@
                     dropdownParent: $('#modalks')
                 });
                 $('#modalks').appendTo("body").modal('show');
-                $('#tambahkls').click(function() {
+                $('#tambahkls').click(async function() {
                     kelas = ($('#selectkls').val())
-                    console.log('addkls', kelas)
-                    getKelas(kelas)
-                    // console.log('kelas', kelasFinal)
-                    // mappingKelaas(data)
 
+                    if ($('#jam_ujian_kls').val().length === 0) {
+                        swal("Mohon Maaf", "Jam Kosong", "error");
+
+                    } else if ($('#tgl_ujian_kls').val().length === 0) {
+                        swal("Mohon Maaf", "Tanggal Kosong", "error");
+
+                    } else if (kelas.length === 0) {
+                        swal("Mohon Maaf", "Kelas Kosong", "error");
+
+                    } else {
+                        loaders[0].style.display = "inherit";
+                        console.log('addkls', kelas)
+                        await getKelas(kelas)
+                        loaders[0].style.display = "none";
+
+                        $('#selectkls').val('').trigger('change');
+                    }
 
                 })
                 $('#tambahsw').click(async function() {
                     siswa = ($('#selectsw').val())
-                    console.log('id_sw', siswa)
-                    let data = await getOneSiswa(siswa)
-                    console.log("first", data)
-                    data.map((dt) => {
-                        if (result.length === 0) {
-                            result.push(dt.kelas)
-                        } else {
-                            result.map((rs) => {
-                                kelasFinal.push(rs.id)
-                            })
-                            if (!kelasFinal.includes(dt.kelas.id)) {
+
+                    if ($('#jam_ujian_sw').val().length === 0) {
+                        swal("Mohon Maaf", "Jam Kosong", "error");
+
+                    } else if ($('#tgl_ujian_sw').val().length === 0) {
+                        swal("Mohon Maaf", "Tanggal Kosong", "error");
+
+                    } else if (siswa.length === 0) {
+                        swal("Mohon Maaf", "Kelas Kosong", "error");
+
+                    } else {
+                        loaders[0].style.display = "inherit";
+
+                        console.log('id_sw', siswa)
+                        let data = await getOneSiswa(siswa)
+                        console.log("first", data)
+                        data.map((dt) => {
+                            if (result.length === 0) {
+                                dt.kelas.tgl_ujian = $('#tgl_ujian_sw').val()
+                                dt.kelas.jam_ujian = $('#jam_ujian_sw').val()
                                 result.push(dt.kelas)
-                                kelasFinal.push(dt.kelas.id)
-                            }
-                        }
+                            } else {
+                                result.map((rs) => {
+                                    kelasFinal.push(rs.id)
+                                })
+                                if (!kelasFinal.includes(dt.kelas.id)) {
 
-                    })
-
-                    data.map((dt_sw) => {
-                        result.map((rs_sw, id_rs) => {
-                            if (dt_sw.kelas.id === rs_sw.id) {
-                                if (rs_sw.siswa === undefined) {
-                                    result[id_rs]['siswa'] = []
-                                    result[id_rs].siswa.push(dt_sw)
-                                    siswaFinal.push(dt_sw.id)
-                                } else {
-                                    if (!siswaFinal.includes(dt_sw.id)) {
-                                        siswaFinal.push(dt_sw.id)
-                                        result[id_rs].siswa.push(dt_sw)
-                                    }
+                                    dt.kelas.tgl_ujian = $('#tgl_ujian_sw').val()
+                                    dt.kelas.jam_ujian = $('#jam_ujian_sw').val()
+                                    result.push(dt.kelas)
+                                    kelasFinal.push(dt.kelas.id)
                                 }
                             }
+
                         })
-                    })
-                    $('#table-kelas').html('')
-                    $('#table-siswa').html('')
-                    mappingKelaas(result)
-                    mappingSiswa(result)
-                    console.log("hasil oi", result)
-                    console.log("kelasfinal", kelasFinal)
-                    // if (result.length === 0) {
-                    //     result.push(data.kelas)
-                    //     console.log(result)
-                    // } else {
-                    //     result.map((rs) => {
-                    //         if (rs.id !== data.kelas.id) {
-                    //             result.push(data.kelas)
-                    //         }
-                    //     })
-                    //     console.log(result)
-                    // }
+
+                        data.map((dt_sw) => {
+                            delete dt_sw.kelas
+                            result.map((rs_sw, id_rs) => {
+                                if (dt_sw.id_kelas === rs_sw.id) {
+                                    if (rs_sw.siswa === undefined) {
+                                        swal("Informasi",
+                                            "Tanggal dan Jam Kelas Ini Mengikuti Data yg Di Input Pertama Kali",
+                                            "info");
+                                        result[id_rs]['siswa'] = []
+                                        result[id_rs].siswa.push(dt_sw)
+                                        siswaFinal.push(dt_sw.id)
+
+                                    } else {
+                                        swal("Informasi",
+                                            "Tanggal dan Jam Kelas Ini Mengikuti Data yg Di Input Pertama Kali",
+                                            "info");
+                                        if (!siswaFinal.includes(dt_sw.id)) {
+                                            siswaFinal.push(dt_sw.id)
+                                            result[id_rs].siswa.push(dt_sw)
+                                        }
+                                    }
+                                }
+                            })
+                        })
+                        $('#table-kelas').html('')
+                        $('#table-siswa').html('')
+                        mappingKelaas(result)
+                        mappingSiswa(result)
+                        console.log("hasil oi", result)
+                        console.log("kelasfinal", kelasFinal)
+                        loaders[0].style.display = "none";
+                        $('#selectsw').val('').trigger('change');
+                    }
 
 
                 })
@@ -335,7 +403,31 @@
                 if ($(this).is(':checked')) {
                     let onekls = await getOneKelas(index)
                     console.log("onekls", onekls[0])
+                    onekls[0].tgl_ujian = $('#tgl_ujian_kls').val()
+                    onekls[0].jam_ujian = $('#jam_ujian_kls').val()
+                    delete onekls[0].siswa
                     result.push(onekls[0])
+                    let findKelas = result.findIndex((item) => parseInt(item.id) === onekls[0].id)
+                    result[findKelas].siswa = []
+                    // let indeDel = null;
+                    let indeDel = [];
+
+                    console.log(tempDeleteSw)
+                    tempDeleteSw.map((sw, ind) => {
+                        console.log('oiii')
+                        console.log(sw)
+                        if (parseInt(sw.id_kelas) === parseInt(onekls[0].id)) {
+                            console.log('masukk')
+                            indeDel.push(parseInt(ind - 1))
+
+                            result[findKelas].siswa.push(sw)
+                        }
+
+
+                    })
+                    indeDel.map((del) => {
+                        tempDeleteSw.splice(del, 1)
+                    })
 
                     $(this).prop('checked', true);
                     checkKelas(onekls[0].id)
@@ -351,38 +443,45 @@
                     result.map((val, id) => {
                         // console.log(val.id)
                         if (val.id === index) {
+                            val.siswa.map((psd) => {
+                                tempDeleteSw.push(psd)
+                            })
                             result.splice(id, 1)
+
                             console.log("delete " + val.id)
                         }
+
                     })
+                    console.log("delete sw", tempDeleteSw)
+
                 }
-                // if ($(this).prop("checked", false)) {
-                //     // result.push(getOneKelas(index))
-                //     console.log("first")
-                // } else if ($(this).prop("checked", true)) {
-                //     // result.map((val, id) => {
-                //     //     // console.log(val.id)
-                //     //     if (val.id === index) {
-                //     //         result.splice(id, 1)
-                //     //         console.log("delete " + val.id)
-                //     //     }
-                //     // })
-                //     console.log("second")
-                // }
+
                 console.log('hasil', result)
-                // removeElement($(this).data('target'));
-                // $('#table-siswa').html('')
-                // mappingSiswa(result)
+
 
 
                 console.log('array kelas', kelasFinal)
 
             })
             $('#table-siswa').on('click', '#hapussw', async function() {
+
                 let index = parseInt($(this).data('index'))
                 if ($(this).is(':checked')) {
                     let onesw = await getOneSiswa([index])
-                    console.log('siswa', onesw)
+                    // onesw[0].tgl_ujian = $('#tgl_ujian_sw').val()
+                    // onesw[0].jam_ujian = $('#jam_ujian_sw').val()
+                    console.log('siswa cuyyy', onesw[0].id_kelas)
+                    let findKelasInDelete = tempDeleteKls.findIndex((dtk) => parseInt(dtk.id) ===
+                        parseInt(onesw[0].id_kelas))
+                    console.log('testing cy', tempDeleteKls[0])
+                    console.log('array habis backup', tempDeleteKls[findKelasInDelete])
+
+                    if (findKelasInDelete !== undefined) {
+                        result.push(tempDeleteKls[findKelasInDelete])
+                        tempDeleteKls.splice(findKelasInDelete, 1)
+                        checkKelasPar(onesw[0].id_kelas)
+                        console.log('backup', result)
+                    }
                     result.map((val, id) => {
                         if (val.id === onesw[0].id_kelas) {
                             result[id].siswa.push(onesw[0])
@@ -401,9 +500,14 @@
                         // console.log(val.id)
                         val.siswa.map((sw, swid) => {
                             if (sw.id === index) {
+                                tempDeleteSw.push(result[id].siswa[swid])
                                 result[id].siswa.splice(swid, 1)
                                 if (result[id].siswa.length === 0) {
+                                    tempDeleteKls.push(result[id])
                                     result.splice(id, 1);
+                                    removeKelasFinal(val.id)
+                                    console.log("kleas", kelasFinal)
+                                    uncheckKelasPar(val.id)
 
                                 }
                             }
@@ -413,11 +517,15 @@
                 }
 
                 console.log(result)
+                console.log('kelas delete', tempDeleteKls)
+                console.log('siswa delete', tempDeleteSw)
 
             })
 
             $('#submit_kls_sw').on('click', function() {
                 // console.log('siswa array', result)
+                let siswaCount = 0;
+
                 result.map((rs) => {
                     rs.siswa.map((sw) => {
                         siswaCount += 1
@@ -427,8 +535,57 @@
                 $('#val_sw_kls').val("Total Kelas : " + result.length + ", Total Siswa : " + siswaCount)
 
             })
+            $('#submit_ujian').on('click', async function() {
+                // console.log('siswa array', result)
+                if (result.length === 0) return swal("Mohon Maaf", "Data Kelas Dan Siswa Kosong",
+                    "error");
+                let data = {
+                    jenis_ujian: checkvalue($('#select_jenisujian').val(), 'Jenis Ujian'),
+                    waktu_ujian: checkvalue($('#waktu_ujian').val(), 'Waktu Ujian'),
+                    id_th_akademiks: checkvalue($('#tahun_akademik').val(), 'Tahun Akademik'),
+                    kelas: checkvalue($('#kelas').val(), 'Jenjang'),
+                    status: 0,
+                    id_mapels: checkvalue($('#selectmapel').val(), 'Mata pelajran'),
+                    jumlah_soal: checkvalue($('#jumlah_soal').val(), 'Jumlah Soal'),
+                    data: result
+                }
+
+                try {
+                    console.log(data)
+
+                    await $.ajax({
+                        type: "POST",
+                        url: "{{ route('api.postujian') }}",
+                        data: data,
+                        dataType: 'json',
+                        success: function(res) {
+                            console.log(res)
+                            $(document).ajaxStop(function() {
+                                window.location.href =
+                                    "{{ route('jadwal.ujian') }}";
+                            });
+                        }
+                    });
+
+
+
+                } catch (error) {
+                    console.log('erro lu', error)
+
+                }
+
+            })
 
         });
+
+        function checkvalue(val, label) {
+            if (!val) {
+                swal("Mohon Maaf", `${label} Kosong`, "error");
+
+            } else {
+                return val
+            }
+        }
 
         function removeKelasFinal(id) {
             kelasFinal.forEach((kls, kls_id) => {
@@ -458,16 +615,49 @@
             $checkboxes.prop('checked', true);
         }
 
+        function uncheckKelasPar(id_kelas) {
+            console.log('id_kelas', id_kelas)
+            let $table = $('#table-kelas');
+
+            let $checkboxes = $table.find(`input[type="checkbox"][data-index="${id_kelas}"]`);
+
+            $checkboxes.prop('checked', false);
+        }
+
+        function checkKelasPar(id_kelas) {
+            console.log('id_kelas', id_kelas)
+            let $table = $('#table-kelas');
+
+            let $checkboxes = $table.find(`input[type="checkbox"][data-index="${id_kelas}"]`);
+
+            $checkboxes.prop('checked', true);
+        }
+
         function removeElement(element) {
             $('#' + element).remove()
         }
 
         function mappingKelaas(datas) {
+            console.log('ambil menit', $('#waktu_ujian').val())
             datas.map((dt) => {
+                let tgl_start = new Date(dt.tgl_ujian + ' ' + dt.jam_ujian)
+                let options = {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    timeZone: 'Asia/Jakarta'
+                };
+                let formattedDate = tgl_start.toLocaleString('id-ID', options);
+                let endDate = new Date(tgl_start.getTime() + parseInt($('#waktu_ujian').val() * 60000))
+                    .toLocaleString('id-ID', options);
+
                 kelasFinal.push(dt.id)
                 $('#table-kelas').append(`
              <tr id="rowkls${dt.id}">
                   <td>${dt.jurusan.nama_jurusan +' - '+ dt.nama_kelas }</td>
+                  <td>${ formattedDate + ' - ' + endDate}</td>
                          <td class="text-center">
                            <div class="form-check d-flex justify-content-center">
                             <input class="form-check-input" type="checkbox" id="hapuskls" data-index="${dt.id}" data-target="rowkls${dt.id}" checked/>
@@ -568,18 +758,24 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    console.log(res)
-
+                    console.log('kelaslur', res)
+                    let mappinObj = [];
                     res.map((rs) => {
-                        if (!kelasFinal.includes(rs.id)) {
+                        let foundKelas = result.find(item => item.id === rs.id)
+                        if (foundKelas === undefined) {
+                            rs.jam_ujian = $('#jam_ujian_kls').val()
+                            rs.tgl_ujian = $('#tgl_ujian_kls').val()
                             result.push(rs)
-                            kelasFinal.push(rs.id)
+                            mappinObj.push(rs)
                         }
+                        console.log('golekkelas', foundKelas)
+
                     })
-                    $('#table-kelas').html('')
-                    $('#table-siswa').html('')
-                    mappingKelaas(res)
-                    mappingSiswa(res)
+                    mappingKelaas(mappinObj)
+                    mappingSiswa(mappinObj)
+                    // $('#table-kelas').html('')
+                    // $('#table-siswa').html('')
+
                     console.log(result)
 
                 }
@@ -650,32 +846,40 @@
             })
         }
 
-        function postUjian() {
+        // async function postUjian() {
 
-            let data = {
-                jenis_ujian: $('#select_jenisujian').val(),
-                tanggal_ujian: $('#tanggal_ujian').val() + ' ' + $('#jam_ujian').val(),
-                waktu_ujian: $('#waktu_ujian').val(),
-                id_th_akademiks: $('#tahun_akademik').val(),
-                kelas: $('#kelas').val(),
-                status: 0,
-                id_mapels: $('#selectmapel').val(),
-                jumlah_soal: $('#jumlah_soal').val(),
-                data: result
-            }
-            $.ajax({
-                type: "POST",
-                url: "{{ route('api.postujian') }}",
-                data: data,
-                dataType: 'json',
-                success: function(res) {
-                    console.log(res)
-                }
-            });
+        //     try {
 
-            $(document).ajaxStop(function() {
-                window.location.href = "{{ route('jadwal.ujian') }}";
-            });
-        }
+        //         console.log('kene cok', result);
+
+        //         let postData = await result
+        //         await $.ajax({
+        //             type: "POST",
+        //             url: "{{ route('api.postujian') }}",
+        //             data: {
+        //                 jenis_ujian: $('#select_jenisujian').val(),
+        //                 tanggal_ujian: $('#tanggal_ujian').val() + ' ' + $('#jam_ujian').val(),
+        //                 waktu_ujian: $('#waktu_ujian').val(),
+        //                 id_th_akademiks: $('#tahun_akademik').val(),
+        //                 kelas: $('#kelas').val(),
+        //                 status: 0,
+        //                 id_mapels: $('#selectmapel').val(),
+        //                 jumlah_soal: $('#jumlah_soal').val(),
+        //                 data: [postData]
+        //             },
+        //             dataType: 'json',
+        //             success: function(res) {
+        //                 console.log(res)
+        //             }
+        //         });
+        //     } catch (error) {
+        //         console.log('erro lu', error)
+
+        //     }
+
+        //     // $(document).ajaxStop(function() {
+        //     //     window.location.href = "{{ route('jadwal.ujian') }}";
+        //     // });
+        // }
     </script>
 @endsection

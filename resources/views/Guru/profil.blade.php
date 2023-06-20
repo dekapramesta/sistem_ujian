@@ -94,10 +94,10 @@
                                     <div class="col-lg-9 col-md-8">{{ $guru->no_telp }}</div>
                                 </div>
 
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Email</div>
                                     <div class="col-lg-9 col-md-8">{{ $guru->email }}</div>
-                                </div>
+                                </div> --}}
 
                             </div>
 
@@ -137,13 +137,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
+                                    {{-- <div class="row mb-3">
                                         <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="email" type="text" class="form-control" id="email"
                                                 value="{{ $guru->email }}">
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -162,8 +162,14 @@
                                         <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Password
                                             Sekarang</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="password" type="password" class="form-control"
-                                                id="currentPassword">
+                                            <div class="input-group">
+                                                <input name="password" type="password" class="form-control"
+                                                    id="currentPassword">
+                                                <span class="input-group-text" id="inputGroupPrepend">
+                                                    <i class="ri-eye-close-line" id="show-1"
+                                                        onclick="myFunctionPass()" style="cursor : pointer"></i>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -171,8 +177,14 @@
                                         <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Password
                                             Baru</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="newpassword" type="password" class="form-control"
-                                                id="newPassword">
+                                            <div class="input-group">
+                                                <input name="newpassword" type="password" class="form-control"
+                                                    id="newPassword">
+                                                <span class="input-group-text" id="inputGroupPrepend">
+                                                    <i class="ri-eye-close-line" id="show-2"
+                                                        onclick="myFunctionNewPass()" style="cursor : pointer"></i>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -180,8 +192,14 @@
                                         <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter
                                             Password Baru</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="renewpassword" type="password" class="form-control"
-                                                id="renewPassword">
+                                            <div class="input-group">
+                                                <input name="renewpassword" type="password" class="form-control"
+                                                    id="renewPassword">
+                                                <span class="input-group-text" id="inputGroupPrepend">
+                                                    <i class="ri-eye-close-line" id="show-3"
+                                                        onclick="myFunctionRePass()" style="cursor : pointer"></i>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -204,6 +222,42 @@
         $('.dropify').dropify({
             showRemove: false,
         });
+    </script>
+    <script>
+        function myFunctionPass() {
+            var x = document.getElementById("currentPassword");
+            if (x.type === "password") {
+                x.type = "text";
+                document.getElementById("show-1").className = "ri-eye-line";
+            } else {
+                x.type = "password";
+                document.getElementById("show-1").className = "ri-eye-close-line";
+            }
+        }
+    </script>
+    <script>
+        function myFunctionNewPass() {
+            var x = document.getElementById("newPassword");
+            if (x.type === "password") {
+                x.type = "text";
+                document.getElementById("show-2").className = "ri-eye-line";
+            } else {
+                x.type = "password";
+                document.getElementById("show-2").className = "ri-eye-close-line";
+            }
+        }
+    </script>
+    <script>
+        function myFunctionRePass() {
+            var x = document.getElementById("renewPassword");
+            if (x.type === "password") {
+                x.type = "text";
+                document.getElementById("show-3").className = "ri-eye-line";
+            } else {
+                x.type = "password";
+                document.getElementById("show-3").className = "ri-eye-close-line";
+            }
+        }
     </script>
     <script type="text/javascript">
         function hapus_foto_profil_{{ $guru->id }}(foto_profil) {

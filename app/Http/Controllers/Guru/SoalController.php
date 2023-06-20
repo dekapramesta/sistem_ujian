@@ -6,6 +6,8 @@ use App\Models\Guru;
 use App\Models\Soal;
 use App\Models\Kelas;
 use App\Models\Mapel;
+use App\Models\Nilai;
+use App\Models\Siswa;
 use App\Models\Ujian;
 use App\Models\Jawaban;
 use App\Models\Jenjang;
@@ -15,6 +17,7 @@ use App\Imports\SoalImport;
 use App\Models\detail_soal;
 use App\Models\DetailUjian;
 use App\Models\HeaderUjian;
+use App\Models\PesertaUjian;
 use Illuminate\Http\Request;
 use Intervention\Image\Image;
 use Illuminate\Support\Facades\DB;
@@ -52,6 +55,13 @@ class SoalController extends Controller
 
     public function uploadSoal(Request $request, $id_header_ujians, $id_mapels)
     {
+        session()->flash('modal', 'tambah');
+        session()->flash('id_header_ujians', $id_header_ujians);
+        $request->validate([
+            'file' => 'required',
+        ], [
+            'file.required' => 'File Soal Harus Diupload.',
+        ]);
         Excel::import(new SoalImport($id_header_ujians), $request->file);
 
         $soal = Soal::where('id_headerujian', $id_header_ujians)->get();
@@ -265,6 +275,23 @@ class SoalController extends Controller
         $HeaderUjian = HeaderUjian::where('id', $request->id_headerujian)->update([
             'status' => 1
         ]);
+        $peserta_ujian = PesertaUjian::with('detailujian')->whereHas('detailujian', function ($query) use ($request) {
+            return $query->where('id_headerujian', $request->id_headerujian);
+        })->get();
+        // $nis_peserta_ujian = [];
+        foreach($peserta_ujian as $pst_uj) {
+            $siswa = Siswa::where('nis', $pst_uj->nis)->first();
+            // array_push($nis_peserta_ujian, $pst_uj->nis);
+            Nilai::create([
+                'id_ujian' => $request->id_headerujian,
+                'id_siswa' => $siswa->id,
+                'jumlah_benar' => 0,
+                'jumlah_salah' => 0,
+                'nilai' => 0,
+                'identitas' => $pst_uj->nis,
+            ]);
+        }
+        // return response()->json($nis_peserta_ujian, 200);
         if($HeaderUjian) {
             return response()->json([
                 'success' => true,

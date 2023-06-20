@@ -2,34 +2,71 @@
 
 namespace App\Http\Controllers\Siswa;
 
-use App\Http\Controllers\Controller;
-use App\Models\DetailUjian;
-use App\Models\HeaderUjian;
-use App\Models\Nilai;
-use App\Models\PesertaUjian;
-use App\Models\Siswa;
+use DateTime;
 use App\Models\Soal;
 use App\Models\Temp;
-use DateTime;
+use App\Models\User;
+use App\Models\Nilai;
+use App\Models\Siswa;
+use App\Models\DetailUjian;
+use App\Models\HeaderUjian;
 use GuzzleHttp\Psr7\Header;
+use App\Models\PesertaUjian;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SiswaController extends Controller
 {
     public function index()
     {
-        $data = Siswa::where('id_user', Auth::user()->id)->first();
-        $ujian = PesertaUjian::where('nis', $data->nis)->get();
-        $nilai = Nilai::where('id_siswa', $data->id)->get();
+        $siswa = Siswa::where('id_user', Auth::user()->id)->first();
+        $ujian = PesertaUjian::where('nis', $siswa->nis)->get();
+        $nilai = Nilai::where('id_siswa', $siswa->id)->get();
         // $ujian = PesertaUjian::with('detailujian.headerujian.jadwal_ujian.mapel')->whereHas('peserta', function ($query) use ($data) {
         //     return $query->where('id', $data->id);
         // })->get();
         // dd($ujian);
 
         // dd($ujian);
-        return view("siswa.siswa_home", compact('ujian', 'nilai'));
+        return view("siswa.siswa_home", compact('ujian', 'nilai', 'siswa'));
     }
+
+    public function aktivasi()
+    {
+        $user = Auth::user();
+        $siswa = Siswa::where('id_user', $user->id)->first();
+        return view('Siswa.aktivasi', compact('siswa'));
+    }
+
+    public function aktivasi_siswa(Request $request)
+    {
+        $user = Auth::user();
+        $siswa = Siswa::where('id_user', $user->id)->first();
+        // dd(substr($request->no_telp, 0, 3) === "628");
+        if($request->password == $request->konfirmasi_password) {
+            $save = User::where('id', $user->id)->update([
+                'password'  => bcrypt($request->password),
+                'verified'  => 1
+            ]);
+
+            if($save){
+                $no_telp = substr($request->no_telp, 0, 3) === "628" ? '08'.substr($request->no_telp, 3) : $request->no_telp;
+                Siswa::where('id_user', $user->id)->update([
+                    'no_telp' => ($no_telp),
+                ]);
+            }
+
+
+            Alert::success('Berhasil', 'Berhasil Merubah Password dan Aktivasi');
+            return redirect()->route('siswa.dashboard');
+        } else {
+            Alert::error('Gagal', 'Password Baru tidak sama dengan Konfirmasi Password Baru');
+            return redirect()->back();
+        }
+    }
+
     public function ujian()
     {
         # code...
@@ -61,14 +98,14 @@ class SiswaController extends Controller
         # code...
         $ujian = DetailUjian::where('id_headerujian', $request->id)->first();
         // return response()->json(['data' => $ujian], 200);
-        $endTime = date('M d,Y H:i:s', strtotime('+' . $ujian->waktu_ujian . 'minutes', strtotime($ujian->tanggal_ujian)));
+        $endTime = date('M d,Y H:i:s', strtotime('+' . $ujian->waktu_ujian . 'minutes', strtotime($ujian->tanggal_ujian))); // +400minutes 2023-06-09 14:21:20
         // $endTime = date("H:i:s", strtotime('+30 minutes', $ujian->tanggal_ujian));
         $currentTime = date('Y:m:d H:i:s', time());
         $first  = new DateTime($currentTime);
         $second = new DateTime($endTime);
 
         $diff = $first->diff($second);
-        $time_gap = $diff->format('%H:%I:%S');
+        $time_gap = $diff->format('%H:%I:%S'); // 02:00:00
         $milliseconds = strtotime($time_gap) * 1000;
         return response()->json(['time' => $milliseconds, 'jam' => $time_gap, 'end_time' => $endTime], 200);
     }
@@ -82,12 +119,14 @@ class SiswaController extends Controller
     public function shuffleFisher(Request $request)
     {
         # code...
-        $arr_soal = $request->data_ujian;
-        for ($i = count($arr_soal) - 1; $i > 0; $i--) {
-            $r = rand(0, $i);
-            $tmp = $arr_soal[$i];
-            $arr_soal[$i] = $arr_soal[$r];
-            $arr_soal[$r] = $tmp;
+        $arr_soal = $request->data_ujian;   // soal 3 = siapa megawati
+        // soal 5 = siapa sukarno
+
+        for ($i = count($arr_soal) - 1; $i > 0; $i--) { // => $i=5
+            $r = rand(0, $i);  // random angka 0 - jumlah soal yang diupload => $r=3
+            $tmp = $arr_soal[$i]; // mengambil soal data terakhir            => range data soal ke-5 =siapa sukarno
+            $arr_soal[$i] = $arr_soal[$r]; //Tukar posisi (x) dengan data terakhir range 1 sampai dengan i  =>data soal 5 = data soal 3; data soal 5 = siapa megawati
+            $arr_soal[$r] = $tmp; //Tukar posisi (x) dengan data terakhir range 1 sampai dengan i => data soal 3 = siapa sukarno
         }
 
         for ($ind = 0; $ind < $request->total; $ind++) {
@@ -131,18 +170,28 @@ class SiswaController extends Controller
             }
         }
         $nilai = ($jawaban_benar / $detail_ujian->headerujian->jumlah_soal) * 100;
-        Nilai::create([
-            'id_ujian' => $request->headerujian,
-            'id_siswa' => $siswa->id,
-            'jumlah_benar' => $jawaban_benar,
-            'jumlah_salah' => $jawaban_salah,
-            'nilai' => round($nilai, 2),
-            'identitas' => $siswa->nis
-        ]);
+        $searchNilai = Nilai::where('id_siswa', $siswa->id)->where('id_ujian', $request->headerujian)->first();
+        $searchNilai->nilai = round($nilai, 2);
+        $searchNilai->jumlah_benar = $jawaban_benar;
+        $searchNilai->jumlah_salah = $jawaban_salah;
+        $searchNilai->save();
+
+        // Nilai::create([
+        //     'id_ujian' => $request->headerujian,
+        //     'id_siswa' => $siswa->id,
+        //     'jumlah_benar' => $jawaban_benar,
+        //     'jumlah_salah' => $jawaban_salah,
+        //     'nilai' => round($nilai, 2),
+        //     'identitas' => $siswa->nis
+        // ]);
         $pesertaujian = PesertaUjian::where([['id_detail_ujians', '=', $detail_ujian->id], ['nis', '=', $siswa->nis]])->first();
         $pesertaujian->status = 1;
         $pesertaujian->save();
         return redirect()->route('siswa.dashboard');
         // dd($jawaban);
+    }
+    function slicing()
+    {
+        return view('siswa.slicing');
     }
 }

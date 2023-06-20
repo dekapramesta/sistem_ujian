@@ -84,7 +84,8 @@
                                             <div class="card-header  d-flex justify-content-between"
                                                 style="background: cornsilk">
                                                 <div>
-                                                    <h5 class="card-title-datatable">{{ $sl->soal }}</h5>
+                                                    <h5 class="card-title-datatable" style="font-size: 1rem">
+                                                        {{ $sl->soal }}</h5>
                                                     @if ($sl->soal_gambar != null && $sl->soal_gambar != 1)
                                                         <input type="file" class="dropify " disabled="disabled"
                                                             name="disabled_gambar_soal" id="input-file-now-disabled-2"
