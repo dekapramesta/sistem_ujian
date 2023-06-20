@@ -19,7 +19,7 @@ class AdminController extends Controller
         $ujian = HeaderUjian::with('detailujian')->whereHas('detailujian', function ($query) use ($currentDate) {
             return $query->whereDate('tanggal_ujian', $currentDate);
         })->get();
-        return view("admin.admin_home", compact('ujian'));
+        return view("Admin.admin_home", compact('ujian'));
     }
     public function getMonitoring(Request $request)
     {

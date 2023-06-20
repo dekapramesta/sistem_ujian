@@ -15,7 +15,7 @@ class MapelController extends Controller
     {
         $mapels = Mapel::orderBy('nama_mapel', 'ASC')->get();
         $jurusans=Jurusan::orderBy('nama_jurusan', 'ASC')->get();
-        return view("admin.mapel", compact('mapels', 'jurusans'));
+        return view("Admin.mapel", compact('mapels', 'jurusans'));
     }
 
     public function create(Request $request)

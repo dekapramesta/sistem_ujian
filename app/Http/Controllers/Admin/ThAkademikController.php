@@ -13,7 +13,7 @@ class ThAkademikController extends Controller
     public function index()
     {
         $th_akademiks = ThAkademik::orderBy('th_akademik', 'ASC')->get();
-        return view("admin.th_akademik", compact('th_akademiks'));
+        return view("Admin.th_akademik", compact('th_akademiks'));
     }
 
     public function create(Request $request)

@@ -20,7 +20,7 @@ class GuruController extends Controller
         $kelas = Kelas::with('jenjang', 'jurusan')->get();
         $mapel = Mapel::all();
         $gurus = Guru::with('mst_mapel_guru_kelas.kelas.jenjang', 'mst_mapel_guru_kelas.mapel', 'mst_mapel_guru_kelas.kelas.jurusan', 'mst_mapel_guru_kelas.kelas')->orderBy('nama', 'ASC')->get();
-        return view("admin.guru", compact('gurus', 'kelas', 'mapel'));
+        return view("Admin.guru", compact('gurus', 'kelas', 'mapel'));
     }
 
     public function create(Request $request)
