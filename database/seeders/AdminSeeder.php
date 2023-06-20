@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
             'id_user' => '1',
             'nama' => 'Silvy',
             "no_telp" => "081230185768",
-            "email" => "admin123@gmail.com",
+            // "email" => "admin123@gmail.com",
         ]);
     }
 }

@@ -15,8 +15,7 @@ class Siswa extends Model
         'nama',
         'nis',
         'tanggal_lahir',
-        'no_telp',
-        'email'
+        'no_telp'
     ];
 
     protected $primaryKey = 'id';

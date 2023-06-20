@@ -22,7 +22,6 @@ class CreateSiswasTable extends Migration
             $table->string('nis', 7);
             $table->date('tanggal_lahir');
             $table->string('no_telp', 14) -> nullable();
-            $table->string('email', 25) -> nullable();
             $table->string('foto_profil', 25) -> nullable();
             $table->foreign('id_user')
                 ->references('id')->on('users')->onDelete('cascade');

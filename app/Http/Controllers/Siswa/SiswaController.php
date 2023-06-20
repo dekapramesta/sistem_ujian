@@ -44,11 +44,21 @@ class SiswaController extends Controller
     {
         $user = Auth::user();
         $siswa = Siswa::where('id_user', $user->id)->first();
-        if ($request->password == $request->konfirmasi_password) {
-            User::where('id', $user->id)->update([
+        // dd(substr($request->no_telp, 0, 3) === "628");
+        if($request->password == $request->konfirmasi_password) {
+            $save = User::where('id', $user->id)->update([
                 'password'  => bcrypt($request->password),
                 'verified'  => 1
             ]);
+
+            if($save){
+                $no_telp = substr($request->no_telp, 0, 3) === "628" ? '08'.substr($request->no_telp, 3) : $request->no_telp;
+                Siswa::where('id_user', $user->id)->update([
+                    'no_telp' => ($no_telp),
+                ]);
+            }
+
+
             Alert::success('Berhasil', 'Berhasil Merubah Password dan Aktivasi');
             return redirect()->route('siswa.dashboard');
         } else {
