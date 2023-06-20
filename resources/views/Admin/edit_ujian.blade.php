@@ -842,12 +842,22 @@
                 success: function(res) {
                     console.log('id_jadwal', idJadwal)
                     console.log(res)
+                    if (res.status === true) {
+                        swal("Sukses", `Data Berhasil Diedit`, "success").then((
+                            rs) => {
+                            if (rs) {
+                                window.location.href =
+                                    "{{ route('jadwal.ujian') }}";
+                            }
+                        });
+
+                    }
                 }
             });
 
-            $(document).ajaxStop(function() {
-                window.location.href = "{{ route('jadwal.ujian') }}";
-            });
+            // $(document).ajaxStop(function() {
+            //     window.location.href = "{{ route('jadwal.ujian') }}";
+            // });
         }
     </script>
 @endsection

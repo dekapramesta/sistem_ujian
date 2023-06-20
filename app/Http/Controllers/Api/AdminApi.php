@@ -180,7 +180,7 @@ class AdminApi extends Controller
             $detail = DetailUjian::create([
                 'id_headerujian' => $id_header,
                 'id_kelas' => $dt['id'],
-                'tanggal_ujian' => $dt['tgl_ujian'].' '.$dt['jam_ujian'],
+                'tanggal_ujian' => $dt['tgl_ujian'] . ' ' . $dt['jam_ujian'],
                 'waktu_ujian' => $request->waktu_ujian,
                 'status' => 0
             ]);
@@ -195,6 +195,6 @@ class AdminApi extends Controller
                 }
             }
         }
-        return response()->json("success");
+        return response()->json(['status' => true]);
     }
 }
