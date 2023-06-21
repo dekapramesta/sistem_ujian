@@ -105,12 +105,13 @@
                                     <div class="d-flex row px-3">
 
 
-                                        <label>Nama Guru :</label><input type="text" class="form-control" name="nama">
+                                        <label>Nama Guru :</label><input required type="text" class="form-control"
+                                            name="nama">
 
                                         <label class="mt-2">NIP : </label><input type="text" class="form-control"
                                             name="nip">
                                         <label class="mt-2">Tanggal :</label>
-                                        <input type="date" class="form-control" name="tanggal_lahir">
+                                        <input type="date" class="form-control" name="tanggal_lahir" required>
                                         <div class="card rounded mt-3">
                                             <div class="card-body">
                                                 <h5 class="card-title">Kelas Dan Mapel</h5>
@@ -150,13 +151,13 @@
                                 <div class="d-flex row px-3">
                                     <input type="text" hidden value="" id="id_guru" name="id_guru">
                                     <label>Nama Guru :</label><input type="text" id="nama_edit" class="form-control"
-                                        name="nama" value="">
+                                        name="nama" value="" required>
                                     <label class="mt-2">NIP :</label><input id="nip_edit" type="text"
-                                        class="form-control" name="nip" value="">
+                                        class="form-control" name="nip" value="" required>
 
                                     <label class="mt-2">Tanggal Lahir: </label>
-                                    <input type="date" class="form-control" id="tgl_edit" name="tanggal_lahir"
-                                        value="">
+                                    <input type="date" class="form-control" required id="tgl_edit"
+                                        name="tanggal_lahir" value="">
                                     <div class="card rounded mt-3">
                                         <div class="card-body">
                                             <h5 class="card-title">Kelas Dan Mapel</h5>
@@ -195,18 +196,21 @@
                 container.append(
                     `<div class="mt-2 d-flex flex-row justify-content-between" id='row-select${index}'></div>`
                 )
-                var select = $('<select class="form-control"></select>').attr('name', 'kelas[]')
+                var select = $('<select id="pilihkelas" class="form-control"></select>').attr(
+                        'name', 'kelas[]')
                     .attr('class',
-                        'form-select').attr('style', 'width:10rem');
-                var select2 = $('<select class="form-control ms-2"></select>').attr('name',
+                        'form-select').attr('style', 'width:10rem').prop('required', true);;
+                var select2 = $('<select class="form-control ms-2" required></select>').attr('name',
                         'mapel[]')
                     .attr('class',
-                        'form-select ms-3').attr('style', 'width:10rem');
+                        'form-select ms-3').attr('style', 'width:10rem').prop('required', true);;
 
 
 
-                var optionDisableKls = $('<option disabled hidden selected ></option>').text('Pilih Kelas');
-                var optionDisableMpl = $('<option disabled hidden selected ></option>').text('Pilih Maple');
+                var optionDisableKls = $('<option value="" disabled hidden selected ></option>').text(
+                    'Pilih Kelas');
+                var optionDisableMpl = $('<option value="" disabled hidden selected ></option>').text(
+                    'Pilih Maple');
                 // var optionDisableMpl = $('<option></option>').attr('value').text('Option 2');
 
                 select.append(optionDisableKls);
@@ -241,18 +245,21 @@
                 containerEdit.append(
                     `<div class="mt-2 d-flex flex-row justify-content-between" id='row-selectedit${indexEdit}'></div>`
                 )
-                var select = $('<select class="form-control"></select>').attr('name', 'kelas[]')
+                var select = $('<select id="pilihkelasedit" class="form-control"></select>').attr('name',
+                        'kelas[]')
                     .attr('class',
-                        'form-select').attr('style', 'width:10rem');
+                        'form-select').attr('style', 'width:10rem').prop('required', true);;
                 var select2 = $('<select class="form-control ms-2"></select>').attr('name',
                         'mapel[]')
                     .attr('class',
-                        'form-select ms-3').attr('style', 'width:10rem');
+                        'form-select ms-3').attr('style', 'width:10rem').prop('required', true);;
 
 
 
-                var optionDisableKls = $('<option disabled hidden selected ></option>').text('Pilih Kelas');
-                var optionDisableMpl = $('<option disabled hidden selected ></option>').text('Pilih Maple');
+                var optionDisableKls = $('<option value="" disabled hidden selected ></option>').text(
+                    'Pilih Kelas');
+                var optionDisableMpl = $('<option value="" disabled hidden selected ></option>').text(
+                    'Pilih Maple');
                 // var optionDisableMpl = $('<option></option>').attr('value').text('Option 2');
 
                 select.append(optionDisableKls);
@@ -284,6 +291,10 @@
 
             $("#tambah_guru").submit(function(event) {
                 event.preventDefault();
+                let elementExists = document.getElementById("pilihkelas") !== null;
+                if (!elementExists) return swal("Mohon Maaf", "Tambah Kelas dan Mapel Belum ada", "error");
+
+
                 var formData = $(this).serialize();
                 $.ajaxSetup({
                     headers: {
@@ -316,6 +327,10 @@
 
             $("#edit_guru_form").submit(function(event) {
                 event.preventDefault();
+                let elementExists = document.getElementById("pilihkelasedit") !== null;
+
+                if (!elementExists) return swal("Mohon Maaf", "Tambah Kelas dan Mapel Belum ada", "error");
+
                 let formDataEdit = $(this).serialize();
                 $.ajaxSetup({
                     headers: {

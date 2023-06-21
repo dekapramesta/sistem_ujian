@@ -24,7 +24,7 @@ class JadwalUjian extends Controller
     public function index()
     {
         # code...
-        $header = HeaderUjian::with('jadwal_ujian.mapel')->get();
+        $header = HeaderUjian::with('jadwal_ujian.mapel', 'detailujian.pesertaujian.siswa', 'guru', 'detailujian.kelas.jenjang', 'detailujian.kelas.jurusan')->get();
         // dd($header);
         // dd($header);
         return view('Admin.jadwal', compact('header'));
@@ -74,22 +74,28 @@ class JadwalUjian extends Controller
             }
 
             if (!in_array($mst_mpl_guru_kls->id_gurus, $gurus)) {
-                $header = HeaderUjian::create([
-                    'id_jadwalujian' => $id,
-                    'id_gurus' => $mst_mpl_guru_kls->id_gurus,
-                    'id_jenjangs' => $dt['id_jenjang'],
-                    'jumlah_soal' => $request->jumlah_soal,
-                    "status" => 0
-                ]);
-                // return response()->json($dataJdw);
-                $id_header = $header->id;
-                array_push($gurus, $mst_mpl_guru_kls->id_gurus);
+                $searchHeaader = HeaderUjian::where('id_jadwalujian', $id)->where('id_gurus', $mst_mpl_guru_kls->id_gurus)->where('id_jenjangs', $dt['id_jenjang'])->first();
+                if ($searchHeaader == null) {
+
+                    $header = HeaderUjian::create([
+                        'id_jadwalujian' => $id,
+                        'id_gurus' => $mst_mpl_guru_kls->id_gurus,
+                        'id_jenjangs' => $dt['id_jenjang'],
+                        'jumlah_soal' => $request->jumlah_soal,
+                        "status" => 0
+                    ]);
+                    // return response()->json($dataJdw);
+                    $id_header = $header->id;
+                    array_push($gurus, $mst_mpl_guru_kls->id_gurus);
+                } else {
+                    return response()->json(['status' => false]);
+                }
             }
 
             $detail = DetailUjian::create([
                 'id_headerujian' => $id_header,
                 'id_kelas' => $dt['id'],
-                'tanggal_ujian' => $dt['tgl_ujian'].' '.$dt['jam_ujian'],
+                'tanggal_ujian' => $dt['tgl_ujian'] . ' ' . $dt['jam_ujian'],
                 'waktu_ujian' => $request->waktu_ujian,
                 'status' => 0
             ]);
@@ -100,7 +106,7 @@ class JadwalUjian extends Controller
                 ]);
             }
         }
-        return response()->json("success");
+        return response()->json(['status' => true, 'message' => 'data berhasil dibuat']);
     }
     public function editJadwal($id)
     {

@@ -560,10 +560,29 @@
                         dataType: 'json',
                         success: function(res) {
                             console.log(res)
-                            $(document).ajaxStop(function() {
-                                window.location.href =
-                                    "{{ route('jadwal.ujian') }}";
-                            });
+                            if (res.status === true) {
+                                swal("Sukses", `Data Berhasil Dibuat`, "success").then((
+                                    rs) => {
+                                    if (rs) {
+                                        window.location.href =
+                                            "{{ route('jadwal.ujian') }}";
+                                    }
+                                });
+
+                            } else {
+                                swal("Mohon Maaf", `Data Sudah Ada`, "error").then((
+                                    rs_er) => {
+                                    if (rs_er) {
+                                        window.location.href =
+                                            "{{ route('jadwal.ujian') }}";
+                                    }
+                                });
+
+                            }
+                            // $(document).ajaxStop(function() {
+                            //     window.location.href =
+                            //         "{{ route('jadwal.ujian') }}";
+                            // });
                         }
                     });
 
@@ -773,9 +792,6 @@
                     })
                     mappingKelaas(mappinObj)
                     mappingSiswa(mappinObj)
-                    // $('#table-kelas').html('')
-                    // $('#table-siswa').html('')
-
                     console.log(result)
 
                 }
