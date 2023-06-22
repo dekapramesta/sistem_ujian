@@ -11,7 +11,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/smasaka.png') }}" rel="icon">
     <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -60,12 +60,17 @@
                             <p class="text-muted"><span>Soal <span id="no_soal_now"></span> Dari <span
                                         id="no_soal_last"></span></span>
                             </p>
-                            <div class="d-flex justify-content-start">
-                                <p class="me-4 " id="no_soal">1.</p>
-                                <p class="card-text" style='white-space: pre-line;' id="soal"></p>
-                            </div>
-                            <div class="d-flex justify-content-center" id="gambar-soal">
+                            <div class="d-flex flex-row justify-content-start">
+                                <div class="col-1 d-flex" style="width: 45px">
+                                    <p class="me-4 flex-fill" id="no_soal">1.</p>
+                                </div>
+                                <div class="col-11">
+                                    <p class="card-text" style='white-space: pre-line;' id="soal"></p>
+                                    <div class="col text-start" style="height: 300px" id="gambar-soal"
+                                        style="flex:0 0 auto">
 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,16 +109,6 @@
                             </div>
                             <div class="container border border-grey rounded justify-content-start py-2 px-2"
                                 id="soal_button">
-                                {{-- <button class="btn btn-outline-secondary btn-sm px-3 mt-2 ms-2">1</button>
-                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
-                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
-                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
-                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
-                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
-                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
-                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
-                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
-                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button> --}}
                             </div>
 
 
@@ -148,11 +143,11 @@
                         if (dt.id_jawaban === null) {
 
                             $('#soal_button').append(
-                                `<button id='getsoal' class="btn btn-outline-secondary  btn-sm px-3 mt-2 ms-2" data-value="${dt.id}" data-index="${id}">${id}</button>`
+                                `<button id='getsoal' class="btn btn-outline-secondary btn-sm px-3 mt-2 ms-2" style="width: 50px;" data-value="${dt.id}" data-index="${id}">${id}</button>`
                             )
                         } else {
                             $('#soal_button').append(
-                                `<button id='getsoal' class="btn btn-primary btn-sm px-3 mt-2 ms-2" data-value="${dt.id}" data-index="${id}">${id}</button>`
+                                `<button id='getsoal' class="btn btn-primary btn-sm px-3 mt-2 ms-2" style="width: 50px;" data-value="${dt.id}" data-index="${id}">${id}</button>`
                             )
 
                         }
@@ -224,7 +219,7 @@
 
             })
             getSoal(id_soal)
-            $('#no_soal').html('1')
+            $('#no_soal').html('1.')
             $('#no_soal_now').html('1')
         })
         document.getElementById('submitujian').addEventListener('submit', function(
@@ -270,13 +265,16 @@
 
                     } else {
                         imageSoal = `<img src="{{ asset('img/soal/${res.data.soal.soal_gambar}') }}"
-                                    class="card-img-top" style="width: 50%; max-width: 100%; height:auto;"
+                                    class="card-img-top" style="width: 50%; max-width: 100%; height:auto; max-height:100%"
                                     alt="...">`
 
                     }
                     $('#jawaban_place').html(``)
                     $('#soal').html(res.data.soal.soal)
                     $('#gambar-soal').html(imageSoal)
+                    if (!$('#gambar-soal').find('img').length) {
+                        $('#gambar-soal').removeAttr('style');
+                    }
                     let arr_soal = []
                     arr_soal.push(res.data.soal.jawaban)
                     let data_jawaban = arr_soal[0]
@@ -297,10 +295,10 @@
 
                             } else {
 
-                                imageTrue = `<div class="d-flex justify-content-center ms-4 style="flex:0 0 auto">
+                                imageTrue = `<div class="col text-start mb-5" style="height: 300px"  style="flex:0 0 auto"">
                                             <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
-                                                class="card-img-top ms-3"
-                                                style="width: 50%; max-width: 100%; height:auto;" alt="...">
+                                                class="card-img-top ms-2"
+                                                style="width: 50%; max-width: 100%; height:auto; max-height:100%" alt="...">
                                         </div>`;
 
                             }
@@ -312,34 +310,22 @@
                             console.log('oiasa', imageTrue)
 
                             $('#jawaban_place').append(
-                                // `<div class="d-flex flex-row mt-2 align-items-start inline">
-                            //     <div class="col-1" style="width: 13px">
-                            //         <input type="radio" id="radioButton" name="jawaban" class="mt-1"
-                            //             style="width: 15px" onclick="postJawab('${id}','${dt.id}')" checked>
-                            //     </div>
-                            //     <div class="col-11">
-                            //         <div class="d-flex flex-row">
-                            //             <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
-                            //         </div>
-                            //         ${imageTrue}
-
-                            //     </div>
-                            //     </div>`
                                 `
                             <div class="form-check ms-2 d-flex" style="padding-left:0">
                                 <div class="" style="width:flex:0 0 auto">
                                         <input class="form-check-input ms-4" style="float:none" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                             id="flexRadioDefault1" checked>
                                             </div>
-                                            <div>
+                                            <div class="col text-start">
                                             <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
+                                            <div class="" style="flex:0 0 auto">
+                                        ${imageTrue}
+                                        </div>
                                             </div>
 
 
                                         </div>
-                                        <div class="d-flex justify-content-center ms-4 style="flex:0 0 auto">
-                                        ${imageTrue}
-                                        </div>
+
                                 `)
                         } else {
                             let imageTrue = ``;
@@ -349,10 +335,10 @@
 
                             } else {
 
-                                imageTrue = `<div class="d-flex justify-content-center ms-4 style="flex:0 0 auto">
+                                imageTrue = `<div class="col text-start mb-5" style="height: 300px" style="flex:0 0 auto">
                                             <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
-                                                class="card-img-top ms-3"
-                                                style="width: 50%; max-width: 100%; height:auto;" alt="...">
+                                                class="card-img-top ms-2"
+                                                style="width: 50%; max-width: 100%; height:auto; max-height:100%" alt="...">
                                         </div>`;
 
                             }
@@ -365,14 +351,15 @@
                                                                 <input class="form-check-input ms-4" style="float:none" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                                                     id="flexRadioDefault1" >
                                                             </div>
-                                                                    <div>
+                                                                    <div class="col text-start">
                                                                         <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
+                                                                        <div class="" style="flex:0 0 auto">
+                                    ${imageTrue}
+                                    </div>
                                                                     </div>
 
                                                                   </div>
-                                                                  <div class="d-flex justify-content-center ms-4" style="flex:0 0 auto">
-                                    ${imageTrue}
-                                    </div>
+
                                                            `)
 
                         }

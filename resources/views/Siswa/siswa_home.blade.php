@@ -71,7 +71,7 @@
                                                 </p>
 
 
-                                                @if ($ujn->status == 0)
+                                                @if ($ujn->status == 0 || $ujn->status == 7)
                                                     @if ($ujn->detailujian->tanggal_ujian <= now())
                                                         <a href="{{ route('siswa.ujian', $ujn->detailujian->id_headerujian) }}"
                                                             class="btn btn-primary">Ujian</a>
