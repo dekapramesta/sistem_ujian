@@ -13,7 +13,6 @@ class jadwal_ujian extends Model
         'id_mapels',
         'id_jenjangs',
         'jenis_ujian',
-        'status',
     ];
 
     public function detailujian()

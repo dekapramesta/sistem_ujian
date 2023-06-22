@@ -21,7 +21,6 @@ class CreateJadwalUjiansTable extends Migration
             // $table->date('tanggal_ujian');
             // $table->time('waktu_ujian');
             $table->string('jenis_ujian', 10);
-            $table->tinyInteger('status');
             $table->foreign('id_th_akademiks')
                 ->references('id')->on('th_akademiks')->onDelete('cascade');
             $table->foreign('id_mapels')

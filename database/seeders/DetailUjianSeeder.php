@@ -21,7 +21,6 @@ class DetailUjianSeeder extends Seeder
             'tanggal_ujian' => Carbon::now(),
             'waktu_ujian'   => '90',
             'token' => "ajsasajsk",
-            "status" => 1
         ]);
     }
 }

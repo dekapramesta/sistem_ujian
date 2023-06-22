@@ -58,7 +58,6 @@ class JadwalUjian extends Controller
                     'id_th_akademiks' => $request->id_th_akademiks,
                     'id_mapels' => $request->id_mapels,
                     'jenis_ujian' => $request->jenis_ujian,
-                    "status" => 0
                 ]);
                 $id = $jdwlujian->id;
                 // $header = HeaderUjian::create([
@@ -97,7 +96,6 @@ class JadwalUjian extends Controller
                 'id_kelas' => $dt['id'],
                 'tanggal_ujian' => $dt['tgl_ujian'] . ' ' . $dt['jam_ujian'],
                 'waktu_ujian' => $request->waktu_ujian,
-                'status' => 0
             ]);
             foreach ($dt['siswa'] as $sw) {
                 PesertaUjian::create([

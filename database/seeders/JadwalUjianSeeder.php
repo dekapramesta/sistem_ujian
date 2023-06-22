@@ -21,7 +21,6 @@ class JadwalUjianSeeder extends Seeder
             'jenis_ujian' => 'UTS',
             'id_mapels' => 1,
             'id_jenjangs' => 1,
-            'status'    => 0
         ]);
     }
 }
