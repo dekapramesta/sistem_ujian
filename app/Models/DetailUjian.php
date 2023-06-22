@@ -13,7 +13,7 @@ class DetailUjian extends Model
         'id_kelas',
         'tanggal_ujian',
         'waktu_ujian',
-        'token',
+        // 'token',
         'status',
     ];
 

@@ -24,8 +24,8 @@ class KelasController extends Controller
 
     public function create(Request $request)
     {
-        session()->flash('modal', 'create');
-        $validator = $request->validate([
+        session()->flash('modal', 'create');    // mengatur flash data dalam sesi, yaitu data yang hanya tersedia dalam satu permintaan berikutnya
+        $validator = $request->validate([       // hasil dari validasi data
             'id_jenjang' => 'required',
             'id_jurusan' => 'required',
             'nama_kelas' => [
