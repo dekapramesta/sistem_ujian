@@ -537,15 +537,16 @@
             })
             $('#submit_ujian').on('click', async function() {
                 // console.log('siswa array', result)
-                console.log(result)
+                if (result.length === 0) return swal("Mohon Maaf", "Data Kelas Dan Siswa Kosong",
+                    "error");
                 let data = {
-                    jenis_ujian: $('#select_jenisujian').val(),
-                    waktu_ujian: $('#waktu_ujian').val(),
-                    id_th_akademiks: $('#tahun_akademik').val(),
-                    kelas: $('#kelas').val(),
+                    jenis_ujian: checkvalue($('#select_jenisujian').val(), 'Jenis Ujian'),
+                    waktu_ujian: checkvalue($('#waktu_ujian').val(), 'Waktu Ujian'),
+                    id_th_akademiks: checkvalue($('#tahun_akademik').val(), 'Tahun Akademik'),
+                    kelas: checkvalue($('#kelas').val(), 'Jenjang'),
                     status: 0,
-                    id_mapels: $('#selectmapel').val(),
-                    jumlah_soal: $('#jumlah_soal').val(),
+                    id_mapels: checkvalue($('#selectmapel').val(), 'Mata pelajran'),
+                    jumlah_soal: checkvalue($('#jumlah_soal').val(), 'Jumlah Soal'),
                     data: result
                 }
 
@@ -559,10 +560,29 @@
                         dataType: 'json',
                         success: function(res) {
                             console.log(res)
-                            $(document).ajaxStop(function() {
-                                window.location.href =
-                                    "{{ route('jadwal.ujian') }}";
-                            });
+                            if (res.status === true) {
+                                swal("Sukses", `Data Berhasil Dibuat`, "success").then((
+                                    rs) => {
+                                    if (rs) {
+                                        window.location.href =
+                                            "{{ route('jadwal.ujian') }}";
+                                    }
+                                });
+
+                            } else {
+                                swal("Mohon Maaf", `Data Sudah Ada`, "error").then((
+                                    rs_er) => {
+                                    if (rs_er) {
+                                        window.location.href =
+                                            "{{ route('jadwal.ujian') }}";
+                                    }
+                                });
+
+                            }
+                            // $(document).ajaxStop(function() {
+                            //     window.location.href =
+                            //         "{{ route('jadwal.ujian') }}";
+                            // });
                         }
                     });
 
@@ -576,6 +596,15 @@
             })
 
         });
+
+        function checkvalue(val, label) {
+            if (!val) {
+                swal("Mohon Maaf", `${label} Kosong`, "error");
+
+            } else {
+                return val
+            }
+        }
 
         function removeKelasFinal(id) {
             kelasFinal.forEach((kls, kls_id) => {
@@ -763,9 +792,6 @@
                     })
                     mappingKelaas(mappinObj)
                     mappingSiswa(mappinObj)
-                    // $('#table-kelas').html('')
-                    // $('#table-siswa').html('')
-
                     console.log(result)
 
                 }

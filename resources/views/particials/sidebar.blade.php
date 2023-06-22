@@ -67,7 +67,7 @@
         </li><!-- End Forms Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('admin/jadwalujian*') || request()->is('admin/add/jadwalujian*') ? '' : 'collapsed' }}"
+            <a class="nav-link {{ request()->is('admin/jadwalujian*') || request()->is('admin/add/jadwalujian*') || request()->is('admin/edit/jadwalujian*') ? '' : 'collapsed' }}"
                 href="{{ route('jadwal.ujian') }}">
                 <i class="bi bi-layout-text-window-reverse"></i>
                 <span>SET JADWAL</span>

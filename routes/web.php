@@ -150,6 +150,8 @@ Route::middleware(['auth', 'levelAcces:siswa'])->group(
             Route::get('aktivasi', [SiswaSiswaController::class, 'aktivasi'])->name('siswa.aktivasi');
             Route::post('aktivasi_siswa', [SiswaSiswaController::class, 'aktivasi_siswa'])->name('siswa.aktivasi_siswa');
             Route::get('dashboard', [App\Http\Controllers\Siswa\SiswaController::class, 'index'])->name('siswa.dashboard');
+            Route::get('slicing', [App\Http\Controllers\Siswa\SiswaController::class, 'slicing'])->name('siswa.slicing');
+            Route::get('slicing_fix', [App\Http\Controllers\Siswa\SiswaController::class, 'slicing_fix'])->name('siswa.slicing_fix');
 
             Route::get('profil', [SiswaProfilController::class, 'index'])->name('siswa.profil');
             Route::post('profil/edit_profil', [SiswaProfilController::class, 'edit_profil'])->name('siswa.edit_profil');
@@ -157,6 +159,7 @@ Route::middleware(['auth', 'levelAcces:siswa'])->group(
             Route::post('profil/hapus_foto_profil', [SiswaProfilController::class, 'delete_foto_profil'])->name('siswa.delete_foto_profil');
         });
         Route::group(['prefix' => 'ujian/'], function () {
+            Route::get('slicing_fix/{id}', [App\Http\Controllers\Siswa\SiswaController::class, 'slicing_fix'])->name('siswa.slicing_fix');
             Route::get('start/{id}', [App\Http\Controllers\Siswa\SiswaController::class, 'ujian'])->name('siswa.ujian');
             Route::post('/ujian-berlangsung', [App\Http\Controllers\Siswa\SiswaController::class, 'getTemp'])->name('ujian.getTemp');
             Route::post('/ujian-berakhir', [App\Http\Controllers\Siswa\SiswaController::class, 'getTime'])->name('ujian.getTime');

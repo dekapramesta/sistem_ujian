@@ -6,7 +6,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item ">Set Jadwal Ujian</li>
-                <li class="breadcrumb-item active">Tambah</li>
+                <li class="breadcrumb-item active">Edit</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -49,10 +49,12 @@
 
                                     <div class="d-flex flex-row mb-2">
                                         <label for="inputTime" class="col-sm-2 col-form-label">Waktu Ujian</label>
-                                        <div class="col-sm-10">
-                                            <input type="number" id="waktu_ujian" class="form-control w-70">
+                                        <div class="d-flex row-sm-10 align-items-center">
+                                            <input type="number" id="waktu_ujian" class="form-control">
+                                            <span class="fs-6 ms-2">Menit</span>
                                         </div>
                                     </div>
+
                                     <div class="d-flex flex-row mb-2">
                                         <label for="inputTime" class="col-sm-2 col-form-label">Jumlah Soal</label>
                                         <div class="col-sm-10">
@@ -593,6 +595,16 @@
             console.log("kelas final rmv", kelasFinal)
         }
 
+        function checkvalue(val, label) {
+            if (!val) {
+                swal("Mohon Maaf", `${label} Kosong`, "error");
+
+            } else {
+                return val
+            }
+        }
+
+
 
         function uncheckKelas(id_kelas) {
             console.log('id_kelas', id_kelas)
@@ -811,16 +823,17 @@
 
         function postUjian() {
             console.log("result", result)
-
+            if (result.length === 0) return swal("Mohon Maaf", "Data Kelas Dan Siswa Kosong",
+                "error");
             let data = {
                 id_header: '<?php echo Request::segment(4); ?>',
-                jenis_ujian: jenis_ujian,
-                waktu_ujian: $('#waktu_ujian').val(),
-                id_th_akademiks: id_tahunakademik,
-                kelas: KelasId,
+                jenis_ujian: checkvalue(jenis_ujian, 'Jenis Ujian'),
+                waktu_ujian: checkvalue($('#waktu_ujian').val(), 'Waktu Ujian'),
+                id_th_akademiks: checkvalue(id_tahunakademik, 'Tahun Akademik'),
+                kelas: checkvalue(KelasId, 'Kelas'),
                 status: 0,
-                id_mapels: id_mapel,
-                jumlah_soal: $('#jumlah_soal').val(),
+                id_mapels: checkvalue(id_mapel, 'Mata Pelajaran'),
+                jumlah_soal: checkvalue($('#jumlah_soal').val(), 'Jumlah Soal'),
                 data: result
             }
             $.ajax({
@@ -831,12 +844,22 @@
                 success: function(res) {
                     console.log('id_jadwal', idJadwal)
                     console.log(res)
+                    if (res.status === true) {
+                        swal("Sukses", `Data Berhasil Diedit`, "success").then((
+                            rs) => {
+                            if (rs) {
+                                window.location.href =
+                                    "{{ route('jadwal.ujian') }}";
+                            }
+                        });
+
+                    }
                 }
             });
 
-            $(document).ajaxStop(function() {
-                window.location.href = "{{ route('jadwal.ujian') }}";
-            });
+            // $(document).ajaxStop(function() {
+            //     window.location.href = "{{ route('jadwal.ujian') }}";
+            // });
         }
     </script>
 @endsection

@@ -23,12 +23,10 @@ class CreateDetailUjiansTable extends Migration
             $table->boolean('status');
             $table->foreign('id_headerujian')
                 ->references('id')->on('header_ujians')->onUpdate('cascade')
-                ->onDelete('cascade');
-                ;
+                ->onDelete('cascade');;
             $table->foreign('id_kelas')
                 ->references('id')->on('kelas')->onUpdate('cascade')
-                ->onDelete('cascade');
-                ;
+                ->onDelete('cascade');;
             $table->timestamps();
         });
     }

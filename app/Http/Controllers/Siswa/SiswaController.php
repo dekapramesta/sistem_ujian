@@ -51,7 +51,7 @@ class SiswaController extends Controller
                 'verified'  => 1
             ]);
 
-            if($save){
+            if($save) {
                 $no_telp = substr($request->no_telp, 0, 3) === "628" ? '08'.substr($request->no_telp, 3) : $request->no_telp;
                 Siswa::where('id_user', $user->id)->update([
                     'no_telp' => ($no_telp),
@@ -79,8 +79,8 @@ class SiswaController extends Controller
         # code...
         $ujian = Soal::with('jawaban')->where('id_headerujian', $request->id)->get();
         // return response()->json(['data' => $ujian], 200);
-
-        $siswa = Siswa::where('id_user', Auth::user()->id)->first();
+        $header_ujian = HeaderUjian::with('jadwal_ujian.mapel', 'jadwal_ujian.th_akademiks', 'jenjang')->where('id', $request->id)->first();
+        $siswa = Siswa::with('kelas.jurusan', 'kelas.jenjang')->where('id_user', Auth::user()->id)->first();
         $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
 
         if ($temp->isEmpty()) {
@@ -91,7 +91,7 @@ class SiswaController extends Controller
             $this->shuffleFisher(new Request(['data_ujian' => $ujian, 'siswa' => $siswa, 'total' => $ujian[0]->headerujian->jumlah_soal]));
             $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
         }
-        return response()->json(['data' => $temp], 200);
+        return response()->json(['data' => $temp,'ujian' => $header_ujian,'siswa'=> $siswa], 200);
     }
     public function getTime(Request $request)
     {
@@ -107,7 +107,7 @@ class SiswaController extends Controller
         $diff = $first->diff($second);
         $time_gap = $diff->format('%H:%I:%S'); // 02:00:00
         $milliseconds = strtotime($time_gap) * 1000;
-        return response()->json(['time' => $milliseconds, 'jam' => $time_gap, 'end_time' => $endTime], 200);
+        return response()->json(['time' => $milliseconds, 'jam' => $time_gap, 'end_time' => $endTime, 'waktu_ujian' => $ujian->waktu_ujian], 200);
     }
     public function getSoal(Request $request)
     {
@@ -170,18 +170,32 @@ class SiswaController extends Controller
             }
         }
         $nilai = ($jawaban_benar / $detail_ujian->headerujian->jumlah_soal) * 100;
-        Nilai::create([
-            'id_ujian' => $request->headerujian,
-            'id_siswa' => $siswa->id,
-            'jumlah_benar' => $jawaban_benar,
-            'jumlah_salah' => $jawaban_salah,
-            'nilai' => round($nilai, 2),
-            'identitas' => $siswa->nis
-        ]);
+        $searchNilai = Nilai::where('id_siswa', $siswa->id)->where('id_ujian', $request->headerujian)->first();
+        $searchNilai->nilai = round($nilai, 2);
+        $searchNilai->jumlah_benar = $jawaban_benar;
+        $searchNilai->jumlah_salah = $jawaban_salah;
+        $searchNilai->save();
+
+        // Nilai::create([
+        //     'id_ujian' => $request->headerujian,
+        //     'id_siswa' => $siswa->id,
+        //     'jumlah_benar' => $jawaban_benar,
+        //     'jumlah_salah' => $jawaban_salah,
+        //     'nilai' => round($nilai, 2),
+        //     'identitas' => $siswa->nis
+        // ]);
         $pesertaujian = PesertaUjian::where([['id_detail_ujians', '=', $detail_ujian->id], ['nis', '=', $siswa->nis]])->first();
         $pesertaujian->status = 1;
         $pesertaujian->save();
         return redirect()->route('siswa.dashboard');
         // dd($jawaban);
+    }
+    public function slicing()
+    {
+        return view('Siswa.slicing');
+    }
+    public function slicing_fix()
+    {
+        return view('Siswa.slicing_fix');
     }
 }
