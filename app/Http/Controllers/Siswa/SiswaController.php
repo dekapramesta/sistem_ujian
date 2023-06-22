@@ -45,14 +45,14 @@ class SiswaController extends Controller
         $user = Auth::user();
         $siswa = Siswa::where('id_user', $user->id)->first();
         // dd(substr($request->no_telp, 0, 3) === "628");
-        if($request->password == $request->konfirmasi_password) {
+        if ($request->password == $request->konfirmasi_password) {
             $save = User::where('id', $user->id)->update([
                 'password'  => bcrypt($request->password),
                 'verified'  => 1
             ]);
 
-            if($save) {
-                $no_telp = substr($request->no_telp, 0, 3) === "628" ? '08'.substr($request->no_telp, 3) : $request->no_telp;
+            if ($save) {
+                $no_telp = substr($request->no_telp, 0, 3) === "628" ? '08' . substr($request->no_telp, 3) : $request->no_telp;
                 Siswa::where('id_user', $user->id)->update([
                     'no_telp' => ($no_telp),
                 ]);
@@ -91,7 +91,7 @@ class SiswaController extends Controller
             $this->shuffleFisher(new Request(['data_ujian' => $ujian, 'siswa' => $siswa, 'total' => $ujian[0]->headerujian->jumlah_soal]));
             $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
         }
-        return response()->json(['data' => $temp,'ujian' => $header_ujian,'siswa'=> $siswa], 200);
+        return response()->json(['data' => $temp, 'ujian' => $header_ujian, 'siswa' => $siswa], 200);
     }
     public function getTime(Request $request)
     {
@@ -197,5 +197,10 @@ class SiswaController extends Controller
     public function slicing_fix()
     {
         return view('Siswa.slicing_fix');
+    }
+    public function previewUjian($param)
+    {
+        # code...
+        return view('Siswa.preview');
     }
 }
