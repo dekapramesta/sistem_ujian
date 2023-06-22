@@ -182,7 +182,6 @@ class AdminApi extends Controller
                 'id_kelas' => $dt['id'],
                 'tanggal_ujian' => $dt['tgl_ujian'] . ' ' . $dt['jam_ujian'],
                 'waktu_ujian' => $request->waktu_ujian,
-                'status' => 0
             ]);
 
             if (!empty($dt['siswa'])) {

@@ -47,81 +47,79 @@
                     <div class="col">
                         <div class="row justify-content-start">
                             @foreach ($ujian as $ujn)
-                                @if ($ujn->detailujian->headerujian->jadwal_ujian->status != 8)
-                                    @if ($ujn->detailujian->headerujian->status == 1)
-                                        <div class="card ms-2 me-2" style="width: 22rem;">
-                                            <div class="card-body">
-                                                <div class="d-flex row text-center">
+                                @if ($ujn->detailujian->headerujian->status == 1)
+                                    <div class="card ms-2 me-2" style="width: 22rem;">
+                                        <div class="card-body">
+                                            <div class="d-flex row text-center">
 
-                                                    <h5 class="card-title text-center">
-                                                        {{ $ujn->detailujian->headerujian->jadwal_ujian->mapel->nama_mapel }}
-                                                    </h5>
-                                                    <i class="bi bi-journal-bookmark" style="font-size: 48px;"></i>
+                                                <h5 class="card-title text-center">
+                                                    {{ $ujn->detailujian->headerujian->jadwal_ujian->mapel->nama_mapel }}
+                                                </h5>
+                                                <i class="bi bi-journal-bookmark" style="font-size: 48px;"></i>
 
-                                                    {{-- <span
+                                                {{-- <span
                                                         class="card-text fs-5">{{ $ujn->detailujian->headerujian->jadwal_ujian->jenis_ujian . ' ' . $ujn->detailujian->headerujian->jadwal_ujian->th_akademiks->th_akademik . ' - ' . $ujn->detailujian->headerujian->jadwal_ujian->th_akademiks->nama_semester }}</span> --}}
 
-                                                    <p class="card-text mt-2" style="font-size:13px;">Ujian Online Dimulai
-                                                        Pada Tanggal Dan Jam Ujian
-                                                        {{ $ujn->detailujian->tanggal_ujian }} dan Selesai Pada
+                                                <p class="card-text mt-2" style="font-size:13px;">Ujian Online Dimulai
+                                                    Pada Tanggal Dan Jam Ujian
+                                                    {{ $ujn->detailujian->tanggal_ujian }} dan Selesai Pada
+                                                    @php
+                                                        $datetime = new DateTime($ujn->detailujian->tanggal_ujian);
+                                                        $datetime->modify('+' . $ujn->detailujian->waktu_ujian . ' minutes');
+                                                    @endphp
+                                                    {{ $datetime->format('Y-m-d H:i:s') }}
+                                                </p>
+
+
+                                                @if ($ujn->status == 0)
+                                                    @if ($ujn->detailujian->tanggal_ujian <= now())
+                                                        <a href="{{ route('siswa.ujian', $ujn->detailujian->id_headerujian) }}"
+                                                            class="btn btn-primary">Ujian</a>
+                                                    @else
+                                                        <button class="btn btn-secondary">Belum Mulai</button>
+                                                    @endif
+                                                @else
+                                                    @foreach ($nilai as $nl)
+                                                        @if ($ujn->detailujian->id_headerujian == $nl->id_ujian)
+                                                            <span class="fs-3">{{ $nl->nilai }}</span>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                                <div
+                                                    class="d-flex flex-row justify-content-between border border-secondary rounded mt-2">
+                                                    <div class="col text-start">Selesai</div>
+                                                    <div class="col text-end ">
+                                                        @if ($ujn->status == 1)
+                                                            <span style="font-size: 15px"> {{ $ujn->updated_at }}
+                                                            </span>
+                                                        @else
+                                                            -
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="d-flex flex-row justify-content-between border border-secondary rounded mt-2">
+                                                    <div class="col text-start">Status</div>
+                                                    <div class="col text-end">
                                                         @php
                                                             $datetime = new DateTime($ujn->detailujian->tanggal_ujian);
                                                             $datetime->modify('+' . $ujn->detailujian->waktu_ujian . ' minutes');
+                                                            $datetime->format('Y-m-d H:i:s');
                                                         @endphp
-                                                        {{ $datetime->format('Y-m-d H:i:s') }}
-                                                    </p>
-
-
-                                                    @if ($ujn->status == 0)
-                                                        @if ($ujn->detailujian->tanggal_ujian <= now())
-                                                            <a href="{{ route('siswa.ujian', $ujn->detailujian->id_headerujian) }}"
-                                                                class="btn btn-primary">Ujian</a>
+                                                        @if ($ujn->status == 0)
+                                                            @if ($ujn->detailujian->tanggal_ujian <= now())
+                                                                Berlangsung
+                                                            @else
+                                                                Belum Mulai
+                                                            @endif
                                                         @else
-                                                            <button class="btn btn-secondary">Belum Mulai</button>
+                                                            Selesai
                                                         @endif
-                                                    @else
-                                                        @foreach ($nilai as $nl)
-                                                            @if ($ujn->detailujian->id_headerujian == $nl->id_ujian)
-                                                                <span class="fs-3">{{ $nl->nilai }}</span>
-                                                            @endif
-                                                        @endforeach
-                                                    @endif
-                                                    <div
-                                                        class="d-flex flex-row justify-content-between border border-secondary rounded mt-2">
-                                                        <div class="col text-start">Selesai</div>
-                                                        <div class="col text-end ">
-                                                            @if ($ujn->status == 1)
-                                                                <span style="font-size: 15px"> {{ $ujn->updated_at }}
-                                                                </span>
-                                                            @else
-                                                                -
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="d-flex flex-row justify-content-between border border-secondary rounded mt-2">
-                                                        <div class="col text-start">Status</div>
-                                                        <div class="col text-end">
-                                                            @php
-                                                                $datetime = new DateTime($ujn->detailujian->tanggal_ujian);
-                                                                $datetime->modify('+' . $ujn->detailujian->waktu_ujian . ' minutes');
-                                                                $datetime->format('Y-m-d H:i:s');
-                                                            @endphp
-                                                            @if ($ujn->status == 0)
-                                                                @if ($ujn->detailujian->tanggal_ujian <= now())
-                                                                    Berlangsung
-                                                                @else
-                                                                    Belum Mulai
-                                                                @endif
-                                                            @else
-                                                                Selesai
-                                                            @endif
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    @endif
+                                    </div>
                                 @endif
                             @endforeach
 
