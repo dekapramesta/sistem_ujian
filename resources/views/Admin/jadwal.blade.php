@@ -56,16 +56,16 @@
                                                     </td>
                                                     <td>{{ $hdr->jadwal_ujian->jenis_ujian }}</td>
                                                     <td>
-                                                        <div class="d-flex flex-row text-center">
+                                                        <div class="flex-row text-center">
                                                             <button onclick="showDetail({{ $hdr }})"
-                                                                class="btn btn-primary btn-sm text-start d-flex flex-row"><i
+                                                                class="btn btn-primary btn-sm text-start  flex-row"><i
                                                                     class="bi bi-pencil-square me-2"></i>Detail</button>
-                                                            <a class="btn btn-success btn-sm text-start d-flex flex-row"
+                                                            <a class="btn btn-success btn-sm text-start flex-row"
                                                                 href="{{ route('edit.ujian', ['id' => $hdr->id]) }}"><i
                                                                     class="bi bi-pencil-square me-2  small-icon"></i>
                                                                 Edit</a>
                                                             <a href="{{ route('delete.ujian', ['id' => $hdr->id]) }}"
-                                                                class=" ms-2 btn btn-danger btn-sm text-start d-flex flex-row"><i
+                                                                class=" ms-2 btn btn-danger btn-sm text-start flex-row"><i
                                                                     class="bi bi-trash3-fill me-2  small-icon"></i>
                                                                 Hapus</a>
                                                         </div>

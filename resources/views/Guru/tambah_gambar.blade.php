@@ -90,6 +90,12 @@
                                                         <input type="file" class="dropify " disabled="disabled"
                                                             name="disabled_gambar_soal" id="input-file-now-disabled-2"
                                                             data-default-file="{{ asset('img/soal/' . $sl->soal_gambar) }}" />
+                                                        {{-- <div class="d-flex justify-content-center" id="gambar-soal">
+                                                            <img src="{{ asset('img/soal/' . $sl->soal_gambar) }}"
+                                                                class="card-img-top"
+                                                                style="width: 50%; max-width: 100%; height:auto;"
+                                                                alt="...">
+                                                        </div> --}}
                                                     @endif
                                                 </div>
                                                 <div>
@@ -175,10 +181,7 @@
                                                                     @if ($jwb->id_soals == $sl->id)
                                                                         <div class="row mb-3">
                                                                             <div class="col-sm-7">
-                                                                                <input type="text"
-                                                                                    name="jawaban[{{ $jwb->id }}]"
-                                                                                    class="form-control mb-2"
-                                                                                    value="{{ $jwb->jawaban }}">
+                                                                                <textarea type="text" name="jawaban[{{ $jwb->id }}]" class="form-control mb-2" value="">{{ $jwb->jawaban }}</textarea>
                                                                                 <input type="file"
                                                                                     id="jawabangambar{{ $jwb->id }}"
                                                                                     class="dropify form-control"

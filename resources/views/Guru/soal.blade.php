@@ -48,7 +48,7 @@
                                             $a = 0;
                                         @endphp
                                         @foreach ($header_ujians as $hdruj)
-                                            @if ($hdruj->jadwal_ujian->status != 8)
+                                            @if ($hdruj->status != 8)
                                                 @if ($hdruj->jadwal_ujian->id_mapels == $id_mapels)
                                                     @php
                                                         $jml_soal = [];
@@ -80,48 +80,52 @@
                                                         <td>{{ $hdruj->jadwal_ujian->th_akademiks->nama_semester }}</td>
                                                         <td>{{ count($hdruj->soal) }}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-info"
+                                                            <a type="button" class="btn btn-sm btn-info"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#detail{{ $hdruj->id }}">Detail</button>
+                                                                data-bs-target="#detail{{ $hdruj->id }}">Detail</a>
                                                             @if (count($hdruj->soal) > 0)
                                                                 @if ($hdruj->status == 0)
                                                                     @if ($jml_soal == null)
                                                                         <a
                                                                             href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
-                                                                            <button type="button" class="btn btn-info">Edit
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-info">Edit
                                                                                 Soal</button>
                                                                         </a>
                                                                     @else
                                                                         <a
                                                                             href="{{ route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
-                                                                            <button type="button" class="btn btn-info">+
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-info">+
                                                                                 Gambar</button>
                                                                         </a>
                                                                     @endif
                                                                 @else
                                                                     <a
                                                                         href="{{ route('guru.lihat_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
-                                                                        <button type="button" class="btn btn-info">Lihat
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-info">Lihat
                                                                             soal</button>
                                                                     </a>
                                                                 @endif
 
                                                                 <a href="{{ route('soal.export', $hdruj->id) }}">
-                                                                    <button type="button" class="btn btn-info">Export
+                                                                    <button type="button"
+                                                                        class="btn btn-sm btn-info">Export
                                                                         Soal</button>
                                                                 </a>
                                                                 @if ($hdruj->status == 0)
-                                                                    <button type="button" class="btn btn-info"
+                                                                    <button type="button" class="btn btn-sm btn-info"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#delete{{ $hdruj->id }}">Delete
                                                                         Soal</button>
                                                                 @endif
                                                             @endif
                                                             @if (count($hdruj->soal) == 0)
-                                                                <button type="button" class="btn btn-success"
+                                                                <a type="button" class="btn btn-sm btn-success"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#tambah{{ $hdruj->id }}">+
-                                                                    Tambah Soal</button>
+                                                                    Tambah Soal</a>
                                                             @endif
 
                                                         </td>

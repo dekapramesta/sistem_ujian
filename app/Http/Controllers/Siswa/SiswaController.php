@@ -79,8 +79,8 @@ class SiswaController extends Controller
         # code...
         $ujian = Soal::with('jawaban')->where('id_headerujian', $request->id)->get();
         // return response()->json(['data' => $ujian], 200);
-
-        $siswa = Siswa::where('id_user', Auth::user()->id)->first();
+        $header_ujian = HeaderUjian::with('jadwal_ujian.mapel', 'jadwal_ujian.th_akademiks', 'jenjang')->where('id', $request->id)->first();
+        $siswa = Siswa::with('kelas.jurusan', 'kelas.jenjang')->where('id_user', Auth::user()->id)->first();
         $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
 
         if ($temp->isEmpty()) {
@@ -91,7 +91,7 @@ class SiswaController extends Controller
             $this->shuffleFisher(new Request(['data_ujian' => $ujian, 'siswa' => $siswa, 'total' => $ujian[0]->headerujian->jumlah_soal]));
             $temp = Temp::where([['id_headerujian', $ujian[0]->id_headerujian], ['id_siswa', $siswa->id]])->get();
         }
-        return response()->json(['data' => $temp], 200);
+        return response()->json(['data' => $temp,'ujian' => $header_ujian,'siswa'=> $siswa], 200);
     }
     public function getTime(Request $request)
     {
@@ -107,7 +107,7 @@ class SiswaController extends Controller
         $diff = $first->diff($second);
         $time_gap = $diff->format('%H:%I:%S'); // 02:00:00
         $milliseconds = strtotime($time_gap) * 1000;
-        return response()->json(['time' => $milliseconds, 'jam' => $time_gap, 'end_time' => $endTime], 200);
+        return response()->json(['time' => $milliseconds, 'jam' => $time_gap, 'end_time' => $endTime, 'waktu_ujian' => $ujian->waktu_ujian], 200);
     }
     public function getSoal(Request $request)
     {

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Dashboard - NiceAdmin Bootstrap Template</title>
+    <title>CBT - SMAN 1 KAWEDANAN</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -47,93 +47,82 @@
 
 <body>
     @include('particials.header-ujian')
-
     <main class="main-ujian" id="main-ujian">
-
-
         <section class="section py-3">
-            <div class="row">
-                <div class="col-lg-8">
-                    <!-- Customers Card -->
-                    <div class="col-12">
-                        <div class="card info-card customers-card">
-
-                            <div class="card-header">
-                                Kerjakan Soal Berikut
+            <div class="d-flex flex-row justify-content-between px-3">
+                <div class="col-8 px-3">
+                    <div class="card w-full">
+                        <div class="card-body">
+                            <h5 class="card-title" id="header_ujian"></h5>
+                            <h6 class="card-subtitle mb-2 text-muted" id="kelas_siswa"></h6>
+                            <hr>
+                            {{-- Soal --}}
+                            <p class="text-muted"><span>Soal <span id="no_soal_now"></span> Dari <span
+                                        id="no_soal_last"></span></span>
+                            </p>
+                            <div class="d-flex justify-content-start">
+                                <p class="me-4 " id="no_soal">1.</p>
+                                <p class="card-text" style='white-space: pre-line;' id="soal"></p>
                             </div>
-                            <div class="card-body">
-                                {{-- <h5 class="card-title">ADMINISTRATOR <span>| {{ Auth::user()->name }}</span></h5> --}}
-                                <div class=" align-items-center py-4">
-                                    <div class="row d-flex justify-content-center">
-                                        <div class="d-flex justify-content-start">
-                                            <p class="me-4 " id="no_soal"></p>
-                                            <p id="soal" style='white-space: pre-line;'></p>
-                                        </div>
+                            <div class="d-flex justify-content-center" id="gambar-soal">
 
-                                        <div class="d-flex justify-content-center" id="gambar-soal">
-
-                                        </div>
-                                    </div>
-
-
-
-                                    {{-- <span class="text-danger small pt-1 fw-bold">{{ Auth::user()->email }}</span> <span class="text-muted small pt-2 ps-1">{{ now() }}</span> --}}
-                                </div>
                             </div>
-
                         </div>
                     </div>
-
-                    <!-- End Customers Card -->
-                    <div class="col">
-                        <div class="col-12">
-                            <div class="card info-card customers-card px-2 py-2" id="jawaban_place">
-
+                    <div class="card w-full">
+                        <div class="card-body">
+                            <div class="col text-start py-4" id="jawaban_place">
 
                             </div>
                         </div>
-
                     </div>
                 </div>
-                <div class="col-lg-4 col-xl-4">
-                    <div class="col-12">
-                        <div class="card info-card customers-card">
-
-                            <div class="card-header">
-                                <div class="row d-flex align-items-center">
-                                    <div class="col">Jumlah Soal
-                                    </div>
-                                    <div class="col" id="demo">
-                                    </div>
-                                    <div class="col text-end">
-                                        <form action="{{ route('ujian.selesai') }}" method="post" id="submitujian">
-                                            @csrf
-                                            <input hidden type="text" value="{{ Request::segment(3) }}"
-                                                name="headerujian" id="">
-                                            <button type="b" class="btn btn-danger btn-sm ">Selesai</button>
-                                        </form>
-                                    </div>
+                <div class="col-4 px-4 ms-4">
+                    <div class="card w-full">
+                        <div class="card-body">
+                            <div class="d-flex flex-row justify-content-between inline align-items-center">
+                                <h5 class="card-title">Waktu <span id="waktu_ujian"></span></h5>
+                                <div class="col text-end">
+                                    <form action="{{ route('ujian.selesai') }}" method="post" id="submitujian">
+                                        @csrf
+                                        <input hidden type="text" value="{{ Request::segment(3) }}"
+                                            name="headerujian" id="">
+                                        <button type="b" class="btn btn-danger btn-sm ">Selesai</button>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="card-body py-2" id="soal_button">
+                            <div class="container border border-grey rounded text-center align-items-center ">
 
-
-
+                                <h6 class="fs-5 text-black mt-3" id="demo"></h6>
                             </div>
                         </div>
+                    </div>
+                    <div class="card w-full">
+                        <div class="card-body">
+                            <div class="d-flex flex-row">
+                                <h5 class="card-title">Soal</h5>
+                            </div>
+                            <div class="container border border-grey rounded justify-content-start py-2 px-2"
+                                id="soal_button">
+                                {{-- <button class="btn btn-outline-secondary btn-sm px-3 mt-2 ms-2">1</button>
+                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
+                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
+                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
+                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
+                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
+                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
+                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
+                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button>
+                                <button class="btn btn-primary btn-sm px-3 mt-2 ms-2">1</button> --}}
+                            </div>
 
+
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Recent Sales -->
-            <!-- End Recent Sales -->
-
-            <!-- End Left side columns -->
         </section>
-
-
-    </main><!-- End #main -->
+    </main>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
     <script type="text/javascript">
@@ -159,15 +148,26 @@
                         if (dt.id_jawaban === null) {
 
                             $('#soal_button').append(
-                                `<button id='getsoal' class="btn btn-outline-secondary mt-2 ms-2" data-value="${dt.id}" data-index="${id}" >${id}</button>`
+                                `<button id='getsoal' class="btn btn-outline-secondary  btn-sm px-3 mt-2 ms-2" data-value="${dt.id}" data-index="${id}">${id}</button>`
                             )
                         } else {
                             $('#soal_button').append(
-                                `<button id='getsoal' class="btn btn-secondary mt-2 ms-2" data-value="${dt.id}" data-index="${id}" >${id}</button>`
+                                `<button id='getsoal' class="btn btn-primary btn-sm px-3 mt-2 ms-2" data-value="${dt.id}" data-index="${id}">${id}</button>`
                             )
 
                         }
+
                     })
+                    $('#no_soal_last').html(res.data.length);
+                    $('#header_ujian').html('Ujian : ' + res.ujian.jadwal_ujian.mapel
+                        .nama_mapel + ' - Kelas ' + res.ujian.jenjang.nama_jenjang +
+                        ' - ' + res.ujian.jadwal_ujian.jenis_ujian + ' - ' + res.ujian
+                        .jadwal_ujian.th_akademiks.th_akademik + ' - Semester ' + res.ujian
+                        .jadwal_ujian
+                        .th_akademiks.nama_semester);
+                    $('#kelas_siswa').html('Kelas ' + res.siswa.kelas.jenjang.nama_jenjang + ' ' +
+                        res
+                        .siswa.kelas.jurusan.nama_jurusan + ' ' + res.siswa.kelas.nama_kelas);
                 }
             });
             await $.ajax({ // memanggil waktu countdown ujian
@@ -211,6 +211,7 @@
 
                         }
                     }, 1000);
+                    $('#waktu_ujian').html('(' + res.waktu_ujian + ' Menit)');
                 }
             });
 
@@ -218,14 +219,16 @@
 
             $('#soal_button').on('click', '#getsoal', function() {
                 $('#no_soal').html(`${$(this).data('index')}`)
+                $('#no_soal_now').html(`${$(this).data('index')}`)
                 getSoal($(this).data('value'))
 
             })
             getSoal(id_soal)
             $('#no_soal').html('1')
+            $('#no_soal_now').html('1')
         })
         document.getElementById('submitujian').addEventListener('submit', function(
-        evt) { // ketika siswa menekan tombol selesai
+            evt) { // ketika siswa menekan tombol selesai
             evt.preventDefault();
             swal({
                     title: "Ingin Mengakhiri Ujian?",
@@ -267,8 +270,8 @@
 
                     } else {
                         imageSoal = `<img src="{{ asset('img/soal/${res.data.soal.soal_gambar}') }}"
-                                                alt="description of myimage" style="width:250px; height:300px">`
-
+                                    class="card-img-top" style="width: 50%; max-width: 100%; height:auto;"
+                                    alt="...">`
 
                     }
                     $('#jawaban_place').html(``)
@@ -294,10 +297,11 @@
 
                             } else {
 
-                                imageTrue = `<div class="ms-4 justify-content-center">
-                                                                                        <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
-                                                                                            alt="description of myimage" style="width:250px; height:300px">
-                                                                                    </div>`;
+                                imageTrue = `<div class="d-flex justify-content-center ms-4 style="flex:0 0 auto">
+                                            <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
+                                                class="card-img-top ms-3"
+                                                style="width: 50%; max-width: 100%; height:auto;" alt="...">
+                                        </div>`;
 
                             }
 
@@ -307,22 +311,36 @@
                             // }
                             console.log('oiasa', imageTrue)
 
-                            $('#jawaban_place').append(`
-                         <div class="form-check ms-4 d-flex" style="padding-left:0">
-                            <div class="" style="width:flex:0 0 auto">
-                                    <input class="form-check-input ms-4" style="float:none" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
-                                        id="flexRadioDefault1" checked>
-                                        </div>
-                                        <div>
-                                        <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
-                                        </div>
+                            $('#jawaban_place').append(
+                                // `<div class="d-flex flex-row mt-2 align-items-start inline">
+                            //     <div class="col-1" style="width: 13px">
+                            //         <input type="radio" id="radioButton" name="jawaban" class="mt-1"
+                            //             style="width: 15px" onclick="postJawab('${id}','${dt.id}')" checked>
+                            //     </div>
+                            //     <div class="col-11">
+                            //         <div class="d-flex flex-row">
+                            //             <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
+                            //         </div>
+                            //         ${imageTrue}
+
+                            //     </div>
+                            //     </div>`
+                                `
+                            <div class="form-check ms-2 d-flex" style="padding-left:0">
+                                <div class="" style="width:flex:0 0 auto">
+                                        <input class="form-check-input ms-4" style="float:none" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
+                                            id="flexRadioDefault1" checked>
+                                            </div>
+                                            <div>
+                                            <p style="white-space: pre-line;" class="ms-2">${dt.jawaban}</p>
+                                            </div>
 
 
-                                      </div>
-                                      <div class="d-flex justify-content-center ms-4 style="flex:0 0 auto">
-                                    ${imageTrue}
-                                    </div>
-                               `)
+                                        </div>
+                                        <div class="d-flex justify-content-center ms-4 style="flex:0 0 auto">
+                                        ${imageTrue}
+                                        </div>
+                                `)
                         } else {
                             let imageTrue = ``;
                             if (dt.jawaban_gambar === null) {
@@ -331,17 +349,18 @@
 
                             } else {
 
-                                imageTrue = `<div class="d-block justify-content-center">
-                                                                                        <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
-                                                                                            alt="description of myimage" style="width:250px; height:300px">
-                                                                                    </div>`;
+                                imageTrue = `<div class="d-flex justify-content-center ms-4 style="flex:0 0 auto">
+                                            <img src="{{ asset('img/jawabans/${dt.jawaban_gambar}') }}"
+                                                class="card-img-top ms-3"
+                                                style="width: 50%; max-width: 100%; height:auto;" alt="...">
+                                        </div>`;
 
                             }
 
                             console.log('oiasa', imageTrue)
 
                             $('#jawaban_place').append(`
-                                                     <div class="form-check ms-4 d-flex" style="padding-left:0" >
+                                                     <div class="form-check ms-2 d-flex" style="padding-left:0" >
                                                             <div class="" style="flex:0 0 auto">
                                                                 <input class="form-check-input ms-4" style="float:none" onclick="postJawab('${id}','${dt.id}')" type="radio" name="jawaban"
                                                                     id="flexRadioDefault1" >
@@ -359,6 +378,19 @@
                         }
 
                     })
+                    var button_soal = $(`button[data-value="${id}"]`);
+                    if (button_soal.hasClass('btn-primary')) {
+
+                    } else {
+                        $(`button[data-value="${id}"]`).removeClass('btn-outline-secondary').addClass(
+                            'btn-secondary');
+                    }
+
+                    var buttons_bukan_soal = $('button[data-value]');
+                    buttons_bukan_soal.filter(function() {
+                        return $(this).data('value') !== id && $(this).hasClass('btn-secondary');
+                    }).removeClass('btn-secondary').addClass('btn-outline-secondary');
+
                 }
             });
         }
@@ -381,7 +413,7 @@
                 success: function(res) {
                     console.log(id_temp)
                     document.querySelector(`[data-value="${id_temp}"]`).className =
-                        "btn btn-secondary mt-2 ms-2";
+                        "btn btn-primary btn-sm px-3 mt-2 ms-2";
 
                 }
             });

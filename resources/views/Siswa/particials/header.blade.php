@@ -47,15 +47,27 @@
                         <hr class="dropdown-divider">
                     </li>
 
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('siswa.profil') }}">
-                            <i class="bi bi-person"></i>
-                            <span>My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
+                    @if (request()->is('siswa/profil*'))
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('siswa.dashboard') }}">
+                                <i class="bi bi-grid"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                    @else
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('siswa.profil') }}">
+                                <i class="bi bi-person"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                    @endif
 
                     <li>
                         <a class="dropdown-item d-flex align-items-center" href="#"

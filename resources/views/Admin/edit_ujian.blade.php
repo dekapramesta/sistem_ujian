@@ -6,7 +6,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item ">Set Jadwal Ujian</li>
-                <li class="breadcrumb-item active">Tambah</li>
+                <li class="breadcrumb-item active">Edit</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -49,10 +49,12 @@
 
                                     <div class="d-flex flex-row mb-2">
                                         <label for="inputTime" class="col-sm-2 col-form-label">Waktu Ujian</label>
-                                        <div class="col-sm-10">
-                                            <input type="number" id="waktu_ujian" class="form-control w-70">
+                                        <div class="d-flex row-sm-10 align-items-center">
+                                            <input type="number" id="waktu_ujian" class="form-control">
+                                            <span class="fs-6 ms-2">Menit</span>
                                         </div>
                                     </div>
+
                                     <div class="d-flex flex-row mb-2">
                                         <label for="inputTime" class="col-sm-2 col-form-label">Jumlah Soal</label>
                                         <div class="col-sm-10">
