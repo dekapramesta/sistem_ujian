@@ -165,6 +165,7 @@
                         }
 
                     })
+                    $('#identitas').html(res.siswa.nama + ' (' + res.siswa.nis + ')');
                     $('#no_soal_last').html(res.data.length);
                     $('#header_ujian').html('Ujian : ' + res.ujian.jadwal_ujian.mapel
                         .nama_mapel + ' - Kelas ' + res.ujian.jenjang.nama_jenjang +
