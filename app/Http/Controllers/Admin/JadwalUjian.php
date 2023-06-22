@@ -74,7 +74,7 @@ class JadwalUjian extends Controller
             }
 
             if (!in_array($mst_mpl_guru_kls->id_gurus, $gurus)) {
-                $searchHeaader = HeaderUjian::where('id_jadwalujian', $id)->where('id_gurus', $mst_mpl_guru_kls->id_gurus)->where('id_jenjangs', $dt['id_jenjang'])->first();
+                $searchHeaader = HeaderUjian::where('id_jadwalujian', $id)->where('id_gurus', $mst_mpl_guru_kls->id_gurus)->where('id_jenjangs', $dt['id_jenjang'])->where('status', '!=', 8)->first();
                 if ($searchHeaader == null) {
 
                     $header = HeaderUjian::create([
