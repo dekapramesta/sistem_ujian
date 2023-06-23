@@ -79,6 +79,16 @@
                             <div class="col text-start py-4" id="jawaban_place">
 
                             </div>
+                            <div class="d-flex justify-content-between" id="button_next_prev">
+                                <div id="btn_sebelumnya">
+                                    {{-- <button id='getsoal' class="btn btn-outline-secondary btn-sm px-3 mt-2 ms-2"
+                                        data-value="${dt.id}" data-index="${id}">Sebelumnya</button> --}}
+                                </div>
+                                <div id="btn_selanjutnya">
+                                    {{-- <button id='getsoal' class="btn btn-outline-secondary btn-sm px-3 mt-2 ms-2"
+                                        data-value="${dt.id}" data-index="${id}">Selanjutnya</button> --}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,6 +133,7 @@
     <script type="text/javascript">
         $(document).ready(async function() {
             let id_soal; //membuat variable id_soal
+            let total_soal;
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') //csrf
@@ -137,6 +148,7 @@
                 dataType: 'json',
                 success: function(res) {
                     id_soal = res.data[0].id //menambah value id_soal
+                    total_soal = res.data.length
                     console.log(res)
                     res.data.map((dt, id) => {
                         id++
@@ -153,6 +165,7 @@
                         }
 
                     })
+                    $('#identitas').html(res.siswa.nama + ' (' + res.siswa.nis + ')');
                     $('#no_soal_last').html(res.data.length);
                     $('#header_ujian').html('Ujian : ' + res.ujian.jadwal_ujian.mapel
                         .nama_mapel + ' - Kelas ' + res.ujian.jenjang.nama_jenjang +
@@ -210,17 +223,42 @@
                 }
             });
 
+            $('#soal_button').on('click', '#getsoal', handleClick);
+            $('#btn_selanjutnya').on('click', '#getsoal', handleClick);
+            $('#btn_sebelumnya').on('click', '#getsoal', handleClick);
 
+            function handleClick() {
+                $('#no_soal').html($(this).data('index'));
+                $('#no_soal_now').html($(this).data('index'));
 
-            $('#soal_button').on('click', '#getsoal', function() {
-                $('#no_soal').html(`${$(this).data('index')}`)
-                $('#no_soal_now').html(`${$(this).data('index')}`)
-                getSoal($(this).data('value'))
+                if ($(this).data('index') === 1) {
+                    $('#btn_sebelumnya').html('');
+                    $('#btn_selanjutnya').html(
+                        `<button id='getsoal' class="btn btn-outline-primary btn-sm px-3 mt-2 ms-2" data-value="${$(this).data('value') + 1}" data-index="${$(this).data('index') + 1}">Selanjutnya</button>`
+                    );
+                } else if ($(this).data('index') === total_soal) {
+                    $('#btn_selanjutnya').html('');
+                    $('#btn_sebelumnya').html(
+                        `<button id='getsoal' class="btn btn-outline-primary btn-sm px-3 mt-2 ms-2" data-value="${$(this).data('value') - 1}" data-index="${$(this).data('index') - 1}">Sebelumnya</button>`
+                    );
+                } else {
+                    $('#btn_sebelumnya').html(
+                        `<button id='getsoal' class="btn btn-outline-primary btn-sm px-3 mt-2 ms-2" data-value="${$(this).data('value') - 1}" data-index="${$(this).data('index') - 1}">Sebelumnya</button>`
+                    );
+                    $('#btn_selanjutnya').html(
+                        `<button id='getsoal' class="btn btn-outline-primary btn-sm px-3 mt-2 ms-2" data-value="${$(this).data('value') + 1}" data-index="${$(this).data('index') + 1}">Selanjutnya</button>`
+                    );
+                }
 
-            })
+                getSoal($(this).data('value'));
+            }
+
             getSoal(id_soal)
             $('#no_soal').html('1.')
             $('#no_soal_now').html('1')
+            $('#btn_selanjutnya').html(
+                `<button id='getsoal' class="btn btn-outline-primary btn-sm px-3 mt-2 ms-2" data-value = "${id_soal + 1}" data-index = "2" >Selanjutnya</button>`
+            )
         })
         document.getElementById('submitujian').addEventListener('submit', function(
             evt) { // ketika siswa menekan tombol selesai
@@ -286,7 +324,8 @@
 
 
                         console.log('gmb', dt.jawaban)
-                        if (res.data.id_jawaban && (parseInt(res.data.id_jawaban) === parseInt(dt
+                        if (res.data.id_jawaban && (parseInt(res.data.id_jawaban) === parseInt(
+                                dt
                                 .id))) {
                             let imageTrue = ``
                             if (dt.jawaban_gambar === null) {
@@ -375,7 +414,8 @@
 
                     var buttons_bukan_soal = $('button[data-value]');
                     buttons_bukan_soal.filter(function() {
-                        return $(this).data('value') !== id && $(this).hasClass('btn-secondary');
+                        return $(this).data('value') !== id && $(this).hasClass(
+                            'btn-secondary');
                     }).removeClass('btn-secondary').addClass('btn-outline-secondary');
 
                 }

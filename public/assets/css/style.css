@@ -1292,3 +1292,7 @@ h6 {
     font-size: 13px;
     color: #012970;
 }
+.custom-thick-border {
+  border-width: 10px;
+  outline-width: 10px;
+}
