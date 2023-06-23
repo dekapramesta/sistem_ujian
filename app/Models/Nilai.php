@@ -18,11 +18,13 @@ class Nilai extends Model
 
     protected $primaryKey = 'id';
 
-    public function ujian(){
-        return $this->belongsTo(Ujian::class, 'id_ujian', 'id');
+    public function headerujian()
+    {
+        return $this->belongsTo(HeaderUjian::class, 'id_ujian', 'id');
     }
 
-    public function siswa(){
+    public function siswa()
+    {
         return $this->belongsTo(Siswa::class, 'id_siswa', 'id');
     }
 }

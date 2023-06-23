@@ -187,7 +187,7 @@ class SiswaController extends Controller
         $pesertaujian = PesertaUjian::where([['id_detail_ujians', '=', $detail_ujian->id], ['nis', '=', $siswa->nis]])->first();
         $pesertaujian->status = 1;
         $pesertaujian->save();
-        return redirect()->route('siswa.dashboard');
+        return redirect()->route('ujian.preview', ['id' => $request->headerujian]);
         // dd($jawaban);
     }
     public function slicing()
@@ -201,6 +201,22 @@ class SiswaController extends Controller
     public function previewUjian($param)
     {
         # code...
-        return view('Siswa.preview');
+        // dd(Auth::user()->id);
+        $siswa = Siswa::with('temp.soal', 'temp.jawaban', 'nilai.headerujian.detailujian', 'nilai.headerujian.jadwal_ujian', 'kelas')
+            ->where('id_user', Auth::user()->id)
+            ->whereHas('temp', function ($query) use ($param) {
+                $query->where('id_headerujian', $param);
+            })
+            ->whereHas('nilai', function ($query) use ($param) {
+                $query->whereHas('headerujian', function ($subQ) use ($param) {
+                    $subQ->whereHas('detailujian', function ($subQ2) use ($param) {
+                        $subQ2->whereColumn('detail_ujians.id_kelas', 'siswas.id_kelas');
+                    });
+                });
+            })
+            ->first();
+
+        // dd($siswa);
+        return view('Siswa.preview', compact('siswa'));
     }
 }
