@@ -738,7 +738,7 @@ class SiswaSeeder extends Seeder
             'id_user' => '87',
             'id_kelas' => '17',
             'nama' => 'Abbiyu Hammam Habibi',
-            'nis' => '10145',
+            'nis' => '09884',
             'tanggal_lahir' => '2004-10-22',
             'no_telp' => '081780780780',
         ]);

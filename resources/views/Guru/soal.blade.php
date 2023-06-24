@@ -159,7 +159,7 @@
                                                                                 <label for="inputNumber"
                                                                                     class="col-form-label">Soal
                                                                                     (Format
-                                                                                    CSV)
+                                                                                    Excel)
                                                                                 </label>
                                                                             </div>
                                                                             <div class="col-sm-9">
