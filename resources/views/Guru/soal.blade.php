@@ -80,54 +80,63 @@
                                                         <td>{{ $hdruj->jadwal_ujian->th_akademiks->nama_semester }}</td>
                                                         <td>{{ count($hdruj->soal) }}</td>
                                                         <td>
-                                                            <a type="button" class="btn btn-sm btn-info"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#detail{{ $hdruj->id }}">Detail</a>
-                                                            @if (count($hdruj->soal) > 0)
-                                                                @if ($hdruj->status == 0)
-                                                                    @if ($jml_soal == null)
-                                                                        <a
-                                                                            href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
-                                                                            <button type="button"
-                                                                                class="btn btn-sm btn-info">Edit
-                                                                                Soal</button>
-                                                                        </a>
+                                                            <div class="flex-row text-center">
+                                                                <a type="button"
+                                                                    class="btn btn-sm btn-primary text-start flex-row"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#detail{{ $hdruj->id }}"><i
+                                                                        class="bi bi-info-circle me-2"></i>Detail</a>
+                                                                @if (count($hdruj->soal) > 0)
+                                                                    @if ($hdruj->status == 0)
+                                                                        @if ($jml_soal == null)
+                                                                            <a
+                                                                                href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+                                                                                <button type="button"
+                                                                                    class="btn btn-sm btn-warning"><i
+                                                                                        class="bi bi-pencil-square me-2  small-icon"></i>Edit
+                                                                                    Soal</button>
+                                                                            </a>
+                                                                        @else
+                                                                            <a
+                                                                                href="{{ route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+                                                                                <button type="button"
+                                                                                    class="btn btn-sm btn-success"><i
+                                                                                        class="bi bi-plus-lg me-2 "></i>
+                                                                                    Gambar</button>
+                                                                            </a>
+                                                                        @endif
                                                                     @else
                                                                         <a
-                                                                            href="{{ route('guru.tambah_gambar', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+                                                                            href="{{ route('guru.lihat_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
                                                                             <button type="button"
-                                                                                class="btn btn-sm btn-info">+
-                                                                                Gambar</button>
+                                                                                class="btn btn-sm btn-primary"><i
+                                                                                    class="bi bi-journals me-2"></i>Lihat
+                                                                                soal</button>
                                                                         </a>
                                                                     @endif
-                                                                @else
-                                                                    <a
-                                                                        href="{{ route('guru.lihat_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
+
+                                                                    <a href="{{ route('soal.export', $hdruj->id) }}">
                                                                         <button type="button"
-                                                                            class="btn btn-sm btn-info">Lihat
-                                                                            soal</button>
+                                                                            class="btn btn-sm btn-info"><i
+                                                                                class="bi bi-upload me-2"></i>Export
+                                                                            Soal</button>
                                                                     </a>
+                                                                    @if ($hdruj->status == 0)
+                                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#delete{{ $hdruj->id }}"><i
+                                                                                class="bi bi-trash3-fill me-2"></i>Delete
+                                                                            Soal</button>
+                                                                    @endif
                                                                 @endif
-
-                                                                <a href="{{ route('soal.export', $hdruj->id) }}">
-                                                                    <button type="button"
-                                                                        class="btn btn-sm btn-info">Export
-                                                                        Soal</button>
-                                                                </a>
-                                                                @if ($hdruj->status == 0)
-                                                                    <button type="button" class="btn btn-sm btn-info"
+                                                                @if (count($hdruj->soal) == 0)
+                                                                    <a type="button" class="btn btn-sm btn-success"
                                                                         data-bs-toggle="modal"
-                                                                        data-bs-target="#delete{{ $hdruj->id }}">Delete
-                                                                        Soal</button>
+                                                                        data-bs-target="#tambah{{ $hdruj->id }}"><i
+                                                                            class="bi bi-plus-lg me-2  small-icon"></i>
+                                                                        Tambah Soal</a>
                                                                 @endif
-                                                            @endif
-                                                            @if (count($hdruj->soal) == 0)
-                                                                <a type="button" class="btn btn-sm btn-success"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#tambah{{ $hdruj->id }}">+
-                                                                    Tambah Soal</a>
-                                                            @endif
-
+                                                            </div>
                                                         </td>
                                                     </tr>
 
