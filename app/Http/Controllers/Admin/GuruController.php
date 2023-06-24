@@ -18,7 +18,7 @@ class GuruController extends Controller
     public function index()
     {
         $kelas = Kelas::with('jenjang', 'jurusan')->get();
-        $mapel = Mapel::all();
+        $mapel = Mapel::with('jurusan')->get();
         $gurus = Guru::with('mst_mapel_guru_kelas.kelas.jenjang', 'mst_mapel_guru_kelas.mapel', 'mst_mapel_guru_kelas.kelas.jurusan', 'mst_mapel_guru_kelas.kelas')->orderBy('nama', 'ASC')->get();
         return view("admin.guru", compact('gurus', 'kelas', 'mapel'));
     }

@@ -223,7 +223,7 @@
                 select2.append(optionDisableMpl);
                 mapel.map((mpl) => {
                     select2.append($('<option></option>').attr('value', mpl.id).text(mpl
-                        .nama_mapel));
+                        .nama_mapel + ' - ' + mpl.jurusan.nama_jurusan));
                 })
                 // select2.append(option4);
 
@@ -272,7 +272,7 @@
                 select2.append(optionDisableMpl);
                 mapel.map((mpl) => {
                     select2.append($('<option></option>').attr('value', mpl.id).text(mpl
-                        .nama_mapel));
+                        .nama_mapel + ' - ' + mpl.jurusan.nama_jurusan));
                 })
                 // select2.append(option4);
 
@@ -419,10 +419,10 @@
 
                         select2.append($('<option selected></option>').attr('value', mpl.id)
                             .text(mpl
-                                .nama_mapel));
+                                .nama_mapel + ' - ' + mpl.jurusan.nama_jurusan));
                     } else {
                         select2.append($('<option></option>').attr('value', mpl.id).text(mpl
-                            .nama_mapel));
+                            .nama_mapel + ' - ' + mpl.jurusan.nama_jurusan));
 
                     }
                 })
