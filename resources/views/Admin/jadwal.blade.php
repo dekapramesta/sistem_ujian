@@ -59,7 +59,7 @@
                                                         <div class="flex-row text-center">
                                                             <button onclick="showDetail({{ $hdr }})"
                                                                 class="btn btn-primary btn-sm text-start  flex-row"><i
-                                                                    class="bi bi-pencil-square me-2"></i>Detail</button>
+                                                                    class="bi bi-info-circle me-2"></i>Detail</button>
                                                             <a class="btn btn-success btn-sm text-start flex-row"
                                                                 href="{{ route('edit.ujian', ['id' => $hdr->id]) }}"><i
                                                                     class="bi bi-pencil-square me-2  small-icon"></i>

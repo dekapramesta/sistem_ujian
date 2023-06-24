@@ -38,4 +38,8 @@ class Siswa extends Model
     {
         return $this->hasMany(Nilai::class, 'id_siswa', 'id');
     }
+    public function temp()
+    {
+        return $this->hasMany(Temp::class, 'id_siswa', 'id');
+    }
 }

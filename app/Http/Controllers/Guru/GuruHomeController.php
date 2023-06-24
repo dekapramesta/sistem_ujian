@@ -12,6 +12,7 @@ use App\Models\HeaderUjian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\jadwal_ujian;
 use App\Models\mst_mapel_guru_kelas;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -27,7 +28,7 @@ class GuruHomeController extends Controller
         $mst = mst_mapel_guru_kelas::where('id_mapels', $id_mapels)->where('id_gurus', $guru->id)->get();
         // dd($mst);
         $currentDate = Carbon::now()->toDateString();
-        $ujian = HeaderUjian::with('detailujian', 'jadwal_ujian')->where('id_gurus', $guru->id)->whereHas('detailujian', function ($query) use ($currentDate) {
+        $ujian = HeaderUjian::with('detailujian', 'jadwal_ujian')->where('id_gurus', $guru->id)->where('status', '!=', 8)->whereHas('detailujian', function ($query) use ($currentDate) {
             return $query->whereDate('tanggal_ujian', $currentDate);
         })->get();
 
@@ -37,7 +38,7 @@ class GuruHomeController extends Controller
     public function getMonitoring(Request $request)
     {
         # code...
-        $monitoring = HeaderUjian::with('detailujian.pesertaujian.siswa', 'jadwal_ujian.mapel', 'detailujian.kelas.jenjang', 'detailujian.kelas.jurusan')->where('id', $request->id)->first();
+        $monitoring = HeaderUjian::with('detailujian.pesertaujian.siswa', 'jadwal_ujian.mapel', 'detailujian.kelas.jenjang', 'detailujian.kelas.jurusan')->where('id', $request->id)->where('status', '!=', 8)->first();
         return response()->json($monitoring);
     }
 
@@ -81,5 +82,13 @@ class GuruHomeController extends Controller
         $mapel_all = mst_mapel_guru_kelas::all();
 
         return view("Guru.pilih_mapel", compact('mapel', 'guru', 'mapel_all'));
+    }
+
+    public function jadwal(Request $request)
+    {
+        $jadwal_ujian = jadwal_ujian::with('headerujian.jadwal_ujian')->whereHas('headerujian', function ($query) use ($request) {
+            return $query->where('id_gurus', $request->id_gurus);
+        })->get();
+        return response()->json(['data' => $jadwal_ujian], 200);
     }
 }

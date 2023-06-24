@@ -113,6 +113,7 @@ Route::middleware(['auth', 'levelAcces:guru'])->group(
             Route::get('aktivasi', [GuruHomeController::class, 'aktivasi'])->name('guru.aktivasi');
             Route::post('aktivasi_guru', [GuruHomeController::class, 'aktivasi_guru'])->name('guru.aktivasi_guru');
             Route::get('mapel', [GuruHomeController::class, 'mapel'])->name('guru.mapel');
+            Route::post('jadwal', [GuruHomeController::class, 'jadwal'])->name('guru.jadwal');
 
             Route::get('dashboard/{id_mapels}', [GuruHomeController::class, 'index'])->name('guru.dashboard');
             Route::post('monitoring', [GuruHomeController::class, 'getMonitoring'])->name('guru.moniotring');

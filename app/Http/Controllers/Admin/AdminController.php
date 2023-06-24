@@ -16,7 +16,7 @@ class AdminController extends Controller
         $currentDate = Carbon::now()->toDateString();
         // $detailujian = DetailUjian::whereDate('tanggal_ujian', $currentDate)->get();
 
-        $ujian = HeaderUjian::with('detailujian')->whereHas('detailujian', function ($query) use ($currentDate) {
+        $ujian = HeaderUjian::with('detailujian')->where('status', '!=', 8)->whereHas('detailujian', function ($query) use ($currentDate) {
             return $query->whereDate('tanggal_ujian', $currentDate);
         })->get();
         return view("admin.admin_home", compact('ujian'));
