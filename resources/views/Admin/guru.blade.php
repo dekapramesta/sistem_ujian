@@ -47,12 +47,15 @@
                                                         @endphp
                                                         {{ $tanggal . '-' . $bulan . '-' . $tahun }}</td>
                                                     <td>
-                                                        <button type="button" class="btn btn-info"
-                                                            onclick="editGuru('{{ $guru }}')">Edit</button>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                            data-bs-target="#delete{{ $guru->nip }}">Delete</button>
+                                                        <div class="flex-row text-center">
+                                                            <button type="button" class="btn btn-sm btn-warning"
+                                                                onclick="editGuru('{{ $guru }}')"><i
+                                                                    class="bi bi-pencil-square me-2  small-icon"></i>Edit</button>
+                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete{{ $guru->nip }}"><i
+                                                                    class="bi bi-trash3-fill me-2  small-icon"></i>Hapus</button>
+                                                        </div>
                                                     </td>
                                                 </tr>
 
@@ -143,7 +146,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Edit Data Guru</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <form id="edit_guru_form">
                             @csrf

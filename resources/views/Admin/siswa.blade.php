@@ -53,12 +53,16 @@
                                                         @endphp
                                                         {{ $tanggal . '-' . $bulan . '-' . $tahun }}</td>
                                                     <td>
-                                                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                            data-bs-target="#edit{{ $siswa->nis }}">Edit</button>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                            data-bs-target="#delete{{ $siswa->nis }}">Hapus</button>
+                                                        <div class="flex-row text-center">
+                                                            <button type="button" class="btn btn-sm btn-warning"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#edit{{ $siswa->nis }}"><i
+                                                                    class="bi bi-pencil-square me-2  small-icon"></i>Edit</button>
+                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete{{ $siswa->nis }}"><i
+                                                                    class="bi bi-trash3-fill me-2  small-icon"></i>Hapus</button>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 <div class="modal" id="edit{{ $siswa->nis }}" tabindex="-1">

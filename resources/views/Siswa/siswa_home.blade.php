@@ -69,6 +69,9 @@
                                                     @endphp
                                                     {{ $datetime->format('Y-m-d H:i:s') }}
                                                 </p>
+                                                <h5 class="text-center">
+                                                    {{ $ujn->detailujian->headerujian->jadwal_ujian->jenis_ujian }}
+                                                </h5>
 
 
                                                 @if ($ujn->status == 0 || $ujn->status == 7)
