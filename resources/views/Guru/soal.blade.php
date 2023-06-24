@@ -82,7 +82,7 @@
                                                         <td>
                                                             <div class="flex-row text-center">
                                                                 <a type="button"
-                                                                    class="btn btn-sm btn-primary text-start flex-row"
+                                                                    class="btn btn-sm btn-secondary text-start flex-row"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#detail{{ $hdruj->id }}"><i
                                                                         class="bi bi-info-circle me-2"></i>Detail</a>
@@ -92,7 +92,7 @@
                                                                             <a
                                                                                 href="{{ route('guru.edit_soal', ['id_mapels' => $id_mapels, 'id_header_ujians' => $hdruj->id]) }}">
                                                                                 <button type="button"
-                                                                                    class="btn btn-sm btn-warning"><i
+                                                                                    class="btn btn-sm btn-primary"><i
                                                                                         class="bi bi-pencil-square me-2  small-icon"></i>Edit
                                                                                     Soal</button>
                                                                             </a>
