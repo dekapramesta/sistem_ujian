@@ -54,7 +54,7 @@
                                                         {{ $tanggal . '-' . $bulan . '-' . $tahun }}</td>
                                                     <td>
                                                         <div class="flex-row text-center">
-                                                            <button type="button" class="btn btn-sm btn-warning"
+                                                            <button type="button" class="btn btn-sm btn-primary"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#edit{{ $siswa->nis }}"><i
                                                                     class="bi bi-pencil-square me-2  small-icon"></i>Edit</button>

@@ -48,7 +48,7 @@
                                                         {{ $tanggal . '-' . $bulan . '-' . $tahun }}</td>
                                                     <td>
                                                         <div class="flex-row text-center">
-                                                            <button type="button" class="btn btn-sm btn-warning"
+                                                            <button type="button" class="btn btn-sm btn-primary"
                                                                 onclick="editGuru('{{ $guru }}')"><i
                                                                     class="bi bi-pencil-square me-2  small-icon"></i>Edit</button>
                                                             <button type="button" class="btn btn-sm btn-danger"

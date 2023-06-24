@@ -14,7 +14,7 @@ class DetailUjian extends Model
         'tanggal_ujian',
         'waktu_ujian',
         // 'token',
-        'status',
+        // 'status',
     ];
 
     public function headerujian()

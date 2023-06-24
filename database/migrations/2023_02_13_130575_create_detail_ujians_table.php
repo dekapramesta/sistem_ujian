@@ -20,7 +20,7 @@ class CreateDetailUjiansTable extends Migration
             $table->dateTime('tanggal_ujian', $precision = 0);
             $table->string('waktu_ujian');
             // $table->string('token', 10)->nullable();
-            $table->boolean('status');
+            // $table->boolean('status');
             $table->foreign('id_headerujian')
                 ->references('id')->on('header_ujians')->onUpdate('cascade')
                 ->onDelete('cascade');;
