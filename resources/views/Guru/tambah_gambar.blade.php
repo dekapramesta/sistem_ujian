@@ -87,15 +87,16 @@
                                                     <h5 class="card-title-datatable" style="font-size: 1rem">
                                                         {{ $sl->soal }}</h5>
                                                     @if ($sl->soal_gambar != null && $sl->soal_gambar != 1)
-                                                        <input type="file" class="dropify " disabled="disabled"
-                                                            name="disabled_gambar_soal" id="input-file-now-disabled-2"
-                                                            data-default-file="{{ asset('img/soal/' . $sl->soal_gambar) }}" />
-                                                        {{-- <div class="d-flex justify-content-center" id="gambar-soal">
-                                                            <img src="{{ asset('img/soal/' . $sl->soal_gambar) }}"
-                                                                class="card-img-top"
-                                                                style="width: 50%; max-width: 100%; height:auto;"
-                                                                alt="...">
-                                                        </div> --}}
+                                                        <div class="row" style="flex:0 0 auto">
+                                                            <div class="col-3"></div>
+                                                            <div class="col-6">
+                                                                <input type="file" class="dropify " disabled="disabled"
+                                                                    name="disabled_gambar_soal"
+                                                                    id="input-file-now-disabled-2"
+                                                                    data-default-file="{{ asset('img/soal/' . $sl->soal_gambar) }}" />
+                                                            </div>
+                                                            <div class="col-3"></div>
+                                                        </div>
                                                     @endif
                                                 </div>
                                                 <div>
@@ -115,16 +116,18 @@
                                                             @endif
                                                         </h6>
                                                         @if ($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1)
-                                                            <div class=" d-flex justify-content-between">
-                                                                <div class="d-flex">
-                                                                    <input type="file" class="dropify w-25"
+                                                            <div class="row justify-content-between mb-3">
+                                                                <div class="col-5">
+                                                                    <input type="file" class="dropify"
                                                                         disabled="disabled" id="input-file-now-disabled-2"
                                                                         data-default-file="{{ asset('img/jawabans/' . $jwb->jawaban_gambar) }}" />
+                                                                </div>
+                                                                <div class="col-3">
                                                                     <h6 class="w-100">
                                                                         {{ $jwb->status == 1 ? '(Jawaban Benar)' : '' }}
                                                                     </h6>
                                                                 </div>
-                                                                <div></div>
+                                                                <div class="col-4"></div>
                                                             </div>
                                                         @endif
                                                     @endif

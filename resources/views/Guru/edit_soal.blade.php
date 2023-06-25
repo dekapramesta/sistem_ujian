@@ -46,9 +46,15 @@
                                                     {{ $sl->soal }}
                                                 </h5>
                                                 @if ($sl->soal_gambar != null && $sl->soal_gambar != 1)
-                                                    <input type="file" class="dropify " disabled="disabled"
-                                                        name="disabled_gambar_soal" id="input-file-now-disabled-2"
-                                                        data-default-file="{{ asset('img/soal/' . $sl->soal_gambar) }}" />
+                                                    <div class="row" style="flex:0 0 auto">
+                                                        <div class="col-3"></div>
+                                                        <div class="col-6">
+                                                            <input type="file" class="dropify " disabled="disabled"
+                                                                name="disabled_gambar_soal" id="input-file-now-disabled-2"
+                                                                data-default-file="{{ asset('img/soal/' . $sl->soal_gambar) }}" />
+                                                        </div>
+                                                        <div class="col-3"></div>
+                                                    </div>
                                                 @endif
                                             </div>
                                             <div>
@@ -68,15 +74,17 @@
                                                         @endif
                                                     </h6>
                                                     @if ($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1)
-                                                        <div class=" d-flex justify-content-between">
-                                                            <div class="d-flex">
-                                                                <input type="file" class="dropify w-25"
-                                                                    disabled="disabled" id="input-file-now-disabled-2"
+                                                        <div class="row justify-content-between mb-3">
+                                                            <div class="col-5">
+                                                                <input type="file" class="dropify" disabled="disabled"
+                                                                    id="input-file-now-disabled-2"
                                                                     data-default-file="{{ asset('img/jawabans/' . $jwb->jawaban_gambar) }}" />
+                                                            </div>
+                                                            <div class="col-3">
                                                                 <h6 class="w-100">
                                                                     {{ $jwb->status == 1 ? '(Jawaban Benar)' : '' }}</h6>
                                                             </div>
-                                                            <div></div>
+                                                            <div class="col-4"></div>
                                                         </div>
                                                     @endif
                                                 @endif
@@ -130,10 +138,7 @@
                                                                 @if ($jwb->id_soals == $sl->id)
                                                                     <div class="row mb-3">
                                                                         <div class="col-sm-7">
-                                                                            <input type="text"
-                                                                                name="jawaban[{{ $jwb->id }}]"
-                                                                                class="form-control mb-2"
-                                                                                value="{{ $jwb->jawaban }}">
+                                                                            <textarea type="text" name="jawaban[{{ $jwb->id }}]" class="form-control mb-2" value="">{{ $jwb->jawaban }}</textarea>
                                                                             <input type="file"
                                                                                 id="jawabangambar{{ $jwb->id }}"
                                                                                 class="dropify form-control"

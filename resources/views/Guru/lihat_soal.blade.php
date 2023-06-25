@@ -30,7 +30,7 @@
                                     {{ $header_ujians->jadwal_ujian->jenis_ujian }} -
                                     {{ $header_ujians->jadwal_ujian->th_akademiks->th_akademik }} - Semester
                                     {{ $header_ujians->jadwal_ujian->th_akademiks->nama_semester }}</h5>
-                                <h5 style="color: #012970;">Jumlah Soal : {{ count($soal) }}</h5>
+                                <h5 style="color: #012970;">Jumlah Soal : {{ $soal->total() }}</h5>
 
 
                             </div>
@@ -42,11 +42,18 @@
                                         <div class="card-header  d-flex justify-content-between"
                                             style="background: cornsilk">
                                             <div>
-                                                <h5 class="card-title-datatable" style="font-size: 1rem">{{ $sl->soal }}</h5>
+                                                <h5 class="card-title-datatable" style="font-size: 1rem">{{ $sl->soal }}
+                                                </h5>
                                                 @if ($sl->soal_gambar != null && $sl->soal_gambar != 1)
-                                                    <input type="file" class="dropify " disabled="disabled"
-                                                        name="disabled_gambar_soal" id="input-file-now-disabled-2"
-                                                        data-default-file="{{ asset('img/soal/' . $sl->soal_gambar) }}" />
+                                                    <div class="row" style="flex:0 0 auto">
+                                                        <div class="col-3"></div>
+                                                        <div class="col-6">
+                                                            <input type="file" class="dropify " disabled="disabled"
+                                                                name="disabled_gambar_soal" id="input-file-now-disabled-2"
+                                                                data-default-file="{{ asset('img/soal/' . $sl->soal_gambar) }}" />
+                                                        </div>
+                                                        <div class="col-3"></div>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
@@ -61,15 +68,17 @@
                                                         @endif
                                                     </h6>
                                                     @if ($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1)
-                                                        <div class=" d-flex justify-content-between">
-                                                            <div class="d-flex">
-                                                                <input type="file" class="dropify w-25"
-                                                                    disabled="disabled" id="input-file-now-disabled-2"
+                                                        <div class="row justify-content-between mb-3">
+                                                            <div class="col-5">
+                                                                <input type="file" class="dropify" disabled="disabled"
+                                                                    id="input-file-now-disabled-2"
                                                                     data-default-file="{{ asset('img/jawabans/' . $jwb->jawaban_gambar) }}" />
+                                                            </div>
+                                                            <div class="col-3">
                                                                 <h6 class="w-100">
                                                                     {{ $jwb->status == 1 ? '(Jawaban Benar)' : '' }}</h6>
                                                             </div>
-                                                            <div></div>
+                                                            <div class="col-4"></div>
                                                         </div>
                                                     @endif
                                                 @endif
@@ -77,7 +86,35 @@
                                         </div>
                                     </div><!-- End Default Card -->
                                 @endforeach
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        @if ($soal->previousPageUrl())
+                                            <li class="page-item">
+                                                <a class="page-link" href={{ $soal->previousPageUrl() }}>
+                                                    Previous
+                                                </a>
+                                            </li>
+                                        @else
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                                    Previous
+                                                </a>
+                                            </li>
+                                        @endif
 
+                                        @foreach ($soal->getUrlRange(1, $soal->lastPage()) as $page => $url)
+                                            <li class="page-item{{ $page == $soal->currentPage() ? ' active' : '' }}"><a
+                                                    class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                            </li>
+                                        @endforeach
+
+                                        @if ($soal->nextPageUrl())
+                                            <li class="page-item"><a class="page-link"
+                                                    href={{ $soal->nextPageUrl() }}>Next</a></li>
+                                        @else
+                                        @endif
+                                    </ul>
+                                </nav>
                             </div>
                         </div><!-- End Recent Sales -->
                     </div>

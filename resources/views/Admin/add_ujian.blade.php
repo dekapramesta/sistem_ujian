@@ -55,7 +55,8 @@
                                         <select id="selectmapel" class="select2-js w-100" name="state">
                                             <option disabled selected hidden>Pilih Mata Pelajaran</option>
                                             @foreach ($mapel as $mpl)
-                                                <option value={{ $mpl->id }}>{{ $mpl->nama_mapel }}</option>
+                                                <option value={{ $mpl->id }}>{{ $mpl->nama_mapel }} -
+                                                    {{ $mpl->jurusan->nama_jurusan }}</option>
                                             @endforeach
                                         </select>
                                     </div>
