@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Simpan</button>
+                      <button class="btn btn-primary w-100" style="background-color: #82cd47;" type="submit">Simpan</button>
                     </div>
                   </form>
                 </div>
