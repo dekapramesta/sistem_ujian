@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-12 d-flex flex-row-reverse">
-                                            <button id="btn_submit" type="submit" class="btn btn-primary">Search</button>
+                                            <button id="btn_submit" type="submit" class="btn btn-primary">Cari</button>
                                         </div>
                                     </div>
                                 </form>

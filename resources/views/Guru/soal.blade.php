@@ -111,7 +111,7 @@
                                                                             <button type="button"
                                                                                 class="btn btn-sm btn-primary"><i
                                                                                     class="bi bi-journals me-2"></i>Lihat
-                                                                                soal</button>
+                                                                                Soal</button>
                                                                         </a>
                                                                     @endif
 
@@ -125,7 +125,7 @@
                                                                         <button type="button" class="btn btn-sm btn-danger"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#delete{{ $hdruj->id }}"><i
-                                                                                class="bi bi-trash3-fill me-2"></i>Delete
+                                                                                class="bi bi-trash3-fill me-2"></i>Hapus
                                                                             Soal</button>
                                                                     @endif
                                                                 @endif
@@ -174,7 +174,7 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
-                                                                            data-bs-dismiss="modal">Close</button>
+                                                                            data-bs-dismiss="modal">Tutup</button>
                                                                         <input class="btn btn-primary" type="submit"
                                                                             value="Upload">
                                                                     </div>
@@ -297,7 +297,7 @@
                                                                             Ujian</button>
                                                                     @endif
                                                                     <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
+                                                                        data-bs-dismiss="modal">Tutup</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -320,7 +320,7 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
-                                                                            data-bs-dismiss="modal">Close</button>
+                                                                            data-bs-dismiss="modal">Tutup</button>
                                                                         <button class="btn btn-danger"
                                                                             type="submit">Hapus</button>
                                                                     </div>

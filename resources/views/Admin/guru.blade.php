@@ -98,7 +98,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Input Data Guru</h5>
+                                <h5 class="modal-title">Tambah Data Guru</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -133,8 +133,8 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <input class="btn btn-primary" type="submit" value="Save changes">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    <input class="btn btn-primary" type="submit" value="Simpan">
                                 </div>
                             </form>
                         </div>
@@ -177,8 +177,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <input class="btn btn-primary" type="submit" value="Save changes">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                <input class="btn btn-primary" type="submit" value="Simpan">
                             </div>
                         </form>
                     </div>
@@ -233,7 +233,7 @@
 
 
                 var removeButton = $('<button></button>').attr('type', 'button').attr('class',
-                    'btn btn-danger btn-sm ms-3').text('Remove');
+                    'btn btn-danger btn-sm ms-3').text('Hapus');
                 removeButton.click(function() {
                     $(this).parent().remove();
                 });
@@ -282,7 +282,7 @@
 
 
                 var removeButton = $('<button></button>').attr('type', 'button').attr('class',
-                    'btn btn-danger btn-sm ms-3').text('Remove');
+                    'btn btn-danger btn-sm ms-3').text('Hapus');
                 removeButton.click(function() {
                     $(this).parent().remove();
                 });
@@ -432,7 +432,7 @@
                 })
                 // select2.append(option4);
                 let removeButton = $('<button></button>').attr('type', 'button').attr('class',
-                    'btn btn-danger btn-sm ms-3').text('Remove');
+                    'btn btn-danger btn-sm ms-3').text('Hapus');
                 removeButton.click(function() {
                     $(this).parent().remove();
                 });
