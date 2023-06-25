@@ -18,7 +18,7 @@
                     <div class="col-12">
                         <div class="card recent-sales overflow-auto">
                             <div class="card-header d-flex justify-content-between">
-                                <h5 class="card-title">Tambah Jadwal Ujian</h5>
+                                <h5 class="card-title">Edit Jadwal Ujian</h5>
 
 
                             </div>
