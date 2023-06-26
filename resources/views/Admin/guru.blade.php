@@ -383,7 +383,7 @@
                 containerEdit.append(
                     `<div class="mt-2 d-flex flex-row justify-content-between" id='row-selectedit${indexEdit}'></div>`
                 )
-                let select = $('<select class="form-control"></select>').attr('name', 'kelas[]')
+                let select = $('<select id="pilihkelasedit" class="form-control"></select>').attr('name', 'kelas[]')
                     .attr('class',
                         'form-select').attr('style', 'width:10rem');
                 let select2 = $('<select class="form-control ms-2"></select>').attr('name',
