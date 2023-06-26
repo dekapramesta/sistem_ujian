@@ -19,7 +19,7 @@ class KelasController extends Controller
         $siswa = Siswa::all();
         $jurusans = Jurusan::orderBy('nama_jurusan', 'ASC')->get();
         $jenjangs = Jenjang::orderBy('nama_jenjang', 'ASC')->get();
-        return view("admin.kelas", compact('kelas', 'jenjangs', 'jurusans', 'siswa'));
+        return view("Admin.kelas", compact('kelas', 'jenjangs', 'jurusans', 'siswa'));
     }
 
     public function create(Request $request)

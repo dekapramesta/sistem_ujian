@@ -12,7 +12,7 @@ class JurusanController extends Controller
     public function index()
     {
         $jurusans = Jurusan::orderBy('nama_jurusan', 'ASC')->get();
-        return view("admin.jurusan", compact('jurusans'));
+        return view("Admin.jurusan", compact('jurusans'));
     }
 
     public function create(Request $request)

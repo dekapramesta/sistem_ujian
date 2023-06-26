@@ -37,7 +37,7 @@ class JadwalUjian extends Controller
         $mapel = Mapel::all();
         $jenjang = Jenjang::all();
         $tahun_akademik = ThAkademik::all();
-        return view('admin.add_ujian', compact('kelas', 'siswa', 'mapel', 'jenjang', 'tahun_akademik'));
+        return view('Admin.add_ujian', compact('kelas', 'siswa', 'mapel', 'jenjang', 'tahun_akademik'));
     }
     public function postUjian(Request $request)
     {
@@ -114,10 +114,10 @@ class JadwalUjian extends Controller
         $mapel = Mapel::all();
         $jenjang = Jenjang::all();
         $tahun_akademik = ThAkademik::all();
-        return view('admin.edit_ujian', compact('kelas', 'siswa', 'mapel', 'jenjang', 'tahun_akademik'));
+        return view('Admin.edit_ujian', compact('kelas', 'siswa', 'mapel', 'jenjang', 'tahun_akademik'));
     }
 
-    function deleteUjian($id)
+    public function deleteUjian($id)
     {
         $data = HeaderUjian::find($id);
         $data->status = 8;

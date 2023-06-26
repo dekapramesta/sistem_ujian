@@ -30,7 +30,7 @@ class SiswaController extends Controller
         // dd($ujian);
 
         // dd($ujian);
-        return view("siswa.siswa_home", compact('ujian', 'nilai', 'siswa'));
+        return view("Siswa.siswa_home", compact('ujian', 'nilai', 'siswa'));
     }
 
     public function aktivasi()
@@ -71,7 +71,7 @@ class SiswaController extends Controller
     {
         # code...
 
-        return view("siswa.ujian");
+        return view("Siswa.ujian");
     }
 
     public function getTemp(Request $request)
