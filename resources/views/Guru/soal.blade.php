@@ -130,11 +130,11 @@
                                                                     @endif
                                                                 @endif
                                                                 @if (count($hdruj->soal) == 0)
-                                                                    <a type="button" class="btn btn-sm btn-success"
+                                                                    <button type="button" class="btn btn-sm btn-success"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#tambah{{ $hdruj->id }}"><i
-                                                                            class="bi bi-plus-lg me-2  small-icon"></i>
-                                                                        Tambah Soal</a>
+                                                                            class="bi bi-plus-lg me-2 small-icon"></i>
+                                                                        Tambah Soal</button>
                                                                 @endif
                                                             </div>
                                                         </td>
