@@ -155,11 +155,11 @@
                         if (dt.id_jawaban === null) {
 
                             $('#soal_button').append(
-                                `<button id='getsoal' class="btn btn-outline-secondary btn-sm px-3 mt-2 ms-2" style="width: 50px;" data-value="${dt.id}" data-index="${id}">${id}</button>`
+                                `<button id='getsoal' class="btn btn-outline-secondary btn-sm px-3 mt-2 ms-2" style="width: 60px;" data-value="${dt.id}" data-index="${id}">${id}</button>`
                             )
                         } else {
                             $('#soal_button').append(
-                                `<button id='getsoal' class="btn btn-primary btn-sm px-3 mt-2 ms-2" style="width: 50px;" data-value="${dt.id}" data-index="${id}">${id}</button>`
+                                `<button id='getsoal' class="btn btn-primary btn-sm px-3 mt-2 ms-2" style="width: 60px;" data-value="${dt.id}" data-index="${id}">${id}</button>`
                             )
 
                         }
@@ -313,10 +313,10 @@
                     if (!$('#gambar-soal').find('img').length) {
                         $('#gambar-soal').removeAttr('style');
                     }
-                    let arr_soal = []
-                    arr_soal.push(res.data.soal.jawaban)
-                    let data_jawaban = arr_soal[0]
-                    for (let i = data_jawaban.length - 1; i > 0; i--) {
+                    let arr_soal = [] // buat variable array yang bernama arr_soal
+                    arr_soal.push(res.data.soal.jawaban) // menambah data jawaban array pada arr_soal
+                    let data_jawaban = arr_soal[0] // mengambil data pertama arr_soal dimasukkan kedalam value varibale data_jawaban
+                    for (let i = data_jawaban.length - 1; i > 0; i--) { // i=4
                         const j = Math.floor(Math.random() * (i + 1));
                         [data_jawaban[i], data_jawaban[j]] = [data_jawaban[j], data_jawaban[i]];
                     }

@@ -383,7 +383,7 @@
                         swal("Mohon Maaf", "Tanggal Kosong", "error");
 
                     } else if (siswa.length === 0) {
-                        swal("Mohon Maaf", "Kelas Kosong", "error");
+                        swal("Mohon Maaf", "Siswa Kosong", "error");
 
                     } else {
                         loaders[0].style.display = "inherit";
