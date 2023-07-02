@@ -9,6 +9,17 @@
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
+    @php
+        use Illuminate\Support\Facades\Auth;
+        use App\Models\HeaderUjian;
+        use App\Models\Guru;
+        $user_notif = Auth::user();
+        $guru_notif = Guru::where('id_user', $user_notif->id)->first();
+        $notif = HeaderUjian::where('id_gurus', $guru_notif->id)
+            ->where('status', '!=', '8')
+            ->where('status', '!=', '1')
+            ->get();
+    @endphp
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
 
@@ -22,21 +33,30 @@
 
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                     <i class="bi bi-bell"></i>
-                    <span class="badge bg-primary badge-number">0</span>
+                    <span class="badge bg-primary badge-number" id="jumlah_notif">{{ count($notif) }}</span>
                 </a><!-- End Notification Icon -->
 
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" style="width: 400px"
+                    id="notif">
                     <li class="dropdown-header">
-                        You have 0 new notifications
-                        <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                        Memiliki {{ count($notif) }} Notifikasi
                     </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
+                    @foreach ($notif as $notf)
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="notification-item">
+                            <i class="bi bi-info-circle text-primary"></i>
+                            <div>
+                                <h4>{{ $notf->jadwal_ujian->mapel->nama_mapel }} -
+                                    {{ $notf->jadwal_ujian->jenis_ujian }} -
+                                    {{ 'Kelas ' . $notf->jenjang->nama_jenjang }}</h4>
+                                <p>Silahkan Upload Soal dan Konfirmasi Ujian</p>
+                            </div>
+                        </li>
+                    @endforeach
 
-                    <li class="dropdown-footer">
-                        <a href="#">Show all notifications</a>
-                    </li>
+
 
                 </ul><!-- End Notification Dropdown Items -->
 
@@ -46,7 +66,7 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     @php
-                        use App\Models\Guru;
+                        // use App\Models\Guru;
                         $user_header = Auth::user();
                         $guru_header = Guru::where('id_user', $user_header->id)->first();
                     @endphp

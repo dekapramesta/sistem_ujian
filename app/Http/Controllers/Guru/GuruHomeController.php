@@ -86,9 +86,13 @@ class GuruHomeController extends Controller
 
     public function jadwal(Request $request)
     {
-        $jadwal_ujian = jadwal_ujian::with('headerujian.jadwal_ujian')->whereHas('headerujian', function ($query) use ($request) {
-            return $query->where('id_gurus', $request->id_gurus);
+        $now = Carbon::now();
+        $date = $now->toDateString(); // Mendapatkan tanggal dalam format Y-m-d (misal: 2023-05-25)
+        $time = $now->toTimeString();
+        $currentDate = $date . ' ' . $time;
+        $ujian = HeaderUjian::with('detailujian', 'jadwal_ujian')->where('id_gurus', $request->id_gurus)->where('status', '!=', 8)->whereHas('detailujian', function ($query) use ($currentDate) {
+            return $query->where('tanggal_ujian', '>', $currentDate);
         })->get();
-        return response()->json(['data' => $jadwal_ujian], 200);
+        return response()->json(['data' => $ujian], 200);
     }
 }
