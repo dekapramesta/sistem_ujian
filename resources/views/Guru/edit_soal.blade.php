@@ -114,7 +114,9 @@
                                                                     Gambar</label>
                                                                 <input type="file" class="dropify form-control"
                                                                     name="soalgambar" id="soalgambar{{ $sl->id }}"
+                                                                    data-max-file-size="2M"
                                                                     @if ($sl->soal_gambar != null && $sl->soal_gambar != 1) data-default-file="{{ asset('img/soal/' . $sl->soal_gambar) }}" @endif />
+                                                                <p>* Ukuran maksimal upload gambar 2MB</p>
                                                             </div>
                                                             @if ($sl->soal_gambar != null && $sl->soal_gambar != 1)
                                                                 <div class="col-12 d-grid gap-2 mb-3">
@@ -142,8 +144,10 @@
                                                                             <input type="file"
                                                                                 id="jawabangambar{{ $jwb->id }}"
                                                                                 class="dropify form-control"
+                                                                                data-max-file-size="2M"
                                                                                 name="jawabangambar[{{ $jwb->id }}]"
                                                                                 @if ($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1) data-default-file="{{ asset('img/jawabans/' . $jwb->jawaban_gambar) }}" @endif />
+                                                                            <p>* Ukuran maksimal upload gambar 2MB</p>
                                                                             @if ($jwb->jawaban_gambar != null && $jwb->jawaban_gambar != 1)
                                                                                 <div class="d-grid gap-2 mt-1">
                                                                                     <button type="button"
@@ -214,7 +218,15 @@
             </div>
     </section>
     <script>
-        $('.dropify').dropify();
+        $('.dropify').dropify({
+            error: {
+                'fileSize': 'Ukuran file foto terlalu besar, (2MB maksimal).',
+            },
+            tpl: {
+                errorLine: '<p class="dropify-error">Gagal Upload Gambar</p>',
+            }
+
+        });
     </script>
     @foreach ($soal as $sl)
         <script type="text/javascript">

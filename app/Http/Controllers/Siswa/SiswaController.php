@@ -215,8 +215,6 @@ class SiswaController extends Controller
                 });
             })
             ->first();
-
-        // dd($siswa);
-        return view('Siswa.preview', compact('siswa'));
+        return view('Siswa.preview', compact('siswa', 'param'));
     }
 }

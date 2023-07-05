@@ -23,7 +23,7 @@
                                 <div class="col">
                                     <h5 class="card-title-datatable">
                                         @php
-                                            $information = $siswa->nilai->first()->headerujian->jadwal_ujian;
+                                            $information = $siswa->nilai->where('id_ujian', $param)->first()->headerujian->jadwal_ujian;
                                         @endphp
                                         {{ $information->mapel->nama_mapel }} -
                                         {{ $information->jenis_ujian }} -
@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="d-flex flex-row ">
                                     @php
-                                        $information_nilai = $siswa->nilai->first();
+                                        $information_nilai = $siswa->nilai->where('id_ujian', $param)->first();
                                     @endphp
                                     <div class="ms-2 container border border-gray rounded px-3 py-1 text-center">
                                         <span style="font-size: 15px">{{ $information_nilai->nilai }}</span>
@@ -70,7 +70,7 @@
 
 
                             @php
-                                $temp = $siswa->temp;
+                                $temp = $siswa->temp->where('id_headerujian', $param);
                                 $no = 1;
                             @endphp
                             @foreach ($temp as $tmp)
